@@ -223,7 +223,6 @@ import FootballField from '@/components/field/FootballField.vue'
 import BenchPanel    from '@/components/field/BenchPanel.vue'
 import { showSnackbar } from '@/composables/useSnackbar'
 import { useMediaQuery } from '@/composables/useMediaQuery'
-import html2canvas from 'html2canvas'
 
 const props = defineProps({ id: String })
 const store  = useTeamStore()
@@ -593,15 +592,148 @@ const sharing        = ref(false)
 const sharePreviewUrl = ref(null)
 let   capturedBlob   = null
 
+// Rounded-rect path helper for Canvas 2D
+function _rdRect(ctx, x, y, w, h, r) {
+  ctx.beginPath()
+  ctx.moveTo(x + r, y)
+  ctx.lineTo(x + w - r, y)
+  ctx.arcTo(x + w, y, x + w, y + r, r)
+  ctx.lineTo(x + w, y + h - r)
+  ctx.arcTo(x + w, y + h, x + w - r, y + h, r)
+  ctx.lineTo(x + r, y + h)
+  ctx.arcTo(x, y + h, x, y + h - r, r)
+  ctx.lineTo(x, y + r)
+  ctx.arcTo(x, y, x + r, y, r)
+  ctx.closePath()
+}
+
+function drawShareCanvas() {
+  const SCALE    = 2
+  const W        = 480
+  const PITCH_H  = Math.round(W * 8 / 5)  // 768
+  const PAD      = 14
+  const HEADER_H = 56
+  const bench    = benchPlayers.value
+  const COLS     = 3
+  const BENCH_ROW = 36
+  const BENCH_H  = bench.length ? Math.ceil(bench.length / COLS) * BENCH_ROW + 48 : 0
+  const TOTAL_H  = HEADER_H + PITCH_H + BENCH_H
+
+  const canvas = document.createElement('canvas')
+  canvas.width  = W * SCALE
+  canvas.height = TOTAL_H * SCALE
+  const ctx = canvas.getContext('2d')
+  ctx.scale(SCALE, SCALE)
+
+  const teamColor = activeTeam.value?.color ?? '#059669'
+
+  // Header
+  ctx.fillStyle = teamColor
+  ctx.fillRect(0, 0, W, HEADER_H)
+  ctx.fillStyle = '#fff'
+  ctx.font = 'bold 16px system-ui,sans-serif'
+  ctx.textAlign = 'left'
+  ctx.textBaseline = 'middle'
+  ctx.fillText(lineupName.value || 'Opstelling', 16, HEADER_H / 2)
+  if (activeTeam.value?.name) {
+    ctx.font = '13px system-ui,sans-serif'
+    ctx.fillStyle = 'rgba(255,255,255,.75)'
+    ctx.textAlign = 'right'
+    ctx.fillText(activeTeam.value.name, W - 16, HEADER_H / 2)
+  }
+
+  // Pitch background
+  const py = HEADER_H
+  ctx.fillStyle = '#1a7a47'
+  ctx.fillRect(0, py, W, PITCH_H)
+  ctx.fillStyle = 'rgba(0,0,0,.04)'
+  const sh = PITCH_H / 8
+  for (let i = 0; i < 8; i += 2) ctx.fillRect(0, py + i * sh, W, sh)
+
+  // Pitch markings
+  const mx = PAD, my = py + PAD, mw = W - PAD * 2, mh = PITCH_H - PAD * 2
+  ctx.strokeStyle = 'rgba(255,255,255,.65)'
+  ctx.lineWidth = 1.5
+  ctx.strokeRect(mx, my, mw, mh)
+  ctx.beginPath(); ctx.moveTo(mx, my + mh / 2); ctx.lineTo(mx + mw, my + mh / 2); ctx.stroke()
+  ctx.beginPath(); ctx.arc(mx + mw / 2, my + mh / 2, mw * 0.15, 0, Math.PI * 2); ctx.stroke()
+  ctx.beginPath(); ctx.arc(mx + mw / 2, my + mh / 2, 2, 0, Math.PI * 2)
+  ctx.fillStyle = 'rgba(255,255,255,.65)'; ctx.fill()
+  ctx.strokeStyle = 'rgba(255,255,255,.5)'; ctx.lineWidth = 1
+  const paw = mw * 0.56, pax = mx + mw * 0.22, pah = mh * 0.175
+  ctx.strokeRect(pax, my, paw, pah)
+  ctx.strokeRect(mx + mw * 0.35, my, mw * 0.30, mh * 0.075)
+  ctx.strokeRect(pax, my + mh - pah, paw, pah)
+  ctx.strokeRect(mx + mw * 0.35, my + mh - mh * 0.075, mw * 0.30, mh * 0.075)
+  const gx = mx + mw * 0.375, gw = mw * 0.25
+  ctx.fillStyle = 'rgba(255,255,255,.15)'
+  ctx.fillRect(gx, py, gw, PAD); ctx.strokeRect(gx, py, gw, PAD)
+  ctx.fillRect(gx, my + mh, gw, PAD); ctx.strokeRect(gx, my + mh, gw, PAD)
+
+  // Player tokens
+  for (const slot of fieldSlots.value.filter(s => s.playerId)) {
+    const player = playersMap.value[slot.playerId]
+    if (!player) continue
+    const dY = flipped.value ? 100 - slot.y : slot.y
+    const cx = mx + (slot.x / 100) * mw
+    const cy = my + (dY   / 100) * mh
+    const r  = 16
+    ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = 5; ctx.shadowOffsetY = 2
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2)
+    ctx.fillStyle = teamColor; ctx.fill()
+    ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0
+    ctx.strokeStyle = 'rgba(255,255,255,.75)'; ctx.lineWidth = 2; ctx.stroke()
+    const parts = player.name.trim().split(/\s+/)
+    const ini   = parts.length === 1 ? parts[0].slice(0,2).toUpperCase() : (parts[0][0] + parts[parts.length-1][0]).toUpperCase()
+    ctx.fillStyle = '#fff'
+    ctx.font = `bold ${Math.round(r * .7)}px system-ui,sans-serif`
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(ini, cx, cy)
+    const first = parts[0].length > 8 ? parts[0].slice(0,7) + '.' : parts[0]
+    ctx.font = 'bold 8px system-ui,sans-serif'
+    const lw = ctx.measureText(first).width + 8
+    ctx.fillStyle = 'rgba(0,0,0,.6)'
+    _rdRect(ctx, cx - lw / 2, cy + r + 2, lw, 13, 3); ctx.fill()
+    ctx.fillStyle = '#fff'; ctx.textBaseline = 'middle'; ctx.fillText(first, cx, cy + r + 8)
+  }
+
+  // Bench section
+  if (bench.length) {
+    const by = HEADER_H + PITCH_H
+    ctx.fillStyle = '#f0fdf4'; ctx.fillRect(0, by, W, BENCH_H)
+    ctx.fillStyle = '#059669'; ctx.font = 'bold 11px system-ui,sans-serif'
+    ctx.textAlign = 'left'; ctx.textBaseline = 'middle'
+    ctx.fillText('BANK', 16, by + 18)
+    const colW = (W - 16) / COLS
+    bench.forEach((player, i) => {
+      const col = i % COLS
+      const row = Math.floor(i / COLS)
+      const cx  = 8 + col * colW
+      const cy  = by + 36 + row * BENCH_ROW
+      const cw  = colW - 8
+      const ch  = 28
+      ctx.shadowColor = 'rgba(0,0,0,.08)'; ctx.shadowBlur = 3; ctx.shadowOffsetY = 1
+      ctx.fillStyle = '#fff'; _rdRect(ctx, cx, cy, cw, ch, 14); ctx.fill()
+      ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0
+      const ar = 10, ax = cx + ar + 4, ay = cy + ch / 2
+      ctx.beginPath(); ctx.arc(ax, ay, ar, 0, Math.PI * 2)
+      ctx.fillStyle = teamColor; ctx.fill()
+      const parts = player.name.trim().split(/\s+/)
+      const ini   = parts.length === 1 ? parts[0].slice(0,2).toUpperCase() : (parts[0][0] + parts[parts.length-1][0]).toUpperCase()
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 7px system-ui,sans-serif'
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(ini, ax, ay)
+      const first = parts[0].length > 10 ? parts[0].slice(0,9) + '.' : parts[0]
+      ctx.fillStyle = '#1e293b'; ctx.font = '500 10px system-ui,sans-serif'
+      ctx.textAlign = 'left'; ctx.fillText(first, ax + ar + 4, ay)
+    })
+  }
+
+  return canvas
+}
+
 async function shareImage() {
   sharing.value = true
   try {
-    const el = document.getElementById('field-export-area')
-    const canvas = await html2canvas(el, {
-      useCORS: true,
-      backgroundColor: null,
-      scale: 2,
-    })
+    const canvas = drawShareCanvas()
     canvas.toBlob(blob => {
       capturedBlob = blob
       sharePreviewUrl.value = URL.createObjectURL(blob)
@@ -649,6 +781,7 @@ function shareLink() {
     a: activeTeam.value?.ageGroup,
     c: activeTeam.value?.color,
     f: selectedFormationId.value,
+    fl: flipped.value,
     s: fieldSlots.value.map(s => ({
       id: s.slotId,
       p: s.position,

@@ -2,7 +2,6 @@
   <div class="page share-view">
     <div v-if="lineup" class="share-content">
       <div class="share-header">
-        <span class="share-badge" :style="{ background: lineup.color }">⚽</span>
         <div>
           <h1 class="md-headline-sm">{{ lineup.name }}</h1>
           <p class="md-body-md" style="color:var(--md-on-surface-variant)">
@@ -12,7 +11,7 @@
       </div>
 
       <!-- Read-only field -->
-      <div class="share-field" :style="{ '--fc': lineup.color }">
+      <div class="share-field">
         <svg class="field-markings" viewBox="0 0 100 160" preserveAspectRatio="none">
           <rect x="0" y="40"  width="100" height="20" fill="rgba(0,0,0,.04)"/>
           <rect x="0" y="80"  width="100" height="20" fill="rgba(0,0,0,.04)"/>
@@ -28,7 +27,7 @@
           v-for="slot in filledSlots"
           :key="slot.id"
           class="share-token"
-          :style="{ left: slot.x+'%', top: slot.y+'%', '--tc': lineup.color }"
+          :style="{ left: slot.x+'%', top: displayY(slot.y)+'%', '--tc': lineup.color }"
         >
           <div class="st-avatar" :style="{ background: lineup.color }">{{ initials(slot.pid) }}</div>
           <div class="st-name">{{ slot.pid }}</div>
@@ -67,6 +66,7 @@ const lineup = computed(() => {
       teamName: data.t,
       ageGroup: data.a,
       color:    data.c ?? '#1a6b3c',
+      flipped:  data.fl ?? true,
       slots:    data.s ?? [],
     }
   } catch {
@@ -77,6 +77,10 @@ const lineup = computed(() => {
 const filledSlots = computed(() =>
   (lineup.value?.slots ?? []).filter(s => s.pid)
 )
+
+function displayY(y) {
+  return lineup.value?.flipped ? 100 - y : y
+}
 
 function initials(name) {
   if (!name) return '?'
@@ -108,7 +112,7 @@ function initials(name) {
   position: relative;
   width: 100%;
   aspect-ratio: 5 / 8;
-  background: color-mix(in srgb, var(--fc, #1a6b3c) 85%, #2d5a1b);
+  background: #1a7a47;
   border-radius: var(--md-shape-md);
   overflow: hidden;
   box-shadow: var(--md-elevation-3);
