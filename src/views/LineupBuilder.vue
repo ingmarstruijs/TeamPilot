@@ -82,7 +82,24 @@
       </div>
     </div>
 
-    <!-- Formation chips -->
+    <!-- Formation & bench controls: mobile only -->
+    <div v-if="!isDesktop" class="formation-controls">
+      <select class="formation-dropdown" :value="selectedFormationId || ''" @change="onFormationChange">
+        <option value="">Vrije opstelling</option>
+        <option v-for="f in availableFormations" :key="f.id" :value="f.id">{{ f.label }}</option>
+      </select>
+      <button class="chip" :class="{ active: showBench }" @click="showBench = !showBench">
+        <span class="material-symbols-rounded" style="font-size:14px">group</span>
+        Bank
+        <span v-if="benchPlayers.length" class="chip-badge">{{ benchPlayers.length }}</span>
+      </button>
+      <button class="chip" @click="flipped = !flipped" :title="flipped ? 'Aanval omhoog' : 'Keeper omlaag'">
+        <span class="material-symbols-rounded" style="font-size:14px">swap_vert</span>
+        Omdraaien
+      </button>
+    </div>
+
+    <!-- Formation chips: desktop only -->
     <div class="formation-row">
       <button
         v-for="f in availableFormations"
@@ -99,7 +116,7 @@
         <span class="material-symbols-rounded" style="font-size:14px">swap_vert</span>
         <span class="chip-label">Omdraaien</span>
       </button>
-      <button v-if="!isDesktop" class="chip" :class="{ active: showBench }" @click="showBench = !showBench">
+      <button class="chip" :class="{ active: showBench }" @click="showBench = !showBench">
         <span class="material-symbols-rounded" style="font-size:14px">group</span>
         Bank
         <span v-if="benchPlayers.length" class="chip-badge">{{ benchPlayers.length }}</span>
@@ -352,6 +369,16 @@ function freeMode() {
   selectedFormationId.value = null
   // Keep only filled slots — no more ghost placeholder circles in free mode
   fieldSlots.value = fieldSlots.value.filter(s => s.playerId)
+}
+
+function onFormationChange(event) {
+  const formationId = event.target.value
+  if (!formationId) {
+    freeMode()
+  } else {
+    const formation = availableFormations.value.find(f => f.id === formationId)
+    if (formation) applyFormation(formation)
+  }
 }
 
 function buildFreeSlots(count) {
@@ -976,6 +1003,41 @@ function shareLink() {
 
 .toolbar-actions { display: flex; gap: var(--sp-2); flex-shrink: 0; align-items: center; }
 
+.formation-controls {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  margin: 0 calc(var(--sp-4) * -1);
+  margin-bottom: var(--sp-3);
+  flex-shrink: 0;
+  background: var(--md-surface);
+  border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.formation-dropdown {
+  background: var(--md-surface);
+  border: 2px solid var(--md-outline-variant);
+  border-radius: var(--md-shape-sm);
+  padding: var(--sp-1) var(--sp-3);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--md-on-surface);
+  outline: none;
+  height: 40px;
+  cursor: pointer;
+  transition: border-color var(--md-duration-short), background var(--md-duration-short);
+  width: 100%;
+}
+.formation-dropdown:hover {
+  border-color: var(--md-outline);
+}
+.formation-dropdown:focus {
+  border-color: var(--md-primary);
+  background: color-mix(in srgb, var(--md-primary) 4%, transparent);
+}
+
 .formation-row {
   display: flex;
   flex-wrap: nowrap;
@@ -989,6 +1051,10 @@ function shareLink() {
 }
 .formation-row::-webkit-scrollbar { display: none; }
 .formation-row > * { flex-shrink: 0; }
+
+@media (max-width: 719px) {
+  .formation-row { display: none; }
+}
 
 /* Builder layout: column on mobile, row on desktop */
 .builder-layout {
@@ -1087,17 +1153,44 @@ function shareLink() {
 .slide-bench-leave-to .bench-sheet-inner      { transform: translateY(100%); }
 
 /* Badge on Bank chip */
+.chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-1);
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--md-surface-variant);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--md-shape-full);
+  cursor: pointer;
+  color: var(--md-on-surface);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background var(--md-duration-short), border-color var(--md-duration-short);
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+  min-height: 40px;
+}
+.chip:hover {
+  background: color-mix(in srgb, var(--md-on-surface) 8%, var(--md-surface-variant));
+}
+.chip.active {
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  border-color: var(--md-primary);
+}
+
 .chip-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 16px;
-  height: 16px;
-  padding: 0 4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
   border-radius: var(--md-shape-full);
   background: var(--md-primary);
   color: var(--md-on-primary);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   line-height: 1;
   margin-left: 2px;

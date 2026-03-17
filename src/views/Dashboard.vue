@@ -36,10 +36,10 @@
           class="recent-item card"
         >
           <div class="recent-info">
-            <p class="md-title-sm">{{ lineup.name }}</p>
-            <p class="md-body-sm" style="color:var(--md-on-surface-variant)">
-              {{ formatDate(lineup.updatedAt) }}
-            </p>
+            <div class="recent-header">
+              <p class="md-title-sm">{{ lineup.name }}</p>
+              <p class="md-label-sm" style="color:var(--md-on-surface-variant);white-space:nowrap">{{ formatDate(lineup.updatedAt) }}</p>
+            </div>
           </div>
           <span class="material-symbols-rounded" style="color:var(--md-outline)">chevron_right</span>
         </RouterLink>
@@ -170,6 +170,7 @@ const TEAM_COLORS = [
   align-items: center;
   gap: var(--sp-2);
   padding: var(--sp-1) var(--sp-2);
+  height: 40px;
   text-decoration: none;
   color: var(--md-on-surface);
   transition: box-shadow var(--md-duration-short);
@@ -179,6 +180,22 @@ const TEAM_COLORS = [
 .recent-info {
   flex: 1;
   min-width: 0;
+}
+.recent-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  min-width: 0;
+}
+.recent-header .md-title-sm {
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.recent-header .md-label-sm {
+  flex-shrink: 0;
+  margin: 0;
 }
 .recent-info .md-title-sm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 

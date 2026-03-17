@@ -34,6 +34,13 @@ const isDesktop = useMediaQuery('(min-width: 900px)')
 </script>
 
 <style>
+/* ── Global mobile address bar support ────────────────────── */
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 /* ── Shell structure ──────────────────────────────────────── */
 #app-shell {
   display: flex;
