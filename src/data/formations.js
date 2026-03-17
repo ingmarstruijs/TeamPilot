@@ -1,6 +1,6 @@
 /**
- * Leeftijdsgroepen en hun configuratie
- * Eenvoudig uitbreidbaar door items toe te voegen
+ * Age groups and their configuration.
+ * Easily extensible by adding entries to the array.
  */
 export const AGE_GROUPS = [
   { id: 'JO08', label: 'JO8',      players: 6,  fieldSize: 'sm' },
@@ -21,10 +21,10 @@ export const POSITIONS = [
 ]
 
 /**
- * Formaties per leeftijdsgroep
- * Posities zijn genormaliseerde coördinaten: x (0-100 links→rechts), y (0-100 boven→onder)
- * y=0 = eigen goal, y=100 = tegenstander goal
- * GK staat altijd op y≈5
+ * Formations per age group.
+ * Positions use normalised coordinates: x (0-100 left→right), y (0-100 top→bottom).
+ * y=0 = own goal, y=100 = opponent goal.
+ * GK is always placed at y≈5.
  */
 // 6vs6 formations (GK + 5 outfield = 6 total) — shared by JO8, JO9, JO10
 const FORMATIONS_6V6 = [

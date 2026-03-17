@@ -1,6 +1,6 @@
 /**
- * Genereert een volledige spelerslijst op basis van leeftijdsgroep.
- * Namen zijn veelvoorkomende Nederlandse voornamen + KNVB-stijl achternamen.
+ * Generates a full player list for quick-fill.
+ * Names are common Dutch first names + KNVB-style surnames.
  */
 
 const FIRST_NAMES = [
@@ -19,16 +19,10 @@ const LAST_NAMES = [
   'Weghorst', 'Wijnaldum', 'Blind', 'Ake', 'Gakpo',
 ]
 
-/**
- * Positieverdeling per spelersaantal
- * Returned array van positie-ID's, van keeper naar aanvallers
- */
+/** Position layout per player count — array of position IDs from goalkeeper to forwards. */
 const POSITION_LAYOUTS = {
-  4:  ['GK', 'DEF', 'MID', 'ATT'],
-  5:  ['GK', 'DEF', 'DEF', 'MID', 'ATT'],
-  7:  ['GK', 'DEF', 'DEF', 'DEF', 'MID', 'ATT', 'ATT'],
+  6:  ['GK', 'DEF', 'DEF', 'MID', 'ATT', 'ATT'],
   8:  ['GK', 'DEF', 'DEF', 'DEF', 'MID', 'MID', 'ATT', 'ATT'],
-  9:  ['GK', 'DEF', 'DEF', 'DEF', 'MID', 'MID', 'MID', 'ATT', 'ATT'],
   11: ['GK', 'DEF', 'DEF', 'DEF', 'DEF', 'MID', 'MID', 'MID', 'ATT', 'ATT', 'ATT'],
 }
 
@@ -42,8 +36,8 @@ function shuffle(arr) {
 }
 
 /**
- * @param {number} count  – aantal te genereren spelers
- * @param {number} existingCount – huidig aantal spelers (voor nummering)
+ * @param {number} count         – number of players to generate
+ * @param {number} existingCount – current player count (used for jersey numbering)
  * @returns {Array<{ name, number, position }>}
  */
 export function generatePlayers(count, existingCount = 0) {

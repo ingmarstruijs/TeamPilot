@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <!-- Header -->
-    <div class="spelers-header">
+    <div class="players-header">
       <div>
         <h1 class="md-headline-sm">Spelerslijst</h1>
         <p class="md-body-md" style="color:var(--md-on-surface-variant)">
@@ -312,7 +312,7 @@ function confirmQuickFill() {
 </script>
 
 <style scoped>
-.spelers-header {
+.players-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;

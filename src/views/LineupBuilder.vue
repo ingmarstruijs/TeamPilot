@@ -213,13 +213,13 @@ onUnmounted(() => document.removeEventListener('mousedown', closeOnOutsideClick)
 
 function switchToLineup(lu) {
   showSwitcher.value = false
-  router.push(`/opstelling/${lu.id}`)
+  router.push(`/lineup/${lu.id}`)
 }
 
 function startNew() {
   showSwitcher.value = false
   store.setActiveLineup(null)
-  // Reset state in place (avoids remount flicker on /opstelling/nieuw)
+  // Reset state in place (avoids remount flicker on /lineup/new)
   lineupId.value   = null
   lineupName.value = ''
   if (availableFormations.value.length) {
@@ -227,7 +227,7 @@ function startNew() {
   } else {
     buildFreeSlots(ageGroupConfig.value?.players ?? 11)
   }
-  router.replace('/opstelling/nieuw')
+  router.replace('/lineup/new')
 }
 
 // ── Team state ─────────────────────────────────────────────
@@ -279,7 +279,7 @@ onMounted(() => {
   if (lastId) {
     const last = store.getLineup(lastId)
     if (last) {
-      router.replace(`/opstelling/${lastId}`)
+      router.replace(`/lineup/${lastId}`)
       return
     }
   }
@@ -535,8 +535,8 @@ function doSave() {
   })
   lineupId.value = saved.id
   store.setActiveLineup(saved.id)
-  if (route.path === '/opstelling/nieuw') {
-    router.replace(`/opstelling/${saved.id}`)
+  if (route.path === '/lineup/new') {
+    router.replace(`/lineup/${saved.id}`)
   }
   showSave.value = false
   showSnackbar('Opstelling opgeslagen ✓')
@@ -571,7 +571,7 @@ function downloadImage() {
   if (!sharePreviewUrl.value) return
   const a = document.createElement('a')
   a.href = sharePreviewUrl.value
-  a.download = `${lineupName.value || 'opstelling'}.png`
+  a.download = `${lineupName.value || 'lineup'}.png`
   a.click()
 }
 

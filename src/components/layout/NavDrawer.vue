@@ -52,14 +52,14 @@ const teamInitials = computed(() => {
 })
 
 const navItems = [
-  { to: '/',                  icon: 'home',          label: 'Home'        },
-  { to: '/spelers',           icon: 'group',         label: 'Spelers'     },
-  { to: '/opstelling/nieuw',  icon: 'sports_soccer', label: 'Opstelling'  },
-  { to: '/opstellingen',      icon: 'folder_open',   label: 'Opgeslagen'  },
+  { to: '/',           icon: 'home',          label: 'Home'       },
+  { to: '/players',    icon: 'group',         label: 'Spelers'    },
+  { to: '/lineup/new', icon: 'sports_soccer', label: 'Opstelling' },
+  { to: '/lineups',    icon: 'folder_open',   label: 'Opgeslagen' },
 ]
 
 function isActive(item) {
-  if (item.to === '/opstelling/nieuw') return route.path.startsWith('/opstelling')
+  if (item.to === '/lineup/new') return route.path.startsWith('/lineup')
   return route.path === item.to
 }
 </script>

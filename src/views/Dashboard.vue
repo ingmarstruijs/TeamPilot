@@ -4,17 +4,17 @@
     <div class="quick-section">
       <p class="section-title md-title-sm">Snel starten</p>
       <div class="quick-grid">
-        <RouterLink to="/opstelling/nieuw" class="quick-card card">
+        <RouterLink to="/lineup/new" class="quick-card card">
           <span class="material-symbols-rounded quick-icon" style="color:var(--md-primary)">sports_soccer</span>
           <p class="md-title-sm">Nieuwe opstelling</p>
           <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Maak een opstelling met formatie</p>
         </RouterLink>
-        <RouterLink to="/spelers" class="quick-card card">
+        <RouterLink to="/players" class="quick-card card">
           <span class="material-symbols-rounded quick-icon" style="color:var(--md-secondary)">group_add</span>
           <p class="md-title-sm">Spelers beheren</p>
           <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Spelers toevoegen of bewerken</p>
         </RouterLink>
-        <RouterLink to="/opstellingen" class="quick-card card">
+        <RouterLink to="/lineups" class="quick-card card">
           <span class="material-symbols-rounded quick-icon" style="color:var(--md-tertiary)">folder_open</span>
           <p class="md-title-sm">Opgeslagen</p>
           <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Bekijk al je opstellingen</p>
@@ -26,13 +26,13 @@
     <div v-if="recentLineups.length" class="quick-section">
       <div class="section-row">
         <p class="section-title md-title-sm">Recent opgeslagen</p>
-        <RouterLink to="/opstellingen" class="btn btn-text" style="height:32px;font-size:13px">Alle bekijken</RouterLink>
+        <RouterLink to="/lineups" class="btn btn-text" style="height:32px;font-size:13px">Alle bekijken</RouterLink>
       </div>
       <div class="recent-list">
         <RouterLink
           v-for="lineup in recentLineups"
           :key="lineup.id"
-          :to="`/opstelling/${lineup.id}`"
+          :to="`/lineup/${lineup.id}`"
           class="recent-item card"
         >
           <div class="recent-dot-field" :style="{ '--fc': activeTeam?.color }">

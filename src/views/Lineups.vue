@@ -1,13 +1,13 @@
 <template>
   <div class="page">
-    <div class="opst-header">
+    <div class="lineups-header">
       <div>
         <h1 class="md-headline-sm">Opstellingen</h1>
         <p class="md-body-md" style="color:var(--md-on-surface-variant)">
           {{ teamLineups.length }} opgeslagen opstelling{{ teamLineups.length !== 1 ? 'en' : '' }}
         </p>
       </div>
-      <RouterLink to="/opstelling/nieuw" class="btn btn-filled">
+      <RouterLink to="/lineup/new" class="btn btn-filled">
         <span class="material-symbols-rounded" style="font-size:18px">add</span>
         Nieuw
       </RouterLink>
@@ -18,7 +18,7 @@
       <span class="material-symbols-rounded empty-icon">folder_open</span>
       <p class="md-title-md">Geen opgeslagen opstellingen</p>
       <p class="md-body-md">Maak een opstelling en sla hem op.</p>
-      <RouterLink to="/opstelling/nieuw" class="btn btn-filled mt-3">Opstelling maken</RouterLink>
+      <RouterLink to="/lineup/new" class="btn btn-filled mt-3">Opstelling maken</RouterLink>
     </div>
 
     <!-- Lineup cards -->
@@ -59,7 +59,7 @@
 
         <div class="lineup-actions">
           <RouterLink
-            :to="`/opstelling/${lineup.id}`"
+            :to="`/lineup/${lineup.id}`"
             class="btn btn-tonal"
           >
             <span class="material-symbols-rounded" style="font-size:16px">edit</span>
@@ -133,7 +133,7 @@ function doDelete() {
 </script>
 
 <style scoped>
-.opst-header {
+.lineups-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
