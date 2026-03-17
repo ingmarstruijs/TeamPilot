@@ -678,6 +678,7 @@ function shareLink() {
 .builder-page {
   display: flex;
   flex-direction: column;
+  flex: none; /* override flex:1 from .page so explicit height is respected */
   height: calc(100dvh - var(--top-bar-height) - var(--nav-height));
   overflow: hidden;
   padding: var(--sp-3) var(--sp-4) 0;

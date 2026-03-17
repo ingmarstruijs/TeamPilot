@@ -7,7 +7,7 @@
         <p class="md-body-md" style="color:var(--md-on-surface-variant)">
           {{ activeTeam?.name }} · {{ players.length }} speler{{ players.length !== 1 ? 's' : '' }}
           <span v-if="ageGroupConfig" style="opacity:.7">
-            (max {{ ageGroupConfig.players }})
+            (min {{ ageGroupConfig.players }})
           </span>
         </p>
       </div>

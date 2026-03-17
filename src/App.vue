@@ -53,6 +53,7 @@ const isDesktop = useMediaQuery('(min-width: 900px)')
   display: flex;
   flex-direction: column;
   min-width: 0;
+  min-height: 0;
   overflow-x: hidden;
 }
 

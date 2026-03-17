@@ -240,16 +240,16 @@ function onTouchEnd(event) {
   width: 100%;
   flex: 1;
   min-height: 0;
+  container-type: size;
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 .pitch {
   position: relative;
-  /* Mobile: height-driven — fills container, width computed from aspect-ratio */
-  height: 100%;
-  width: auto;
-  max-width: 100%;
+  /* Fit within whichever dimension is tighter: full width, or height × aspect-ratio */
+  width: min(100%, calc(100cqh * 5 / 8));
+  height: auto;
   aspect-ratio: 5 / 8;
   background: color-mix(in srgb, var(--field-color, #059669) 85%, #065f46);
   border-radius: var(--md-shape-md);
