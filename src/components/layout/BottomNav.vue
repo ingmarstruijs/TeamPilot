@@ -60,11 +60,10 @@ function isActive(item) {
   text-decoration: none;
   color: var(--md-on-surface-variant);
   padding: var(--sp-2) var(--sp-1);
-  border-radius: var(--md-shape-md);
   transition: color var(--md-duration-short);
   -webkit-tap-highlight-color: transparent;
 }
-.nav-item.active  { color: var(--md-primary); }
+.nav-item.active { color: var(--md-primary); }
 .nav-icon {
   font-size: 24px;
   transition: all var(--md-duration-short);
@@ -74,9 +73,8 @@ function isActive(item) {
 }
 .nav-label { font-size: 11px; font-weight: 500; }
 
-/* Active indicator pill behind icon */
+/* Icon-chip: the only interactive highlight target */
 .nav-item .nav-icon-wrap {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,5 +85,8 @@ function isActive(item) {
 }
 .nav-item.active .nav-icon-wrap {
   background: var(--md-primary-container);
+}
+.nav-item:hover:not(.active) .nav-icon-wrap {
+  background: color-mix(in srgb, var(--md-on-surface) 8%, transparent);
 }
 </style>

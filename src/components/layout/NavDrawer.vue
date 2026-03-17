@@ -126,18 +126,18 @@ function isActive(item) {
   flex: 1;
 }
 
+/* Full-row pill: the entire row is the interactive target */
 .drawer-item {
   display: flex;
   align-items: center;
   gap: var(--sp-3);
-  padding: 0 var(--sp-3) 0 0;
+  padding: 0 var(--sp-3);
   height: 56px;
   border-radius: var(--md-shape-full);
   text-decoration: none;
   color: var(--md-on-surface-variant);
   transition: background var(--md-duration-short) var(--md-motion-standard),
               color     var(--md-duration-short) var(--md-motion-standard);
-  position: relative;
   -webkit-tap-highlight-color: transparent;
 }
 .drawer-item:hover {
@@ -145,25 +145,21 @@ function isActive(item) {
   color: var(--md-on-surface);
 }
 .drawer-item.active {
+  background: var(--md-primary-container);
   color: var(--md-on-primary-container);
 }
+.drawer-item.active:hover {
+  background: color-mix(in srgb, var(--md-primary-container) 92%, var(--md-on-primary-container));
+}
 
-/* Active indicator pill */
+/* Icon container — layout only, no background */
 .drawer-item-indicator {
-  width: 56px;
-  height: 32px;
-  border-radius: var(--md-shape-full);
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: background var(--md-duration-short);
-}
-.drawer-item.active .drawer-item-indicator {
-  background: var(--md-primary-container);
-}
-.drawer-item:hover:not(.active) .drawer-item-indicator {
-  background: color-mix(in srgb, var(--md-on-surface) 8%, transparent);
 }
 
 .drawer-item-icon {
@@ -172,7 +168,6 @@ function isActive(item) {
 }
 .drawer-item.active .drawer-item-icon {
   font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
-  color: var(--md-on-primary-container);
 }
 
 .drawer-item-label {
