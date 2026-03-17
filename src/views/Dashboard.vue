@@ -1,53 +1,7 @@
 <template>
   <div class="page">
-    <!-- Quick actions -->
-    <div class="quick-section">
-      <p class="section-title md-title-sm">Snel starten</p>
-      <div class="quick-grid">
-        <RouterLink to="/lineup/new" class="quick-card card">
-          <span class="material-symbols-rounded quick-icon" style="color:var(--md-primary)">sports_soccer</span>
-          <p class="md-title-sm">Nieuwe opstelling</p>
-          <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Maak een opstelling met formatie</p>
-        </RouterLink>
-        <RouterLink to="/players" class="quick-card card">
-          <span class="material-symbols-rounded quick-icon" style="color:var(--md-secondary)">group_add</span>
-          <p class="md-title-sm">Spelers beheren</p>
-          <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Spelers toevoegen of bewerken</p>
-        </RouterLink>
-        <RouterLink to="/lineups" class="quick-card card">
-          <span class="material-symbols-rounded quick-icon" style="color:var(--md-tertiary)">folder_open</span>
-          <p class="md-title-sm">Opgeslagen</p>
-          <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Bekijk al je opstellingen</p>
-        </RouterLink>
-      </div>
-    </div>
-
-    <!-- Recent lineups -->
-    <div v-if="recentLineups.length" class="quick-section">
-      <div class="section-row">
-        <p class="section-title md-title-sm">Recent opgeslagen</p>
-        <RouterLink to="/lineups" class="btn btn-text" style="height:32px;font-size:13px">Alle bekijken</RouterLink>
-      </div>
-      <div class="recent-list">
-        <RouterLink
-          v-for="lineup in recentLineups"
-          :key="lineup.id"
-          :to="`/lineup/${lineup.id}`"
-          class="recent-item card"
-        >
-          <div class="recent-info">
-            <div class="recent-header">
-              <p class="md-title-sm">{{ lineup.name }}</p>
-              <p class="md-label-sm" style="color:var(--md-on-surface-variant);white-space:nowrap">{{ formatDate(lineup.updatedAt) }}</p>
-            </div>
-          </div>
-          <span class="material-symbols-rounded" style="color:var(--md-outline)">chevron_right</span>
-        </RouterLink>
-      </div>
-    </div>
-
     <!-- Team settings -->
-    <div class="quick-section">
+    <div class="team-settings-section">
       <p class="section-title md-title-sm">Team instellingen</p>
       <div class="card team-settings">
         <div class="settings-row">
@@ -87,33 +41,49 @@
         <div class="divider"></div>
         <div class="settings-row">
           <span class="md-body-md">Primaire kleur</span>
-          <div class="color-row">
-            <button
-              v-for="c in TEAM_COLORS"
-              :key="c"
-              class="color-swatch"
-              :style="{ background: c, outline: activeTeam?.shirt?.primary === c ? `3px solid ${c}` : 'none', outlineOffset: '2px' }"
-              @click="updateShirt('primary', c)"
-              :aria-label="`Kleur ${c}`"
-            ></button>
-          </div>
+          <input
+            type="color"
+            :value="activeTeam?.shirt?.primary ?? defaultShirtFallback.primary"
+            @input="e => updateShirt('primary', e.target.value)"
+            class="color-picker"
+          />
         </div>
         <template v-if="activeTeam?.shirt?.style !== 'solid'">
           <div class="divider"></div>
           <div class="settings-row">
             <span class="md-body-md">Secundaire kleur</span>
-            <div class="color-row">
-              <button
-                v-for="c in TEAM_COLORS"
-                :key="c"
-                class="color-swatch"
-                :style="{ background: c, outline: activeTeam?.shirt?.secondary === c ? `3px solid ${c}` : 'none', outlineOffset: '2px' }"
-                @click="updateShirt('secondary', c)"
-                :aria-label="`Kleur ${c}`"
-              ></button>
-            </div>
+            <input
+              type="color"
+              :value="activeTeam?.shirt?.secondary ?? defaultShirtFallback.secondary"
+              @input="e => updateShirt('secondary', e.target.value)"
+              class="color-picker"
+            />
           </div>
         </template>
+      </div>
+    </div>
+
+    <!-- Recent lineups -->
+    <div v-if="recentLineups.length" class="recent-section">
+      <div class="section-row">
+        <p class="section-title md-title-sm">Recente opstellingen</p>
+        <RouterLink to="/lineups" class="btn btn-text" style="height:32px;font-size:13px">Alle bekijken</RouterLink>
+      </div>
+      <div class="recent-list">
+        <RouterLink
+          v-for="lineup in recentLineups"
+          :key="lineup.id"
+          :to="`/lineup/${lineup.id}`"
+          class="recent-item card"
+        >
+          <div class="recent-info">
+            <div class="recent-header">
+              <p class="md-title-sm">{{ lineup.name }}</p>
+              <p class="md-label-sm" style="color:var(--md-on-surface-variant);white-space:nowrap">{{ formatDate(lineup.updatedAt) }}</p>
+            </div>
+          </div>
+          <span class="material-symbols-rounded" style="color:var(--md-outline)">chevron_right</span>
+        </RouterLink>
       </div>
     </div>
   </div>
@@ -128,7 +98,6 @@ import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 const store = useTeamStore()
 const activeTeam     = computed(() => store.activeTeam)
 const ageGroupConfig = computed(() => store.ageGroupConfig)
-const playerCount    = computed(() => activeTeam.value?.players?.length ?? 0)
 
 const recentLineups = computed(() =>
   [...store.teamLineups]
@@ -160,12 +129,6 @@ const SHIRT_STYLES = [
   { id: 'stripes',  label: 'Strepen'  },
   { id: 'sash',     label: 'Sjerp'    },
 ]
-
-const TEAM_COLORS = [
-  '#1a6b3c', '#0d47a1', '#b71c1c', '#e65100',
-  '#4a148c', '#006064', '#1b5e20', '#212121',
-  '#ffffff', '#f5c518',
-]
 </script>
 
 <style scoped>
@@ -190,76 +153,11 @@ const TEAM_COLORS = [
   border-color: rgba(255,255,255,.3);
 }
 
-.quick-section { margin-bottom: var(--sp-5); }
-.section-title { margin-bottom: var(--sp-3); color: var(--md-on-surface-variant); }
+/* Team settings */
+.team-settings-section { margin-bottom: var(--sp-5); }
+.section-title { color: var(--md-on-surface-variant); margin-bottom: var(--sp-3); }
 .section-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp-3); }
 
-.quick-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-  gap: var(--sp-3);
-}
-.quick-card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-2);
-  padding: var(--sp-3);
-  text-decoration: none;
-  color: var(--md-on-surface);
-  transition: box-shadow var(--md-duration-short);
-  min-height: 130px;
-  justify-content: flex-start;
-}
-.quick-card:hover { box-shadow: var(--md-elevation-2); }
-.quick-icon { font-size: 28px; }
-.quick-card p { margin: 0; line-height: 1.3; font-size: 13px; }
-.quick-card .md-title-sm { font-size: 13px; }
-.quick-card .md-body-sm { font-size: 12px; }
-
-.recent-list { display: flex; flex-direction: column; gap: var(--sp-1); }
-.recent-item {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-  padding: var(--sp-1) var(--sp-2);
-  height: 40px;
-  text-decoration: none;
-  color: var(--md-on-surface);
-  transition: box-shadow var(--md-duration-short);
-}
-.recent-item:hover { box-shadow: var(--md-elevation-2); }
-
-.recent-info {
-  flex: 1;
-  min-width: 0;
-}
-.recent-header {
-  display: flex;
-  align-items: baseline;
-  gap: var(--sp-2);
-  min-width: 0;
-}
-.recent-header .md-title-sm {
-  flex-shrink: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.recent-header .md-label-sm {
-  flex-shrink: 0;
-  margin: 0;
-}
-.recent-info .md-title-sm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-/* Desktop: restore full size for recent lineups */
-@media (min-width: 720px) {
-  .recent-list { gap: var(--sp-2); }
-  .recent-item { gap: var(--sp-3); padding: var(--sp-2) var(--sp-3); }
-  .recent-dot-field { width: 56px; height: 40px; }
-  .rdot { width: 6px; height: 6px; }
-}
-
-/* Team settings */
 .team-settings { padding: 0; }
 .settings-row {
   display: flex;
@@ -327,29 +225,61 @@ const TEAM_COLORS = [
 }
 .shirt-style-btn.active .shirt-style-label { color: var(--md-primary); }
 
-.color-row { display: flex; gap: var(--sp-1); flex-wrap: wrap; }
-.color-swatch {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 2px solid rgba(0,0,0,.1);
+.color-picker {
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--md-outline-variant);
+  border-radius: var(--md-shape-sm);
   cursor: pointer;
-  transition: transform var(--md-duration-short);
+  transition: border-color var(--md-duration-short);
 }
-.color-swatch:hover { transform: scale(1.15); }
+.color-picker:hover {
+  border-color: var(--md-outline);
+}
+.color-picker:active {
+  border-color: var(--md-primary);
+}
 
-/* Desktop adjustments */
+/* Recent lineups */
+.recent-section { margin-bottom: var(--sp-5); }
+
+.recent-list { display: flex; flex-direction: column; gap: var(--sp-1); }
+.recent-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-4);
+  text-decoration: none;
+  color: var(--md-on-surface);
+  transition: box-shadow var(--md-duration-short);
+}
+.recent-item:hover { box-shadow: var(--md-elevation-2); }
+
+.recent-info {
+  flex: 1;
+  min-width: 0;
+}
+.recent-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  min-width: 0;
+}
+.recent-header .md-title-sm {
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.recent-header .md-label-sm {
+  flex-shrink: 0;
+  margin: 0;
+}
+.recent-info .md-title-sm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Desktop: restore full size for recent lineups */
 @media (min-width: 720px) {
-  .quick-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  }
-  .quick-card {
-    padding: var(--sp-4);
-    min-height: 160px;
-  }
-  .quick-icon { font-size: 36px; }
-  .quick-card p { font-size: 1em; }
-  .quick-card .md-title-sm { font-size: 1em; }
-  .quick-card .md-body-sm { font-size: 1em; }
+  .recent-list { gap: var(--sp-2); }
+  .recent-item { gap: var(--sp-3); padding: var(--sp-3) var(--sp-4); }
 }
 </style>

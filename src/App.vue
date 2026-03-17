@@ -45,7 +45,7 @@ html, body {
 #app-shell {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  height: 100dvh;
 }
 
 .layout-body {
@@ -62,6 +62,7 @@ html, body {
   min-width: 0;
   min-height: 0;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* Desktop drawer */
