@@ -2,8 +2,8 @@
   <nav class="nav-drawer" aria-label="Hoofdnavigatie">
     <!-- Team identity block -->
     <div class="drawer-team">
-      <div class="drawer-team-badge" :style="{ background: activeTeam?.color }">
-        {{ teamInitials }}
+      <div class="drawer-team-badge">
+        <ShirtAvatar :shirt="activeTeam?.shirt" :initials="teamInitials" :size="44" />
       </div>
       <div class="drawer-team-info">
         <span class="drawer-team-name md-title-sm">{{ activeTeam?.name }}</span>
@@ -41,6 +41,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
+import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 
 const route = useRoute()
 const store = useTeamStore()
@@ -86,12 +87,7 @@ function isActive(item) {
   width: 44px;
   height: 44px;
   border-radius: var(--md-shape-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 700;
-  font-size: 15px;
+  overflow: hidden;
   flex-shrink: 0;
 }
 .drawer-team-info {

@@ -116,11 +116,6 @@
         <span class="material-symbols-rounded" style="font-size:14px">swap_vert</span>
         <span class="chip-label">Omdraaien</span>
       </button>
-      <button class="chip" :class="{ active: showBench }" @click="showBench = !showBench">
-        <span class="material-symbols-rounded" style="font-size:14px">group</span>
-        Bank
-        <span v-if="benchPlayers.length" class="chip-badge">{{ benchPlayers.length }}</span>
-      </button>
     </div>
 
     <!-- Main layout: field + bench -->
@@ -129,7 +124,7 @@
       <div v-if="isDesktop" class="bench-col">
         <BenchPanel
           :bench-players="benchPlayers"
-          :team-color="activeTeam?.color"
+          :team-shirt="activeTeam?.shirt"
           :horizontal="false"
           @bench-drag-start="onBenchDragStart"
           @bench-touch-start="onBenchTouchStart"
@@ -156,7 +151,7 @@
         <FootballField
           :slots="fieldSlots"
           :players="playersMap"
-          :team-color="activeTeam?.color"
+          :team-shirt="activeTeam?.shirt"
           :flipped="flipped"
           export-id="field-export-area"
           @slot-drop="handleSlotDrop"
@@ -174,7 +169,7 @@
           </div>
           <BenchPanel
             :bench-players="benchPlayers"
-            :team-color="activeTeam?.color"
+            :team-shirt="activeTeam?.shirt"
             :horizontal="false"
             @bench-drag-start="onBenchDragStart"
             @bench-touch-start="onBenchTouchStart"
@@ -652,7 +647,56 @@ function drawShareCanvas() {
   const ctx = canvas.getContext('2d')
   ctx.scale(SCALE, SCALE)
 
-  const teamColor = activeTeam.value?.color ?? '#059669'
+  const shirt = activeTeam.value?.shirt ?? { style: 'solid', primary: '#059669', secondary: '#ffffff' }
+  const teamColor = shirt.primary
+
+  // Helper: draw shirt-pattern circle
+  function drawShirtCircle(cx, cy, r, ini) {
+    ctx.save()
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.clip()
+    if (shirt.style === 'solid') {
+      ctx.fillStyle = shirt.primary
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill()
+    } else if (shirt.style === 'gradient') {
+      const g = ctx.createLinearGradient(cx, cy - r, cx, cy + r)
+      g.addColorStop(0, shirt.primary); g.addColorStop(1, shirt.secondary)
+      ctx.fillStyle = g; ctx.fillRect(cx - r, cy - r, r * 2, r * 2)
+    } else if (shirt.style === 'halves' || shirt.style === 'halves-v') {
+      ctx.fillStyle = shirt.primary;   ctx.fillRect(cx - r, cy - r, r, r * 2)
+      ctx.fillStyle = shirt.secondary; ctx.fillRect(cx,     cy - r, r, r * 2)
+    } else if (shirt.style === 'halves-h') {
+      ctx.fillStyle = shirt.primary;   ctx.fillRect(cx - r, cy - r, r * 2, r)
+      ctx.fillStyle = shirt.secondary; ctx.fillRect(cx - r, cy,     r * 2, r)
+    } else if (shirt.style === 'stripes') {
+      const sw = r * 2 / 4
+      for (let i = 0; i < 4; i++) {
+        ctx.fillStyle = i % 2 === 0 ? shirt.primary : shirt.secondary
+        ctx.fillRect(cx - r + i * sw, cy - r, sw, r * 2)
+      }
+    } else if (shirt.style === 'sash') {
+      ctx.fillStyle = shirt.primary; ctx.fillRect(cx - r, cy - r, r * 2, r * 2)
+      ctx.fillStyle = shirt.secondary
+      ctx.beginPath()
+      ctx.moveTo(cx - r * 0.4, cy - r); ctx.lineTo(cx + r * 0.7, cy - r)
+      ctx.lineTo(cx + r * 0.4, cy + r); ctx.lineTo(cx - r * 0.7, cy + r)
+      ctx.closePath(); ctx.fill()
+    }
+    ctx.restore()
+    // border
+    ctx.strokeStyle = 'rgba(255,255,255,.75)'; ctx.lineWidth = 2
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke()
+    // initials – pick readable color
+    const lP = hexLum(shirt.primary), lS = shirt.style === 'solid' ? lP : hexLum(shirt.secondary)
+    const avgL = shirt.style === 'solid' ? lP : (lP + lS) / 2
+    ctx.fillStyle = avgL > 0.55 ? '#111' : '#fff'
+    ctx.font = `bold ${Math.round(r * .7)}px system-ui,sans-serif`
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(ini, cx, cy)
+  }
+  function hexLum(hex) {
+    if (!hex || hex.length < 7) return 0.5
+    const r = parseInt(hex.slice(1,3),16)/255, g = parseInt(hex.slice(3,5),16)/255, b = parseInt(hex.slice(5,7),16)/255
+    return 0.299*r + 0.587*g + 0.114*b
+  }
 
   // Header
   ctx.fillStyle = teamColor
@@ -701,20 +745,15 @@ function drawShareCanvas() {
   for (const slot of fieldSlots.value.filter(s => s.playerId)) {
     const player = playersMap.value[slot.playerId]
     if (!player) continue
+    const parts = player.name.trim().split(/\s+/)
+    const ini   = parts.length === 1 ? parts[0].slice(0,2).toUpperCase() : (parts[0][0] + parts[parts.length-1][0]).toUpperCase()
     const dY = flipped.value ? 100 - slot.y : slot.y
     const cx = mx + (slot.x / 100) * mw
     const cy = my + (dY   / 100) * mh
     const r  = 16
     ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = 5; ctx.shadowOffsetY = 2
-    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2)
-    ctx.fillStyle = teamColor; ctx.fill()
+    drawShirtCircle(cx, cy, r, ini)
     ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0
-    ctx.strokeStyle = 'rgba(255,255,255,.75)'; ctx.lineWidth = 2; ctx.stroke()
-    const parts = player.name.trim().split(/\s+/)
-    const ini   = parts.length === 1 ? parts[0].slice(0,2).toUpperCase() : (parts[0][0] + parts[parts.length-1][0]).toUpperCase()
-    ctx.fillStyle = '#fff'
-    ctx.font = `bold ${Math.round(r * .7)}px system-ui,sans-serif`
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(ini, cx, cy)
     const first = parts[0].length > 8 ? parts[0].slice(0,7) + '.' : parts[0]
     ctx.font = 'bold 8px system-ui,sans-serif'
     const lw = ctx.measureText(first).width + 8
@@ -742,12 +781,11 @@ function drawShareCanvas() {
       ctx.fillStyle = '#fff'; _rdRect(ctx, cx, cy, cw, ch, 14); ctx.fill()
       ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0
       const ar = 10, ax = cx + ar + 4, ay = cy + ch / 2
-      ctx.beginPath(); ctx.arc(ax, ay, ar, 0, Math.PI * 2)
-      ctx.fillStyle = teamColor; ctx.fill()
+      ctx.shadowColor = 'rgba(0,0,0,.15)'; ctx.shadowBlur = 2
       const parts = player.name.trim().split(/\s+/)
       const ini   = parts.length === 1 ? parts[0].slice(0,2).toUpperCase() : (parts[0][0] + parts[parts.length-1][0]).toUpperCase()
-      ctx.fillStyle = '#fff'; ctx.font = 'bold 7px system-ui,sans-serif'
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(ini, ax, ay)
+      drawShirtCircle(ax, ay, ar, ini)
+      ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0
       const first = parts[0].length > 10 ? parts[0].slice(0,9) + '.' : parts[0]
       ctx.fillStyle = '#1e293b'; ctx.font = '500 10px system-ui,sans-serif'
       ctx.textAlign = 'left'; ctx.fillText(first, ax + ar + 4, ay)
@@ -807,6 +845,7 @@ function shareLink() {
     t: activeTeam.value?.name,
     a: activeTeam.value?.ageGroup,
     c: activeTeam.value?.color,
+    sh: activeTeam.value?.shirt,
     f: selectedFormationId.value,
     fl: flipped.value,
     s: fieldSlots.value.map(s => ({

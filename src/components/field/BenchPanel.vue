@@ -15,9 +15,7 @@
         @touchstart.passive="onTouchStart($event, player)"
         :class="{ dragging: draggingPlayerId === player.id }"
       >
-        <div class="bp-avatar" :style="{ background: teamColor }">
-          {{ initials(player) }}
-        </div>
+        <ShirtAvatar :shirt="teamShirt" :initials="initials(player)" :size="28" />
         <span class="bp-name md-label-sm">{{ shortName(player) }}</span>
         <span v-if="player.number" class="bp-num">#{{ player.number }}</span>
       </div>
@@ -30,10 +28,11 @@
 
 <script setup>
 import { ref } from 'vue'
+import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 
 const props = defineProps({
   benchPlayers: { type: Array, required: true },
-  teamColor:    { type: String, default: '#059669' },
+  teamShirt:    { type: Object, default: () => ({ style: 'solid', primary: '#059669', secondary: '#ffffff' }) },
   horizontal:   { type: Boolean, default: false },
 })
 
@@ -137,12 +136,7 @@ function onTouchStart(event, player) {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 700;
-  font-size: 10px;
+  overflow: hidden;
   flex-shrink: 0;
 }
 .bp-name { font-size: 12px; color: var(--md-on-surface); }

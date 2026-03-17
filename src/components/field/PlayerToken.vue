@@ -2,13 +2,13 @@
   <div
     class="player-token"
     :class="{ 'is-dragging': isDragging }"
-    :style="{ ...posStyle, '--tc': teamColor }"
+    :style="posStyle"
     :draggable="true"
     @dragstart="onDragStart"
     @touchstart.passive="onTouchStart"
   >
-    <div class="token-avatar" :style="{ background: teamColor }">
-      {{ initials }}
+    <div class="token-avatar">
+      <ShirtAvatar :shirt="teamShirt" :initials="initials" :size="42" />
     </div>
     <div class="token-name">{{ shortName }}</div>
     <button class="token-remove" @click.stop="$emit('remove')" @touchend.stop="$emit('remove')"
@@ -18,12 +18,13 @@
 
 <script setup>
 import { computed } from 'vue'
+import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 
 const props = defineProps({
   player:    { type: Object, required: true },
   x:         { type: Number, required: true },
   y:         { type: Number, required: true },
-  teamColor: { type: String, default: '#1a6b3c' },
+  teamShirt: { type: Object, default: () => ({ style: 'solid', primary: '#1a6b3c', secondary: '#ffffff' }) },
   isDragging:{ type: Boolean, default: false },
 })
 
@@ -80,15 +81,12 @@ function onTouchStart(e) {
   width: 42px;
   height: 42px;
   border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,.35);
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-weight: 700;
-  font-size: 14px;
-  border: 2.5px solid rgba(255,255,255,.75);
-  box-shadow: 0 2px 8px rgba(0,0,0,.35);
-  position: relative;
 }
 
 .token-name {

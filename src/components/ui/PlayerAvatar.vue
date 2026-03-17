@@ -2,24 +2,25 @@
   <div
     class="player-avatar"
     :class="[`size-${size}`, { dragging }]"
-    :style="{ background: color, border: `2px solid ${borderColor}` }"
     :title="player.name"
   >
-    <span class="avatar-initials">{{ initials }}</span>
+    <ShirtAvatar :shirt="shirt" :initials="initials" :size="sizeMap[size]" />
     <span v-if="player.number != null" class="avatar-number">{{ player.number }}</span>
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
+import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 
 const props = defineProps({
-  player: { type: Object, required: true },
-  size:   { type: String, default: 'md' }, // xs | sm | md | lg
-  color:  { type: String, default: '#1a6b3c' },
-  borderColor: { type: String, default: 'rgba(255,255,255,0.6)' },
+  player:   { type: Object, required: true },
+  size:     { type: String, default: 'md' }, // xs | sm | md | lg
+  shirt:    { type: Object, default: () => ({ style: 'solid', primary: '#1a6b3c', secondary: '#ffffff' }) },
   dragging: { type: Boolean, default: false },
 })
+
+const sizeMap = { xs: 32, sm: 40, md: 48, lg: 56 }
 
 const initials = computed(() => {
   const parts = props.player.name.trim().split(/\s+/)
@@ -31,12 +32,7 @@ const initials = computed(() => {
 <style scoped>
 .player-avatar {
   border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-weight: 700;
+  overflow: hidden;
   position: relative;
   flex-shrink: 0;
   transition: transform var(--md-duration-short), box-shadow var(--md-duration-short);
@@ -53,15 +49,10 @@ const initials = computed(() => {
 
 /* Sizes */
 .size-xs { width: 32px; height: 32px; }
-.size-xs .avatar-initials { font-size: 10px; }
 .size-sm { width: 40px; height: 40px; }
-.size-sm .avatar-initials { font-size: 13px; }
 .size-md { width: 48px; height: 48px; }
-.size-md .avatar-initials { font-size: 15px; }
 .size-lg { width: 56px; height: 56px; }
-.size-lg .avatar-initials { font-size: 18px; }
 
-.avatar-initials { line-height: 1; }
 .avatar-number {
   position: absolute;
   bottom: -2px;

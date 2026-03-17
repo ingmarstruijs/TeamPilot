@@ -49,7 +49,7 @@
         :key="player.id"
         class="player-row card"
       >
-        <PlayerAvatar :player="player" :color="activeTeam?.color" size="md" />
+        <PlayerAvatar :player="player" :shirt="activeTeam?.shirt" size="md" />
         <div class="player-details">
           <span class="md-title-sm">{{ player.name }}</span>
           <span class="md-body-sm" style="color:var(--md-on-surface-variant)">
@@ -96,7 +96,7 @@
 
           <!-- Preview -->
           <div class="avatar-preview">
-            <PlayerAvatar :player="formAsPlayer" :color="activeTeam?.color" size="lg" />
+            <PlayerAvatar :player="formAsPlayer" :shirt="activeTeam?.shirt" size="lg" />
             <span class="md-label-md" style="color:var(--md-on-surface-variant)">Voorbeeld</span>
           </div>
 

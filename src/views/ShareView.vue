@@ -27,9 +27,9 @@
           v-for="slot in filledSlots"
           :key="slot.id"
           class="share-token"
-          :style="{ left: slot.x+'%', top: displayY(slot.y)+'%', '--tc': lineup.color }"
+          :style="{ left: slot.x+'%', top: displayY(slot.y)+'%' }"
         >
-          <div class="st-avatar" :style="{ background: lineup.color }">{{ initials(slot.pid) }}</div>
+          <ShirtAvatar :shirt="lineup.shirt" :initials="initials(slot.pid)" :size="40" />
           <div class="st-name">{{ slot.pid }}</div>
         </div>
       </div>
@@ -53,6 +53,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 
 const route = useRoute()
 
@@ -66,6 +67,7 @@ const lineup = computed(() => {
       teamName: data.t,
       ageGroup: data.a,
       color:    data.c ?? '#1a6b3c',
+      shirt:    data.sh ?? { style: 'solid', primary: data.c ?? '#1a6b3c', secondary: '#ffffff' },
       flipped:  data.fl ?? true,
       slots:    data.s ?? [],
     }
@@ -137,13 +139,7 @@ function initials(name) {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 700;
-  font-size: 13px;
-  border: 2px solid rgba(255,255,255,.7);
+  overflow: hidden;
   box-shadow: 0 2px 6px rgba(0,0,0,.3);
 }
 .st-name {

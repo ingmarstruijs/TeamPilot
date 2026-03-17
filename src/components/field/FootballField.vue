@@ -58,7 +58,7 @@
         :player="slot.player"
         :x="slot.x"
         :y="slot.dy"
-        :team-color="teamColor"
+        :team-shirt="teamShirt"
         :is-dragging="draggingId === slot.slotId"
         @drag-start="onTokenDragStart($event, slot)"
         @touch-start="onTokenTouchStart($event, slot)"
@@ -84,7 +84,7 @@
     <div
       v-if="touchGhost"
       class="touch-ghost"
-      :style="{ left: touchGhost.x + 'px', top: touchGhost.y + 'px', background: teamColor }"
+      :style="{ left: touchGhost.x + 'px', top: touchGhost.y + 'px', background: teamShirt?.primary ?? '#1a6b3c' }"
     >
       {{ touchGhost.initials }}
     </div>
@@ -98,7 +98,7 @@ import PlayerToken from './PlayerToken.vue'
 const props = defineProps({
   slots:       { type: Array, required: true }, // [{ slotId, position, x, y, playerId? }]
   players:     { type: Object, required: true }, // id → player map
-  teamColor:   { type: String, default: '#1a6b3c' },
+  teamShirt:   { type: Object, default: () => ({ style: 'solid', primary: '#1a6b3c', secondary: '#ffffff' }) },
   exportId:    { type: String, default: 'field-export' },
   flipped:     { type: Boolean, default: false }, // true = GK at bottom (default view)
 })

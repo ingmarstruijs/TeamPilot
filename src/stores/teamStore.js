@@ -4,10 +4,26 @@ import { AGE_GROUPS } from '@/data/formations'
 
 const STORAGE_KEY = 'teampilot_v1'
 
+function defaultShirt(color = '#1a6b3c') {
+  return { style: 'solid', primary: color, secondary: '#ffffff' }
+}
+
+function migrateTeam(team) {
+  if (!team.shirt) {
+    team.shirt = defaultShirt(team.color ?? '#1a6b3c')
+  }
+  // Keep color in sync with shirt.primary for backward compat
+  team.color = team.shirt.primary
+  return team
+}
+
 function loadFromStorage() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
-    return raw ? JSON.parse(raw) : null
+    if (!raw) return null
+    const data = JSON.parse(raw)
+    if (data?.teams) data.teams = data.teams.map(migrateTeam)
+    return data
   } catch {
     return null
   }
@@ -21,6 +37,7 @@ function defaultState() {
         name: 'Mijn Team',
         ageGroup: 'JO11',
         color: '#1a6b3c',
+        shirt: defaultShirt('#1a6b3c'),
         players: [],
       },
     ],
@@ -75,6 +92,7 @@ export const useTeamStore = defineStore('team', () => {
       name,
       ageGroup,
       color,
+      shirt: defaultShirt(color),
       players: [],
     }
     teams.value.push(team)
@@ -83,7 +101,10 @@ export const useTeamStore = defineStore('team', () => {
 
   function updateTeam(id, patch) {
     const t = teams.value.find((t) => t.id === id)
-    if (t) Object.assign(t, patch)
+    if (!t) return
+    Object.assign(t, patch)
+    // Keep color in sync with shirt.primary
+    if (patch.shirt) t.color = t.shirt.primary
   }
 
   function setActiveTeam(id) {

@@ -67,19 +67,53 @@
           </select>
         </div>
         <div class="divider"></div>
+        <!-- Shirt style selector -->
+        <div class="settings-row settings-row--col">
+          <span class="md-body-md">Shirtkleur</span>
+          <div class="shirt-styles">
+            <button
+              v-for="s in SHIRT_STYLES"
+              :key="s.id"
+              class="shirt-style-btn"
+              :class="{ active: activeTeam?.shirt?.style === s.id }"
+              @click="updateShirt('style', s.id)"
+              :aria-label="s.label"
+            >
+              <ShirtAvatar :shirt="{ ...( activeTeam?.shirt ?? defaultShirtFallback), style: s.id }" :size="28" />
+              <span class="shirt-style-label">{{ s.label }}</span>
+            </button>
+          </div>
+        </div>
+        <div class="divider"></div>
         <div class="settings-row">
-          <span class="md-body-md">Teamkleur</span>
+          <span class="md-body-md">Primaire kleur</span>
           <div class="color-row">
             <button
               v-for="c in TEAM_COLORS"
               :key="c"
               class="color-swatch"
-              :style="{ background: c, outline: activeTeam?.color === c ? `3px solid ${c}` : 'none', outlineOffset: '2px' }"
-              @click="updateTeam('color', c)"
+              :style="{ background: c, outline: activeTeam?.shirt?.primary === c ? `3px solid ${c}` : 'none', outlineOffset: '2px' }"
+              @click="updateShirt('primary', c)"
               :aria-label="`Kleur ${c}`"
             ></button>
           </div>
         </div>
+        <template v-if="activeTeam?.shirt?.style !== 'solid'">
+          <div class="divider"></div>
+          <div class="settings-row">
+            <span class="md-body-md">Secundaire kleur</span>
+            <div class="color-row">
+              <button
+                v-for="c in TEAM_COLORS"
+                :key="c"
+                class="color-swatch"
+                :style="{ background: c, outline: activeTeam?.shirt?.secondary === c ? `3px solid ${c}` : 'none', outlineOffset: '2px' }"
+                @click="updateShirt('secondary', c)"
+                :aria-label="`Kleur ${c}`"
+              ></button>
+            </div>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -89,6 +123,7 @@
 import { computed } from 'vue'
 import { useTeamStore } from '@/stores/teamStore'
 import { AGE_GROUPS } from '@/data/formations'
+import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 
 const store = useTeamStore()
 const activeTeam     = computed(() => store.activeTeam)
@@ -110,9 +145,26 @@ function updateTeam(field, value) {
   store.updateTeam(store.activeTeamId, { [field]: value })
 }
 
+function updateShirt(key, value) {
+  const current = activeTeam.value?.shirt ?? defaultShirtFallback
+  store.updateTeam(store.activeTeamId, { shirt: { ...current, [key]: value } })
+}
+
+const defaultShirtFallback = { style: 'solid', primary: '#1a6b3c', secondary: '#ffffff' }
+
+const SHIRT_STYLES = [
+  { id: 'solid',    label: 'Effen'    },
+  { id: 'gradient', label: 'Verloop'  },
+  { id: 'halves-v', label: 'Links/Re' },
+  { id: 'halves-h', label: 'Boven/On' },
+  { id: 'stripes',  label: 'Strepen'  },
+  { id: 'sash',     label: 'Sjerp'    },
+]
+
 const TEAM_COLORS = [
   '#1a6b3c', '#0d47a1', '#b71c1c', '#e65100',
   '#4a148c', '#006064', '#1b5e20', '#212121',
+  '#ffffff', '#f5c518',
 ]
 </script>
 
@@ -238,6 +290,42 @@ const TEAM_COLORS = [
   border-color: var(--md-primary);
   background: color-mix(in srgb, var(--md-primary) 4%, transparent);
 }
+
+.settings-row--col {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+}
+
+.shirt-styles {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+.shirt-style-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: var(--md-surface-container);
+  border: 2px solid transparent;
+  border-radius: var(--md-shape-sm);
+  padding: var(--sp-1) var(--sp-2);
+  cursor: pointer;
+  transition: border-color var(--md-duration-short), background var(--md-duration-short);
+}
+.shirt-style-btn:hover { background: var(--md-surface-container-high); }
+.shirt-style-btn.active {
+  border-color: var(--md-primary);
+  background: color-mix(in srgb, var(--md-primary) 8%, transparent);
+}
+.shirt-style-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--md-on-surface-variant);
+  white-space: nowrap;
+}
+.shirt-style-btn.active .shirt-style-label { color: var(--md-primary); }
 
 .color-row { display: flex; gap: var(--sp-1); flex-wrap: wrap; }
 .color-swatch {
