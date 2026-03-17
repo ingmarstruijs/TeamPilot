@@ -35,7 +35,11 @@
       </div>
 
       <div class="share-cta">
-        <RouterLink to="/" class="btn btn-filled">
+        <button class="btn btn-filled" @click="loadInEditor" :disabled="!lineup">
+          <span class="material-symbols-rounded" style="font-size:18px">edit</span>
+          Bewerk in editor
+        </button>
+        <RouterLink to="/" class="btn btn-outlined">
           <span class="material-symbols-rounded" style="font-size:18px">sports_soccer</span>
           Open TeamPilot
         </RouterLink>
@@ -52,24 +56,44 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { useTeamStore } from '@/stores/teamStore'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 
 const route = useRoute()
+const router = useRouter()
+const store = useTeamStore()
 
 const lineup = computed(() => {
   try {
     const encoded = route.query.d
     if (!encoded) return null
     const data = JSON.parse(decodeURIComponent(atob(encoded)))
+    
+    // Decode compact array format
+    const shirt = data.sh ? {
+      style: data.sh[0],
+      primary: data.sh[1],
+      secondary: data.sh[2],
+    } : { style: 'solid', primary: data.c ?? '#1a6b3c', secondary: '#ffffff' }
+    
+    const slots = (data.s ?? []).map(s => ({
+      id: s[0],      // slotId
+      p: s[1],       // position
+      x: s[2],       // x
+      y: s[3],       // y
+      pid: s[4],     // playerName
+      num: s[5],     // playerNumber
+    }))
+    
     return {
       name:     data.n,
       teamName: data.t,
       ageGroup: data.a,
       color:    data.c ?? '#1a6b3c',
-      shirt:    data.sh ?? { style: 'solid', primary: data.c ?? '#1a6b3c', secondary: '#ffffff' },
+      shirt:    shirt,
       flipped:  data.fl ?? true,
-      slots:    data.s ?? [],
+      slots:    slots,
     }
   } catch {
     return null
@@ -89,6 +113,31 @@ function initials(name) {
   const parts = name.trim().split(/\s+/)
   if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase()
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+}
+
+function loadInEditor() {
+  if (!lineup.value) return
+  
+  // Try to find existing team by name
+  let team = store.teams.find(t => t.name === lineup.value.teamName)
+  let isNewTeam = false
+
+  // If not found, create a temporary team
+  if (!team) {
+    team = store.addTeam(lineup.value.teamName, lineup.value.ageGroup, lineup.value.shirt.primary)
+    team.isTemporary = true
+    team.shirt = lineup.value.shirt
+    isNewTeam = true
+    store.tempTeamId = team.id
+  }
+
+  // Always store the shared lineup data (for both new and existing teams)
+  // LineupBuilder will load it if available
+  localStorage.setItem(`shared-lineup-${team.id}`, JSON.stringify(lineup.value))
+  
+  // Activate this team and navigate to lineup editor
+  store.setActiveTeam(team.id)
+  router.push('/lineup/new')
 }
 </script>
 
@@ -154,7 +203,7 @@ function initials(name) {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.share-cta { display: flex; justify-content: center; }
+.share-cta { display: flex; gap: var(--sp-2); justify-content: center; flex-wrap: wrap; }
 
 .empty-state {
   display: flex;

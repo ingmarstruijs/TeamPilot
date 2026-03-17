@@ -54,6 +54,7 @@ export const useTeamStore = defineStore('team', () => {
   const activeTeamId = ref(saved.activeTeamId)
   const activeLineupId = ref(saved.activeLineupId ?? null)
   const lineups = ref(saved.lineups)
+  const tempTeamId = ref(null)  // Track temporary teams from shared links
 
   // ── Persist on every change ──────────────────────────────────────────────
   watch(
@@ -179,11 +180,40 @@ export const useTeamStore = defineStore('team', () => {
     return lineups.value.find((l) => l.id === id) ?? null
   }
 
+  function isTeamTemporary(teamId) {
+    const team = teams.value.find(t => t.id === teamId)
+    return team?.isTemporary ?? false
+  }
+
+  function clearTempTeam() {
+    if (tempTeamId.value) {
+      localStorage.removeItem(`temp-lineup-${tempTeamId.value}`)
+      localStorage.removeItem(`shared-lineup-${tempTeamId.value}`)
+      const idx = teams.value.findIndex(t => t.id === tempTeamId.value)
+      if (idx !== -1) teams.value.splice(idx, 1)
+      tempTeamId.value = null
+      if (teams.value.length > 0) activeTeamId.value = teams.value[0].id
+    }
+  }
+
+  function saveTempTeamPermanently(teamId) {
+    const team = teams.value.find(t => t.id === teamId)
+    if (team && team.isTemporary) {
+      delete team.isTemporary
+      localStorage.removeItem(`temp-lineup-${teamId}`)
+      localStorage.removeItem(`shared-lineup-${teamId}`)
+      tempTeamId.value = null
+      return true
+    }
+    return false
+  }
+
   return {
     teams,
     activeTeamId,
     activeLineupId,
     lineups,
+    tempTeamId,
     activeTeam,
     teamLineups,
     ageGroupConfig,
@@ -197,5 +227,8 @@ export const useTeamStore = defineStore('team', () => {
     saveLineup,
     deleteLineup,
     getLineup,
+    isTeamTemporary,
+    clearTempTeam,
+    saveTempTeamPermanently,
   }
 })

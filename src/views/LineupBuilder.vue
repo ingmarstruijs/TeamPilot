@@ -197,7 +197,23 @@
           </div>
           <div class="dialog-actions">
             <button class="btn btn-text" @click="showSave=false">Annuleren</button>
-            <button class="btn btn-filled" :disabled="!lineupName" @click="doSave">Opslaan</button>
+            <button class="btn btn-filled" :disabled="!lineupName" @click="confirmSave">Opslaan</button>
+          </div>
+        </div>
+      </div>
+    </Transition>
+
+    <!-- Save team dialog (for temporary teams from shared links) -->
+    <Transition name="fade">
+      <div v-if="showSaveTeam" class="dialog-backdrop" @click.self="showSaveTeam=false">
+        <div class="dialog">
+          <p class="dialog-title">Team opslaan?</p>
+          <p class="md-body-md" style="margin-bottom:var(--sp-4)">
+            Dit team werd geïmporteerd uit een gedeelde link. Wil je het permanent in je account opslaan?
+          </p>
+          <div class="dialog-actions">
+            <button class="btn btn-text" @click="doSaveWithoutTeam">Alleen opstelling</button>
+            <button class="btn btn-filled" @click="doSaveWithTeam">Team opslaan</button>
           </div>
         </div>
       </div>
@@ -313,6 +329,54 @@ const benchPlayers = computed(() => {
 
 // ── Init / load lineup ─────────────────────────────────────
 onMounted(() => {
+  // Priority 1: Check for shared lineup (from share link, for both new and existing teams)
+  const teamId = store.activeTeamId
+  const sharedLineupData = localStorage.getItem(`shared-lineup-${teamId}`)
+  if (sharedLineupData) {
+    try {
+      const data = JSON.parse(sharedLineupData)
+      lineupName.value = data.name || 'Geïmporteerde opstelling'
+      const slots = data.slots ?? []
+      if (slots.length > 0) {
+        fieldSlots.value = slots.map(s => ({
+          slotId:   s.id,
+          position: s.p,
+          x:        s.x,
+          y:        s.y,
+          playerId: null, // Players from shared link not available
+        }))
+        flipped.value = data.flipped ?? true
+      }
+      localStorage.removeItem(`shared-lineup-${teamId}`) // Clean up after loading
+      return
+    } catch (e) { console.error('Failed to load shared lineup:', e) }
+  }
+
+  // Priority 2: Check for temporary team from shared link (legacy)
+  const tempTeamId = store.tempTeamId
+  if (tempTeamId && store.activeTeamId === tempTeamId) {
+    const tempLineupData = localStorage.getItem(`temp-lineup-${tempTeamId}`)
+    if (tempLineupData) {
+      try {
+        const data = JSON.parse(tempLineupData)
+        lineupName.value = data.name || 'Geïmporteerde opstelling'
+        const slots = data.slots ?? []
+        if (slots.length > 0) {
+          fieldSlots.value = slots.map(s => ({
+            slotId:   s.id,
+            position: s.p,
+            x:        s.x,
+            y:        s.y,
+            playerId: null,
+          }))
+          flipped.value = data.flipped ?? true
+          return
+        }
+      } catch (e) { console.error('Failed to load temp lineup:', e) }
+    }
+  }
+
+  // Priority 3: Check URL for lineup ID
   const id = props.id ?? route.params.id
   if (id) {
     const existing = store.getLineup(id)
@@ -584,6 +648,7 @@ function autoAssign() {
 
 // ── Save ───────────────────────────────────────────────────
 const showSave = ref(false)
+const showSaveTeam = ref(false)
 
 function openSaveDialog() {
   if (!lineupName.value && activeTeam.value) {
@@ -592,7 +657,27 @@ function openSaveDialog() {
   showSave.value = true
 }
 
-function doSave() {
+function confirmSave() {
+  // Always show the save lineup dialog first
+  showSave.value = true
+}
+
+function doSaveWithTeam() {
+  store.saveTempTeamPermanently(store.activeTeamId)
+  doSave(true)
+  showSaveTeam.value = false
+}
+
+function doSaveWithoutTeam() {
+  // Just save the lineup, then remove the temp team
+  doSave(true)
+  setTimeout(() => {
+    store.clearTempTeam()
+  }, 100)
+  showSaveTeam.value = false
+}
+
+function doSave(skipTeamDialog = false) {
   const saved = store.saveLineup({
     id:          lineupId.value ?? undefined,
     name:        lineupName.value,
@@ -606,7 +691,13 @@ function doSave() {
     router.replace(`/lineup/${saved.id}`)
   }
   showSave.value = false
-  showSnackbar('Opstelling opgeslagen ✓')
+  
+  // If the team is temporary (from a shared link), offer to save it
+  if (!skipTeamDialog && store.isTeamTemporary(store.activeTeamId)) {
+    showSaveTeam.value = true
+  } else {
+    showSnackbar('Opstelling opgeslagen ✓')
+  }
 }
 
 // ── Share via image ────────────────────────────────────────
@@ -839,23 +930,27 @@ async function shareViaWhatsApp() {
 
 // ── Share via link ─────────────────────────────────────────
 function shareLink() {
-  // Encode the lineup as a compressed base64 URL parameter
+  // Encode compact data format for shorter URLs
   const data = {
     n: lineupName.value,
     t: activeTeam.value?.name,
     a: activeTeam.value?.ageGroup,
     c: activeTeam.value?.color,
-    sh: activeTeam.value?.shirt,
+    sh: activeTeam.value?.shirt ? [
+      activeTeam.value.shirt.style,
+      activeTeam.value.shirt.primary,
+      activeTeam.value.shirt.secondary,
+    ] : null,
     f: selectedFormationId.value,
     fl: flipped.value,
-    s: fieldSlots.value.map(s => ({
-      id: s.slotId,
-      p: s.position,
-      x: Math.round(s.x),
-      y: Math.round(s.y),
-      pid: s.playerId ? (playersMap.value[s.playerId]?.name ?? null) : null,
-      num: s.playerId ? (playersMap.value[s.playerId]?.number ?? null) : null,
-    })),
+    s: fieldSlots.value.map(s => [
+      s.slotId,
+      s.position,
+      Math.round(s.x),
+      Math.round(s.y),
+      s.playerId ? (playersMap.value[s.playerId]?.name ?? null) : null,
+      s.playerId ? (playersMap.value[s.playerId]?.number ?? null) : null,
+    ]),
   }
   const encoded = btoa(encodeURIComponent(JSON.stringify(data)))
   const url = `${window.location.origin}${window.location.pathname}#/share?d=${encoded}`
