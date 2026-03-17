@@ -123,6 +123,7 @@ function onTouchStart(event, player) {
   border-radius: var(--md-shape-full);
   padding: 4px 10px 4px 4px;
   cursor: grab;
+  touch-action: none;
   transition: box-shadow var(--md-duration-short), opacity var(--md-duration-short);
   user-select: none;
   -webkit-tap-highlight-color: transparent;

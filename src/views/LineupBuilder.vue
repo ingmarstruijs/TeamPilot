@@ -61,6 +61,24 @@
           <span class="material-symbols-rounded" style="font-size:18px">save</span>
           <span class="btn-lbl">Opslaan</span>
         </button>
+        <!-- Share submenu (mobile only — desktop has share panel in bench column) -->
+        <div class="more-menu" ref="moreRef">
+          <button class="btn btn-outlined" @click="showMore = !showMore" :class="{ active: showMore }" title="Delen">
+            <span class="material-symbols-rounded" style="font-size:18px">share</span>
+          </button>
+          <Transition name="fade">
+            <div v-if="showMore" class="more-dropdown">
+              <button class="more-item" @click="shareImage(); showMore=false" :disabled="sharing">
+                <span class="material-symbols-rounded">image</span>
+                {{ sharing ? 'Bezig…' : 'Afbeelding' }}
+              </button>
+              <button class="more-item" @click="shareLink(); showMore=false">
+                <span class="material-symbols-rounded">share</span>
+                Link
+              </button>
+            </div>
+          </Transition>
+        </div>
       </div>
     </div>
 
@@ -79,18 +97,23 @@
       </button>
       <button class="chip" @click="flipped = !flipped" :title="flipped ? 'Aanval omhoog' : 'Keeper omlaag'">
         <span class="material-symbols-rounded" style="font-size:14px">swap_vert</span>
-        Omdraaien
+        <span class="chip-label">Omdraaien</span>
+      </button>
+      <button v-if="!isDesktop" class="chip" :class="{ active: showBench }" @click="showBench = !showBench">
+        <span class="material-symbols-rounded" style="font-size:14px">group</span>
+        Bank
+        <span v-if="benchPlayers.length" class="chip-badge">{{ benchPlayers.length }}</span>
       </button>
     </div>
 
     <!-- Main layout: field + bench -->
     <div class="builder-layout">
-      <!-- Bench: first in DOM so it is above field on mobile -->
-      <div class="bench-col">
+      <!-- Bench column: desktop only -->
+      <div v-if="isDesktop" class="bench-col">
         <BenchPanel
           :bench-players="benchPlayers"
           :team-color="activeTeam?.color"
-          :horizontal="!isDesktop"
+          :horizontal="false"
           @bench-drag-start="onBenchDragStart"
           @bench-touch-start="onBenchTouchStart"
         />
@@ -125,19 +148,23 @@
       </div>
     </div>
 
-    <!-- Share buttons: mobile only, below the field -->
-    <div v-if="filledCount > 0 && !isDesktop" class="share-section share-mobile">
-      <div class="share-btns">
-        <button class="btn btn-tonal w-full" @click="shareImage" :disabled="sharing">
-          <span class="material-symbols-rounded" style="font-size:18px">image</span>
-          {{ sharing ? 'Bezig…' : 'Afbeelding' }}
-        </button>
-        <button class="btn btn-tonal w-full" @click="shareLink">
-          <span class="material-symbols-rounded" style="font-size:18px">share</span>
-          Link
-        </button>
+    <!-- Mobile bench bottom sheet -->
+    <Transition name="slide-bench">
+      <div v-if="showBench && !isDesktop" class="bench-sheet" @click.self="showBench = false">
+        <div class="bench-sheet-inner">
+          <div class="bench-sheet-handle" @click="showBench = false">
+            <div class="bench-handle-bar"></div>
+          </div>
+          <BenchPanel
+            :bench-players="benchPlayers"
+            :team-color="activeTeam?.color"
+            :horizontal="false"
+            @bench-drag-start="onBenchDragStart"
+            @bench-touch-start="onBenchTouchStart"
+          />
+        </div>
       </div>
-    </div>
+    </Transition>
 
     <!-- Bench-to-field touch drag ghost -->
     <div
@@ -207,10 +234,16 @@ const isDesktop = useMediaQuery('(min-width: 720px)')
 // ── Lineup switcher ────────────────────────────────────────
 const showSwitcher = ref(false)
 const switcherRef  = ref(null)
+const showMore     = ref(false)
+const moreRef      = ref(null)
+const showBench    = ref(false)
 
 function closeOnOutsideClick(e) {
   if (switcherRef.value && !switcherRef.value.contains(e.target)) {
     showSwitcher.value = false
+  }
+  if (moreRef.value && !moreRef.value.contains(e.target)) {
+    showMore.value = false
   }
 }
 onMounted(() => document.addEventListener('mousedown', closeOnOutsideClick))
@@ -349,6 +382,7 @@ function buildFreeSlots(count) {
 let pendingBenchPlayer = null
 
 function onBenchDragStart({ player }) {
+  showBench.value = false // backdrop would block the drop target otherwise
   pendingBenchPlayer = player
 }
 
@@ -364,6 +398,7 @@ function playerInitials(player) {
 }
 
 function onBenchTouchStart({ event, player }) {
+  showBench.value = false // reveal full field when drag starts
   pendingBenchPlayer = player
   const touch = event.touches[0]
   benchTouchGhost.value = {
@@ -644,19 +679,17 @@ function shareLink() {
   display: flex;
   flex-direction: column;
   height: calc(100dvh - var(--top-bar-height) - var(--nav-height));
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   padding: var(--sp-3) var(--sp-4) 0;
   box-sizing: border-box;
 }
 
 .builder-toolbar {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: var(--sp-3);
-  margin-bottom: var(--sp-3);
-  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-2);
   flex-shrink: 0;
 }
 
@@ -665,12 +698,6 @@ function shareLink() {
   position: relative;
   min-width: 0;
   flex: 1;
-  flex-basis: 100%;
-}
-@media (min-width: 720px) {
-  .lineup-switcher {
-    flex-basis: auto;
-  }
 }
 .switcher-btn {
   display: flex;
@@ -813,28 +840,35 @@ function shareLink() {
   .switcher-dropdown:not(.switcher-btn.open ~ .switcher-dropdown) { display: none; }
 }
 
-.toolbar-actions { display: flex; gap: var(--sp-2); flex-shrink: 0; }
+.toolbar-actions { display: flex; gap: var(--sp-2); flex-shrink: 0; align-items: center; }
 
 .formation-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
   gap: var(--sp-2);
   margin-bottom: var(--sp-2);
   flex-shrink: 0;
+  padding-bottom: 2px;
 }
+.formation-row::-webkit-scrollbar { display: none; }
+.formation-row > * { flex-shrink: 0; }
 
 /* Builder layout: column on mobile, row on desktop */
 .builder-layout {
+  flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
   gap: var(--sp-2);
 }
-/* Mobile: bench above, field has explicit height so pitch can derive from it */
+/* Mobile: bench above, field fills remaining space */
 .bench-col  { flex-shrink: 0; }
 .field-col  {
-  height: 50dvh;
-  flex-shrink: 0;
+  flex: 1;
+  min-height: 0;
   display: flex;
 }
 
@@ -878,7 +912,106 @@ function shareLink() {
   }
 }
 
-/* ── Shared section ──────────────────────────────────────── */
+/* ── Mobile bench bottom sheet ──────────────────────────── */
+.bench-sheet {
+  position: fixed;
+  inset: var(--top-bar-height) 0 var(--nav-height) 0;
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: rgba(0,0,0,.4);
+}
+.bench-sheet-inner {
+  background: var(--md-surface);
+  border-radius: 16px 16px 0 0;
+  max-height: 55dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--sp-4);
+}
+.bench-sheet-handle {
+  display: flex;
+  justify-content: center;
+  padding: var(--sp-2) 0 var(--sp-1);
+  cursor: pointer;
+}
+.bench-handle-bar {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--md-outline-variant);
+}
+
+/* Slide-up transition */
+.slide-bench-enter-active { transition: opacity .2s ease; }
+.slide-bench-leave-active  { transition: opacity .2s ease; }
+.slide-bench-enter-from, .slide-bench-leave-to { opacity: 0; }
+.slide-bench-enter-active .bench-sheet-inner,
+.slide-bench-leave-active .bench-sheet-inner  { transition: transform .25s cubic-bezier(.4,0,.2,1); }
+.slide-bench-enter-from .bench-sheet-inner,
+.slide-bench-leave-to .bench-sheet-inner      { transform: translateY(100%); }
+
+/* Badge on Bank chip */
+.chip-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: var(--md-shape-full);
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  margin-left: 2px;
+}
+.chip.active .chip-badge {
+  background: var(--md-on-primary-container);
+  color: var(--md-primary-container);
+}
+
+/* ── More submenu (mobile share) ────────────────────────── */
+.more-menu {
+  position: relative;
+  flex-shrink: 0;
+}
+.more-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: var(--md-surface);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--md-shape-md);
+  box-shadow: var(--md-elevation-3);
+  min-width: 160px;
+  z-index: 200;
+  overflow: hidden;
+}
+.more-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  padding: var(--sp-3) var(--sp-4);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--md-on-surface);
+  font-size: 14px;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+.more-item:hover, .more-item:active {
+  background: color-mix(in srgb, var(--md-on-surface) 8%, transparent);
+}
+.more-item:disabled { opacity: .4; pointer-events: none; }
+.more-item .material-symbols-rounded { font-size: 20px; color: var(--md-on-surface-variant); }
+@media (min-width: 720px) { .more-menu { display: none; } }
+
+
 .share-section { background: var(--md-surface-variant); border-radius: var(--md-shape-md); padding: var(--sp-3); }
 .share-btns    { display: flex; flex-direction: column; gap: var(--sp-2); }
 
@@ -945,8 +1078,10 @@ function shareLink() {
   .switcher-content { flex: none; overflow-y: visible; }
 }
 
-/* Hide button label on very small screens */
-@media (max-width: 380px) {
+/* Hide button labels on mobile for compact icon-only toolbar */
+@media (max-width: 719px) {
   .btn-lbl { display: none; }
+  .chip-label { display: none; }
+  .toolbar-actions .btn { padding: var(--sp-2); min-width: 36px; justify-content: center; }
 }
 </style>
