@@ -1,4 +1,4 @@
-# ⚽ TeamPilot
+# TeamPilot
 
 A modern, responsive web app for managing football teams, building lineups, and sharing formations. Built entirely with **AI-assisted development** (fully vibe coded).
 
@@ -166,5 +166,3 @@ Lineups are encoded as base64 URL parameters:
 This entire application was built with **AI-assisted development** using copilot. Every feature, from the responsive layout to the canvas-based image sharing, was co-developed with intelligent code generation. The result is clean, maintainable, and feature-rich – all without a single external image library dependency.
 
 ---
-
-**Made with ⚽ and AI** | v1.0.0
