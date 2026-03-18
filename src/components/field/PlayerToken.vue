@@ -30,7 +30,7 @@ const props = defineProps({
   isDragging:{ type: Boolean, default: false },
 })
 
-const emit = defineEmits(['drag-start', 'touch-start', 'touch-end', 'remove'])
+const emit = defineEmits(['drag-start', 'touch-start', 'remove'])
 
 const longPressTimer = ref(null)
 const touchStartX = ref(0)
@@ -68,7 +68,6 @@ function onTouchStart(e) {
   
   // Start long-press timer
   longPressTimer.value = setTimeout(() => {
-    emit('touch-end')  // Clear ghost before removing
     emit('remove')
   }, LONG_PRESS_DURATION)
   
@@ -94,7 +93,6 @@ function onTouchEnd() {
     clearTimeout(longPressTimer.value)
     longPressTimer.value = null
   }
-  emit('touch-end')
 }
 </script>
 

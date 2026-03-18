@@ -62,7 +62,6 @@
         :is-dragging="draggingId === slot.slotId"
         @drag-start="onTokenDragStart($event, slot)"
         @touch-start="onTokenTouchStart($event, slot)"
-        @touch-end="onTokenTouchEnd"
         @remove="removeFromSlot(slot.slotId)"
       />
 
@@ -203,11 +202,6 @@ function onTokenTouchStart(event, slot) {
     y: touch.clientY - 24,
     initials: playerInitials(slot.player),
   }
-}
-
-function onTokenTouchEnd() {
-  touchGhost.value = null
-  touchSlot.value = null
 }
 
 function onTouchMove(event) {
