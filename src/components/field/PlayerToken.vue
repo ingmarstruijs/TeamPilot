@@ -30,7 +30,7 @@ const props = defineProps({
   isDragging:{ type: Boolean, default: false },
 })
 
-const emit = defineEmits(['drag-start', 'touch-start', 'remove'])
+const emit = defineEmits(['drag-start', 'touch-start', 'touch-end', 'remove'])
 
 const longPressTimer = ref(null)
 const touchStartX = ref(0)
@@ -68,6 +68,7 @@ function onTouchStart(e) {
   
   // Start long-press timer
   longPressTimer.value = setTimeout(() => {
+    emit('touch-end')  // Clear ghost before removing
     emit('remove')
   }, LONG_PRESS_DURATION)
   
@@ -93,6 +94,7 @@ function onTouchEnd() {
     clearTimeout(longPressTimer.value)
     longPressTimer.value = null
   }
+  emit('touch-end')
 }
 </script>
 
@@ -161,11 +163,16 @@ function onTouchEnd() {
   padding: 0;
 }
 
-/* Show remove button on hover/touch */
+/* Show remove button on hover/touch (desktop only) */
 .player-token:hover .token-remove,
 .player-token:focus-within .token-remove {
   display: flex;
 }
-.token-avatar { position: relative; }
-.token-remove { position: absolute; top: -4px; right: -4px; }
+
+/* Hide remove button on mobile (use long-press instead) */
+@media (max-width: 720px) {
+  .token-remove {
+    display: none !important;
+  }
+}
 </style>

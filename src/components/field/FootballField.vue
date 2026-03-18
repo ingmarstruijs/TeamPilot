@@ -62,6 +62,7 @@
         :is-dragging="draggingId === slot.slotId"
         @drag-start="onTokenDragStart($event, slot)"
         @touch-start="onTokenTouchStart($event, slot)"
+        @touch-end="onTokenTouchEnd"
         @remove="removeFromSlot(slot.slotId)"
       />
 
@@ -74,7 +75,6 @@
         :class="{ 'drop-target': dragOverSlot === slot.slotId }"
         @dragover.prevent="dragOverSlot = slot.slotId"
         @dragleave="dragOverSlot = null"
-        @drop.stop="onSlotDrop(slot)"
       >
         <span class="empty-slot-label">{{ shortPosition(slot.position) }}</span>
       </div>
@@ -160,17 +160,23 @@ function onFieldDrop(event) {
   const rect = fieldRef.value.getBoundingClientRect()
   const x    = ((event.clientX - rect.left) / rect.width)  * 100
   const rawY = ((event.clientY - rect.top)  / rect.height) * 100
-  const y    = toStorageY(rawY)
-  emit('slot-drop', { ...data, targetX: x, targetY: y, targetSlotId: null })
-}
-
-function onSlotDrop(targetSlot) {
-  dragOverSlot.value = null
-  draggingId.value   = null
-  const raw = draggingData.value
-  if (!raw) return
-  emit('slot-drop', { ...raw, targetSlotId: targetSlot.slotId, targetX: targetSlot.x, targetY: targetSlot.y })
-  draggingData.value = null
+  
+  // Snap search: check if drop is near any empty slot (within 8% tolerance)
+  const targetSlot = props.slots.find(s => {
+    if (s.playerId) return false
+    const dx = Math.abs(s.x - x)
+    const dy = Math.abs(toDisplayY(s.y) - rawY)
+    return dx < 8 && dy < 8
+  })
+  
+  const y = toStorageY(rawY)
+  if (targetSlot) {
+    // Snap to the nearby slot
+    emit('slot-drop', { ...data, targetSlotId: targetSlot.slotId, targetX: targetSlot.x, targetY: targetSlot.y })
+  } else {
+    // Drop at free position
+    emit('slot-drop', { ...data, targetX: x, targetY: y, targetSlotId: null })
+  }
 }
 
 function removeFromSlot(slotId) {
@@ -197,6 +203,11 @@ function onTokenTouchStart(event, slot) {
     y: touch.clientY - 24,
     initials: playerInitials(slot.player),
   }
+}
+
+function onTokenTouchEnd() {
+  touchGhost.value = null
+  touchSlot.value = null
 }
 
 function onTouchMove(event) {
