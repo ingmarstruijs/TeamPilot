@@ -5,7 +5,7 @@ import { createTestingPinia } from '@pinia/testing'
 // vi.mock calls are hoisted by Vitest — they apply before any imports below
 vi.mock('vue-router', () => ({
   useRoute: vi.fn(() => ({ query: {} })),
-  useRouter: vi.fn(() => ({ replace: vi.fn() })),
+  useRouter: vi.fn(() => ({ replace: vi.fn(), isReady: vi.fn(() => Promise.resolve()) })),
 }))
 vi.mock('@/composables/useSnackbar', () => ({ showSnackbar: vi.fn() }))
 vi.mock('@/composables/useMediaQuery', () => ({ useMediaQuery: vi.fn(() => false) }))
@@ -37,7 +37,7 @@ const DEFAULT_TEAM = {
 function mountApp(routeQuery = {}, teams = null) {
   const mockReplace = vi.fn()
   useRoute.mockReturnValue({ query: routeQuery })
-  useRouter.mockReturnValue({ replace: mockReplace })
+  useRouter.mockReturnValue({ replace: mockReplace, isReady: vi.fn(() => Promise.resolve()) })
 
   const wrapper = shallowMount(App, {
     global: {

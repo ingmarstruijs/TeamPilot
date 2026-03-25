@@ -90,7 +90,8 @@ function decodeImport(encoded) {
   } catch { return null }
 }
 
-onMounted(() => {
+onMounted(async () => {
+  await router.isReady()
   const encoded = route.query.import
   if (encoded) {
     const data = decodeImport(String(encoded))
