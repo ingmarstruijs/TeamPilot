@@ -63,6 +63,20 @@
       </div>
     </div>
 
+    <!-- Share team -->
+    <div class="card team-settings" style="margin-bottom:var(--sp-5)">
+      <div class="settings-row">
+        <div>
+          <p class="md-body-md">Team delen</p>
+          <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Stuur een link met jouw team en spelers</p>
+        </div>
+        <button class="btn btn-tonal" @click="shareTeam">
+          <span class="material-symbols-rounded" style="font-size:18px">share</span>
+          Deel link
+        </button>
+      </div>
+    </div>
+
     <!-- Recent lineups -->
     <div v-if="recentLineups.length" class="recent-section">
       <div class="section-row">
@@ -94,6 +108,7 @@ import { computed } from 'vue'
 import { useTeamStore } from '@/stores/teamStore'
 import { AGE_GROUPS } from '@/data/formations'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
+import { showSnackbar } from '@/composables/useSnackbar'
 
 const store = useTeamStore()
 const activeTeam     = computed(() => store.activeTeam)
@@ -129,6 +144,26 @@ const SHIRT_STYLES = [
   { id: 'stripes',  label: 'Strepen'  },
   { id: 'sash',     label: 'Sjerp'    },
 ]
+
+function shareTeam() {
+  const team = activeTeam.value
+  if (!team) return
+  const data = {
+    n: team.name,
+    a: team.ageGroup,
+    sh: team.shirt ? [team.shirt.style, team.shirt.primary, team.shirt.secondary] : null,
+    p: (team.players ?? []).map(p => [p.name, p.number ?? null, p.position]),
+  }
+  const encoded = btoa(encodeURIComponent(JSON.stringify(data)))
+  const url = `${window.location.origin}${window.location.pathname}#/?import=${encoded}`
+  if (navigator.share) {
+    navigator.share({ title: team.name, text: `Bekijk mijn team ${team.name} in TeamPilot`, url }).catch(() => {})
+  } else {
+    navigator.clipboard.writeText(url)
+      .then(() => showSnackbar('Team-link gekopieerd!'))
+      .catch(() => showSnackbar('Kopiëren mislukt'))
+  }
+}
 </script>
 
 <style scoped>

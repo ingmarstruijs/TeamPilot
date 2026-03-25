@@ -13,6 +13,15 @@
       </div>
       <div class="header-btns">
         <button
+          class="btn btn-outlined"
+          @click="copyRoster"
+          :disabled="!players.length"
+          title="Kopieer spelerslijst als tekst"
+        >
+          <span class="material-symbols-rounded" style="font-size:18px">content_copy</span>
+          Kopieer selectie
+        </button>
+        <button
           v-if="missingCount > 0"
           class="btn btn-tonal"
           @click="openQuickFill"
@@ -274,6 +283,22 @@ function doDelete() {
   store.removePlayer(deleteTarget.value.id)
   showSnackbar(`${deleteTarget.value.name} verwijderd`)
   deleteTarget.value = null
+}
+
+// ── Copy roster ──────────────────────────────────────────
+function copyRoster() {
+  if (!players.value.length) return
+  const posOrder = ['GK', 'DEF', 'WB', 'MID', 'ATT']
+  const header = `⚽ ${activeTeam.value?.name} – ${ageGroupConfig.value?.label ?? activeTeam.value?.ageGroup}`
+  const lines = [...players.value]
+    .sort((a, b) => posOrder.indexOf(a.position) - posOrder.indexOf(b.position))
+    .map(p => {
+      const num = p.number != null ? `#${p.number}` : ''
+      return `${p.position.padEnd(3)}  ${num.padEnd(4)}  ${p.name}`
+    })
+  navigator.clipboard.writeText(header + '\n\n' + lines.join('\n'))
+    .then(() => showSnackbar('Spelerslijst gekopieerd!'))
+    .catch(() => showSnackbar('Kopiëren mislukt'))
 }
 
 // ── Quick fill ────────────────────────────────────────────

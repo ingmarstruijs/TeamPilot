@@ -196,6 +196,29 @@ export const useTeamStore = defineStore('team', () => {
     if (idx !== -1) teams.value.splice(idx, 1)
   }
 
+  function importTeam(data) {
+    const newTeam = addTeam(data.name, data.ageGroup, data.shirt?.primary ?? '#1a6b3c')
+    if (data.shirt) updateTeam(newTeam.id, { shirt: data.shirt })
+    for (const p of (data.players ?? [])) {
+      addPlayer({ name: p.name, number: p.number ?? null, position: p.position, teamId: newTeam.id })
+    }
+    return newTeam
+  }
+
+  function mergeTeam(targetTeamId, data) {
+    const team = teams.value.find(t => t.id === targetTeamId)
+    if (!team) return 0
+    const existingNames = new Set(team.players.map(p => p.name.trim().toLowerCase()))
+    let added = 0
+    for (const p of (data.players ?? [])) {
+      if (!existingNames.has(p.name.trim().toLowerCase())) {
+        addPlayer({ name: p.name, number: p.number ?? null, position: p.position, teamId: targetTeamId })
+        added++
+      }
+    }
+    return added
+  }
+
   return {
     teams,
     activeTeamId,
@@ -215,5 +238,7 @@ export const useTeamStore = defineStore('team', () => {
     deleteLineup,
     getLineup,
     deleteTeam,
+    importTeam,
+    mergeTeam,
   }
 })
