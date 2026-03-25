@@ -104,13 +104,41 @@
             <!-- Primary color -->
             <div class="cf-field cf-field--row">
               <label class="cf-label">Primaire kleur</label>
-              <input type="color" class="color-picker" v-model="newTeam.primary" />
+              <div class="color-picker-group">
+                <input type="color" class="color-picker" v-model="newTeam.primary" />
+                <div v-if="store.recentColors.length" class="color-swatches">
+                  <button
+                    v-for="color in store.recentColors.slice(0, 3)"
+                    :key="color"
+                    type="button"
+                    class="color-swatch"
+                    :class="{ active: newTeam.primary === color }"
+                    :style="{ background: color }"
+                    @click="newTeam.primary = color"
+                    :title="color"
+                  />
+                </div>
+              </div>
             </div>
 
             <!-- Secondary color (hidden for solid) -->
             <div v-if="newTeam.shirtStyle !== 'solid'" class="cf-field cf-field--row">
               <label class="cf-label">Secundaire kleur</label>
-              <input type="color" class="color-picker" v-model="newTeam.secondary" />
+              <div class="color-picker-group">
+                <input type="color" class="color-picker" v-model="newTeam.secondary" />
+                <div v-if="store.recentColors.length" class="color-swatches">
+                  <button
+                    v-for="color in store.recentColors.slice(0, 3)"
+                    :key="color"
+                    type="button"
+                    class="color-swatch"
+                    :class="{ active: newTeam.secondary === color }"
+                    :style="{ background: color }"
+                    @click="newTeam.secondary = color"
+                    :title="color"
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -201,6 +229,7 @@ function closeCreate() {
 
 function confirmCreate() {
   if (!newTeam.name.trim()) return
+  store.addRecentColors(newTeam.primary, newTeam.secondary)
   const team = store.addTeam(newTeam.name.trim(), newTeam.ageGroup, newTeam.primary)
   store.updateTeam(team.id, {
     shirt: { style: newTeam.shirtStyle, primary: newTeam.primary, secondary: newTeam.secondary },
@@ -499,4 +528,38 @@ function confirmDelete() {
   transition: border-color var(--md-duration-short);
 }
 .color-picker:hover { border-color: var(--md-outline); }
+
+.color-picker-group {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-direction: row-reverse;
+}
+
+.color-swatches {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 160px;
+}
+
+.color-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.15);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: transform 100ms ease, border-color 100ms ease;
+}
+.color-swatch:hover {
+  transform: scale(1.2);
+  border-color: rgba(255,255,255,.5);
+}
+.color-swatch.active {
+  border-color: var(--md-primary);
+  box-shadow: 0 0 0 2px var(--md-primary);
+}
 </style>

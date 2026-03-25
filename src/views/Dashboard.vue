@@ -41,23 +41,55 @@
         <div class="divider"></div>
         <div class="settings-row">
           <span class="md-body-md">Primaire kleur</span>
-          <input
-            type="color"
-            :value="activeTeam?.shirt?.primary ?? defaultShirtFallback.primary"
-            @input="e => updateShirt('primary', e.target.value)"
-            class="color-picker"
-          />
+          <div class="color-picker-group">
+            <div v-if="recentColors.length" class="color-swatches-group">
+              <span class="color-swatches-label">Recent</span>
+              <div class="color-swatches">
+                <button
+                  v-for="color in recentColors"
+                  :key="color"
+                  type="button"
+                  class="color-swatch"
+                  :style="{ background: color }"
+                  @click="updateShirt('primary', color)"
+                  :title="color"
+                />
+              </div>
+            </div>
+            <input
+              type="color"
+              :value="activeTeam?.shirt?.primary ?? defaultShirtFallback.primary"
+              @input="e => updateShirt('primary', e.target.value)"
+              class="color-picker"
+            />
+          </div>
         </div>
         <template v-if="activeTeam?.shirt?.style !== 'solid'">
           <div class="divider"></div>
           <div class="settings-row">
             <span class="md-body-md">Secundaire kleur</span>
-            <input
-              type="color"
-              :value="activeTeam?.shirt?.secondary ?? defaultShirtFallback.secondary"
-              @input="e => updateShirt('secondary', e.target.value)"
-              class="color-picker"
-            />
+            <div class="color-picker-group">
+              <div v-if="recentColors.length" class="color-swatches-group">
+                <span class="color-swatches-label">Recent</span>
+                <div class="color-swatches">
+                  <button
+                    v-for="color in recentColors"
+                    :key="color"
+                    type="button"
+                    class="color-swatch"
+                    :style="{ background: color }"
+                    @click="updateShirt('secondary', color)"
+                    :title="color"
+                  />
+                </div>
+              </div>
+              <input
+                type="color"
+                :value="activeTeam?.shirt?.secondary ?? defaultShirtFallback.secondary"
+                @input="e => updateShirt('secondary', e.target.value)"
+                class="color-picker"
+              />
+            </div>
           </div>
         </template>
       </div>
@@ -113,6 +145,7 @@ import { showSnackbar } from '@/composables/useSnackbar'
 const store = useTeamStore()
 const activeTeam     = computed(() => store.activeTeam)
 const ageGroupConfig = computed(() => store.ageGroupConfig)
+const recentColors   = computed(() => store.recentColors.slice(0, 3))
 
 const recentLineups = computed(() =>
   [...store.teamLineups]
@@ -132,6 +165,7 @@ function updateTeam(field, value) {
 function updateShirt(key, value) {
   const current = activeTeam.value?.shirt ?? defaultShirtFallback
   store.updateTeam(store.activeTeamId, { shirt: { ...current, [key]: value } })
+  if (key === 'primary' || key === 'secondary') store.addRecentColors(value)
 }
 
 const defaultShirtFallback = { style: 'solid', primary: '#1a6b3c', secondary: '#ffffff' }
@@ -275,6 +309,48 @@ function shareTeam() {
 }
 .color-picker:active {
   border-color: var(--md-primary);
+}
+
+.color-picker-group {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.color-swatches-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.color-swatches-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--md-on-surface-variant);
+  opacity: .6;
+}
+
+.color-swatches {
+  display: flex;
+  gap: 5px;
+}
+
+.color-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,.12);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: transform 100ms ease, border-color 100ms ease;
+}
+.color-swatch:hover {
+  transform: scale(1.2);
+  border-color: var(--md-outline);
 }
 
 /* Recent lineups */

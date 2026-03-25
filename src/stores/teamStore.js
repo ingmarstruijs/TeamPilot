@@ -54,9 +54,10 @@ export const useTeamStore = defineStore('team', () => {
   const activeTeamId = ref(saved.activeTeamId)
   const activeLineupId = ref(saved.activeLineupId ?? null)
   const lineups = ref(saved.lineups)
+  const recentColors = ref(saved.recentColors ?? [])
   // ── Persist on every change ──────────────────────────────────────────────
   watch(
-    [teams, activeTeamId, activeLineupId, lineups],
+    [teams, activeTeamId, activeLineupId, lineups, recentColors],
     () => {
       localStorage.setItem(
         STORAGE_KEY,
@@ -65,6 +66,7 @@ export const useTeamStore = defineStore('team', () => {
           activeTeamId: activeTeamId.value,
           activeLineupId: activeLineupId.value,
           lineups: lineups.value,
+          recentColors: recentColors.value,
         })
       )
     },
@@ -219,11 +221,23 @@ export const useTeamStore = defineStore('team', () => {
     return added
   }
 
+  function addRecentColors(...colors) {
+    for (const color of colors) {
+      if (!color) continue
+      const normalized = color.toLowerCase()
+      const idx = recentColors.value.findIndex(c => c.toLowerCase() === normalized)
+      if (idx !== -1) recentColors.value.splice(idx, 1)
+      recentColors.value.unshift(color)
+    }
+    if (recentColors.value.length > 10) recentColors.value.splice(10)
+  }
+
   return {
     teams,
     activeTeamId,
     activeLineupId,
     lineups,
+    recentColors,
     activeTeam,
     teamLineups,
     ageGroupConfig,
@@ -240,5 +254,6 @@ export const useTeamStore = defineStore('team', () => {
     deleteTeam,
     importTeam,
     mergeTeam,
+    addRecentColors,
   }
 })
