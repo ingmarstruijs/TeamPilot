@@ -325,6 +325,11 @@ function loadLineupById(existing) {
 }
 
 onMounted(() => {
+  // If explicitly navigated to /lineup/new, always start a fresh lineup
+  if (route.name === 'lineup-new') {
+    loadFreshFormation()
+    return
+  }
   // Priority 1: Check URL for lineup ID
   const id = props.id ?? route.params.id
   if (id) {
