@@ -334,14 +334,20 @@ onMounted(() => {
       return
     }
   }
-  // No id in URL: redirect to last active lineup if one still exists
+  // No id in URL: find the best lineup for the active team
   const lastId = store.activeLineupId
   if (lastId) {
     const last = store.getLineup(lastId)
-    if (last) {
+    if (last && last.teamId === store.activeTeamId) {
       router.replace(`/lineup/${lastId}`)
       return
     }
+  }
+  // activeLineupId belongs to a different team — find most recent for current team
+  const teamLineupsSorted = [...store.teamLineups].sort((a, b) => b.updatedAt - a.updatedAt)
+  if (teamLineupsSorted.length) {
+    router.replace(`/lineup/${teamLineupsSorted[0].id}`)
+    return
   }
   // Fresh lineup
   loadFreshFormation()

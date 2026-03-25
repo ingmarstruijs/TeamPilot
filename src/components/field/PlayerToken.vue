@@ -12,6 +12,7 @@
     <div class="token-avatar">
       <ShirtAvatar :shirt="teamShirt" :initials="initials" :size="42" />
     </div>
+    <span v-if="player.number != null" class="token-number">{{ player.number }}</span>
     <div class="token-name">{{ shortName }}</div>
     <button class="token-remove" @click.stop="$emit('remove')" @touchend.stop="$emit('remove')"
       aria-label="Verwijder van veld">×</button>
@@ -125,6 +126,22 @@ function onTouchEnd() {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.token-number {
+  position: absolute;
+  top: 28px;
+  right: -1px;
+  background: rgba(0,0,0,.75);
+  color: #fff;
+  font-size: 8px;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 0 3px;
+  line-height: 14px;
+  min-width: 14px;
+  text-align: center;
+  pointer-events: none;
+  z-index: 20;
 }
 
 .token-name {

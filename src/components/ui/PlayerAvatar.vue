@@ -32,7 +32,6 @@ const initials = computed(() => {
 <style scoped>
 .player-avatar {
   border-radius: 50%;
-  overflow: hidden;
   position: relative;
   flex-shrink: 0;
   transition: transform var(--md-duration-short), box-shadow var(--md-duration-short);
