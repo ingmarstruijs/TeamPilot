@@ -43,7 +43,8 @@ function mountDashboard(teamOverride = {}) {
 }
 
 function decodeShareUrl(url) {
-  const encoded = url.split('#/?import=')[1]
+  const raw = url.split('#/?import=')[1]
+  const encoded = decodeURIComponent(raw)   // undo the encodeURIComponent wrapper
   return JSON.parse(decodeURIComponent(atob(encoded)))
 }
 
