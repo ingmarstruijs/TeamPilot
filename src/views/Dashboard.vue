@@ -154,8 +154,10 @@ function shareTeam() {
     sh: team.shirt ? [team.shirt.style, team.shirt.primary, team.shirt.secondary] : null,
     p: (team.players ?? []).map(p => [p.name, p.number ?? null, p.position]),
   }
-  const encoded = btoa(encodeURIComponent(JSON.stringify(data)))
-  const url = `${window.location.origin}${window.location.pathname}#/?import=${encodeURIComponent(encoded)}`
+  const bytes = new TextEncoder().encode(JSON.stringify(data))
+  const b64url = btoa(String.fromCharCode(...bytes))
+    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '')
+  const url = `${window.location.origin}${window.location.pathname}#/?import=${b64url}`
   if (navigator.share) {
     navigator.share({ title: team.name, text: `Bekijk mijn team ${team.name} in TeamPilot`, url }).catch(() => {})
   } else {

@@ -23,7 +23,9 @@ function encodeTeam(data) {
     sh: data.shirt ? [data.shirt.style, data.shirt.primary, data.shirt.secondary] : null,
     p: (data.players ?? []).map(p => [p.name, p.number ?? null, p.position]),
   }
-  return btoa(encodeURIComponent(JSON.stringify(compact)))
+  const bytes = new TextEncoder().encode(JSON.stringify(compact))
+  return btoa(String.fromCharCode(...bytes))
+    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '')
 }
 
 const DEFAULT_TEAM = {

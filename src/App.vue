@@ -80,7 +80,10 @@ const conflictTeam = computed(() =>
 
 function decodeImport(encoded) {
   try {
-    const d = JSON.parse(decodeURIComponent(atob(encoded)))
+    // Support both base64url (new) and legacy encodeURIComponent+btoa (old links)
+    const b64 = encoded.replace(/-/g, '+').replace(/_/g, '/')
+    const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0))
+    const d = JSON.parse(new TextDecoder().decode(bytes))
     return {
       name: d.n,
       ageGroup: d.a,

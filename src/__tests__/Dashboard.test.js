@@ -43,9 +43,10 @@ function mountDashboard(teamOverride = {}) {
 }
 
 function decodeShareUrl(url) {
-  const raw = url.split('#/?import=')[1]
-  const encoded = decodeURIComponent(raw)   // undo the encodeURIComponent wrapper
-  return JSON.parse(decodeURIComponent(atob(encoded)))
+  const b64url = url.split('#/?import=')[1]
+  const b64 = b64url.replace(/-/g, '+').replace(/_/g, '/')
+  const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0))
+  return JSON.parse(new TextDecoder().decode(bytes))
 }
 
 describe('Dashboard – shareTeam', () => {
