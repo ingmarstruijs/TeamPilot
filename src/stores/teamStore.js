@@ -23,6 +23,13 @@ function loadFromStorage() {
     if (!raw) return null
     const data = JSON.parse(raw)
     if (data?.teams) data.teams = data.teams.map(migrateTeam)
+    // Migrate lineups that were saved before multi-team support
+    if (data?.lineups) {
+      const fallbackTeamId = data?.teams?.[0]?.id ?? 'team-1'
+      data.lineups = data.lineups.map(l =>
+        l.teamId ? l : { ...l, teamId: fallbackTeamId }
+      )
+    }
     return data
   } catch {
     return null
@@ -110,6 +117,11 @@ export const useTeamStore = defineStore('team', () => {
 
   function setActiveTeam(id) {
     activeTeamId.value = id
+    // Sync activeLineupId to the most recently used lineup for the new team
+    const teamLus = lineups.value
+      .filter(l => l.teamId === id)
+      .sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0))
+    activeLineupId.value = teamLus.length ? teamLus[0].id : null
   }
 
   function setActiveLineup(id) {

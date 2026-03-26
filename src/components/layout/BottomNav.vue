@@ -17,19 +17,37 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { useTeamStore } from '@/stores/teamStore'
 
 const route = useRoute()
+const store = useTeamStore()
 
-const navItems = [
+const lineupTo = computed(() => {
+  // Prefer the stored active lineup if it still exists
+  const id = store.activeLineupId
+  if (id && store.lineups.find(l => l.id === id)) {
+    return `/lineup/${id}`
+  }
+  // Fall back to most recently updated lineup for the current team
+  const teamLus = store.teamLineups
+  if (teamLus.length) {
+    const newest = [...teamLus].sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0))[0]
+    return `/lineup/${newest.id}`
+  }
+  return '/lineup/new'
+})
+
+const navItems = computed(() => [
   { to: '/',           icon: 'home',          label: 'Home'       },
   { to: '/players',    icon: 'group',         label: 'Spelers'    },
-  { to: '/lineup/new', icon: 'sports_soccer', label: 'Opstelling' },
+  { to: lineupTo.value, icon: 'sports_soccer', label: 'Opstelling' },
   { to: '/lineups',    icon: 'folder_open',   label: 'Opgeslagen' },
-]
+])
 
 function isActive(item) {
-  if (item.to === '/lineup/new') {
+  if (item.to.startsWith('/lineup')) {
     return route.path.startsWith('/lineup')
   }
   return route.path === item.to

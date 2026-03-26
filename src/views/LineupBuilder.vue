@@ -270,7 +270,7 @@ function startNew() {
   } else {
     buildFreeSlots(ageGroupConfig.value?.players ?? 11)
   }
-  router.replace('/lineup/new')
+  router.replace({ name: 'lineup-new', query: { new: '1' } })
 }
 
 // ── Team state ─────────────────────────────────────────────
@@ -325,8 +325,25 @@ function loadLineupById(existing) {
 }
 
 onMounted(() => {
-  // If explicitly navigated to /lineup/new, always start a fresh lineup
   if (route.name === 'lineup-new') {
+    // When explicitly creating a new lineup (from the dropdown), skip redirect
+    if (route.query.new === '1') {
+      loadFreshFormation()
+      return
+    }
+    // Redirect to the active lineup if one exists (e.g. arrived here via bottom nav)
+    const activeId = store.activeLineupId
+    if (activeId && store.getLineup(activeId)) {
+      router.replace(`/lineup/${activeId}`)
+      return
+    }
+    // Fallback: most recently updated lineup for the active team
+    const sorted = [...store.teamLineups].sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0))
+    if (sorted.length) {
+      router.replace(`/lineup/${sorted[0].id}`)
+      return
+    }
+    // Truly no saved lineups → start fresh
     loadFreshFormation()
     return
   }
