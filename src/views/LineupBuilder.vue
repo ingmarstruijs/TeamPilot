@@ -139,13 +139,14 @@
           export-id="field-export-area"
           @slot-drop="handleSlotDrop"
           @remove-from-slot="removeFromSlot"
+          @drag-active="isFieldDragging = $event"
         />
       </div>
     </div>
 
     <!-- Mobile bench bottom sheet -->
     <Transition name="slide-bench">
-      <div v-if="showBench && !isDesktop" class="bench-sheet" @click.self="showBench = false">
+      <div v-if="showBench && !isDesktop" class="bench-sheet" :class="{ 'bench-dragging': isBenchDragging }" @click.self="showBench = false">
         <div class="bench-sheet-inner">
           <div class="bench-sheet-handle" @click="showBench = false">
             <div class="bench-handle-bar"></div>
@@ -168,6 +169,18 @@
       class="bench-touch-ghost"
       :style="{ left: benchTouchGhost.x + 'px', top: benchTouchGhost.y + 'px', background: benchTouchGhost.color }"
     >{{ benchTouchGhost.initials }}</div>
+
+    <!-- Mobile: visible drop zone to send a field player back to the bench -->
+    <Transition name="fade">
+      <div
+        v-if="isFieldDragging && !isDesktop"
+        class="field-drag-bench-zone"
+        data-bench-drop-zone
+      >
+        <span class="material-symbols-rounded" style="font-size:18px">weekend</span>
+        Naar bank
+      </div>
+    </Transition>
 
     <!-- Save Dialog -->
     <Transition name="fade">
@@ -468,6 +481,8 @@ function onBenchDragStart({ player }) {
 // Touch events are locked to the element where the finger first landed,
 // so we use document-level listeners so the drag works across components.
 const benchTouchGhost = ref(null)
+const isBenchDragging = ref(false)  // true while a bench player is being touch-dragged
+const isFieldDragging = ref(false)  // true while a field player is being touch-dragged
 
 function playerInitials(player) {
   const parts = player.name.trim().split(/\s+/)
@@ -476,14 +491,18 @@ function playerInitials(player) {
 }
 
 function onBenchTouchStart({ event, player }) {
-  showBench.value = false // reveal full field when drag starts
+  // Do NOT set showBench=false here. Removing the bench sheet from the DOM while a touch
+  // sequence is active causes iOS to silently drop all subsequent touchmove/touchend events,
+  // freezing the ghost. Instead, keep the element in the DOM and hide it visually via
+  // isBenchDragging; close it for real only after the gesture completes.
+  isBenchDragging.value = true
   pendingBenchPlayer = player
   const touch = event.touches[0]
   benchTouchGhost.value = {
     x:       touch.clientX - 24,
     y:       touch.clientY - 24,
     initials: playerInitials(player),
-    color:   activeTeam.value?.color ?? '#059669',
+    color:   activeTeam.value?.shirt?.primary ?? '#059669',
   }
 
   function onMove(e) {
@@ -495,6 +514,8 @@ function onBenchTouchStart({ event, player }) {
   function onEnd(e) {
     document.removeEventListener('touchmove', onMove)
     document.removeEventListener('touchend', onEnd)
+    isBenchDragging.value = false
+    showBench.value = false  // close bench after gesture completes
     benchTouchGhost.value = null
 
     if (!pendingBenchPlayer) return
@@ -1231,6 +1252,33 @@ async function shareViaWhatsApp() {
 .slide-bench-leave-active .bench-sheet-inner  { transition: transform .25s cubic-bezier(.4,0,.2,1); }
 .slide-bench-enter-from .bench-sheet-inner,
 .slide-bench-leave-to .bench-sheet-inner      { transform: translateY(100%); }
+
+/* Bench sheet during bench→field drag: keep in DOM for iOS touch routing, hide visually */
+.bench-sheet.bench-dragging {
+  pointer-events: none;
+  background: transparent;
+}
+
+/* Drop zone shown while dragging a field player on mobile */
+.field-drag-bench-zone {
+  position: fixed;
+  bottom: calc(var(--nav-height) + var(--sp-3));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  background: var(--md-error-container, #fce8e6);
+  color: var(--md-on-error-container, #410e0b);
+  border-radius: var(--md-shape-full);
+  padding: var(--sp-2) var(--sp-5);
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--md-elevation-3);
+  white-space: nowrap;
+  pointer-events: none; /* coordinate detection via getBoundingClientRect — no click needed */
+}
 
 /* Badge on Bank chip */
 .chip {

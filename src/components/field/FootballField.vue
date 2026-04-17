@@ -102,7 +102,7 @@ const props = defineProps({
   flipped:     { type: Boolean, default: false }, // true = GK at bottom (default view)
 })
 
-const emit = defineEmits(['slot-drop', 'remove-from-slot'])
+const emit = defineEmits(['slot-drop', 'remove-from-slot', 'drag-active'])
 
 // Flip helpers: storage y=0 is top (opponent); flipped=true shows GK (y≈6) at bottom
 function toDisplayY(storageY) { return props.flipped ? 100 - storageY : storageY }
@@ -202,6 +202,7 @@ function onTokenTouchStart(event, slot) {
     y: touch.clientY - 24,
     initials: playerInitials(slot.player),
   }
+  emit('drag-active', true)
 }
 
 function onTouchMove(event) {
@@ -213,10 +214,21 @@ function onTouchMove(event) {
 function onTouchEnd(event) {
   if (!touchGhost.value || !touchSlot.value) return
   const touch = event.changedTouches[0]
-  
-  // Check if touch ended over a bench panel or bank button — if so, remove from field
+
+  // Check bench targets BEFORE emitting drag-active=false so the mobile drop zone is still in the DOM.
+  // elementFromPoint may return the ghost div (which floats on top with pointer-events:none but is
+  // still found by elementFromPoint in some browsers), so we also do a direct bounding-rect check
+  // against any [data-bench-drop-zone] element for reliable coordinate-based detection.
   const targetEl = document.elementFromPoint(touch.clientX, touch.clientY)
-  const isBenchTarget = targetEl?.closest('.bench-panel') || targetEl?.closest('[data-bench-button]')
+  const benchZoneEl = document.querySelector('[data-bench-drop-zone]')
+  const benchZoneRect = benchZoneEl?.getBoundingClientRect()
+  const isInBenchZone = !!(benchZoneRect &&
+    touch.clientX >= benchZoneRect.left && touch.clientX <= benchZoneRect.right &&
+    touch.clientY >= benchZoneRect.top  && touch.clientY <= benchZoneRect.bottom)
+  const isBenchTarget = isInBenchZone
+    || targetEl?.closest('.bench-panel')
+    || targetEl?.closest('[data-bench-button]')
+  emit('drag-active', false)
   if (isBenchTarget) {
     emit('remove-from-slot', touchSlot.value.slotId)
     touchGhost.value = null

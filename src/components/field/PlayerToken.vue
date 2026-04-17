@@ -108,10 +108,16 @@ function onTouchEnd() {
   transition: transform var(--md-duration-short), opacity var(--md-duration-short);
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+  /* Prevent browser pan/scroll on the token so touchmove fires reliably for dragging */
+  touch-action: none;
 }
-.player-token:active, .player-token.is-dragging {
-  opacity: .6;
-  transform: translate(-50%, -50%) scale(1.15) !important;
+.player-token:active {
+  cursor: grabbing;
+}
+.player-token.is-dragging {
+  /* Fade original token; ghost element represents the drag visually — no scale */
+  opacity: .25;
+  transform: translate(-50%, -50%) !important;
   cursor: grabbing;
   z-index: 50;
 }
