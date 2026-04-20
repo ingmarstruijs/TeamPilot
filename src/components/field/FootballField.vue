@@ -168,7 +168,7 @@ function onFieldDrop(event) {
     if (s.playerId) return false
     const dx = Math.abs(s.x - x)
     const dy = Math.abs(toDisplayY(s.y) - rawY)
-    return dx < 12 && dy < 12
+    return dx < 10 && dy < 10
   })
   if (!targetSlot) {
     // Look for a filled slot to swap with (exclude the slot being dragged)
@@ -177,7 +177,7 @@ function onFieldDrop(event) {
       if (s.slotId === draggingSlotId) return false
       const dx = Math.abs(s.x - x)
       const dy = Math.abs(toDisplayY(s.y) - rawY)
-      return dx < 12 && dy < 12
+      return dx < 7 && dy < 7
     })
   }
 
@@ -256,7 +256,7 @@ function onTouchEnd(event) {
     if (s.playerId) return false
     const dx = Math.abs(s.x - x)
     const dy = Math.abs(toDisplayY(s.y) - rawY)
-    return dx < 12 && dy < 12
+    return dx < 10 && dy < 10
   })
   if (!target) {
     target = props.slots.find(s => {
@@ -264,7 +264,7 @@ function onTouchEnd(event) {
       if (s.slotId === touchSlot.value.slotId) return false
       const dx = Math.abs(s.x - x)
       const dy = Math.abs(toDisplayY(s.y) - rawY)
-      return dx < 12 && dy < 12
+      return dx < 7 && dy < 7
     })
   }
 

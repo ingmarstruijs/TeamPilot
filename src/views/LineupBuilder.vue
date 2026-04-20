@@ -564,7 +564,7 @@ function onBenchTouchStart({ event, player }) {
       const swapTarget = fieldSlots.value.find(s => {
         if (!s.playerId) return false
         const displayY = flipped.value ? 100 - s.y : s.y
-        return Math.abs(s.x - rawX) < 12 && Math.abs(displayY - rawY) < 12
+        return Math.abs(s.x - rawX) < 7 && Math.abs(displayY - rawY) < 7
       })
 
       handleSlotDrop({
