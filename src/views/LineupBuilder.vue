@@ -600,9 +600,17 @@ function handleSlotDrop({ type, slot, slotId, playerId, targetSlotId, targetX, t
 
 function removeFromSlot(slotId) {
   if (selectedFormationId.value) {
-    // Formation mode: clear the player but keep the slot open as a target
+    // Formation mode: clear the player and restore the slot to its formation position
     const slot = fieldSlots.value.find(s => s.slotId === slotId)
-    if (slot) slot.playerId = null
+    if (slot) {
+      slot.playerId = null
+      const formation = availableFormations.value.find(f => f.id === selectedFormationId.value)
+      const origin = formation?.slots.find(s => s.id === slotId)
+      if (origin) {
+        slot.x = origin.x
+        slot.y = origin.y
+      }
+    }
   } else {
     // Free mode: delete the slot entirely — no ghost circle left behind
     fieldSlots.value = fieldSlots.value.filter(s => s.slotId !== slotId)
@@ -616,7 +624,15 @@ function removePlayerFromField({ slotId }) {
 
 function resetAll() {
   if (selectedFormationId.value) {
-    for (const s of fieldSlots.value) s.playerId = null
+    const formation = availableFormations.value.find(f => f.id === selectedFormationId.value)
+    for (const s of fieldSlots.value) {
+      s.playerId = null
+      const origin = formation?.slots.find(fs => fs.id === s.slotId)
+      if (origin) {
+        s.x = origin.x
+        s.y = origin.y
+      }
+    }
   } else {
     fieldSlots.value = []
   }
