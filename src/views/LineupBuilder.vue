@@ -62,8 +62,11 @@
           <span class="btn-lbl">Opslaan</span>
         </button>
         <!-- Share button: mobile only -->
-        <button class="btn btn-outlined" @click="shareImage" :disabled="sharing" title="Delen">
-          <span class="material-symbols-rounded" style="font-size:18px">share</span>
+        <button class="btn btn-outlined" @click="shareImage" :disabled="sharing" title="Afbeelding delen">
+          <span class="material-symbols-rounded" style="font-size:18px">image</span>
+        </button>
+        <button class="btn btn-outlined" @click="showShareLink = true" title="Link delen">
+          <span class="material-symbols-rounded" style="font-size:18px">link</span>
         </button>
       </div>
     </div>
@@ -124,6 +127,10 @@
             <button class="btn btn-tonal w-full" @click="shareImage" :disabled="sharing">
               <span class="material-symbols-rounded" style="font-size:18px">image</span>
               {{ sharing ? 'Bezig…' : 'Afbeelding' }}
+            </button>
+            <button class="btn btn-tonal w-full" @click="showShareLink = true">
+              <span class="material-symbols-rounded" style="font-size:18px">link</span>
+              Link
             </button>
           </div>
         </div>
@@ -190,6 +197,39 @@
       </div>
     </Transition>
 
+    <!-- Share link dialog -->
+    <Transition name="fade">
+      <div v-if="showShareLink" class="dialog-backdrop" @click.self="showShareLink = false">
+        <div class="dialog">
+          <p class="dialog-title">Opstelling delen via link</p>
+          <p class="md-body-sm" style="color:var(--md-on-surface-variant);margin-bottom:var(--sp-4)">
+            Kies wat je wilt meesturen. Inclusief team stuurt alle spelers mee; opstelling-alleen matcht op naam bij de ontvanger.
+          </p>
+          <div class="share-link-options">
+            <button class="share-link-opt" @click="copyShareLink('bundle')">
+              <span class="material-symbols-rounded" style="font-size:22px">groups</span>
+              <div>
+                <p class="md-label-lg">Inclusief team</p>
+                <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Spelers worden meegestuurd</p>
+              </div>
+              <span class="material-symbols-rounded" style="margin-left:auto;font-size:18px">content_copy</span>
+            </button>
+            <button class="share-link-opt" @click="copyShareLink('lineup')">
+              <span class="material-symbols-rounded" style="font-size:22px">sports_soccer</span>
+              <div>
+                <p class="md-label-lg">Alleen opstelling</p>
+                <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Ontvanger koppelt aan eigen team</p>
+              </div>
+              <span class="material-symbols-rounded" style="margin-left:auto;font-size:18px">content_copy</span>
+            </button>
+          </div>
+          <div class="dialog-actions">
+            <button class="btn btn-text" @click="showShareLink = false">Sluiten</button>
+          </div>
+        </div>
+      </div>
+    </Transition>
+
     <!-- Share image preview dialog -->
     <Transition name="fade">
       <div v-if="sharePreviewUrl" class="dialog-backdrop" @click.self="sharePreviewUrl=null">
@@ -218,6 +258,7 @@ import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
 import { FORMATIONS } from '@/data/formations'
+import { encodeBundle, encodeLineupOnly } from '@/utils/lineupShare'
 import FootballField from '@/components/field/FootballField.vue'
 import BenchPanel    from '@/components/field/BenchPanel.vue'
 import { showSnackbar } from '@/composables/useSnackbar'
@@ -717,6 +758,28 @@ function doSave() {
   }
   showSave.value = false
   showSnackbar('Opstelling opgeslagen ✓')
+}
+
+// ── Share via link ────────────────────────────────────────
+const showShareLink = ref(false)
+
+function copyShareLink(mode) {
+  const team = activeTeam.value
+  if (!team) return
+  const slotsWithPlayers = fieldSlots.value.map(s => ({
+    ...s,
+    player: s.playerId ? playersMap.value[s.playerId] : null,
+  }))
+  const encoded = mode === 'bundle'
+    ? encodeBundle(team, { name: lineupName.value, formationId: selectedFormationId.value, flipped: flipped.value }, slotsWithPlayers, benchPlayers.value)
+    : encodeLineupOnly(team, { name: lineupName.value, formationId: selectedFormationId.value, flipped: flipped.value }, slotsWithPlayers, benchPlayers.value)
+  const url = `${window.location.origin}${window.location.pathname}#/view?lineup=${encoded}`
+  if (navigator.share) {
+    navigator.share({ title: lineupName.value || 'Opstelling', url }).catch(() => {})
+  } else {
+    navigator.clipboard.writeText(url).then(() => showSnackbar('Link gekopieerd!'))
+  }
+  showShareLink.value = false
 }
 
 // ── Share via image ────────────────────────────────────────
@@ -1370,6 +1433,23 @@ async function shareViaWhatsApp() {
 
 .share-section { background: var(--md-surface-variant); border-radius: var(--md-shape-md); padding: var(--sp-3); }
 .share-btns    { display: flex; flex-direction: column; gap: var(--sp-2); }
+
+/* Share-link dialog options */
+.share-link-options { display: flex; flex-direction: column; gap: var(--sp-2); margin-bottom: var(--sp-2); }
+.share-link-opt {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  background: var(--md-surface-variant);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--md-shape-md);
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--md-duration-short);
+}
+.share-link-opt:hover { background: color-mix(in srgb, var(--md-on-surface) 8%, var(--md-surface-variant)); }
+.share-link-opt p { margin: 0; }
 
 /* ── Bench-to-field touch ghost ──────────────────────────── */
 .bench-touch-ghost {

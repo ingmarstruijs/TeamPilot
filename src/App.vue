@@ -95,11 +95,18 @@ function decodeImport(encoded) {
 
 onMounted(async () => {
   await router.isReady()
+  // Team import via ?import=
   const encoded = route.query.import
   if (encoded) {
     const data = decodeImport(String(encoded))
     if (data) importData.value = data
     router.replace('/')
+    return
+  }
+  // Lineup (or bundle) share via ?lineup=
+  const lineupEncoded = route.query.lineup
+  if (lineupEncoded) {
+    router.replace({ path: '/view', query: { lineup: String(lineupEncoded) } })
   }
 })
 
