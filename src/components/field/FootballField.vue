@@ -52,9 +52,10 @@
       </svg>
 
       <!-- Player tokens on field -->
+      <!-- Player tokens on field -->
       <PlayerToken
         v-for="slot in filledSlots"
-        :key="slot.slotId"
+        :key="slot.playerId"
         :player="slot.player"
         :x="slot.x"
         :y="slot.dy"
@@ -160,20 +161,30 @@ function onFieldDrop(event) {
   const x    = ((event.clientX - rect.left) / rect.width)  * 100
   const rawY = ((event.clientY - rect.top)  / rect.height) * 100
   
-  // Snap search: check if drop is near any empty slot (within 12% tolerance)
-  const targetSlot = props.slots.find(s => {
+  // Snap search: prefer a nearby empty slot; fall back to a nearby filled slot (swap)
+  const draggingSlotId = data.slot?.slotId ?? null
+
+  let targetSlot = props.slots.find(s => {
     if (s.playerId) return false
     const dx = Math.abs(s.x - x)
     const dy = Math.abs(toDisplayY(s.y) - rawY)
     return dx < 12 && dy < 12
   })
-  
+  if (!targetSlot) {
+    // Look for a filled slot to swap with (exclude the slot being dragged)
+    targetSlot = props.slots.find(s => {
+      if (!s.playerId) return false
+      if (s.slotId === draggingSlotId) return false
+      const dx = Math.abs(s.x - x)
+      const dy = Math.abs(toDisplayY(s.y) - rawY)
+      return dx < 12 && dy < 12
+    })
+  }
+
   const y = toStorageY(rawY)
   if (targetSlot) {
-    // Snap to the nearby slot
     emit('slot-drop', { ...data, targetSlotId: targetSlot.slotId, targetX: targetSlot.x, targetY: targetSlot.y })
   } else {
-    // Drop at free position
     emit('slot-drop', { ...data, targetX: x, targetY: y, targetSlotId: null })
   }
 }
@@ -240,13 +251,22 @@ function onTouchEnd(event) {
   const x    = ((touch.clientX - rect.left) / rect.width)  * 100
   const rawY = ((touch.clientY - rect.top)  / rect.height) * 100
 
-  // Snap search: compare visual drop position against display coords of each slot (within 12% tolerance)
-  const target = props.slots.find(s => {
+  // Snap search: prefer empty slot; fall back to filled slot (swap)
+  let target = props.slots.find(s => {
     if (s.playerId) return false
     const dx = Math.abs(s.x - x)
     const dy = Math.abs(toDisplayY(s.y) - rawY)
     return dx < 12 && dy < 12
   })
+  if (!target) {
+    target = props.slots.find(s => {
+      if (!s.playerId) return false
+      if (s.slotId === touchSlot.value.slotId) return false
+      const dx = Math.abs(s.x - x)
+      const dy = Math.abs(toDisplayY(s.y) - rawY)
+      return dx < 12 && dy < 12
+    })
+  }
 
   emit('slot-drop', {
     type: 'slot',

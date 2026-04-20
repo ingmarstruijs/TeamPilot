@@ -528,10 +528,18 @@ function onBenchTouchStart({ event, player }) {
         t.clientY >= rect.top  && t.clientY <= rect.bottom) {
       const rawX = ((t.clientX - rect.left) / rect.width)  * 100
       const rawY = ((t.clientY - rect.top)  / rect.height) * 100
+
+      // Check if the finger landed near a filled slot → swap bench player with that field player
+      const swapTarget = fieldSlots.value.find(s => {
+        if (!s.playerId) return false
+        const displayY = flipped.value ? 100 - s.y : s.y
+        return Math.abs(s.x - rawX) < 12 && Math.abs(displayY - rawY) < 12
+      })
+
       handleSlotDrop({
         type:         'bench',
         playerId:     pendingBenchPlayer.id,
-        targetSlotId: null,
+        targetSlotId: swapTarget?.slotId ?? null,
         targetX:      rawX,
         targetY:      flipped.value ? 100 - rawY : rawY,
       })
@@ -570,9 +578,9 @@ function handleSlotDrop({ type, slot, slotId, playerId, targetSlotId, targetX, t
     if (!pid) return
 
     if (targetSlotId) {
-      // Dropped directly onto an empty slot indicator
+      // Dropped onto a slot — empty means assign, filled means swap (displaced player returns to bench)
       const dstSlot = fieldSlots.value.find(s => s.slotId === targetSlotId)
-      if (dstSlot && !dstSlot.playerId) {
+      if (dstSlot) {
         dstSlot.playerId = pid
       }
     } else if (selectedFormationId.value) {

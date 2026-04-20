@@ -12,7 +12,9 @@ const routes = [
   { path: '/lineups', name: 'lineups', component: Lineups },
 ]
 
-export default createRouter({
+const router = createRouter({
   history: createWebHashHistory(),
   routes,
 })
+
+export default router

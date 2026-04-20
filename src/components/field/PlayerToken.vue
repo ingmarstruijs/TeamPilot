@@ -105,7 +105,11 @@ function onTouchEnd() {
   gap: 2px;
   cursor: grab;
   z-index: 10;
-  transition: transform var(--md-duration-short), opacity var(--md-duration-short);
+  /* Animate position when players swap slots */
+  transition: left .35s cubic-bezier(.4,0,.2,1),
+              top  .35s cubic-bezier(.4,0,.2,1),
+              transform var(--md-duration-short),
+              opacity var(--md-duration-short);
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   /* Prevent browser pan/scroll on the token so touchmove fires reliably for dragging */
@@ -116,6 +120,8 @@ function onTouchEnd() {
 }
 .player-token.is-dragging {
   /* Fade original token; ghost element represents the drag visually — no scale */
+  /* Suppress left/top transition while dragging so the slot stays put instantly */
+  transition: opacity var(--md-duration-short);
   opacity: .25;
   transform: translate(-50%, -50%) !important;
   cursor: grabbing;
