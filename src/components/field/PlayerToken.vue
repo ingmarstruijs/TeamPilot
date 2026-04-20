@@ -6,8 +6,6 @@
     :draggable="true"
     @dragstart="onDragStart"
     @touchstart.passive="onTouchStart"
-    @touchmove="onTouchMove"
-    @touchend="onTouchEnd"
   >
     <div class="token-avatar">
       <ShirtAvatar :shirt="teamShirt" :initials="initials" :size="42" />
@@ -20,7 +18,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 
 const props = defineProps({
@@ -32,12 +30,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['drag-start', 'touch-start', 'remove'])
-
-const longPressTimer = ref(null)
-const touchStartX = ref(0)
-const touchStartY = ref(0)
-const LONG_PRESS_DURATION = 500 // ms
-const DRAG_THRESHOLD = 10 // px
 
 const initials = computed(() => {
   const parts = props.player.name.trim().split(/\s+/)
@@ -63,37 +55,7 @@ function onDragStart(e) {
 }
 
 function onTouchStart(e) {
-  const touch = e.touches[0]
-  touchStartX.value = touch.clientX
-  touchStartY.value = touch.clientY
-  
-  // Start long-press timer
-  longPressTimer.value = setTimeout(() => {
-    emit('remove')
-  }, LONG_PRESS_DURATION)
-  
   emit('touch-start', e)
-}
-
-function onTouchMove(e) {
-  if (!longPressTimer.value) return
-  const touch = e.touches[0]
-  const deltaX = Math.abs(touch.clientX - touchStartX.value)
-  const deltaY = Math.abs(touch.clientY - touchStartY.value)
-  
-  // If moved beyond threshold, cancel long-press (it's a drag)
-  if (deltaX > DRAG_THRESHOLD || deltaY > DRAG_THRESHOLD) {
-    clearTimeout(longPressTimer.value)
-    longPressTimer.value = null
-  }
-}
-
-function onTouchEnd() {
-  // Cancel long-press timer if still active
-  if (longPressTimer.value) {
-    clearTimeout(longPressTimer.value)
-    longPressTimer.value = null
-  }
 }
 </script>
 

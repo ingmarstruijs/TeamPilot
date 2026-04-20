@@ -74,7 +74,7 @@
         <option value="">Vrije opstelling</option>
         <option v-for="f in availableFormations" :key="f.id" :value="f.id">{{ f.label }}</option>
       </select>
-      <button class="chip" :class="{ active: showBench }" @click="showBench = !showBench" data-bench-button title="Bank">
+      <button class="chip" :class="{ active: showBench, 'drag-drop': isFieldDragging }" @click="showBench = !showBench" data-bench-button title="Bank">
         <span class="material-symbols-rounded" style="font-size:14px">group</span>
         Bank
         <span v-if="benchPlayers.length" class="chip-badge">{{ benchPlayers.length }}</span>
@@ -170,17 +170,7 @@
       :style="{ left: benchTouchGhost.x + 'px', top: benchTouchGhost.y + 'px', background: benchTouchGhost.color }"
     >{{ benchTouchGhost.initials }}</div>
 
-    <!-- Mobile: visible drop zone to send a field player back to the bench -->
-    <Transition name="fade">
-      <div
-        v-if="isFieldDragging && !isDesktop"
-        class="field-drag-bench-zone"
-        data-bench-drop-zone
-      >
-        <span class="material-symbols-rounded" style="font-size:18px">weekend</span>
-        Naar bank
-      </div>
-    </Transition>
+
 
     <!-- Save Dialog -->
     <Transition name="fade">
@@ -1267,25 +1257,12 @@ async function shareViaWhatsApp() {
   background: transparent;
 }
 
-/* Drop zone shown while dragging a field player on mobile */
-.field-drag-bench-zone {
-  position: fixed;
-  bottom: calc(var(--nav-height) + var(--sp-3));
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
+/* Bank chip highlighted as drop target while dragging a field player */
+.chip.drag-drop {
   background: var(--md-error-container, #fce8e6);
   color: var(--md-on-error-container, #410e0b);
-  border-radius: var(--md-shape-full);
-  padding: var(--sp-2) var(--sp-5);
-  font-size: 14px;
-  font-weight: 600;
-  box-shadow: var(--md-elevation-3);
-  white-space: nowrap;
-  pointer-events: none; /* coordinate detection via getBoundingClientRect — no click needed */
+  border-color: var(--md-error, #b3261e);
+  box-shadow: var(--md-elevation-2);
 }
 
 /* Badge on Bank chip */
