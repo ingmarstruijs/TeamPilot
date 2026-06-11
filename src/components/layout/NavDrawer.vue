@@ -60,7 +60,7 @@ const navItems = [
 ]
 
 function isActive(item) {
-  if (item.to === '/lineup/new') return route.path.startsWith('/lineup')
+  if (item.to === '/lineup/new') return route.path.startsWith('/lineup/')
   return route.path === item.to
 }
 </script>

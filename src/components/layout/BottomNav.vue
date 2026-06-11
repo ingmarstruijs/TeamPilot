@@ -47,8 +47,8 @@ const navItems = computed(() => [
 ])
 
 function isActive(item) {
-  if (item.to.startsWith('/lineup')) {
-    return route.path.startsWith('/lineup')
+  if (item.to.startsWith('/lineup/')) {
+    return route.path.startsWith('/lineup/')
   }
   return route.path === item.to
 }
