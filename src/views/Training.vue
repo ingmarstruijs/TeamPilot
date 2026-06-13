@@ -115,7 +115,7 @@
       </section>
 
       <!-- Session overview -->
-      <section v-if="sessionBlocks.length" class="section">
+      <section v-if="sessionBlocks.length" class="card card-elevated section">
         <div class="section-head">
           <div>
             <p class="md-title-sm">Trainingsoverzicht</p>
@@ -138,7 +138,7 @@
           <div
             v-for="(block, i) in sessionBlocks"
             :key="block.uid"
-            class="session-row card card-elevated"
+            class="session-row"
             :class="{ 'drag-over': dragOverIndex === i, 'is-dragging': dragIndex === i }"
             :data-session-index="i"
             @dragover.prevent="onDragOver(i)"
@@ -507,17 +507,25 @@ function giveFeedback(exerciseId, type) {
 .action-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
 .section-head-actions { display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; }
 .saved-hint { color: var(--md-outline); margin-top: 2px; }
-.session-list { display: flex; flex-direction: column; gap: var(--sp-2); }
+.session-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
 .session-row {
   display: flex;
   align-items: center;
   gap: var(--sp-2);
   padding: var(--sp-2) var(--sp-3);
-  background: var(--md-surface);
-  transition: box-shadow var(--md-duration-short), opacity var(--md-duration-short);
+  border-radius: var(--md-shape-md);
+  transition: background var(--md-duration-short), opacity var(--md-duration-short);
 }
 .session-row.is-dragging { opacity: 0.45; }
+.session-row:hover {
+  background: color-mix(in srgb, var(--md-on-surface) 4%, transparent);
+}
 .session-row.drag-over {
+  background: color-mix(in srgb, var(--md-primary) 8%, transparent);
   box-shadow: inset 0 0 0 2px var(--md-primary);
 }
 .drag-handle {
