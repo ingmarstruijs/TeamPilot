@@ -119,7 +119,10 @@
         <div class="section-head">
           <div>
             <p class="md-title-sm">Trainingsoverzicht</p>
-            <p class="md-label-sm saved-hint">Automatisch opgeslagen per team</p>
+            <p class="md-label-sm saved-hint">
+          Automatisch opgeslagen per team
+          <span class="reorder-hint"> · houd ingedrukt om te verplaatsen</span>
+        </p>
           </div>
           <div class="section-head-actions">
             <p class="md-label-md" :class="{ 'time-warn': totalMin !== durationMin }">
@@ -141,23 +144,23 @@
             class="session-row"
             :class="{ 'drag-over': dragOverIndex === i, 'is-dragging': dragIndex === i }"
             :data-session-index="i"
+            draggable="true"
+            @dragstart="onRowDragStart(i, $event)"
+            @dragend="onDragEnd"
+            @touchstart="onRowTouchStart(i, $event)"
+            @touchmove="onRowTouchMove"
+            @touchend="onRowTouchEnd"
+            @touchcancel="onRowTouchCancel"
             @dragover.prevent="onDragOver(i)"
             @drop.prevent="onDrop(i)"
           >
-            <button
-              class="drag-handle btn-icon"
-              draggable="true"
-              aria-label="Sleep om te verplaatsen"
-              @dragstart="onDragStart(i, $event)"
-              @dragend="onDragEnd"
-              @touchstart.passive="onTouchStart(i)"
-              @touchmove.prevent="onTouchMove"
-              @touchend="onTouchEnd"
+            <div
+              class="session-info session-info-btn"
+              role="button"
+              tabindex="0"
+              @click="openDetail(block)"
+              @keydown.enter.prevent="openDetail(block)"
             >
-              <span class="material-symbols-rounded">drag_indicator</span>
-            </button>
-            <span class="session-num md-label-md">{{ i + 1 }}</span>
-            <button class="session-info session-info-btn" @click="openDetail(block)">
               <p class="md-title-sm session-title">
                 <span
                   v-if="isCustomExercise(block.exercise)"
@@ -171,7 +174,7 @@
               <p class="md-body-sm" style="color:var(--md-on-surface-variant)">
                 {{ categoryLabel(block.exercise.category) }} · {{ playerRangeLabel(block.exercise) }}
               </p>
-            </button>
+            </div>
             <div class="session-duration">
               <input
                 type="number"
@@ -241,6 +244,13 @@ const dragIndex = ref(null)
 const dragOverIndex = ref(null)
 let nextBlockUid = 1
 let touchDragIndex = null
+let longPressTimer = null
+let suppressDetailClick = false
+const LONG_PRESS_MS = 400
+
+function isDragExcludedTarget(el) {
+  return el?.closest('input, .session-duration, button[aria-label="Verwijderen"], .custom-ex-badge')
+}
 
 watch(roster, (players) => {
   if (!trainingState.value.draftSession?.presentPlayerIds) {
@@ -306,6 +316,14 @@ function onDragStart(index, e) {
   e.dataTransfer.setData('text/plain', String(index))
 }
 
+function onRowDragStart(index, e) {
+  if (isDragExcludedTarget(e.target)) {
+    e.preventDefault()
+    return
+  }
+  onDragStart(index, e)
+}
+
 function onDragOver(index) {
   if (dragIndex.value === null) return
   dragOverIndex.value = index
@@ -329,13 +347,9 @@ function reorderBlocks(from, to) {
   sessionBlocks.value = arr
 }
 
-function onTouchStart(index) {
-  touchDragIndex = index
-  dragIndex.value = index
-}
-
 function onTouchMove(e) {
   if (touchDragIndex === null) return
+  e.preventDefault()
   const touch = e.touches[0]
   const el = document.elementFromPoint(touch.clientX, touch.clientY)
   const row = el?.closest('[data-session-index]')
@@ -344,10 +358,45 @@ function onTouchMove(e) {
   if (!Number.isNaN(overIndex)) dragOverIndex.value = overIndex
 }
 
-function onTouchEnd() {
-  if (touchDragIndex !== null && dragOverIndex.value !== null) {
-    reorderBlocks(touchDragIndex, dragOverIndex.value)
-    persistDraft()
+function onRowTouchStart(index, e) {
+  if (isDragExcludedTarget(e.target)) return
+  longPressTimer = window.setTimeout(() => {
+    touchDragIndex = index
+    dragIndex.value = index
+    longPressTimer = null
+  }, LONG_PRESS_MS)
+}
+
+function onRowTouchMove(e) {
+  if (longPressTimer !== null) {
+    window.clearTimeout(longPressTimer)
+    longPressTimer = null
+  }
+  onTouchMove(e)
+}
+
+function onRowTouchEnd() {
+  if (longPressTimer !== null) {
+    window.clearTimeout(longPressTimer)
+    longPressTimer = null
+  }
+  if (touchDragIndex !== null) {
+    suppressDetailClick = true
+    if (dragOverIndex.value !== null) {
+      reorderBlocks(touchDragIndex, dragOverIndex.value)
+      persistDraft()
+    }
+    touchDragIndex = null
+    onDragEnd()
+    window.setTimeout(() => { suppressDetailClick = false }, 200)
+    return
+  }
+}
+
+function onRowTouchCancel() {
+  if (longPressTimer !== null) {
+    window.clearTimeout(longPressTimer)
+    longPressTimer = null
   }
   touchDragIndex = null
   onDragEnd()
@@ -468,6 +517,7 @@ function onCustomExerciseSaved(exercise) {
 }
 
 function openDetail(block) {
+  if (suppressDetailClick) return
   detailBlock.value = block
 }
 
@@ -516,11 +566,17 @@ function giveFeedback(exerciseId, type) {
   display: flex;
   align-items: center;
   gap: var(--sp-2);
-  padding: var(--sp-2) var(--sp-3);
+  padding: var(--sp-3);
   border-radius: var(--md-shape-md);
   transition: background var(--md-duration-short), opacity var(--md-duration-short);
+  cursor: grab;
+  touch-action: pan-y;
 }
-.session-row.is-dragging { opacity: 0.45; }
+.session-row.is-dragging {
+  opacity: 0.45;
+  cursor: grabbing;
+  touch-action: none;
+}
 .session-row:hover {
   background: color-mix(in srgb, var(--md-on-surface) 4%, transparent);
 }
@@ -528,13 +584,6 @@ function giveFeedback(exerciseId, type) {
   background: color-mix(in srgb, var(--md-primary) 8%, transparent);
   box-shadow: inset 0 0 0 2px var(--md-primary);
 }
-.drag-handle {
-  flex-shrink: 0;
-  cursor: grab;
-  color: var(--md-on-surface-variant);
-  touch-action: none;
-}
-.drag-handle:active { cursor: grabbing; }
 .session-info-btn {
   flex: 1;
   min-width: 0;
@@ -542,10 +591,14 @@ function giveFeedback(exerciseId, type) {
   background: transparent;
   cursor: pointer;
   text-align: left;
-  padding: var(--sp-1) var(--sp-2);
+  padding: 0;
   border-radius: var(--md-shape-sm);
 }
 .session-info-btn:hover { background: color-mix(in srgb, var(--md-on-surface) 4%, transparent); }
+.reorder-hint { opacity: 0.85; }
+@media (min-width: 900px) {
+  .reorder-hint { display: none; }
+}
 .session-duration {
   display: flex;
   align-items: center;
@@ -568,18 +621,20 @@ function giveFeedback(exerciseId, type) {
 .duration-input::-webkit-outer-spin-button,
 .duration-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .duration-suffix { color: var(--md-on-surface-variant); white-space: nowrap; }
-.session-num {
-  width: 28px;
-  height: 28px;
-  border-radius: var(--md-shape-full);
-  background: var(--md-primary-container);
-  color: var(--md-on-primary-container);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
 .session-info { flex: 1; min-width: 0; }
+@media (max-width: 599px) {
+  .session-title-text {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+  }
+  .session-info-btn + .session-duration + .btn-icon {
+    align-self: flex-start;
+  }
+}
 .time-warn { color: var(--md-tertiary); }
 .manual-list { display: flex; flex-direction: column; gap: var(--sp-1); max-height: min(420px, 50vh); overflow-y: auto; }
 .manual-item {
