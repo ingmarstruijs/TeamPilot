@@ -1,6 +1,23 @@
-# TeamPilot
+<p align="center">
+  <img src="public/logo-mark.svg" alt="TeamPilot logo" width="96" height="96" />
+</p>
 
-A responsive web app for managing football teams, building lineups, planning trainings, and sharing formations.
+<h1 align="center">TeamPilot</h1>
+
+<p align="center">
+  <strong>Plan. Line up. Train. Share.</strong><br>
+  The offline-first web app for Dutch grassroots football coaches.
+</p>
+
+<p align="center">
+  Vue 3 · Offline-first · No account · Works on phone &amp; desktop
+</p>
+
+---
+
+TeamPilot helps you run your team from the sideline — without spreadsheets, without logins, and without waiting for a connection. Build lineups on a drag-and-drop pitch, generate smart training sessions for who's actually present, and share everything with assistants or parents in one tap.
+
+Built for **JO8 through Senior**, with KNVB competition classes, Rinus-style exercises, and data that stays on your device.
 
 ## Features
 
@@ -32,10 +49,12 @@ A responsive web app for managing football teams, building lineups, planning tra
 
 ## Tech Stack
 
-- Vue 3 + Vite
-- Pinia (state)
-- Vue Router 4 (hash-based)
-- Vitest + Vue Test Utils
+| Layer | Choice |
+|---|---|
+| UI | Vue 3 + Vite |
+| State | Pinia |
+| Routing | Vue Router 4 (hash-based) |
+| Tests | Vitest + Vue Test Utils |
 
 ## Getting Started
 
@@ -60,6 +79,7 @@ This regenerates `src/data/rinusSvgMap.js`, `rinusRulesMap.js`, and `rinusMetaMa
 ## Sharing
 
 ### Lineup link
+
 In the lineup builder, tap the **Link** button (mobile toolbar or desktop sidebar):
 
 | Option | What's sent | Import behaviour |
@@ -70,19 +90,22 @@ In the lineup builder, tap the **Link** button (mobile toolbar or desktop sideba
 The shared URL opens a read-only field view (`#/view?lineup=…`). From there the receiver can import with one tap.
 
 ### Team link
+
 On the Dashboard, tap **Team delen** to share the team roster. The receiver can import as a new team, merge into an existing one, or cancel.
 
 ## Training Engine
 
-Training suggestions use a local rule-based engine (no API). Inputs:
+Training suggestions use a local rule-based engine — no API, no cloud. The engine considers:
 
-- **Competitieklasse** — 6e t/m 1e klasse, hoofdklasse (determines exercise difficulty)
-- **Aanwezige spelers** — all players selected by default; uncheck absent players
-- **Positiebalans** — extra attack or defence exercises when squad is unbalanced
-- **Feedback** — thumbs up/down per exercise influences future suggestions
-- **Cycle week** — theme stays fixed for the calendar week; advances automatically next week
+| Input | Effect |
+|---|---|
+| **Competitieklasse** | 6e t/m hoofdklasse — sets exercise difficulty |
+| **Aanwezige spelers** | All selected by default; uncheck absent players |
+| **Positiebalans** | Extra attack or defence drills when the squad is unbalanced |
+| **Feedback** | Thumbs up/down per exercise shapes future suggestions |
+| **Cycle week** | Theme fixed for the calendar week; advances automatically |
 
-The built-in exercise library is embedded offline (~50 exercises). Each links to the matching page on [KNVB Rinus](https://rinus.knvb.nl/). Display text, SVG diagrams and spelregels come from synced Rinus metadata where available.
+The built-in library ships ~50 exercises offline. Each links to [KNVB Rinus](https://rinus.knvb.nl/); titles, SVG diagrams and spelregels come from synced metadata.
 
 ### Custom exercises
 
@@ -94,7 +117,7 @@ In **Training → Handmatig kiezen → Eigen oefening** you can add team-specifi
 | Beschrijving, opstelling, spelregels | Free text; one rule per line |
 | Schema (SVG) | Optional diagram from your device (max 400 KB) |
 
-Custom exercises have no Rinus link. They appear in the local library with a pencil (`draw`) badge and are included when sharing a training — recipients get the full exercise data embedded in the link. Importing via **In mijn team** also saves them to the receiver's local library.
+Custom exercises have no Rinus link. They appear in the library with a pencil badge and travel with shared training links — recipients get the full exercise embedded in the URL. **In mijn team** also saves them locally.
 
 ### Training link
 
@@ -102,7 +125,7 @@ Tap **Delen** in the training overview to share via WhatsApp or copy a link. Ope
 
 ## Data storage
 
-All data is stored in `localStorage` under the key `teampilot_v1`:
+Everything lives in `localStorage` under the key `teampilot_v1`:
 
 - Teams, players, lineups, shirt colors
 - Training state per team (draft session, feedback, cycle week, recent exercises)

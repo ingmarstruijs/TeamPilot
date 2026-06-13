@@ -3,7 +3,7 @@
     <div class="top-bar__inner">
       <RouterLink to="/" class="top-bar__leading">
         <div class="app-logo-mark">
-          <span class="material-symbols-rounded">sports_soccer</span>
+          <img src="/logo-mark.svg" alt="" width="36" height="36" />
         </div>
         <span class="app-name">TeamPilot</span>
       </RouterLink>
@@ -298,17 +298,17 @@ function confirmDelete() {
 .app-logo-mark {
   width: 36px;
   height: 36px;
-  background: var(--md-primary);
   border-radius: var(--md-shape-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
   flex-shrink: 0;
+  overflow: hidden;
 }
-.app-logo-mark .material-symbols-rounded {
-  font-size: 20px;
-  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+.app-logo-mark img {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 .app-name {
   font-size: 18px;
