@@ -1,15 +1,14 @@
 <template>
-  <div class="page">
+  <div class="page training-page">
     <div class="training-header">
       <div>
         <h1 class="md-headline-sm">Training</h1>
-        <p class="md-body-md" style="color:var(--md-on-surface-variant)">
+        <p class="md-body-md training-sub">
           {{ activeTeam?.name }} · {{ knvbClassConfig.label }} · Cyclus week {{ syncedCycleWeek }}/4
         </p>
       </div>
     </div>
 
-    <!-- Empty roster -->
     <div v-if="!roster.length" class="empty-state card card-elevated">
       <span class="material-symbols-rounded empty-icon">group_off</span>
       <p class="md-title-md">Geen spelers</p>
@@ -18,192 +17,193 @@
     </div>
 
     <template v-else>
-      <!-- Attendance -->
-      <section class="card card-elevated section">
-        <div class="section-head">
-          <p class="md-title-sm">Aanwezige spelers</p>
-          <button class="btn btn-text" style="height:32px;font-size:13px" @click="toggleAll">
-            {{ allPresent ? 'Geen' : 'Alle' }}
-          </button>
-        </div>
-        <div class="player-chips">
-          <button
-            v-for="p in roster"
-            :key="p.id"
-            class="chip"
-            :class="{ active: presentIds.has(p.id) }"
-            @click="togglePlayer(p.id)"
-          >
-            {{ p.name }}
-          </button>
-        </div>
-        <p v-if="balance" class="md-body-sm balance-line">
-          {{ balance.counts.DEF + balance.counts.GK }} verdedigers ·
-          {{ balance.counts.MID }} midden ·
-          {{ balance.counts.ATT + balance.counts.WB }} aanvallers
-          <span v-if="balance.needsAttackFocus" class="balance-hint"> — extra aanvalsoefeningen</span>
-          <span v-else-if="balance.needsDefenceFocus" class="balance-hint"> — extra verdedigingsoefeningen</span>
-        </p>
-      </section>
+      <TrainingTabBar v-model="activeTab" :tabs="tabItems" />
 
-      <!-- Settings -->
-      <section class="card card-elevated section">
-        <div class="settings-grid">
-          <div class="field-wrap">
-            <label class="field-label">Type training</label>
-            <select class="field field-select" v-model="trainingType">
-              <option v-for="t in TRAINING_TYPES" :key="t.id" :value="t.id">{{ t.label }}</option>
-            </select>
-          </div>
-          <div class="field-wrap">
-            <label class="field-label">Duur (min)</label>
-            <input class="field" type="number" v-model.number="durationMin" min="30" max="120" step="5" />
-          </div>
-        </div>
-        <p class="md-body-sm cycle-info">
-          Weekthema (cyclus week {{ syncedCycleWeek }}/4): <strong>{{ cycleThemeLabel }}</strong>
-        </p>
-        <div class="action-row">
-          <button class="btn btn-filled" @click="generate" :disabled="!presentPlayers.length">
-            <span class="material-symbols-rounded" style="font-size:18px">auto_fix_high</span>
-            Genereer training
-          </button>
-          <button class="btn btn-tonal" @click="showManual = !showManual">
-            <span class="material-symbols-rounded" style="font-size:18px">library_books</span>
-            {{ showManual ? 'Verberg bibliotheek' : 'Handmatig kiezen' }}
-          </button>
-        </div>
-      </section>
+      <!-- Tab: Sessie -->
+      <div v-show="activeTab === 'session'" class="tab-panel session-panel">
+        <div class="session-layout">
+          <div class="session-main">
+            <TrainingSettingsPanel
+              v-if="!isDesktop"
+              variant="collapsible"
+              :force-open="!sessionBlocks.length"
+              :summary="settingsSummary"
+              :roster="roster"
+              :present-ids="presentIds"
+              :all-present="allPresent"
+              :balance="balance"
+              :training-type="trainingType"
+              :duration-min="durationMin"
+              :cycle-week="syncedCycleWeek"
+              :cycle-theme-label="cycleThemeLabel"
+              :training-types="TRAINING_TYPES"
+              @toggle-all="toggleAll"
+              @toggle-player="togglePlayer"
+              @update:training-type="trainingType = $event"
+              @update:duration-min="durationMin = +$event || 60"
+            />
 
-      <!-- Manual browse -->
-      <section v-if="showManual" class="card card-elevated section">
-        <div class="section-head">
-          <div>
-            <p class="md-title-sm">Oefeningenbibliotheek</p>
-            <p class="md-label-sm" style="color:var(--md-on-surface-variant)">{{ manualExercises.length }} oefeningen</p>
-          </div>
-          <button class="btn btn-tonal" style="height:36px" @click="showCustomDialog = true">
-            <span class="material-symbols-rounded" style="font-size:18px">draw</span>
-            Eigen oefening
-          </button>
-        </div>
-        <div class="manual-list">
-          <button
-            v-for="ex in manualExercises"
-            :key="ex.id"
-            class="manual-item"
-            @click="addManualExercise(ex)"
-          >
-            <div class="manual-item-body">
-              <p class="md-label-lg manual-title">
-                <span
-                  v-if="isCustomExercise(ex)"
-                  class="custom-ex-badge"
-                  title="Eigen oefening"
-                >
-                  <span class="material-symbols-rounded" aria-hidden="true">draw</span>
+            <div class="status-bar card" :class="{ 'status-bar--warn': sessionTiming.totalMin !== durationMin }">
+              <div class="status-primary">
+                <span class="md-label-md">
+                  {{ sessionBlocks.length }}
+                  {{ sessionBlocks.length === 1 ? 'oefening' : 'oefeningen' }}
                 </span>
-                <span class="manual-title-text">{{ getExerciseTitle(ex) }}</span>
-              </p>
-              <p class="md-body-sm manual-meta">
-                {{ categoryLabel(ex.category) }} · {{ ex.durationMin }} min · {{ playerRangeLabel(ex) }}
-              </p>
-            </div>
-            <span class="material-symbols-rounded manual-add">add</span>
-          </button>
-        </div>
-      </section>
-
-      <!-- Session overview -->
-      <section v-if="sessionBlocks.length" class="card card-elevated section">
-        <div class="section-head">
-          <div>
-            <p class="md-title-sm">Trainingsoverzicht</p>
-            <p class="md-label-sm saved-hint">
-              Automatisch opgeslagen per team
-              <span class="reorder-hint reorder-hint--touch"> · houd ingedrukt om te verplaatsen</span>
-              <span class="reorder-hint reorder-hint--mouse"> · sleep via het handvat links</span>
-            </p>
-          </div>
-          <div class="section-head-actions">
-            <p class="md-label-md" :class="{ 'time-warn': totalMin !== durationMin }">
-              {{ totalMin }} / {{ durationMin }} min
-            </p>
-            <button class="btn btn-tonal" style="height:36px" @click="shareTraining" title="Deel via WhatsApp">
-              <span class="material-symbols-rounded" style="font-size:18px">share</span>
-              Delen
-            </button>
-          </div>
-        </div>
-        <div class="session-list">
-          <div
-            v-for="(block, i) in sessionBlocks"
-            :key="block.uid"
-            class="session-row"
-            :class="{ 'drag-over': dragOverIndex === i, 'is-dragging': dragIndex === i }"
-            :data-session-index="i"
-            @touchstart="onRowTouchStart(i, $event)"
-            @touchmove="onRowTouchMove"
-            @touchend="onRowTouchEnd"
-            @touchcancel="onRowTouchCancel"
-          >
-            <div
-              class="drag-handle"
-              aria-label="Sleep om te verplaatsen"
-              title="Sleep om te verplaatsen"
-              @pointerdown="onHandlePointerDown(i, $event)"
-            >
-              <span class="material-symbols-rounded" aria-hidden="true">drag_indicator</span>
-            </div>
-            <div
-              class="session-info session-info-btn"
-              role="button"
-              tabindex="0"
-              @click="openDetail(block)"
-              @keydown.enter.prevent="openDetail(block)"
-            >
-              <p class="md-title-sm session-title">
-                <span
-                  v-if="isCustomExercise(block.exercise)"
-                  class="custom-ex-badge"
-                  title="Eigen oefening"
-                >
-                  <span class="material-symbols-rounded" aria-hidden="true">draw</span>
+                <span class="status-dot" aria-hidden="true">·</span>
+                <span class="md-body-sm status-timing">
+                  {{ sessionTiming.totalMin }}/{{ durationMin }} min
                 </span>
-                <span class="session-title-text">{{ getExerciseTitle(block.exercise) }}</span>
-              </p>
-              <p class="md-body-sm" style="color:var(--md-on-surface-variant)">
-                {{ categoryLabel(block.exercise.category) }} · {{ playerRangeLabel(block.exercise) }}
-              </p>
+              </div>
+              <p class="md-label-sm status-hint">Automatisch opgeslagen per team</p>
             </div>
-            <div class="session-duration">
-              <input
-                type="number"
-                class="duration-input"
-                :value="block.durationMin"
-                min="1"
-                max="60"
-                step="1"
-                @change="e => setBlockDuration(i, +e.target.value)"
-                aria-label="Duur in minuten"
-              />
-              <span class="md-label-sm duration-suffix">min</span>
-            </div>
-            <button class="btn-icon" @click="removeBlock(i)" aria-label="Verwijderen" style="color:var(--md-error)">
-              <span class="material-symbols-rounded">delete</span>
+
+            <button
+              type="button"
+              class="btn btn-filled generate-btn"
+              :disabled="!presentPlayers.length"
+              @click="generate"
+            >
+              <span class="material-symbols-rounded" aria-hidden="true">auto_fix_high</span>
+              Genereer training
             </button>
+
+            <section v-if="sessionBlocks.length" class="card card-elevated session-card">
+              <div class="session-card-head">
+                <p class="md-title-sm">Trainingsoverzicht</p>
+                <button type="button" class="btn btn-tonal share-btn" @click="shareTraining">
+                  <span class="material-symbols-rounded" style="font-size:18px">share</span>
+                  Delen
+                </button>
+              </div>
+              <p class="md-label-sm saved-hint">
+                <span class="reorder-hint reorder-hint--touch">Houd ingedrukt om te verplaatsen</span>
+                <span class="reorder-hint reorder-hint--mouse">Sleep via het handvat om te verplaatsen</span>
+              </p>
+
+              <div class="session-list">
+                <template v-for="(block, i) in sessionBlocks" :key="block.uid">
+                  <div
+                    class="session-row"
+                    :class="{ 'drag-over': dragOverIndex === i, 'is-dragging': dragIndex === i }"
+                    :data-session-index="i"
+                    @touchstart="onRowTouchStart(i, $event)"
+                    @touchmove="onRowTouchMove"
+                    @touchend="onRowTouchEnd"
+                    @touchcancel="onRowTouchCancel"
+                  >
+                    <div
+                      class="drag-handle"
+                      aria-label="Sleep om te verplaatsen"
+                      title="Sleep om te verplaatsen"
+                      @pointerdown="onHandlePointerDown(i, $event)"
+                    >
+                      <span class="material-symbols-rounded" aria-hidden="true">drag_indicator</span>
+                    </div>
+                    <div
+                      class="session-info session-info-btn"
+                      role="button"
+                      tabindex="0"
+                      @click="openDetail(block)"
+                      @keydown.enter.prevent="openDetail(block)"
+                    >
+                      <p class="md-title-sm session-title">
+                        <span
+                          v-if="isCustomExercise(block.exercise)"
+                          class="custom-ex-badge"
+                          title="Eigen oefening"
+                        >
+                          <span class="material-symbols-rounded" aria-hidden="true">draw</span>
+                        </span>
+                        <span class="session-title-text">{{ getExerciseTitle(block.exercise) }}</span>
+                      </p>
+                      <p class="md-body-sm session-meta">
+                        {{ categoryLabel(block.exercise.category) }} · {{ playerRangeLabel(block.exercise) }}
+                      </p>
+                    </div>
+                    <div class="session-duration">
+                      <input
+                        type="number"
+                        class="duration-input"
+                        :value="block.durationMin"
+                        min="1"
+                        max="60"
+                        step="1"
+                        @change="e => setBlockDuration(i, +e.target.value)"
+                        aria-label="Duur in minuten"
+                      />
+                      <span class="md-label-sm duration-suffix">min</span>
+                    </div>
+                    <button
+                      type="button"
+                      class="btn-icon"
+                      aria-label="Verwijderen"
+                      style="color:var(--md-error)"
+                      @click="removeBlock(i)"
+                    >
+                      <span class="material-symbols-rounded">delete</span>
+                    </button>
+                  </div>
+                </template>
+              </div>
+            </section>
+
+            <div v-else class="session-empty card card-elevated">
+              <span class="material-symbols-rounded session-empty-icon" aria-hidden="true">stadium</span>
+              <p class="md-title-sm">Nog geen training</p>
+              <p class="md-body-sm session-empty-text">
+                Stel je instellingen in en tik op Genereer — of kies oefeningen in de tab Bibliotheek.
+              </p>
+              <button type="button" class="btn btn-tonal" @click="activeTab = 'library'">
+                <span class="material-symbols-rounded" aria-hidden="true">library_books</span>
+                Naar bibliotheek
+              </button>
+            </div>
           </div>
+
+          <aside v-if="isDesktop" class="session-sidebar">
+            <TrainingSettingsPanel
+              variant="sidebar"
+              :summary="settingsSummary"
+              :roster="roster"
+              :present-ids="presentIds"
+              :all-present="allPresent"
+              :balance="balance"
+              :training-type="trainingType"
+              :duration-min="durationMin"
+              :cycle-week="syncedCycleWeek"
+              :cycle-theme-label="cycleThemeLabel"
+              :training-types="TRAINING_TYPES"
+              @toggle-all="toggleAll"
+              @toggle-player="togglePlayer"
+              @update:training-type="trainingType = $event"
+              @update:duration-min="durationMin = +$event || 60"
+            />
+          </aside>
         </div>
-      </section>
+      </div>
+
+      <!-- Tab: Bibliotheek -->
+      <div v-show="activeTab === 'library'" class="tab-panel">
+        <ExerciseLibraryPanel
+          :exercises="filteredExercises"
+          v-model:query="libraryQuery"
+          v-model:category="libraryCategory"
+          v-model:suitable-only="librarySuitableOnly"
+          @preview="openPreview"
+          @add="addManualExercise"
+          @create-custom="showCustomDialog = true"
+          @reset-filters="resetLibraryFilters"
+        />
+      </div>
     </template>
 
-    <!-- Exercise detail -->
     <ExerciseDetailDialog
       :block="detailBlock"
+      :exercise="previewExercise"
+      :mode="previewExercise ? 'preview' : 'session'"
       :player-count="presentPlayers.length"
-      show-feedback
-      @close="detailBlock = null"
-      @feedback="giveFeedback"
+      @close="closeDetail"
+      @add="addFromPreview"
     />
 
     <CustomExerciseDialog
@@ -217,17 +217,31 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { useRoute } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
 import { TRAINING_TYPES, EXERCISE_CATEGORIES, getExerciseById } from '@/data/exercises'
-import { generateTraining, getCycleTheme, getCycleThemeLabel, browseExercises, analyzePlayerBalance } from '@/utils/trainingEngine'
+import {
+  generateTraining,
+  getCycleTheme,
+  getCycleThemeLabel,
+  browseExercisesWithFilters,
+  analyzePlayerBalance,
+  computeSessionTiming,
+} from '@/utils/trainingEngine'
 import { encodeTrainingSession, buildTrainingShareUrl } from '@/utils/trainingShare'
 import { getKnvbLevel } from '@/data/knvbClasses'
 import ExerciseDetailDialog from '@/components/training/ExerciseDetailDialog.vue'
+import ExerciseLibraryPanel from '@/components/training/ExerciseLibraryPanel.vue'
+import TrainingSettingsPanel from '@/components/training/TrainingSettingsPanel.vue'
+import TrainingTabBar from '@/components/training/TrainingTabBar.vue'
 import CustomExerciseDialog from '@/components/training/CustomExerciseDialog.vue'
+import { useMediaQuery } from '@/composables/useMediaQuery'
 import { showSnackbar } from '@/composables/useSnackbar'
 import { playerRangeLabel, getExerciseTitle, isCustomExercise } from '@/utils/exerciseText'
 
 const store = useTeamStore()
+const route = useRoute()
+const isDesktop = useMediaQuery('(min-width: 720px)')
 
 const activeTeam = computed(() => store.activeTeam)
 const knvbClassConfig = computed(() => store.knvbClassConfig)
@@ -238,9 +252,13 @@ const presentIds = ref(new Set())
 const trainingType = ref('gemengd')
 const durationMin = ref(60)
 const sessionBlocks = ref([])
-const showManual = ref(false)
+const activeTab = ref('session')
 const showCustomDialog = ref(false)
 const detailBlock = ref(null)
+const previewExercise = ref(null)
+const libraryQuery = ref('')
+const libraryCategory = ref('')
+const librarySuitableOnly = ref(true)
 const dragIndex = ref(null)
 const dragOverIndex = ref(null)
 let nextBlockUid = 1
@@ -260,6 +278,29 @@ let touchReorder = {
 
 /** @type {{ index: number, pointerId: number } | null} */
 let pointerDrag = null
+
+const tabItems = computed(() => [
+  {
+    id: 'session',
+    label: 'Sessie',
+    icon: 'stadium',
+    badge: sessionBlocks.value.length || null,
+  },
+  {
+    id: 'library',
+    label: 'Bibliotheek',
+    icon: 'library_books',
+    badge: null,
+  },
+])
+
+const trainingTypeLabel = computed(() =>
+  TRAINING_TYPES.find(t => t.id === trainingType.value)?.label ?? trainingType.value
+)
+
+const settingsSummary = computed(() =>
+  `${presentPlayers.value.length} aanwezig · ${durationMin.value} min · ${trainingTypeLabel.value} · Week ${syncedCycleWeek.value}: ${cycleThemeLabel.value}`
+)
 
 function isDragExcludedTarget(el) {
   return el?.closest('input, .session-duration, button[aria-label="Verwijderen"], .drag-handle')
@@ -369,7 +410,17 @@ watch(
 
 watch(() => store.activeTeamId, () => loadDraft())
 
-onMounted(() => loadDraft())
+watch(
+  () => route.query.library,
+  value => {
+    if (value === '1') activeTab.value = 'library'
+  },
+)
+
+onMounted(() => {
+  loadDraft()
+  if (route.query.library === '1') activeTab.value = 'library'
+})
 
 onUnmounted(() => {
   resetTouchReorder()
@@ -517,20 +568,32 @@ const cycleThemeLabel = computed(() =>
 
 const syncedCycleWeek = computed(() => trainingState.value.cycleWeek ?? 1)
 
-const totalMin = computed(() =>
-  sessionBlocks.value.reduce((s, b) => s + b.durationMin, 0)
+const sessionTiming = computed(() =>
+  computeSessionTiming(sessionBlocks.value, durationMin.value)
 )
 
-const manualExercises = computed(() => {
+const totalMin = computed(() => sessionTiming.value.totalMin)
+
+const filteredExercises = computed(() => {
   const custom = store.getCustomExercises(store.activeTeamId)
-  const builtIn = browseExercises({
+  return browseExercisesWithFilters({
     ageGroup: activeTeam.value?.ageGroup,
     knvbLevel: getKnvbLevel(activeTeam.value?.knvbClass),
-  })
-  return [...custom, ...builtIn].sort((a, b) =>
+    playerCount: presentPlayers.value.length || undefined,
+    category: libraryCategory.value || undefined,
+    query: libraryQuery.value.trim(),
+    suitableOnly: librarySuitableOnly.value,
+    customExercises: custom,
+  }).sort((a, b) =>
     getExerciseTitle(a).localeCompare(getExerciseTitle(b), 'nl')
   )
 })
+
+function resetLibraryFilters() {
+  libraryQuery.value = ''
+  libraryCategory.value = ''
+  librarySuitableOnly.value = true
+}
 
 function categoryLabel(id) {
   return EXERCISE_CATEGORIES.find(c => c.id === id)?.label ?? id
@@ -555,7 +618,6 @@ function generate() {
     playerCount: presentPlayers.value.length,
     trainingType: trainingType.value,
     durationMin: durationMin.value,
-    feedback: trainingState.value.exerciseFeedback ?? {},
     cycleWeek: syncedCycleWeek.value,
     recentIds: trainingState.value.recentExerciseIds ?? [],
     presentPlayers: presentPlayers.value,
@@ -566,7 +628,8 @@ function generate() {
     result.blocks.map(b => b.exercise.id),
   )
   persistDraft()
-  showSnackbar(`Training gegenereerd (${result.totalMin} min)`)
+  activeTab.value = 'session'
+  showSnackbar(`Training gegenereerd (${result.blocks.length} oefeningen, ${result.totalMin} min)`)
 }
 
 function shareTraining() {
@@ -594,6 +657,7 @@ function shareTraining() {
 
 function addManualExercise(ex) {
   sessionBlocks.value = [...sessionBlocks.value, makeBlock(ex, ex.durationMin)]
+  activeTab.value = 'session'
   showSnackbar(`${getExerciseTitle(ex)} toegevoegd`)
   persistDraft()
 }
@@ -601,56 +665,143 @@ function addManualExercise(ex) {
 function onCustomExerciseSaved(exercise) {
   store.addCustomExercise(store.activeTeamId, exercise)
   showCustomDialog.value = false
-  showManual.value = true
+  activeTab.value = 'library'
   showSnackbar(`"${exercise.title}" opgeslagen in je bibliotheek`)
+}
+
+function openPreview(ex) {
+  previewExercise.value = ex
+  detailBlock.value = null
 }
 
 function openDetail(block) {
   if (suppressDetailClick) return
   detailBlock.value = block
+  previewExercise.value = null
 }
 
-function giveFeedback(exerciseId, type) {
-  store.recordExerciseFeedback(store.activeTeamId, exerciseId, {
-    like: type === 'like',
-    dislike: type === 'dislike',
-  })
-  showSnackbar('Feedback opgeslagen — volgende training leert hiervan')
+function closeDetail() {
+  detailBlock.value = null
+  previewExercise.value = null
+}
+
+function addFromPreview(ex) {
+  addManualExercise(ex)
+  closeDetail()
 }
 </script>
 
 <style scoped>
-.training-header { margin-bottom: var(--sp-4); }
-.section { padding: var(--sp-4); margin-bottom: var(--sp-4); }
-.section-head {
+.training-header {
+  margin-bottom: var(--sp-3);
+}
+
+.training-sub {
+  color: var(--md-on-surface-variant);
+}
+
+.tab-panel {
+  min-width: 0;
+}
+
+.session-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.session-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+
+.status-bar {
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--md-surface-container-low);
+  border: 1px solid var(--md-outline-variant);
+}
+
+.status-bar--warn {
+  border-color: color-mix(in srgb, var(--md-tertiary) 50%, var(--md-outline-variant));
+}
+
+.status-primary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-2);
+}
+
+.status-dot {
+  color: var(--md-outline);
+}
+
+.status-timing {
+  color: var(--md-on-surface-variant);
+}
+
+.status-hint {
+  margin: var(--sp-1) 0 0;
+  color: var(--md-outline);
+}
+
+.generate-btn {
+  width: 100%;
+  min-height: 48px;
+}
+
+.session-card,
+.session-empty {
+  padding: var(--sp-4);
+}
+
+.session-card-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--sp-3);
-}
-.player-chips {
-  display: flex;
-  flex-wrap: wrap;
   gap: var(--sp-2);
+  margin-bottom: var(--sp-1);
 }
-.balance-line { margin-top: var(--sp-3); color: var(--md-on-surface-variant); }
-.balance-hint { color: var(--md-primary); font-weight: 500; }
-.settings-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--sp-3);
-  margin-bottom: var(--sp-3);
+
+.share-btn {
+  height: 36px;
+  flex-shrink: 0;
 }
-@media (max-width: 480px) { .settings-grid { grid-template-columns: 1fr; } }
-.cycle-info { color: var(--md-on-surface-variant); margin-bottom: var(--sp-3); }
-.action-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
-.section-head-actions { display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; }
-.saved-hint { color: var(--md-outline); margin-top: 2px; }
+
+.saved-hint {
+  margin: 0 0 var(--sp-3);
+  color: var(--md-outline);
+}
+
+.session-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-2);
+  padding: var(--sp-6) var(--sp-4);
+}
+
+.session-empty-icon {
+  font-size: 40px;
+  color: var(--md-primary);
+  opacity: 0.85;
+}
+
+.session-empty-text {
+  margin: 0 0 var(--sp-2);
+  color: var(--md-on-surface-variant);
+  max-width: 28rem;
+}
+
 .session-list {
   display: flex;
   flex-direction: column;
   gap: var(--sp-1);
 }
+
 .session-row {
   display: flex;
   align-items: center;
@@ -659,9 +810,9 @@ function giveFeedback(exerciseId, type) {
   border-radius: var(--md-shape-md);
   transition: background var(--md-duration-short), opacity var(--md-duration-short);
   touch-action: manipulation;
-  -webkit-user-select: none;
   user-select: none;
 }
+
 .drag-handle {
   display: none;
   flex-shrink: 0;
@@ -671,8 +822,16 @@ function giveFeedback(exerciseId, type) {
   padding: var(--sp-1);
   border-radius: var(--md-shape-sm);
 }
-.drag-handle .material-symbols-rounded { font-size: 22px; pointer-events: none; }
-.drag-handle:active { cursor: grabbing; }
+
+.drag-handle .material-symbols-rounded {
+  font-size: 22px;
+  pointer-events: none;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
 @media (min-width: 900px) {
   .drag-handle {
     display: flex;
@@ -680,17 +839,21 @@ function giveFeedback(exerciseId, type) {
     justify-content: center;
   }
 }
+
 .session-row.is-dragging {
   opacity: 0.55;
   touch-action: none;
 }
+
 .session-row:hover {
   background: color-mix(in srgb, var(--md-on-surface) 4%, transparent);
 }
+
 .session-row.drag-over {
   background: color-mix(in srgb, var(--md-primary) 8%, transparent);
   box-shadow: inset 0 0 0 2px var(--md-primary);
 }
+
 .session-info-btn {
   flex: 1;
   min-width: 0;
@@ -701,25 +864,28 @@ function giveFeedback(exerciseId, type) {
   padding: 0;
   border-radius: var(--md-shape-sm);
 }
-.session-info-btn:hover { background: color-mix(in srgb, var(--md-on-surface) 4%, transparent); }
-.session-duration { cursor: default; }
-.session-row .btn-icon { cursor: pointer; }
-.reorder-hint { opacity: 0.85; }
-.reorder-hint--mouse { display: none; }
-@media (min-width: 900px) {
-  .reorder-hint--touch { display: none; }
-  .reorder-hint--mouse { display: inline; }
+
+.session-info-btn:hover {
+  background: color-mix(in srgb, var(--md-on-surface) 4%, transparent);
 }
+
+.session-meta {
+  color: var(--md-on-surface-variant);
+  margin: 0;
+}
+
 .session-duration {
   display: flex;
   align-items: center;
   gap: 4px;
   flex-shrink: 0;
+  cursor: default;
 }
+
 .duration-input {
   width: 3.25rem;
   min-width: 3.25rem;
-  padding: var(--sp-2) var(--sp-2);
+  padding: var(--sp-2);
   border: 1px solid var(--md-outline-variant);
   border-radius: var(--md-shape-sm);
   font: inherit;
@@ -727,15 +893,48 @@ function giveFeedback(exerciseId, type) {
   text-align: center;
   background: var(--md-surface);
   color: var(--md-on-surface);
-  touch-action: manipulation;
-  -webkit-user-select: text;
-  user-select: text;
-  -moz-appearance: textfield;
 }
+
 .duration-input::-webkit-outer-spin-button,
-.duration-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-.duration-suffix { color: var(--md-on-surface-variant); white-space: nowrap; }
-.session-info { flex: 1; min-width: 0; }
+.duration-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.duration-suffix {
+  color: var(--md-on-surface-variant);
+  white-space: nowrap;
+}
+
+.session-title {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: 0;
+  min-width: 0;
+}
+
+.session-title-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reorder-hint--mouse {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .reorder-hint--touch {
+    display: none;
+  }
+
+  .reorder-hint--mouse {
+    display: inline;
+  }
+}
+
 @media (max-width: 599px) {
   .session-title-text {
     white-space: normal;
@@ -745,53 +944,9 @@ function giveFeedback(exerciseId, type) {
     line-clamp: 2;
     overflow: hidden;
   }
-  .session-info-btn + .session-duration + .btn-icon {
-    align-self: flex-start;
-  }
 }
-.time-warn { color: var(--md-tertiary); }
-.manual-list { display: flex; flex-direction: column; gap: var(--sp-1); max-height: min(420px, 50vh); overflow-y: auto; }
-.manual-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-3);
-  padding: var(--sp-3);
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  border-radius: var(--md-shape-md);
-  text-align: left;
-  width: 100%;
-}
-.manual-item-body {
-  flex: 1;
-  min-width: 0;
-}
-.manual-title,
-.session-title {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-  margin: 0;
-  min-width: 0;
-}
-.manual-title-text,
-.session-title-text {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.manual-meta {
-  margin: 2px 0 0;
-  color: var(--md-on-surface-variant);
-}
-.manual-add {
-  flex-shrink: 0;
-  color: var(--md-on-surface-variant);
-}
-.manual-item:hover { background: color-mix(in srgb, var(--md-on-surface) 6%, transparent); }
+
+
 .custom-ex-badge {
   display: inline-flex;
   align-items: center;
@@ -803,12 +958,39 @@ function giveFeedback(exerciseId, type) {
   color: var(--md-on-tertiary-container);
   flex-shrink: 0;
 }
+
 .custom-ex-badge .material-symbols-rounded {
   font-size: 15px;
 }
+
 .empty-state {
   text-align: center;
   padding: var(--sp-8) var(--sp-4);
 }
-.empty-icon { font-size: 48px; color: var(--md-outline); display: block; margin-bottom: var(--sp-3); }
+
+.empty-icon {
+  font-size: 48px;
+  color: var(--md-outline);
+  display: block;
+  margin-bottom: var(--sp-3);
+}
+
+@media (min-width: 720px) {
+  .session-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--sp-4);
+  }
+
+  .session-main {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .session-sidebar {
+    flex: 0 0 38%;
+    max-width: 340px;
+    min-width: 280px;
+  }
+}
 </style>

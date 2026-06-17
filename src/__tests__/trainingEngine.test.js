@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest'
-import { analyzePlayerBalance, generateTraining, getCycleTheme, browseExercises } from '../utils/trainingEngine'
+import {
+  analyzePlayerBalance,
+  generateTraining,
+  getCycleTheme,
+  browseExercises,
+  browseExercisesWithFilters,
+  computeSessionTiming,
+} from '../utils/trainingEngine'
 import { EXERCISES } from '../data/exercises'
 
 describe('trainingEngine', () => {
@@ -10,18 +17,31 @@ describe('trainingEngine', () => {
     expect(balance.needsAttackFocus).toBe(true)
   })
 
-  it('generates a session within reasonable duration', () => {
+  it('generates 4–5 exercises for 60 min', () => {
+    const players = Array.from({ length: 10 }, () => ({ position: 'MID' }))
     const result = generateTraining({
       ageGroup: 'JO11',
       knvbLevel: 3,
       playerCount: 10,
       trainingType: 'gemengd',
       durationMin: 60,
-      presentPlayers: Array.from({ length: 10 }, () => ({ position: 'MID' })),
+      presentPlayers: players,
     })
-    expect(result.blocks.length).toBeGreaterThan(0)
-    expect(result.totalMin).toBeGreaterThanOrEqual(45)
-    expect(result.totalMin).toBeLessThanOrEqual(75)
+    expect(result.blocks.length).toBeGreaterThanOrEqual(4)
+    expect(result.blocks.length).toBeLessThanOrEqual(5)
+    expect(result.totalMin).toBeGreaterThanOrEqual(55)
+    expect(result.totalMin).toBeLessThanOrEqual(65)
+  })
+
+  it('computes session timing as sum of block durations', () => {
+    const timing = computeSessionTiming([
+      { durationMin: 10 },
+      { durationMin: 18 },
+      { durationMin: 20 },
+      { durationMin: 8 },
+    ], 60)
+    expect(timing.totalMin).toBe(56)
+    expect(timing.targetMin).toBe(60)
   })
 
   it('prefers exercises matching cycle theme', () => {
@@ -31,19 +51,15 @@ describe('trainingEngine', () => {
     expect(themed.length).toBeGreaterThan(0)
   })
 
-  it('learns from negative feedback by deprioritizing exercises', () => {
-    const disliked = EXERCISES[0].id
-    const withFeedback = generateTraining({
+  it('browseExercisesWithFilters supports text search', () => {
+    const results = browseExercisesWithFilters({
       ageGroup: 'JO11',
-      knvbLevel: 2,
-      playerCount: 12,
-      trainingType: 'techniek',
-      durationMin: 60,
-      feedback: { [disliked]: { dislikes: 5, likes: 0 } },
-      presentPlayers: Array.from({ length: 12 }, () => ({ position: 'MID' })),
+      knvbLevel: 3,
+      query: 'partij',
+      suitableOnly: false,
     })
-    const ids = withFeedback.blocks.map(b => b.exercise.id)
-    expect(ids.includes(disliked)).toBe(false)
+    expect(results.length).toBeGreaterThan(0)
+    expect(results.some(e => e.title.toLowerCase().includes('partij') || e.category === 'partijvorm')).toBe(true)
   })
 
   it('browseExercises returns all exercises for age group without type filter', () => {

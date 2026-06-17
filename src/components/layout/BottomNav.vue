@@ -41,8 +41,8 @@ const lineupTo = computed(() => {
 
 const navItems = computed(() => [
   { to: '/',           icon: 'home',          label: 'Home'       },
-  { to: '/players',    icon: 'group',         label: 'Spelers'    },
-  { to: lineupTo.value, icon: 'sports_soccer', label: 'Opstelling' },
+  { to: '/players',    icon: 'groups',        label: 'Spelers'    },
+  { to: lineupTo.value, icon: 'grid_view',   label: 'Opstelling' },
   { to: '/training',  icon: 'stadium',       label: 'Training' },
 ])
 

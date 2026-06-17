@@ -66,4 +66,7 @@ export const RINUS_ID_MAP = {
   // Afsluiting
   'af-koordans':            47863,  // Lunges met bal
   'af-spelletje':           47699,  // Passen en jagen
+  'af-stretchen-kring':     47863,  // Lunges met bal (cool-down variant)
+  'af-evaluation':          47699,  // Passen en jagen (kring/evaluatie)
+  'af-rondo-afsluit':       37787,  // 5 tegen 2 positiespel (lichte rondo)
 }

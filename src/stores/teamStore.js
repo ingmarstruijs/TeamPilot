@@ -273,27 +273,12 @@ export const useTeamStore = defineStore('team', () => {
       trainingState.value[teamId] = {
         cycleWeek: 1,
         cycleIsoWeek: null,
-        exerciseFeedback: {},
         recentExerciseIds: [],
         draftSession: null,
       }
     }
     syncCycleWeek(trainingState.value[teamId])
     return trainingState.value[teamId]
-  }
-
-  function recordExerciseFeedback(teamId, exerciseId, { like, dislike, rating }) {
-    const state = getTrainingState(teamId)
-    if (!state.exerciseFeedback[exerciseId]) {
-      state.exerciseFeedback[exerciseId] = { likes: 0, dislikes: 0, ratingSum: 0, count: 0 }
-    }
-    const fb = state.exerciseFeedback[exerciseId]
-    if (like) fb.likes++
-    if (dislike) fb.dislikes++
-    if (rating) {
-      fb.ratingSum += rating
-      fb.count++
-    }
   }
 
   function recordTrainingSession(teamId, exerciseIds) {
@@ -367,7 +352,6 @@ export const useTeamStore = defineStore('team', () => {
     mergeTeam,
     addRecentColors,
     getTrainingState,
-    recordExerciseFeedback,
     recordTrainingSession,
     saveDraftSession,
     importSharedTraining,

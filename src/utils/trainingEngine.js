@@ -27,68 +27,63 @@ export function filterExercises({
   playerCount,
   trainingType,
   category,
+  categories,
 }) {
   return EXERCISES.filter(ex => {
     if (!ex.ageGroups.includes(ageGroup)) return false
     if (knvbLevel < ex.minKnvbLevel || knvbLevel > ex.maxKnvbLevel) return false
-    if (playerCount < ex.minPlayers || playerCount > ex.maxPlayers) return false
+    if (playerCount != null && (playerCount < ex.minPlayers || playerCount > ex.maxPlayers)) return false
     if (trainingType && !ex.trainingTypes.includes(trainingType)) return false
     if (category && ex.category !== category) return false
+    if (categories?.length && !categories.includes(ex.category)) return false
     return true
   })
 }
 
-function scoreExercise(ex, ctx) {
+function scoreExercise(ex, ctx, targetMin = 0) {
   let score = 10
-  const fb = ctx.feedback?.[ex.id]
-  if (fb) {
-    score += (fb.likes ?? 0) * 2
-    score -= (fb.dislikes ?? 0) * 4
-    if (fb.ratingSum && fb.count) {
-      const avg = fb.ratingSum / fb.count
-      score += (avg - 3) * 2
-    }
-  }
   if (ex.cycleThemes?.includes(ctx.cycleTheme)) score += 5
   if (ex.focusPositions?.some(p => ctx.focusPositions?.includes(p))) score += 3
   if (ctx.needsAttackFocus && ex.focusPositions?.includes('ATT')) score += 4
   if (ctx.needsDefenceFocus && ex.focusPositions?.includes('DEF')) score += 4
   if (ctx.recentIds?.includes(ex.id)) score -= 8
+  if (targetMin >= 14 && ex.durationMin >= 14) score += 5
+  if (targetMin >= 10 && ex.durationMin >= targetMin * 0.75) score += 4
   return score
 }
 
-function pickBest(pool, ctx, usedIds) {
+function pickBest(pool, ctx, usedIds, targetMin = 0) {
   const available = pool.filter(ex => !usedIds.has(ex.id))
   if (!available.length) return null
-  const ranked = [...available].sort((a, b) => scoreExercise(b, ctx) - scoreExercise(a, ctx))
+  const ranked = [...available].sort((a, b) => scoreExercise(b, ctx, targetMin) - scoreExercise(a, ctx, targetMin))
   return ranked[0]
 }
 
+/** 4–5 exercises per session; shares apply to active (non-setup) minutes. */
 const SESSION_TEMPLATES = {
   techniek: [
     { category: 'warming-up', share: 0.12 },
-    { category: 'techniek', share: 0.65 },
-    { category: 'partijvorm', share: 0.13 },
+    { category: 'techniek', share: 0.28 },
+    { category: 'techniek', share: 0.28 },
+    { category: 'partijvorm', share: 0.22 },
     { category: 'afsluiting', share: 0.10 },
   ],
   tactiek: [
-    { category: 'warming-up', share: 0.10 },
-    { category: 'tactiek', share: 0.55 },
-    { category: 'partijvorm', share: 0.25 },
+    { category: 'warming-up', share: 0.12 },
+    { category: 'tactiek', share: 0.50 },
+    { category: 'partijvorm', share: 0.28 },
     { category: 'afsluiting', share: 0.10 },
   ],
   conditie: [
     { category: 'warming-up', share: 0.15 },
-    { category: 'conditie', share: 0.55 },
-    { category: 'partijvorm', share: 0.15 },
+    { category: 'conditie', share: 0.50 },
+    { category: 'partijvorm', share: 0.20 },
     { category: 'afsluiting', share: 0.15 },
   ],
   gemengd: [
-    { category: 'warming-up', share: 0.12 },
-    { category: 'techniek', share: 0.25 },
-    { category: 'tactiek', share: 0.20 },
-    { category: 'conditie', share: 0.13 },
-    { category: 'partijvorm', share: 0.20 },
+    { category: 'warming-up', share: 0.15 },
+    { categories: ['techniek', 'tactiek', 'conditie'], share: 0.45 },
+    { category: 'partijvorm', share: 0.30 },
     { category: 'afsluiting', share: 0.10 },
   ],
   partij: [
@@ -119,13 +114,20 @@ export function getCycleThemeLabel(themeOrWeek) {
   return CYCLE_THEME_LABELS[theme] ?? theme
 }
 
+export function computeSessionTiming(blocks, targetDurationMin = 60) {
+  const totalMin = blocks.reduce((s, b) => s + b.durationMin, 0)
+  return {
+    totalMin,
+    targetMin: targetDurationMin,
+  }
+}
+
 export function generateTraining({
   ageGroup,
   knvbLevel,
   playerCount,
   trainingType = 'gemengd',
   durationMin = 60,
-  feedback = {},
   cycleWeek = 1,
   recentIds = [],
   presentPlayers = [],
@@ -133,7 +135,6 @@ export function generateTraining({
   const balance = analyzePlayerBalance(presentPlayers)
   const cycleTheme = getCycleTheme(cycleWeek)
   const ctx = {
-    feedback,
     cycleTheme,
     recentIds,
     needsAttackFocus: balance.needsAttackFocus,
@@ -142,11 +143,12 @@ export function generateTraining({
   }
 
   const template = SESSION_TEMPLATES[trainingType] ?? SESSION_TEMPLATES.gemengd
+
   const usedIds = new Set()
   const blocks = []
 
-  for (const block of template) {
-    const targetMin = Math.round(durationMin * block.share)
+  for (const slot of template) {
+    const targetMin = Math.round(durationMin * slot.share)
     if (targetMin < 4) continue
 
     const pool = filterExercises({
@@ -154,37 +156,21 @@ export function generateTraining({
       knvbLevel,
       playerCount,
       trainingType,
-      category: block.category,
+      category: slot.category,
+      categories: slot.categories,
     })
 
-    let remaining = targetMin
-    while (remaining >= 5) {
-      const ex = pickBest(pool, ctx, usedIds)
-      if (!ex) break
-      const dur = Math.min(ex.durationMin, remaining)
-      blocks.push({ exercise: ex, durationMin: dur })
-      usedIds.add(ex.id)
-      remaining -= dur
-      if (remaining < 5) break
-    }
+    const ex = pickBest(pool, ctx, usedIds, targetMin)
+    if (!ex) continue
+    blocks.push({ exercise: ex, durationMin: targetMin })
+    usedIds.add(ex.id)
   }
 
-  // Fill gap to reach target duration
-  let total = blocks.reduce((s, b) => s + b.durationMin, 0)
-  if (total < durationMin - 3) {
-    const extraPool = filterExercises({ ageGroup, knvbLevel, playerCount, trainingType })
-    while (total < durationMin - 3) {
-      const ex = pickBest(extraPool, ctx, usedIds)
-      if (!ex) break
-      blocks.push({ exercise: ex, durationMin: ex.durationMin })
-      usedIds.add(ex.id)
-      total += ex.durationMin
-    }
-  }
+  const timing = computeSessionTiming(blocks, durationMin)
 
   return {
     blocks,
-    totalMin: blocks.reduce((s, b) => s + b.durationMin, 0),
+    totalMin: timing.totalMin,
     balance,
     cycleTheme,
     cycleWeek,
@@ -193,6 +179,63 @@ export function generateTraining({
 
 export function searchExercises(filters) {
   return filterExercises(filters)
+}
+
+function normalizeSearchText(text) {
+  return (text ?? '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/\p{M}/gu, '')
+}
+
+function exerciseMatchesQuery(ex, query) {
+  if (!query) return true
+  const haystack = normalizeSearchText(
+    [ex.title, ex.description, ex.setup, ex.source].filter(Boolean).join(' ')
+  )
+  return haystack.includes(normalizeSearchText(query))
+}
+
+/** Browse built-in + optional custom exercises with filters and text search. */
+export function browseExercisesWithFilters({
+  ageGroup,
+  knvbLevel,
+  playerCount,
+  trainingType,
+  category,
+  query = '',
+  suitableOnly = true,
+  customExercises = [],
+}) {
+  let builtIn
+  if (suitableOnly) {
+    builtIn = filterExercises({
+      ageGroup,
+      knvbLevel,
+      playerCount: playerCount || undefined,
+      trainingType: trainingType || undefined,
+      category: category || undefined,
+    })
+  } else {
+    builtIn = EXERCISES.filter(ex => {
+      if (!ex.ageGroups.includes(ageGroup)) return false
+      if (knvbLevel < ex.minKnvbLevel || knvbLevel > ex.maxKnvbLevel) return false
+      if (category && ex.category !== category) return false
+      return true
+    })
+  }
+
+  let custom = [...customExercises]
+  if (category) custom = custom.filter(ex => ex.category === category)
+  if (suitableOnly && playerCount) {
+    custom = custom.filter(ex => playerCount >= ex.minPlayers && playerCount <= ex.maxPlayers)
+  }
+  if (query) {
+    custom = custom.filter(ex => exerciseMatchesQuery(ex, query))
+  }
+
+  const merged = [...custom, ...builtIn.filter(ex => exerciseMatchesQuery(ex, query))]
+  return merged.sort((a, b) => a.title.localeCompare(b.title, 'nl'))
 }
 
 /** All exercises for manual browse — age group + level only (no type/player filter). */

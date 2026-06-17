@@ -1,25 +1,26 @@
 <template>
   <Transition name="fade">
     <div
-      v-if="block"
+      v-if="visible"
       class="exercise-detail-backdrop"
       @click.self="close"
     >
       <Transition name="dialog">
         <div
-          v-if="block"
+          v-if="visible"
           class="exercise-detail-dialog"
+          :class="{ 'is-preview': mode === 'preview', 'is-desktop': isDesktop }"
           role="dialog"
           aria-modal="true"
           :aria-labelledby="titleId"
         >
           <header class="exercise-detail-header">
             <div class="header-text">
-              <h2 :id="titleId" class="exercise-detail-title">{{ getExerciseTitle(block.exercise) }}</h2>
+              <h2 :id="titleId" class="exercise-detail-title">{{ getExerciseTitle(resolvedExercise) }}</h2>
               <p class="exercise-detail-meta">
-                {{ categoryLabel(block.exercise.category) }}
-                · {{ block.durationMin }} min
-                <template v-if="showPlayerRange"> · {{ playerRangeLabel(block.exercise) }}</template>
+                {{ categoryLabel(resolvedExercise.category) }}
+                · {{ displayDuration }} min
+                <template v-if="showPlayerRange"> · {{ playerRangeLabel(resolvedExercise) }}</template>
               </p>
             </div>
             <button type="button" class="btn-icon close-btn" aria-label="Sluiten" @click="close">
@@ -28,19 +29,21 @@
           </header>
 
           <div class="exercise-detail-body">
-            <ExerciseDiagram :exercise="block.exercise" />
+            <ExerciseDiagram :exercise="resolvedExercise" />
 
-            <p class="md-body-md section-text">{{ description }}</p>
+            <div class="detail-text">
+              <p class="md-body-md section-text">{{ description }}</p>
 
-            <p class="md-body-sm section-muted">
-              <strong>Opstelling:</strong> {{ setup }}
-            </p>
+              <p class="md-body-sm section-muted">
+                <strong>Opstelling:</strong> {{ setup }}
+              </p>
 
-            <div v-if="rules.length" class="rules-block">
-              <p class="md-label-md">Spelregels</p>
-              <ul class="rules-list md-body-sm">
-                <li v-for="(rule, i) in rules" :key="i">{{ rule }}</li>
-              </ul>
+              <div v-if="rules.length" class="rules-block">
+                <p class="md-label-md">Spelregels</p>
+                <ul class="rules-list md-body-sm">
+                  <li v-for="(rule, i) in rules" :key="i">{{ rule }}</li>
+                </ul>
+              </div>
             </div>
           </div>
 
@@ -56,27 +59,15 @@
               Bekijk in KNVB Rinus
             </a>
 
-            <div v-if="showFeedback" class="feedback-row">
-              <span class="md-label-md">Feedback</span>
-              <div class="feedback-btns">
-                <button
-                  type="button"
-                  class="btn-icon"
-                  aria-label="Goed"
-                  @click="$emit('feedback', block.exercise.id, 'like')"
-                >
-                  <span class="material-symbols-rounded">thumb_up</span>
-                </button>
-                <button
-                  type="button"
-                  class="btn-icon"
-                  aria-label="Niet goed"
-                  @click="$emit('feedback', block.exercise.id, 'dislike')"
-                >
-                  <span class="material-symbols-rounded">thumb_down</span>
-                </button>
-              </div>
-            </div>
+            <button
+              v-if="mode === 'preview'"
+              type="button"
+              class="btn btn-filled add-action"
+              @click="$emit('add', resolvedExercise)"
+            >
+              <span class="material-symbols-rounded" aria-hidden="true">add</span>
+              Toevoegen aan training
+            </button>
 
             <button type="button" class="btn btn-filled close-action" @click="close">
               Sluiten
@@ -92,6 +83,7 @@
 import { computed, useId, watch, onUnmounted } from 'vue'
 import { EXERCISE_CATEGORIES } from '@/data/exercises'
 import ExerciseDiagram from '@/components/training/ExerciseDiagram.vue'
+import { useMediaQuery } from '@/composables/useMediaQuery'
 import {
   buildExerciseDescription,
   buildExerciseSetup,
@@ -103,33 +95,45 @@ import {
 
 const props = defineProps({
   block: { type: Object, default: null },
+  exercise: { type: Object, default: null },
+  mode: { type: String, default: 'session' },
   playerCount: { type: Number, default: 0 },
-  showFeedback: { type: Boolean, default: false },
   showPlayerRange: { type: Boolean, default: true },
 })
 
-const emit = defineEmits(['close', 'feedback'])
+const emit = defineEmits(['close', 'add'])
 
 const titleId = useId()
+const isDesktop = useMediaQuery('(min-width: 720px)')
+
+const visible = computed(() => Boolean(props.block || props.exercise))
+
+const resolvedExercise = computed(() =>
+  props.block?.exercise ?? props.exercise ?? null
+)
+
+const displayDuration = computed(() =>
+  props.block?.durationMin ?? resolvedExercise.value?.durationMin ?? 0
+)
 
 const description = computed(() =>
-  props.block
-    ? buildExerciseDescription(props.block.exercise, props.playerCount)
+  resolvedExercise.value
+    ? buildExerciseDescription(resolvedExercise.value, props.playerCount)
     : ''
 )
 
 const setup = computed(() =>
-  props.block
-    ? buildExerciseSetup(props.block.exercise, props.playerCount)
+  resolvedExercise.value
+    ? buildExerciseSetup(resolvedExercise.value, props.playerCount)
     : ''
 )
 
 const rules = computed(() =>
-  props.block ? getRinusRules(props.block.exercise) : []
+  resolvedExercise.value ? getRinusRules(resolvedExercise.value) : []
 )
 
 const rinusUrl = computed(() =>
-  props.block ? getRinusUrl(props.block.exercise) : null
+  resolvedExercise.value ? getRinusUrl(resolvedExercise.value) : null
 )
 
 function categoryLabel(id) {
@@ -141,9 +145,9 @@ function close() {
 }
 
 watch(
-  () => props.block,
-  block => {
-    document.body.style.overflow = block ? 'hidden' : ''
+  visible,
+  isOpen => {
+    document.body.style.overflow = isOpen ? 'hidden' : ''
   },
   { immediate: true }
 )
@@ -176,6 +180,10 @@ onUnmounted(() => {
   border-radius: var(--md-shape-xl);
   box-shadow: var(--md-elevation-3);
   overflow: hidden;
+}
+
+.exercise-detail-dialog.is-preview {
+  max-width: 520px;
 }
 
 .exercise-detail-header {
@@ -267,7 +275,9 @@ onUnmounted(() => {
   background: var(--md-surface);
 }
 
-.rinus-link {
+.rinus-link,
+.add-action,
+.close-action {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -277,29 +287,49 @@ onUnmounted(() => {
   min-height: 44px;
 }
 
-.feedback-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+@media (max-width: 719px) {
+  .exercise-detail-dialog.is-preview {
+    max-width: none;
+    max-height: 100dvh;
+    height: 100dvh;
+    border-radius: var(--md-shape-xl) var(--md-shape-xl) 0 0;
+    align-self: flex-end;
+  }
+
+  .exercise-detail-backdrop:has(.is-preview) {
+    align-items: flex-end;
+    padding: 0;
+  }
 }
 
-.feedback-btns {
-  display: flex;
-  gap: var(--sp-1);
-}
-
-.close-action {
-  width: 100%;
-  min-height: 44px;
-}
-
-@media (min-width: 600px) {
+@media (min-width: 720px) {
   .exercise-detail-backdrop {
     padding: var(--sp-5);
   }
 
   .exercise-detail-dialog {
+    max-width: 560px;
     max-height: min(90dvh, 720px);
+  }
+
+  .exercise-detail-dialog.is-desktop .exercise-detail-body {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--sp-4);
+    padding: var(--sp-4) var(--sp-5);
+  }
+
+  .exercise-detail-dialog.is-desktop .exercise-detail-body :deep(.diagram-wrap) {
+    flex: 0 0 44%;
+    max-width: 44%;
+  }
+
+  .detail-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
   }
 
   .exercise-detail-header {
@@ -311,12 +341,16 @@ onUnmounted(() => {
     font-weight: 400;
   }
 
-  .exercise-detail-body {
-    padding: 0 var(--sp-5) var(--sp-4);
-  }
-
   .exercise-detail-footer {
     padding: var(--sp-4) var(--sp-5) var(--sp-5);
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .rinus-link,
+  .add-action {
+    width: auto;
+    flex: 1;
   }
 
   .close-action {
