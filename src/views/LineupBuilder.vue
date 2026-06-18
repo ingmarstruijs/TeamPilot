@@ -1,7 +1,8 @@
 <template>
   <div class="page builder-page">
-    <!-- Top toolbar -->
-    <div class="builder-toolbar">
+    <!-- Sticky header: lineup switcher + actions -->
+    <div class="builder-header-shell">
+      <div class="builder-toolbar">
       <!-- Lineup switcher -->
       <div class="lineup-switcher" ref="switcherRef">
         <button class="switcher-btn" @click="showSwitcher = !showSwitcher" :class="{ open: showSwitcher }">
@@ -76,103 +77,105 @@
           <span class="btn-lbl">Delen</span>
         </button>
       </div>
-    </div>
+      </div>
 
-    <!-- Formation & bench controls: mobile only — single row -->
-    <div v-if="!isDesktop" class="formation-controls" ref="formationControlsRef">
-      <label class="sr-only" for="formation-select">Formatie types</label>
-      <select id="formation-select" class="formation-dropdown formation-dropdown--compact" :value="selectedFormationId || ''" @change="onFormationChange">
-        <option value="">Vrij</option>
-        <option v-for="f in availableFormations" :key="f.id" :value="f.id">{{ f.label }}</option>
-      </select>
-      <div class="mobile-toggles">
-        <div class="bench-anchor" ref="benchAnchorRef">
-          <button
-            class="chip chip-toggle"
-            :class="{ active: showBench, 'drag-drop': isFieldDragging }"
-            @click="showBench = !showBench"
-            data-bench-button
-            title="Bank"
-          >
-            <span class="material-symbols-rounded" style="font-size:16px">group</span>
-            <span class="chip-text">Bank</span>
-            <span v-if="benchPlayers.length" class="chip-badge">{{ benchPlayers.length }}</span>
-          </button>
-          <Transition name="bench-drop">
-            <div v-if="showBench" class="bench-dropdown" :class="{ 'bench-dragging': isBenchDragging }">
-              <BenchPanel
-                :bench-players="benchPlayers"
-                :team-shirt="activeTeam?.shirt"
-                :horizontal="false"
-                @bench-drag-start="onBenchDragStart"
-                @bench-touch-start="onBenchTouchStart"
-                @field-drop="removePlayerFromField"
-              />
+      <!-- Bank & weergave (mobile, onderkant sticky header) -->
+      <div
+        v-if="!isDesktop"
+        class="builder-header-controls"
+        ref="formationControlsRef"
+      >
+        <div class="builder-header-controls-bar">
+          <div class="controls-options controls-options--summary" @click.stop>
+            <div class="bench-anchor" ref="benchAnchorRef">
+              <button
+                class="chip chip-toggle"
+                :class="{ active: showBench, 'drag-drop': isFieldDragging }"
+                @click="toggleBench"
+                data-bench-button
+                title="Bank"
+              >
+                <span class="material-symbols-rounded" style="font-size:16px">group</span>
+                <span class="chip-text">Bank</span>
+                <span v-if="benchPlayers.length" class="chip-badge">{{ benchPlayers.length }}</span>
+              </button>
             </div>
-          </Transition>
-        </div>
-        <button class="chip chip-toggle" :class="{ active: showOpponent }" @click="showOpponent = !showOpponent" title="Tegenstander">
-          <span class="material-symbols-rounded" style="font-size:16px">shield</span>
-          <span class="chip-text">Tegenstander</span>
-        </button>
-        <button class="chip chip-toggle" @click="flipped = !flipped" :title="flipped ? 'Aanval omhoog' : 'Keeper omlaag'">
-          <span class="material-symbols-rounded" style="font-size:16px">swap_vert</span>
-          <span class="chip-text">Omdraaien</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Formation chips: desktop only -->
-    <div class="formation-row">
-      <span class="formation-row-label">Formatie types:</span>
-      <button
-        v-for="f in availableFormations"
-        :key="f.id"
-        class="chip"
-        :class="{ active: selectedFormationId === f.id }"
-        @click="applyFormation(f)"
-      >{{ f.label }}</button>
-      <button class="chip" :class="{ active: !selectedFormationId }" @click="freeMode">
-        <span class="material-symbols-rounded" style="font-size:14px">edit</span>
-        Vrij
-      </button>
-      <button class="chip" :class="{ active: showOpponent }" @click="showOpponent = !showOpponent" title="Tegenstander">
-        <span class="material-symbols-rounded" style="font-size:14px">shield</span>
-        <span class="chip-label">Tegenstander</span>
-      </button>
-      <button class="chip" @click="flipped = !flipped" :title="flipped ? 'Aanval omhoog' : 'Keeper omlaag'">
-        <span class="material-symbols-rounded" style="font-size:14px">swap_vert</span>
-        <span class="chip-label">Omdraaien</span>
-      </button>
-      <span v-if="showOpponent && counterFormationLabel" class="counter-hint md-label-sm">
-        vs {{ counterFormationLabel }}
-      </span>
-    </div>
-
-    <!-- Main layout: field + bench -->
-    <div class="builder-layout">
-      <!-- Bench column: desktop only -->
-      <div v-if="isDesktop" class="bench-col">
-        <BenchPanel
-          :bench-players="benchPlayers"
-          :team-shirt="activeTeam?.shirt"
-          :horizontal="false"
-          @bench-drag-start="onBenchDragStart"
-          @bench-touch-start="onBenchTouchStart"
-          @field-drop="removePlayerFromField"
-        />
-
-        <!-- Share button: desktop only inside bench column -->
-        <div v-if="filledCount > 0 && isDesktop" class="share-section">
-          <button class="btn btn-tonal w-full" @click="openShareDialog" :disabled="sharing">
-            <span class="material-symbols-rounded" style="font-size:18px">share</span>
-            {{ sharing ? 'Bezig…' : 'Delen' }}
+            <button class="chip chip-toggle" :class="{ active: showOpponent }" @click="showOpponent = !showOpponent" title="Tegenstander">
+              <span class="material-symbols-rounded" style="font-size:16px">shield</span>
+              <span class="chip-text">Tegenstander</span>
+            </button>
+            <button class="chip chip-toggle" @click="flipped = !flipped" :title="flipped ? 'Aanval omhoog' : 'Keeper omlaag'">
+              <span class="material-symbols-rounded" style="font-size:16px">swap_vert</span>
+              <span class="chip-text">Omdraaien</span>
+            </button>
+          </div>
+          <button
+            type="button"
+            class="controls-expand-btn"
+            :aria-expanded="controlsExpanded"
+            aria-label="Formatie types"
+            @click.stop="toggleControlsExpanded"
+          >
+            <span class="material-symbols-rounded controls-summary-chevron" :class="{ open: controlsExpanded }">expand_more</span>
           </button>
         </div>
-      </div>
 
-      <!-- Football field -->
-      <div class="field-col">
+        <Transition name="bench-drop">
+          <div v-if="controlsExpanded" class="builder-header-controls-expand">
+            <p class="md-title-sm controls-title">Formatie types</p>
+            <label class="sr-only" for="formation-select">Formatie types</label>
+            <select
+              id="formation-select"
+              class="formation-dropdown"
+              :value="selectedFormationId || ''"
+              @change="onFormationChange"
+            >
+              <option value="">Vrij</option>
+              <option v-for="f in availableFormations" :key="f.id" :value="f.id">{{ f.label }}</option>
+            </select>
+          </div>
+        </Transition>
+
+        <Transition name="bench-drop">
+          <div v-if="showBench" class="bench-dropdown bench-dropdown--overlay" :class="{ 'bench-dragging': isBenchDragging }">
+            <BenchPanel
+              :bench-players="benchPlayers"
+              :team-shirt="activeTeam?.shirt"
+              :horizontal="false"
+              @bench-drag-start="onBenchDragStart"
+              @bench-touch-start="onBenchTouchStart"
+              @field-drop="removePlayerFromField"
+            />
+          </div>
+        </Transition>
+      </div>
+    </div>
+
+    <div
+      v-if="!isDesktop && (controlsExpanded || showBench)"
+      class="controls-backdrop"
+      @click="closeMobileOverlays"
+    />
+
+    <div class="builder-body">
+      <aside v-if="isDesktop" class="builder-col-formation card card-elevated">
+        <p class="md-title-sm controls-title">Formatie types</p>
+        <div class="formation-chips formation-chips--stacked">
+          <button
+            v-for="f in availableFormations"
+            :key="f.id"
+            class="chip"
+            :class="{ active: selectedFormationId === f.id }"
+            @click="applyFormation(f)"
+          >{{ f.label }}</button>
+          <button class="chip" :class="{ active: !selectedFormationId }" @click="freeMode">
+            <span class="material-symbols-rounded" style="font-size:14px">edit</span>
+            Vrij
+          </button>
+        </div>
+      </aside>
+
+      <div class="builder-col-field">
         <FootballField
           :slots="fieldSlots"
           :players="playersMap"
@@ -187,14 +190,40 @@
           @drag-active="isFieldDragging = $event"
         />
       </div>
-    </div>
 
-    <!-- Mobile bench backdrop (closes dropdown) -->
-    <div
-      v-if="showBench && !isDesktop && !isBenchDragging"
-      class="bench-backdrop"
-      @click="showBench = false"
-    />
+      <aside v-if="isDesktop" class="builder-col-bench">
+        <div class="sidebar-card card card-elevated">
+          <p class="md-title-sm controls-title">Weergave</p>
+          <div class="controls-options controls-options--sidebar">
+            <button class="chip chip-toggle" :class="{ active: showOpponent }" @click="showOpponent = !showOpponent" title="Tegenstander">
+              <span class="material-symbols-rounded" style="font-size:16px">shield</span>
+              <span class="chip-text">Tegenstander</span>
+            </button>
+            <button class="chip chip-toggle" @click="flipped = !flipped" :title="flipped ? 'Aanval omhoog' : 'Keeper omlaag'">
+              <span class="material-symbols-rounded" style="font-size:16px">swap_vert</span>
+              <span class="chip-text">Omdraaien</span>
+            </button>
+          </div>
+        </div>
+
+        <BenchPanel
+          class="bench-panel--sidebar"
+          :bench-players="benchPlayers"
+          :team-shirt="activeTeam?.shirt"
+          :horizontal="false"
+          @bench-drag-start="onBenchDragStart"
+          @bench-touch-start="onBenchTouchStart"
+          @field-drop="removePlayerFromField"
+        />
+
+        <div v-if="filledCount > 0" class="share-section">
+          <button class="btn btn-tonal w-full" @click="openShareDialog" :disabled="sharing">
+            <span class="material-symbols-rounded" style="font-size:18px">share</span>
+            {{ sharing ? 'Bezig…' : 'Delen' }}
+          </button>
+        </div>
+      </aside>
+    </div>
 
     <!-- Bench-to-field touch drag ghost -->
     <div
@@ -346,7 +375,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
 import { FORMATIONS, FORMATION_Y } from '@/data/formations'
 import { encodeBundle, encodeLineupOnly } from '@/utils/lineupShare'
-import { buildOpponentSlots, getCounterFormationLabel } from '@/utils/opponentFormation'
+import { buildOpponentSlots } from '@/utils/opponentFormation'
 import { getOpponentShirt } from '@/utils/opponentShirt'
 import FootballField from '@/components/field/FootballField.vue'
 import BenchPanel    from '@/components/field/BenchPanel.vue'
@@ -379,14 +408,34 @@ const switcherRef  = ref(null)
 const showBench    = ref(false)
 const benchAnchorRef = ref(null)
 const formationControlsRef = ref(null)
+const controlsExpanded = ref(false)
 const showOpponent = ref(false)
+
+function toggleControlsExpanded() {
+  controlsExpanded.value = !controlsExpanded.value
+  if (controlsExpanded.value) showBench.value = false
+}
+
+function toggleBench() {
+  showBench.value = !showBench.value
+  if (showBench.value) controlsExpanded.value = false
+}
+
+function closeMobileOverlays() {
+  controlsExpanded.value = false
+  if (!isBenchDragging.value) showBench.value = false
+}
 
 function closeOnOutsideClick(e) {
   if (switcherRef.value && !switcherRef.value.contains(e.target)) {
     showSwitcher.value = false
   }
-  if (showBench.value && benchAnchorRef.value && !benchAnchorRef.value.contains(e.target)) {
-    showBench.value = false
+  if (
+    (showBench.value || controlsExpanded.value)
+    && formationControlsRef.value
+    && !formationControlsRef.value.contains(e.target)
+  ) {
+    closeMobileOverlays()
   }
 }
 onMounted(() => document.addEventListener('mousedown', closeOnOutsideClick))
@@ -582,9 +631,15 @@ watch(selectedFormationId, () => {
   if (showOpponent.value) resetOpponentSlots()
 })
 
-const counterFormationLabel = computed(() =>
-  getCounterFormationLabel(activeTeam.value?.ageGroup, selectedFormationId.value)
-)
+function onFormationChange(event) {
+  const formationId = event.target.value
+  if (!formationId) {
+    freeMode()
+  } else {
+    const formation = availableFormations.value.find(f => f.id === formationId)
+    if (formation) applyFormation(formation)
+  }
+}
 
 // ── Init / load lineup ─────────────────────────────────────
 function loadFreshFormation() {
@@ -730,16 +785,6 @@ function freeMode() {
   // Keep only filled slots — no more ghost placeholder circles in free mode
   fieldSlots.value = fieldSlots.value.filter(s => s.playerId)
   if (showOpponent.value) resetOpponentSlots()
-}
-
-function onFormationChange(event) {
-  const formationId = event.target.value
-  if (!formationId) {
-    freeMode()
-  } else {
-    const formation = availableFormations.value.find(f => f.id === formationId)
-    if (formation) applyFormation(formation)
-  }
 }
 
 function buildFreeSlots(count) {
@@ -1296,11 +1341,34 @@ async function shareViaWhatsApp() {
 .builder-page {
   display: flex;
   flex-direction: column;
-  flex: none; /* override flex:1 from .page so explicit height is respected */
+  flex: none;
   height: calc(100dvh - var(--top-bar-height) - var(--nav-height));
   overflow: hidden;
-  padding: var(--sp-3) var(--sp-4) 0;
+  padding: var(--sp-3) var(--sp-3) 0;
   box-sizing: border-box;
+}
+
+/* ── Sticky header shell (aligned with training page) ── */
+.builder-header-shell {
+  flex-shrink: 0;
+}
+
+@media (max-width: 899px) {
+  .builder-page {
+    padding-top: 0;
+    gap: 0;
+  }
+
+  .builder-header-shell {
+    position: sticky;
+    top: 0;
+    z-index: 25;
+    margin: calc(-1 * var(--sp-3)) calc(-1 * var(--sp-3)) var(--sp-2);
+    padding: var(--sp-2) var(--sp-3) 0;
+    background: var(--md-surface);
+    border-bottom: 1px solid var(--md-outline-variant);
+    overflow: visible;
+  }
 }
 
 .builder-toolbar {
@@ -1308,7 +1376,6 @@ async function shareViaWhatsApp() {
   align-items: center;
   justify-content: space-between;
   gap: var(--sp-2);
-  margin-bottom: var(--sp-2);
   flex-shrink: 0;
 }
 
@@ -1477,37 +1544,193 @@ async function shareViaWhatsApp() {
 
 .toolbar-actions { display: flex; gap: var(--sp-2); flex-shrink: 0; align-items: center; }
 
-.formation-controls {
+/* ── Mobile header controls ───────────────────────────────── */
+.builder-header-controls {
+  position: relative;
+  margin-top: var(--sp-2);
+  padding-bottom: var(--sp-2);
+  border-top: 1px solid var(--md-outline-variant);
+  overflow: visible;
+}
+
+.builder-header-controls-bar {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 6px;
-  padding: var(--sp-2) var(--sp-4);
-  margin: 0 calc(var(--sp-4) * -1);
-  margin-bottom: var(--sp-2);
-  flex-shrink: 0;
+  gap: var(--sp-2);
+  padding-top: var(--sp-2);
+}
+
+.builder-header-controls-expand {
+  position: absolute;
+  top: 100%;
+  left: calc(-1 * var(--sp-3));
+  right: calc(-1 * var(--sp-3));
+  z-index: 30;
+  padding: var(--sp-3);
   background: var(--md-surface);
   border-bottom: 1px solid var(--md-outline-variant);
-  position: relative;
-  z-index: 120;
-}
-
-.mobile-toggles {
+  box-shadow: var(--md-elevation-2);
   display: flex;
-  flex: 1;
-  min-width: 0;
-  align-items: stretch;
-  gap: 6px;
+  flex-direction: column;
+  gap: var(--sp-2);
 }
 
-.mobile-toggles > .bench-anchor,
-.mobile-toggles > .chip-toggle {
+.builder-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.builder-col-field {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+}
+
+.builder-col-field :deep(.field-wrapper) {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.controls-title {
+  margin: 0;
+}
+
+.controls-expand-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--md-on-surface-variant);
+  cursor: pointer;
+  border-radius: var(--md-shape-full);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.controls-summary-chevron {
+  flex-shrink: 0;
+  color: var(--md-on-surface-variant);
+  transition: transform var(--md-duration-short);
+}
+
+.controls-summary-chevron.open {
+  transform: rotate(180deg);
+}
+
+.controls-options--summary {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: var(--sp-2);
+}
+
+.controls-options--summary > .chip-toggle,
+.controls-options--summary > .bench-anchor {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.controls-options--summary .chip-toggle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  padding: var(--sp-1) var(--sp-2);
+}
+
+.controls-options--summary .chip-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.controls-backdrop {
+  position: fixed;
+  inset: var(--top-bar-height) 0 var(--nav-height) 0;
+  z-index: 24;
+  background: transparent;
+}
+
+.formation-dropdown {
+  width: 100%;
+  background: var(--md-surface-variant);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--md-shape-sm);
+  padding: var(--sp-2) var(--sp-3);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--md-on-surface);
+  outline: none;
+  min-height: 40px;
+  cursor: pointer;
+  transition: border-color var(--md-duration-short), background var(--md-duration-short);
+}
+
+.formation-dropdown:hover {
+  border-color: var(--md-outline);
+}
+
+.formation-dropdown:focus {
+  border-color: var(--md-primary);
+  background: color-mix(in srgb, var(--md-primary) 4%, transparent);
+}
+
+.formation-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.formation-chips--stacked {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.formation-chips--stacked .chip {
+  width: 100%;
+  justify-content: center;
+}
+
+.controls-options--sidebar {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.controls-options--sidebar .chip-toggle {
+  width: 100%;
+  justify-content: center;
+}
+
+.sidebar-card {
+  padding: var(--sp-3);
+  flex-shrink: 0;
+}
+
+.controls-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
 }
 
 .bench-anchor {
   position: relative;
+  min-width: 0;
 }
 
 .bench-anchor .chip-toggle {
@@ -1523,15 +1746,15 @@ async function shareViaWhatsApp() {
   white-space: nowrap;
 }
 
+@media (min-width: 720px) {
+  .controls-options > .chip-toggle {
+    flex: 0 1 auto;
+  }
+}
+
 .chip-toggle .chip-text {
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-@media (max-width: 360px) {
-  .chip-toggle .chip-text {
-    display: none;
-  }
 }
 
 .bench-dropdown {
@@ -1550,16 +1773,18 @@ async function shareViaWhatsApp() {
   -webkit-overflow-scrolling: touch;
 }
 
+.bench-dropdown--overlay {
+  top: calc(100% + var(--sp-1));
+  left: 0;
+  right: 0;
+  min-width: 0;
+  max-width: none;
+  z-index: 35;
+}
+
 .bench-dropdown.bench-dragging {
   opacity: 0;
   pointer-events: none;
-}
-
-.bench-backdrop {
-  position: fixed;
-  inset: var(--top-bar-height) 0 var(--nav-height) 0;
-  z-index: 110;
-  background: transparent;
 }
 
 .bench-drop-enter-active,
@@ -1572,83 +1797,68 @@ async function shareViaWhatsApp() {
   transform: translateY(-8px);
 }
 
-.formation-dropdown {
-  background: var(--md-surface);
-  border: 2px solid var(--md-outline-variant);
-  border-radius: var(--md-shape-sm);
-  padding: var(--sp-1) var(--sp-2);
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--md-on-surface);
-  outline: none;
-  height: 36px;
-  cursor: pointer;
-  transition: border-color var(--md-duration-short), background var(--md-duration-short);
-}
-.formation-dropdown--compact {
-  flex: 0 0 auto;
-  width: 4.75rem;
-  padding: 0 1.125rem 0 0.5rem;
-  font-size: 12px;
-  font-weight: 600;
-  text-align: left;
-  text-align-last: left;
-}
-.formation-dropdown:hover {
-  border-color: var(--md-outline);
-}
-.formation-dropdown:focus {
-  border-color: var(--md-primary);
-  background: color-mix(in srgb, var(--md-primary) 4%, transparent);
-}
+/* ── Desktop overrides (≥720px) ─────────────────────────── */
+@media (min-width: 720px) {
+  .builder-page {
+    display: flex;
+    flex-direction: column;
+    height: calc(100dvh - var(--top-bar-height));
+    max-width: none;
+    overflow: hidden;
+    padding: var(--sp-3);
+    gap: var(--sp-3);
+  }
 
-.formation-row {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  gap: var(--sp-2);
-  margin-bottom: var(--sp-2);
-  flex-shrink: 0;
-  padding-bottom: 2px;
-}
-.formation-row-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--md-on-surface-variant);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.counter-hint {
-  color: var(--md-on-surface-variant);
-  white-space: nowrap;
-  flex-shrink: 0;
-  padding-left: var(--sp-1);
-}
-.formation-row::-webkit-scrollbar { display: none; }
-.formation-row > * { flex-shrink: 0; }
+  .builder-header-shell {
+    margin-bottom: 0;
+  }
 
-@media (max-width: 719px) {
-  .formation-row { display: none; }
-}
+  .builder-body {
+    display: grid;
+    grid-template-columns: minmax(200px, 240px) minmax(0, 1fr) minmax(240px, 280px);
+    gap: var(--sp-4);
+    align-items: stretch;
+  }
 
-/* Builder layout: column on mobile, row on desktop */
-.builder-layout {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-2);
-}
-/* Mobile: bench above, field fills remaining space */
-.bench-col  { flex-shrink: 0; }
-.field-col  {
-  flex: 1;
-  min-height: 0;
-  display: flex;
+  .builder-col-formation {
+    padding: var(--sp-3);
+    min-height: 0;
+    overflow-y: auto;
+    align-self: start;
+    max-height: 100%;
+  }
+
+  .builder-col-field {
+    min-height: 0;
+    height: 100%;
+  }
+
+  .builder-col-bench {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .builder-col-bench :deep(.bench-panel--sidebar) {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .builder-col-bench :deep(.bench-panel--sidebar .bench-scroll) {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    align-content: flex-start;
+  }
+
+  .builder-col-bench .share-section {
+    flex-shrink: 0;
+  }
 }
 
 /* Mobile share strip below the field */
@@ -1660,39 +1870,9 @@ async function shareViaWhatsApp() {
 .share-mobile .share-btns { flex-direction: row; }
 .share-mobile .share-btns .btn { flex: 1; }
 
-/* ── Desktop overrides (≥720px) ─────────────────────────── */
-@media (min-width: 720px) {
-  .builder-page {
-    height: auto;
-    overflow: visible;
-    padding: var(--sp-4);
-  }
-  .builder-layout {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: var(--sp-4);
-  }
-  /* Field left (order:1), bench right (order:2) */
-  .field-col {
-    flex: 1;
-    height: auto;
-    min-width: 0;
-    order: 1;
-    display: block;
-  }
-  .bench-col {
-    width: 280px;
-    flex-shrink: 0;
-    order: 2;
-    display: flex;
-    flex-direction: column;
-    gap: var(--sp-3);
-  }
-}
-
 /* ── Mobile bench dropdown (replaces bottom sheet) ──────── */
 @media (max-width: 719px) {
-  .bench-col { display: none; }
+  .builder-col-bench { display: none; }
 }
 
 /* Bank chip highlighted as drop target while dragging a field player */
@@ -1876,7 +2056,6 @@ async function shareViaWhatsApp() {
 /* Hide button labels on mobile for compact icon-only toolbar */
 @media (max-width: 719px) {
   .btn-lbl { display: none; }
-  .chip-label { display: none; }
   .toolbar-actions .btn { padding: var(--sp-2); min-width: 36px; justify-content: center; }
 }
 </style>

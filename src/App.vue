@@ -4,7 +4,12 @@
 
     <div class="layout-body">
       <!-- Navigation drawer: only mounted on desktop -->
-      <NavDrawer v-if="isDesktop" class="layout-drawer" />
+      <NavDrawer
+        v-if="isDesktop"
+        class="layout-drawer"
+        :collapsed="drawerCollapsed"
+        @toggle="toggleDrawer"
+      />
 
       <!-- Page content -->
       <main class="app-main">
@@ -59,12 +64,14 @@ import NavDrawer     from '@/components/layout/NavDrawer.vue'
 import BottomNav     from '@/components/layout/BottomNav.vue'
 import Snackbar      from '@/components/ui/Snackbar.vue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
+import { useNavDrawer } from '@/composables/useNavDrawer'
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
 import { showSnackbar } from '@/composables/useSnackbar'
 
 const isDesktop = useMediaQuery('(min-width: 900px)')
+const { collapsed: drawerCollapsed, toggleDrawer } = useNavDrawer()
 const route  = useRoute()
 const router = useRouter()
 const store  = useTeamStore()

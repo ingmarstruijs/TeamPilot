@@ -1,11 +1,11 @@
 <template>
-  <nav class="nav-drawer" aria-label="Hoofdnavigatie">
+  <nav class="nav-drawer" :class="{ 'nav-drawer--collapsed': collapsed }" aria-label="Hoofdnavigatie">
     <!-- Team identity block -->
     <div class="drawer-team">
       <div class="drawer-team-badge">
-        <ShirtAvatar :shirt="activeTeam?.shirt" :initials="teamInitials" :size="44" />
+        <ShirtAvatar :shirt="activeTeam?.shirt" :initials="teamInitials" :size="collapsed ? 36 : 44" />
       </div>
-      <div class="drawer-team-info">
+      <div v-if="!collapsed" class="drawer-team-info">
         <span class="drawer-team-name md-title-sm">{{ activeTeam?.name }}</span>
         <span class="drawer-team-age md-label-sm">{{ activeTeam?.ageGroup }}</span>
       </div>
@@ -21,18 +21,32 @@
           class="drawer-item"
           :class="{ active: isActive(item) }"
           :aria-current="isActive(item) ? 'page' : undefined"
+          :aria-label="collapsed ? item.label : undefined"
+          :title="collapsed ? item.label : undefined"
         >
           <div class="drawer-item-indicator">
             <span class="material-symbols-rounded drawer-item-icon">{{ item.icon }}</span>
           </div>
-          <span class="drawer-item-label md-label-lg">{{ item.label }}</span>
+          <span v-if="!collapsed" class="drawer-item-label md-label-lg">{{ item.label }}</span>
         </RouterLink>
       </li>
     </ul>
 
-    <!-- Bottom spacer / version -->
+    <!-- Footer -->
     <div class="drawer-footer">
-      <span class="md-label-sm drawer-version">TeamPilot</span>
+      <button
+        type="button"
+        class="drawer-toggle"
+        :aria-label="collapsed ? 'Navigatie uitklappen' : 'Navigatie inklappen'"
+        :title="collapsed ? 'Uitklappen' : 'Inklappen'"
+        @click="$emit('toggle')"
+      >
+        <span class="material-symbols-rounded drawer-toggle-icon" aria-hidden="true">
+          {{ collapsed ? 'chevron_right' : 'chevron_left' }}
+        </span>
+        <span v-if="!collapsed" class="drawer-toggle-label md-label-sm">Inklappen</span>
+      </button>
+      <span v-if="!collapsed" class="md-label-sm drawer-version">TeamPilot</span>
     </div>
   </nav>
 </template>
@@ -45,6 +59,12 @@ import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 
 const route = useRoute()
 const store = useTeamStore()
+
+defineProps({
+  collapsed: { type: Boolean, default: false },
+})
+
+defineEmits(['toggle'])
 
 const activeTeam = computed(() => store.activeTeam)
 const teamInitials = computed(() => {
@@ -74,6 +94,11 @@ function isActive(item) {
   flex-direction: column;
   overflow: hidden;
   flex-shrink: 0;
+  transition: width var(--md-duration-medium) var(--md-motion-standard);
+}
+
+.nav-drawer--collapsed {
+  width: var(--drawer-width-collapsed, 72px);
 }
 
 /* Team block */
@@ -82,6 +107,12 @@ function isActive(item) {
   align-items: center;
   gap: var(--sp-3);
   padding: var(--sp-4) var(--sp-4) var(--sp-3);
+}
+
+.nav-drawer--collapsed .drawer-team {
+  justify-content: center;
+  padding-left: var(--sp-2);
+  padding-right: var(--sp-2);
 }
 .drawer-team-badge {
   width: 44px;
@@ -122,6 +153,10 @@ function isActive(item) {
   flex: 1;
 }
 
+.nav-drawer--collapsed .drawer-nav-list {
+  padding: 0 var(--sp-2);
+}
+
 /* Full-row pill: the entire row is the interactive target */
 .drawer-item {
   display: flex;
@@ -135,6 +170,13 @@ function isActive(item) {
   transition: background var(--md-duration-short) var(--md-motion-standard),
               color     var(--md-duration-short) var(--md-motion-standard);
   -webkit-tap-highlight-color: transparent;
+}
+
+.nav-drawer--collapsed .drawer-item {
+  justify-content: center;
+  padding: 0;
+  width: 48px;
+  margin: 0 auto;
 }
 .drawer-item:hover {
   background: color-mix(in srgb, var(--md-on-surface) 8%, transparent);
@@ -174,9 +216,56 @@ function isActive(item) {
 
 /* Footer */
 .drawer-footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
   padding: var(--sp-3) var(--sp-4);
   border-top: 1px solid var(--md-outline-variant);
 }
+
+.nav-drawer--collapsed .drawer-footer {
+  align-items: center;
+  padding-left: var(--sp-2);
+  padding-right: var(--sp-2);
+}
+
+.drawer-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  width: 100%;
+  min-height: 40px;
+  padding: var(--sp-2) var(--sp-3);
+  border: none;
+  border-radius: var(--md-shape-full);
+  background: transparent;
+  color: var(--md-on-surface-variant);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background var(--md-duration-short);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-drawer--collapsed .drawer-toggle {
+  justify-content: center;
+  width: 48px;
+  padding: var(--sp-2);
+}
+
+.drawer-toggle:hover {
+  background: color-mix(in srgb, var(--md-on-surface) 8%, transparent);
+  color: var(--md-on-surface);
+}
+
+.drawer-toggle-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.drawer-toggle-label {
+  color: inherit;
+}
+
 .drawer-version {
   color: var(--md-outline);
   letter-spacing: .5px;

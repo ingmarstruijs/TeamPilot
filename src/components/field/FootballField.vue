@@ -359,37 +359,24 @@ function onTouchEnd(event) {
 .field-wrapper {
   position: relative;
   width: 100%;
+  height: 100%;
   flex: 1;
   min-height: 0;
   container-type: size;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
 .pitch {
   position: relative;
-  /* Fit within whichever dimension is tighter: full width, or height × aspect-ratio */
-  width: min(100%, calc(100cqh * 5 / 8));
-  height: auto;
   aspect-ratio: 5 / 8;
+  width: min(100cqw, calc(100cqh * 5 / 8));
+  height: min(100cqh, calc(100cqw * 8 / 5));
   background: color-mix(in srgb, #059669 85%, #065f46);
   border-radius: var(--md-shape-md);
   overflow: hidden;
   box-shadow: var(--md-elevation-3);
   touch-action: none;
-}
-@media (min-width: 720px) {
-  .field-wrapper {
-    flex: unset;
-    min-height: unset;
-    display: block;
-  }
-  .pitch {
-    /* Desktop: width-driven — fills column, height from aspect-ratio */
-    height: auto;
-    width: 100%;
-    max-width: unset;
-  }
 }
 .field-markings {
   position: absolute;

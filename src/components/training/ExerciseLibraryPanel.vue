@@ -1,6 +1,10 @@
 <template>
-  <section class="library-panel card card-elevated">
-    <div class="session-strip" :class="{ 'session-strip--empty': !sessionBlocks.length }">
+  <section class="library-panel card card-elevated" :class="{ 'library-panel--sidebar': hideSessionStrip }">
+    <div
+      v-if="!hideSessionStrip"
+      class="session-strip"
+      :class="{ 'session-strip--empty': !sessionBlocks.length }"
+    >
       <div class="session-strip-head">
         <span class="material-symbols-rounded session-strip-icon" aria-hidden="true">stadium</span>
         <p class="md-label-md session-strip-title">
@@ -112,6 +116,7 @@ const props = defineProps({
   query: { type: String, default: '' },
   category: { type: String, default: '' },
   suitableOnly: { type: Boolean, default: true },
+  hideSessionStrip: { type: Boolean, default: false },
 })
 
 defineEmits([
@@ -135,6 +140,25 @@ function categoryLabel(id) {
 <style scoped>
 .library-panel {
   padding: var(--sp-3);
+}
+
+.library-panel--sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+}
+
+.library-panel--sidebar .manual-list {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+}
+
+.library-panel--sidebar .manual-title-text {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
 }
 
 .session-strip {

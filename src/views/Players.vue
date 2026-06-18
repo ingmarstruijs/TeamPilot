@@ -1,39 +1,38 @@
 <template>
-  <div class="page">
-    <!-- Header -->
-    <div class="players-header">
-      <div>
-        <h1 class="md-headline-sm">Spelerslijst</h1>
-        <p class="md-body-md" style="color:var(--md-on-surface-variant)">
-          {{ activeTeam?.name }} · {{ players.length }} speler{{ players.length !== 1 ? 's' : '' }}
-          <span v-if="ageGroupConfig" style="opacity:.7">
-            (min {{ ageGroupConfig.players }})
-          </span>
-        </p>
-      </div>
-      <div class="header-btns">
-        <button
-          class="btn btn-outlined"
-          @click="copyRoster"
-          :disabled="!players.length"
-          title="Kopieer spelerslijst als tekst"
-        >
-          <span class="material-symbols-rounded" style="font-size:18px">content_copy</span>
-          Kopieer selectie
-        </button>
-        <button
-          v-if="missingCount > 0"
-          class="btn btn-tonal"
-          @click="openQuickFill"
-          :title="`Vul ${missingCount} speler${missingCount !== 1 ? 's' : ''} aan met standaardnamen`"
-        >
-          <span class="material-symbols-rounded" style="font-size:18px">bolt</span>
-          Snel aanvullen
-        </button>
-        <button class="btn btn-filled" @click="openAdd">
-          <span class="material-symbols-rounded" style="font-size:18px">add</span>
-          Toevoegen
-        </button>
+  <div class="page players-page">
+    <div class="players-header-shell">
+      <div class="players-header">
+        <div class="players-header-text">
+          <h1 class="players-title md-title-sm">Spelers lijst</h1>
+          <p class="md-label-sm players-meta">
+            {{ activeTeam?.name }} · {{ players.length }} speler{{ players.length !== 1 ? 's' : '' }}
+            <span v-if="ageGroupConfig"> (min {{ ageGroupConfig.players }})</span>
+          </p>
+        </div>
+        <div class="header-btns">
+          <button
+            class="btn btn-outlined"
+            @click="copyRoster"
+            :disabled="!players.length"
+            title="Kopieer spelerslijst als tekst"
+          >
+            <span class="material-symbols-rounded" style="font-size:18px">content_copy</span>
+            <span class="btn-lbl">Kopieer</span>
+          </button>
+          <button
+            v-if="missingCount > 0"
+            class="btn btn-tonal"
+            @click="openQuickFill"
+            :title="`Vul ${missingCount} speler${missingCount !== 1 ? 's' : ''} aan met standaardnamen`"
+          >
+            <span class="material-symbols-rounded" style="font-size:18px">bolt</span>
+            <span class="btn-lbl">Snel aanvullen</span>
+          </button>
+          <button class="btn btn-filled" @click="openAdd" title="Speler toevoegen">
+            <span class="material-symbols-rounded" style="font-size:18px">add</span>
+            <span class="btn-lbl">Toevoegen</span>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -337,13 +336,97 @@ function confirmQuickFill() {
 </script>
 
 <style scoped>
+.players-page {
+  padding-left: var(--sp-3);
+  padding-right: var(--sp-3);
+}
+
+.players-header-shell {
+  flex-shrink: 0;
+  margin-bottom: var(--sp-4);
+}
+
 .players-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: var(--sp-3);
-  margin-bottom: var(--sp-5);
-  flex-wrap: wrap;
+}
+
+.players-header-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.players-title {
+  margin: 0;
+  line-height: 1.3;
+}
+
+.players-meta {
+  margin: 2px 0 0;
+  color: var(--md-on-surface-variant);
+}
+
+.header-btns {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-shrink: 0;
+}
+
+@media (max-width: 899px) {
+  .players-page {
+    padding-top: 0;
+  }
+
+  .players-header-shell {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    margin: calc(-1 * var(--sp-3)) calc(-1 * var(--sp-3)) 0;
+    padding: var(--sp-2) var(--sp-3);
+    background: var(--md-surface);
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+
+  .players-title {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .player-list,
+  .empty-state {
+    margin-top: var(--sp-4);
+  }
+}
+
+@media (min-width: 900px) {
+  .players-header-shell {
+    margin-bottom: var(--sp-5);
+  }
+
+  .players-title {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  .players-title.md-title-sm {
+    font-size: var(--md-headline-sm-size, 1.5rem);
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 719px) {
+  .header-btns .btn-lbl {
+    display: none;
+  }
+
+  .header-btns .btn {
+    padding: var(--sp-2);
+    min-width: 36px;
+    justify-content: center;
+  }
 }
 
 .empty-state {
@@ -400,15 +483,6 @@ function confirmQuickFill() {
   align-items: center;
   gap: var(--sp-2);
   margin-bottom: var(--sp-4);
-}
-
-/* Header buttons group */
-.header-btns {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-  flex-wrap: wrap;
-  justify-content: flex-end;
 }
 
 /* Quick-fill dialog */
