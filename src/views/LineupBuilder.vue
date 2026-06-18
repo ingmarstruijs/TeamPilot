@@ -65,35 +65,66 @@
           <span class="material-symbols-rounded" style="font-size:18px">save</span>
           <span class="btn-lbl">Opslaan</span>
         </button>
-        <!-- Share button: mobile only -->
-        <button class="btn btn-outlined" @click="shareImage" :disabled="sharing" title="Afbeelding delen">
-          <span class="material-symbols-rounded" style="font-size:18px">image</span>
-        </button>
-        <button class="btn btn-outlined" @click="showShareLink = true" title="Link delen">
-          <span class="material-symbols-rounded" style="font-size:18px">link</span>
+        <button
+          v-if="filledCount > 0"
+          class="btn btn-outlined"
+          @click="openShareDialog"
+          :disabled="sharing"
+          title="Opstelling delen"
+        >
+          <span class="material-symbols-rounded" style="font-size:18px">share</span>
+          <span class="btn-lbl">Delen</span>
         </button>
       </div>
     </div>
 
-    <!-- Formation & bench controls: mobile only -->
-    <div v-if="!isDesktop" class="formation-controls">
-      <select class="formation-dropdown" :value="selectedFormationId || ''" @change="onFormationChange">
-        <option value="">Vrije opstelling</option>
+    <!-- Formation & bench controls: mobile only — single row -->
+    <div v-if="!isDesktop" class="formation-controls" ref="formationControlsRef">
+      <label class="sr-only" for="formation-select">Formatie types</label>
+      <select id="formation-select" class="formation-dropdown formation-dropdown--compact" :value="selectedFormationId || ''" @change="onFormationChange">
+        <option value="">Vrij</option>
         <option v-for="f in availableFormations" :key="f.id" :value="f.id">{{ f.label }}</option>
       </select>
-      <button class="chip" :class="{ active: showBench, 'drag-drop': isFieldDragging }" @click="showBench = !showBench" data-bench-button title="Bank">
-        <span class="material-symbols-rounded" style="font-size:14px">group</span>
-        Bank
-        <span v-if="benchPlayers.length" class="chip-badge">{{ benchPlayers.length }}</span>
-      </button>
-      <button class="chip" @click="flipped = !flipped" :title="flipped ? 'Aanval omhoog' : 'Keeper omlaag'">
-        <span class="material-symbols-rounded" style="font-size:14px">swap_vert</span>
-        Omdraaien
-      </button>
+      <div class="mobile-toggles">
+        <div class="bench-anchor" ref="benchAnchorRef">
+          <button
+            class="chip chip-toggle"
+            :class="{ active: showBench, 'drag-drop': isFieldDragging }"
+            @click="showBench = !showBench"
+            data-bench-button
+            title="Bank"
+          >
+            <span class="material-symbols-rounded" style="font-size:16px">group</span>
+            <span class="chip-text">Bank</span>
+            <span v-if="benchPlayers.length" class="chip-badge">{{ benchPlayers.length }}</span>
+          </button>
+          <Transition name="bench-drop">
+            <div v-if="showBench" class="bench-dropdown" :class="{ 'bench-dragging': isBenchDragging }">
+              <BenchPanel
+                :bench-players="benchPlayers"
+                :team-shirt="activeTeam?.shirt"
+                :horizontal="false"
+                @bench-drag-start="onBenchDragStart"
+                @bench-touch-start="onBenchTouchStart"
+                @field-drop="removePlayerFromField"
+              />
+            </div>
+          </Transition>
+        </div>
+        <button class="chip chip-toggle" :class="{ active: showOpponent }" @click="showOpponent = !showOpponent" title="Tegenstander">
+          <span class="material-symbols-rounded" style="font-size:16px">shield</span>
+          <span class="chip-text">Tegenstander</span>
+        </button>
+        <button class="chip chip-toggle" @click="flipped = !flipped" :title="flipped ? 'Aanval omhoog' : 'Keeper omlaag'">
+          <span class="material-symbols-rounded" style="font-size:16px">swap_vert</span>
+          <span class="chip-text">Omdraaien</span>
+        </button>
+      </div>
     </div>
 
     <!-- Formation chips: desktop only -->
     <div class="formation-row">
+      <span class="formation-row-label">Formatie types:</span>
       <button
         v-for="f in availableFormations"
         :key="f.id"
@@ -105,10 +136,17 @@
         <span class="material-symbols-rounded" style="font-size:14px">edit</span>
         Vrij
       </button>
+      <button class="chip" :class="{ active: showOpponent }" @click="showOpponent = !showOpponent" title="Tegenstander">
+        <span class="material-symbols-rounded" style="font-size:14px">shield</span>
+        <span class="chip-label">Tegenstander</span>
+      </button>
       <button class="chip" @click="flipped = !flipped" :title="flipped ? 'Aanval omhoog' : 'Keeper omlaag'">
         <span class="material-symbols-rounded" style="font-size:14px">swap_vert</span>
         <span class="chip-label">Omdraaien</span>
       </button>
+      <span v-if="showOpponent && counterFormationLabel" class="counter-hint md-label-sm">
+        vs {{ counterFormationLabel }}
+      </span>
     </div>
 
     <!-- Main layout: field + bench -->
@@ -124,19 +162,12 @@
           @field-drop="removePlayerFromField"
         />
 
-        <!-- Share buttons: desktop only inside bench column -->
+        <!-- Share button: desktop only inside bench column -->
         <div v-if="filledCount > 0 && isDesktop" class="share-section">
-          <p class="md-label-lg" style="margin-bottom:var(--sp-2)">Delen</p>
-          <div class="share-btns">
-            <button class="btn btn-tonal w-full" @click="shareImage" :disabled="sharing">
-              <span class="material-symbols-rounded" style="font-size:18px">image</span>
-              {{ sharing ? 'Bezig…' : 'Afbeelding' }}
-            </button>
-            <button class="btn btn-tonal w-full" @click="showShareLink = true">
-              <span class="material-symbols-rounded" style="font-size:18px">link</span>
-              Link
-            </button>
-          </div>
+          <button class="btn btn-tonal w-full" @click="openShareDialog" :disabled="sharing">
+            <span class="material-symbols-rounded" style="font-size:18px">share</span>
+            {{ sharing ? 'Bezig…' : 'Delen' }}
+          </button>
         </div>
       </div>
 
@@ -146,33 +177,24 @@
           :slots="fieldSlots"
           :players="playersMap"
           :team-shirt="activeTeam?.shirt"
+          :opponent-slots="showOpponent ? opponentSlots : []"
+          :opponent-shirt="opponentShirt"
           :flipped="flipped"
           export-id="field-export-area"
           @slot-drop="handleSlotDrop"
           @remove-from-slot="removeFromSlot"
+          @opponent-move="handleOpponentMove"
           @drag-active="isFieldDragging = $event"
         />
       </div>
     </div>
 
-    <!-- Mobile bench bottom sheet -->
-    <Transition name="slide-bench">
-      <div v-if="showBench && !isDesktop" class="bench-sheet" :class="{ 'bench-dragging': isBenchDragging }" @click.self="showBench = false">
-        <div class="bench-sheet-inner">
-          <div class="bench-sheet-handle" @click="showBench = false">
-            <div class="bench-handle-bar"></div>
-          </div>
-          <BenchPanel
-            :bench-players="benchPlayers"
-            :team-shirt="activeTeam?.shirt"
-            :horizontal="false"
-            @bench-drag-start="onBenchDragStart"
-            @bench-touch-start="onBenchTouchStart"
-            @field-drop="removePlayerFromField"
-          />
-        </div>
-      </div>
-    </Transition>
+    <!-- Mobile bench backdrop (closes dropdown) -->
+    <div
+      v-if="showBench && !isDesktop && !isBenchDragging"
+      class="bench-backdrop"
+      @click="showBench = false"
+    />
 
     <!-- Bench-to-field touch drag ghost -->
     <div
@@ -232,35 +254,65 @@
       </div>
     </Transition>
 
-    <!-- Share link dialog -->
+    <!-- Share dialog: choose image or link -->
     <Transition name="fade">
-      <div v-if="showShareLink" class="dialog-backdrop" @click.self="showShareLink = false">
+      <div v-if="showShareDialog" class="dialog-backdrop" @click.self="closeShareDialog">
         <div class="dialog">
-          <p class="dialog-title">Opstelling delen via link</p>
-          <p class="md-body-sm" style="color:var(--md-on-surface-variant);margin-bottom:var(--sp-4)">
-            Kies wat je wilt meesturen. Inclusief team stuurt alle spelers mee; opstelling-alleen matcht op naam bij de ontvanger.
-          </p>
-          <div class="share-link-options">
-            <button class="share-link-opt" @click="copyShareLink('bundle')">
-              <span class="material-symbols-rounded" style="font-size:22px">groups</span>
-              <div>
-                <p class="md-label-lg">Inclusief team</p>
-                <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Spelers worden meegestuurd</p>
-              </div>
-              <span class="material-symbols-rounded" style="margin-left:auto;font-size:18px">content_copy</span>
-            </button>
-            <button class="share-link-opt" @click="copyShareLink('lineup')">
-              <span class="material-symbols-rounded" style="font-size:22px">sports_soccer</span>
-              <div>
-                <p class="md-label-lg">Alleen opstelling</p>
-                <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Ontvanger koppelt aan eigen team</p>
-              </div>
-              <span class="material-symbols-rounded" style="margin-left:auto;font-size:18px">content_copy</span>
-            </button>
-          </div>
-          <div class="dialog-actions">
-            <button class="btn btn-text" @click="showShareLink = false">Sluiten</button>
-          </div>
+          <template v-if="shareDialogStep === 'type'">
+            <p class="dialog-title">Opstelling delen</p>
+            <p class="md-body-sm" style="color:var(--md-on-surface-variant);margin-bottom:var(--sp-4)">
+              Kies hoe je de opstelling wilt delen.
+            </p>
+            <div class="share-link-options">
+              <button class="share-link-opt" @click="shareImage" :disabled="sharing">
+                <span class="material-symbols-rounded" style="font-size:22px">image</span>
+                <div>
+                  <p class="md-label-lg">Afbeelding</p>
+                  <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Deel als plaatje via WhatsApp of opslaan</p>
+                </div>
+                <span class="material-symbols-rounded" style="margin-left:auto;font-size:18px">chevron_right</span>
+              </button>
+              <button class="share-link-opt" @click="shareDialogStep = 'link'">
+                <span class="material-symbols-rounded" style="font-size:22px">link</span>
+                <div>
+                  <p class="md-label-lg">Link</p>
+                  <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Deel een link naar de opstelling</p>
+                </div>
+                <span class="material-symbols-rounded" style="margin-left:auto;font-size:18px">chevron_right</span>
+              </button>
+            </div>
+            <div class="dialog-actions">
+              <button class="btn btn-text" @click="closeShareDialog">Sluiten</button>
+            </div>
+          </template>
+          <template v-else>
+            <p class="dialog-title">Link delen</p>
+            <p class="md-body-sm" style="color:var(--md-on-surface-variant);margin-bottom:var(--sp-4)">
+              Kies wat je wilt meesturen. Inclusief team stuurt alle spelers mee; opstelling-alleen matcht op naam bij de ontvanger.
+            </p>
+            <div class="share-link-options">
+              <button class="share-link-opt" @click="copyShareLink('bundle')">
+                <span class="material-symbols-rounded" style="font-size:22px">groups</span>
+                <div>
+                  <p class="md-label-lg">Inclusief team</p>
+                  <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Spelers worden meegestuurd</p>
+                </div>
+                <span class="material-symbols-rounded" style="margin-left:auto;font-size:18px">content_copy</span>
+              </button>
+              <button class="share-link-opt" @click="copyShareLink('lineup')">
+                <span class="material-symbols-rounded" style="font-size:22px">sports_soccer</span>
+                <div>
+                  <p class="md-label-lg">Alleen opstelling</p>
+                  <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Ontvanger koppelt aan eigen team</p>
+                </div>
+                <span class="material-symbols-rounded" style="margin-left:auto;font-size:18px">content_copy</span>
+              </button>
+            </div>
+            <div class="dialog-actions">
+              <button class="btn btn-text" @click="shareDialogStep = 'type'">Terug</button>
+              <button class="btn btn-text" @click="closeShareDialog">Sluiten</button>
+            </div>
+          </template>
         </div>
       </div>
     </Transition>
@@ -292,8 +344,10 @@
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
-import { FORMATIONS } from '@/data/formations'
+import { FORMATIONS, FORMATION_Y } from '@/data/formations'
 import { encodeBundle, encodeLineupOnly } from '@/utils/lineupShare'
+import { buildOpponentSlots, getCounterFormationLabel } from '@/utils/opponentFormation'
+import { getOpponentShirt } from '@/utils/opponentShirt'
 import FootballField from '@/components/field/FootballField.vue'
 import BenchPanel    from '@/components/field/BenchPanel.vue'
 import { showSnackbar } from '@/composables/useSnackbar'
@@ -323,10 +377,16 @@ function snapToGrid(value) {
 const showSwitcher = ref(false)
 const switcherRef  = ref(null)
 const showBench    = ref(false)
+const benchAnchorRef = ref(null)
+const formationControlsRef = ref(null)
+const showOpponent = ref(false)
 
 function closeOnOutsideClick(e) {
   if (switcherRef.value && !switcherRef.value.contains(e.target)) {
     showSwitcher.value = false
+  }
+  if (showBench.value && benchAnchorRef.value && !benchAnchorRef.value.contains(e.target)) {
+    showBench.value = false
   }
 }
 onMounted(() => document.addEventListener('mousedown', closeOnOutsideClick))
@@ -425,6 +485,8 @@ function startNew() {
   lineupId.value   = null
   lineupName.value = ''
   flipped.value    = true
+  showOpponent.value = false
+  opponentSlots.value = []
   if (availableFormations.value.length) {
     applyFormation(availableFormations.value[0])
   } else {
@@ -443,6 +505,7 @@ function serializeState() {
     lineupName: lineupName.value,
     selectedFormationId: selectedFormationId.value,
     flipped: flipped.value,
+    showOpponent: showOpponent.value,
     fieldSlots: fieldSlots.value.map(s => ({
       slotId: s.slotId,
       position: s.position,
@@ -490,6 +553,39 @@ const benchPlayers = computed(() => {
   return (activeTeam.value?.players ?? []).filter(p => !onField.has(p.id))
 })
 
+const opponentShirt = computed(() => getOpponentShirt(activeTeam.value?.shirt))
+
+const opponentSlots = ref([])
+
+function resetOpponentSlots() {
+  opponentSlots.value = buildOpponentSlots({
+    ageGroup: activeTeam.value?.ageGroup,
+    formationId: selectedFormationId.value,
+    fieldSlots: fieldSlots.value,
+    playerCount: ageGroupConfig.value?.players ?? 11,
+  }).map(s => ({ ...s }))
+}
+
+function handleOpponentMove({ slotId, x, y }) {
+  const slot = opponentSlots.value.find(s => s.slotId === slotId)
+  if (!slot) return
+  slot.x = snapToGrid(x)
+  slot.y = snapToGrid(y)
+}
+
+watch(showOpponent, (on) => {
+  if (on) resetOpponentSlots()
+  else opponentSlots.value = []
+})
+
+watch(selectedFormationId, () => {
+  if (showOpponent.value) resetOpponentSlots()
+})
+
+const counterFormationLabel = computed(() =>
+  getCounterFormationLabel(activeTeam.value?.ageGroup, selectedFormationId.value)
+)
+
 // ── Init / load lineup ─────────────────────────────────────
 function loadFreshFormation() {
   lineupId.value = null
@@ -506,9 +602,32 @@ function loadLineupById(existing) {
   lineupId.value   = existing.id
   lineupName.value = existing.name
   selectedFormationId.value = existing.formationId ?? null
-  fieldSlots.value = existing.slots.map(s => ({ ...s }))
   flipped.value    = existing.flipped ?? true
+  showOpponent.value = existing.showOpponent ?? false
+
+  if (existing.formationId) {
+    const formation = availableFormations.value.find(f => f.id === existing.formationId)
+    if (formation) {
+      const prevMap = {}
+      for (const s of existing.slots) {
+        if (s.playerId) prevMap[s.slotId] = s.playerId
+      }
+      fieldSlots.value = formation.slots.map(s => ({
+        slotId:   s.id,
+        position: s.position,
+        x:        s.x,
+        y:        s.y,
+        playerId: prevMap[s.id] ?? null,
+      }))
+    } else {
+      fieldSlots.value = existing.slots.map(s => ({ ...s }))
+    }
+  } else {
+    fieldSlots.value = existing.slots.map(s => ({ ...s }))
+  }
+
   store.setActiveLineup(existing.id)
+  if (showOpponent.value) resetOpponentSlots()
   refreshSnapshot()
 }
 
@@ -603,12 +722,14 @@ function applyFormation(formation) {
     playerId: prevMap[s.id] ?? null,
   }))
   selectedFormationId.value = formation.id
+  if (showOpponent.value) resetOpponentSlots()
 }
 
 function freeMode() {
   selectedFormationId.value = null
   // Keep only filled slots — no more ghost placeholder circles in free mode
   fieldSlots.value = fieldSlots.value.filter(s => s.playerId)
+  if (showOpponent.value) resetOpponentSlots()
 }
 
 function onFormationChange(event) {
@@ -622,12 +743,12 @@ function onFormationChange(event) {
 }
 
 function buildFreeSlots(count) {
-  // Evenly distribute slots
   const rows    = Math.ceil(Math.sqrt(count))
   const cols    = Math.ceil(count / rows)
   const slots   = []
   const xStep   = 100 / (cols + 1)
-  const yStep   = 80  / (rows + 1)
+  const ySpan   = FORMATION_Y.ATT - FORMATION_Y.GK
+  const yStep   = ySpan / (rows + 1)
   let idx = 0
   for (let r = 0; r < rows && idx < count; r++) {
     for (let c = 0; c < cols && idx < count; c++) {
@@ -635,7 +756,7 @@ function buildFreeSlots(count) {
         slotId:   `free-${idx}`,
         position: idx === 0 ? 'GK' : 'MID',
         x: (c + 1) * xStep,
-        y: (r + 1) * yStep + 10,
+        y: FORMATION_Y.GK + (r + 1) * yStep,
         playerId: null,
       })
       idx++
@@ -843,6 +964,7 @@ function doSave() {
     name:        lineupName.value,
     formationId: selectedFormationId.value,
     flipped:     flipped.value,
+    showOpponent: showOpponent.value,
     slots:       fieldSlots.value.map(s => ({ ...s })),
   })
   lineupId.value = saved.id
@@ -855,8 +977,19 @@ function doSave() {
   showSnackbar('Opstelling opgeslagen ✓')
 }
 
-// ── Share via link ────────────────────────────────────────
-const showShareLink = ref(false)
+// ── Share ─────────────────────────────────────────────────
+const showShareDialog = ref(false)
+const shareDialogStep = ref('type')
+
+function openShareDialog() {
+  shareDialogStep.value = 'type'
+  showShareDialog.value = true
+}
+
+function closeShareDialog() {
+  showShareDialog.value = false
+  shareDialogStep.value = 'type'
+}
 
 function copyShareLink(mode) {
   const team = activeTeam.value
@@ -874,7 +1007,7 @@ function copyShareLink(mode) {
   } else {
     navigator.clipboard.writeText(url).then(() => showSnackbar('Link gekopieerd!'))
   }
-  showShareLink.value = false
+  closeShareDialog()
 }
 
 // ── Share via image ────────────────────────────────────────
@@ -1009,7 +1142,57 @@ function drawShareCanvas() {
   ctx.fillRect(gx, py, gw, PAD); ctx.strokeRect(gx, py, gw, PAD)
   ctx.fillRect(gx, my + mh, gw, PAD); ctx.strokeRect(gx, my + mh, gw, PAD)
 
-  // Player tokens
+  // Opponent tokens (drawn first, behind own team)
+  if (showOpponent.value) {
+    const opp = opponentShirt.value
+    function drawOppCircle(cx, cy, r, num) {
+      ctx.save()
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.clip()
+      if (opp.style === 'solid') {
+        ctx.fillStyle = opp.primary
+        ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill()
+      } else if (opp.style === 'gradient') {
+        const g = ctx.createLinearGradient(cx, cy - r, cx, cy + r)
+        g.addColorStop(0, opp.primary); g.addColorStop(1, opp.secondary)
+        ctx.fillStyle = g; ctx.fillRect(cx - r, cy - r, r * 2, r * 2)
+      } else if (opp.style === 'halves' || opp.style === 'halves-v') {
+        ctx.fillStyle = opp.primary;   ctx.fillRect(cx - r, cy - r, r, r * 2)
+        ctx.fillStyle = opp.secondary; ctx.fillRect(cx,     cy - r, r, r * 2)
+      } else if (opp.style === 'halves-h') {
+        ctx.fillStyle = opp.primary;   ctx.fillRect(cx - r, cy - r, r * 2, r)
+        ctx.fillStyle = opp.secondary; ctx.fillRect(cx - r, cy,     r * 2, r)
+      } else if (opp.style === 'stripes') {
+        const sw = r * 2 / 4
+        for (let i = 0; i < 4; i++) {
+          ctx.fillStyle = i % 2 === 0 ? opp.primary : opp.secondary
+          ctx.fillRect(cx - r + i * sw, cy - r, sw, r * 2)
+        }
+      } else if (opp.style === 'sash') {
+        ctx.fillStyle = opp.primary; ctx.fillRect(cx - r, cy - r, r * 2, r * 2)
+        ctx.fillStyle = opp.secondary
+        ctx.beginPath()
+        ctx.moveTo(cx - r * 0.4, cy - r); ctx.lineTo(cx + r * 0.7, cy - r)
+        ctx.lineTo(cx + r * 0.4, cy + r); ctx.lineTo(cx - r * 0.7, cy + r)
+        ctx.closePath(); ctx.fill()
+      }
+      ctx.restore()
+      ctx.strokeStyle = 'rgba(255,255,255,.55)'; ctx.lineWidth = 2
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke()
+      const lP = hexLum(opp.primary), lS = opp.style === 'solid' ? lP : hexLum(opp.secondary)
+      const avgL = opp.style === 'solid' ? lP : (lP + lS) / 2
+      ctx.fillStyle = avgL > 0.55 ? '#111' : '#fff'
+      ctx.font = `bold ${Math.round(r * .65)}px system-ui,sans-serif`
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(String(num), cx, cy)
+    }
+    for (const slot of opponentSlots.value) {
+      const dY = flipped.value ? 100 - slot.y : slot.y
+      const cx = mx + (slot.x / 100) * mw
+      const cy = my + (dY   / 100) * mh
+      drawOppCircle(cx, cy, 24, slot.number)
+    }
+  }
+
+  // Own team player tokens
   for (const slot of fieldSlots.value.filter(s => s.playerId)) {
     const player = playersMap.value[slot.playerId]
     if (!player) continue
@@ -1071,6 +1254,7 @@ async function shareImage() {
       capturedBlob = blob
       sharePreviewUrl.value = URL.createObjectURL(blob)
       sharing.value = false
+      closeShareDialog()
     }, 'image/png')
   } catch (e) {
     sharing.value = false
@@ -1294,31 +1478,122 @@ async function shareViaWhatsApp() {
 .toolbar-actions { display: flex; gap: var(--sp-2); flex-shrink: 0; align-items: center; }
 
 .formation-controls {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: var(--sp-2);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
   padding: var(--sp-2) var(--sp-4);
   margin: 0 calc(var(--sp-4) * -1);
-  margin-bottom: var(--sp-3);
+  margin-bottom: var(--sp-2);
   flex-shrink: 0;
   background: var(--md-surface);
   border-bottom: 1px solid var(--md-outline-variant);
+  position: relative;
+  z-index: 120;
+}
+
+.mobile-toggles {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  align-items: stretch;
+  gap: 6px;
+}
+
+.mobile-toggles > .bench-anchor,
+.mobile-toggles > .chip-toggle {
+  flex: 1;
+  min-width: 0;
+}
+
+.bench-anchor {
+  position: relative;
+}
+
+.bench-anchor .chip-toggle {
+  width: 100%;
+}
+
+.chip-toggle {
+  min-height: 36px;
+  padding: var(--sp-1) var(--sp-2);
+  font-size: 12px;
+  gap: 4px;
+  border-radius: var(--md-shape-sm);
+  white-space: nowrap;
+}
+
+.chip-toggle .chip-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 360px) {
+  .chip-toggle .chip-text {
+    display: none;
+  }
+}
+
+.bench-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 260px;
+  max-width: calc(100vw - var(--sp-8));
+  background: var(--md-surface);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--md-shape-md);
+  box-shadow: var(--md-elevation-3);
+  z-index: 160;
+  max-height: 50dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.bench-dropdown.bench-dragging {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bench-backdrop {
+  position: fixed;
+  inset: var(--top-bar-height) 0 var(--nav-height) 0;
+  z-index: 110;
+  background: transparent;
+}
+
+.bench-drop-enter-active,
+.bench-drop-leave-active {
+  transition: opacity .18s ease, transform .2s cubic-bezier(.4,0,.2,1);
+}
+.bench-drop-enter-from,
+.bench-drop-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
 }
 
 .formation-dropdown {
   background: var(--md-surface);
   border: 2px solid var(--md-outline-variant);
   border-radius: var(--md-shape-sm);
-  padding: var(--sp-1) var(--sp-3);
+  padding: var(--sp-1) var(--sp-2);
   font-family: 'Inter', sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--md-on-surface);
   outline: none;
-  height: 40px;
+  height: 36px;
   cursor: pointer;
   transition: border-color var(--md-duration-short), background var(--md-duration-short);
-  width: 100%;
+}
+.formation-dropdown--compact {
+  flex: 0 0 auto;
+  width: 4.75rem;
+  padding: 0 1.125rem 0 0.5rem;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  text-align-last: left;
 }
 .formation-dropdown:hover {
   border-color: var(--md-outline);
@@ -1331,6 +1606,7 @@ async function shareViaWhatsApp() {
 .formation-row {
   display: flex;
   flex-wrap: nowrap;
+  align-items: center;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -1338,6 +1614,19 @@ async function shareViaWhatsApp() {
   margin-bottom: var(--sp-2);
   flex-shrink: 0;
   padding-bottom: 2px;
+}
+.formation-row-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--md-on-surface-variant);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.counter-hint {
+  color: var(--md-on-surface-variant);
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-left: var(--sp-1);
 }
 .formation-row::-webkit-scrollbar { display: none; }
 .formation-row > * { flex-shrink: 0; }
@@ -1401,50 +1690,9 @@ async function shareViaWhatsApp() {
   }
 }
 
-/* ── Mobile bench bottom sheet ──────────────────────────── */
-.bench-sheet {
-  position: fixed;
-  inset: var(--top-bar-height) 0 var(--nav-height) 0;
-  z-index: 150;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  background: rgba(0,0,0,.4);
-}
-.bench-sheet-inner {
-  background: var(--md-surface);
-  border-radius: 16px 16px 0 0;
-  max-height: 55dvh;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: var(--sp-4);
-}
-.bench-sheet-handle {
-  display: flex;
-  justify-content: center;
-  padding: var(--sp-2) 0 var(--sp-1);
-  cursor: pointer;
-}
-.bench-handle-bar {
-  width: 36px;
-  height: 4px;
-  border-radius: 2px;
-  background: var(--md-outline-variant);
-}
-
-/* Slide-up transition */
-.slide-bench-enter-active { transition: opacity .2s ease; }
-.slide-bench-leave-active  { transition: opacity .2s ease; }
-.slide-bench-enter-from, .slide-bench-leave-to { opacity: 0; }
-.slide-bench-enter-active .bench-sheet-inner,
-.slide-bench-leave-active .bench-sheet-inner  { transition: transform .25s cubic-bezier(.4,0,.2,1); }
-.slide-bench-enter-from .bench-sheet-inner,
-.slide-bench-leave-to .bench-sheet-inner      { transform: translateY(100%); }
-
-/* Bench sheet during bench→field drag: keep in DOM for iOS touch routing, hide visually */
-.bench-sheet.bench-dragging {
-  pointer-events: none;
-  background: transparent;
+/* ── Mobile bench dropdown (replaces bottom sheet) ──────── */
+@media (max-width: 719px) {
+  .bench-col { display: none; }
 }
 
 /* Bank chip highlighted as drop target while dragging a field player */

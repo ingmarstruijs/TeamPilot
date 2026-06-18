@@ -51,8 +51,21 @@
         <path d="M 92 158 A 6 6 0 0 1 98 152" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1" />
       </svg>
 
-      <!-- Player tokens on field -->
-      <!-- Player tokens on field -->
+      <!-- Opponent tokens (behind own team, may overlap) -->
+      <OpponentToken
+        v-for="slot in opponentDisplaySlots"
+        :key="slot.slotId"
+        :slot-id="slot.slotId"
+        :number="slot.number"
+        :x="slot.x"
+        :y="slot.dy"
+        :team-shirt="opponentShirt"
+        :is-dragging="draggingOpponentId === slot.slotId"
+        @drag-start="onOpponentDragStart($event, slot)"
+        @touch-start="onOpponentTouchStart($event, slot)"
+      />
+
+      <!-- Own team player tokens -->
       <PlayerToken
         v-for="slot in filledSlots"
         :key="slot.playerId"
@@ -84,7 +97,11 @@
     <div
       v-if="touchGhost"
       class="touch-ghost"
-      :style="{ left: touchGhost.x + 'px', top: touchGhost.y + 'px', background: teamShirt?.primary ?? '#1a6b3c' }"
+      :style="{
+        left: touchGhost.x + 'px',
+        top: touchGhost.y + 'px',
+        background: touchGhost.color ?? teamShirt?.primary ?? '#1a6b3c',
+      }"
     >
       {{ touchGhost.initials }}
     </div>
@@ -94,16 +111,19 @@
 <script setup>
 import { ref, computed } from 'vue'
 import PlayerToken from './PlayerToken.vue'
+import OpponentToken from './OpponentToken.vue'
 
 const props = defineProps({
-  slots:       { type: Array, required: true }, // [{ slotId, position, x, y, playerId? }]
-  players:     { type: Object, required: true }, // id → player map
-  teamShirt:   { type: Object, default: () => ({ style: 'solid', primary: '#1a6b3c', secondary: '#ffffff' }) },
-  exportId:    { type: String, default: 'field-export' },
-  flipped:     { type: Boolean, default: false }, // true = GK at bottom (default view)
+  slots:          { type: Array, required: true }, // [{ slotId, position, x, y, playerId? }]
+  players:        { type: Object, required: true }, // id → player map
+  teamShirt:      { type: Object, default: () => ({ style: 'solid', primary: '#1a6b3c', secondary: '#ffffff' }) },
+  opponentSlots:  { type: Array, default: () => [] }, // [{ slotId, x, y, number }]
+  opponentShirt:  { type: Object, default: null },
+  exportId:       { type: String, default: 'field-export' },
+  flipped:        { type: Boolean, default: false }, // true = GK at bottom (default view)
 })
 
-const emit = defineEmits(['slot-drop', 'remove-from-slot', 'drag-active'])
+const emit = defineEmits(['slot-drop', 'remove-from-slot', 'drag-active', 'opponent-move'])
 
 // Flip helpers: storage y=0 is top (opponent); flipped=true shows GK (y≈6) at bottom
 function toDisplayY(storageY) { return props.flipped ? 100 - storageY : storageY }
@@ -118,6 +138,9 @@ const filledSlots = computed(() =>
 const emptySlots = computed(() =>
   props.slots.filter(s => !s.playerId)
     .map(s => ({ ...s, dy: toDisplayY(s.y) }))
+)
+const opponentDisplaySlots = computed(() =>
+  props.opponentSlots.map(s => ({ ...s, dy: toDisplayY(s.y) }))
 )
 
 function posStyle(xPct, yPct) {
@@ -135,8 +158,9 @@ function shortPosition(pos) {
 }
 
 // ── Drag & Drop (HTML5 — desktop) ────────────────────────────
-const draggingId   = ref(null)
-const draggingData = ref(null)
+const draggingId       = ref(null)
+const draggingOpponentId = ref(null)
+const draggingData     = ref(null)
 const dragOverSlot = ref(null)
 const wrapperRef   = ref(null)
 const fieldRef     = ref(null)
@@ -148,18 +172,34 @@ function onTokenDragStart(event, slot) {
   event.dataTransfer.setData('application/json', JSON.stringify({ type: 'slot', slotId: slot.slotId }))
 }
 
+function onOpponentDragStart(event, slot) {
+  draggingOpponentId.value = slot.slotId
+  event.dataTransfer.effectAllowed = 'move'
+  event.dataTransfer.setData('application/json', JSON.stringify({ type: 'opponent', slotId: slot.slotId }))
+}
+
 function onFieldDrop(event) {
   dragOverSlot.value = null
   draggingId.value   = null
+  draggingOpponentId.value = null
   const raw = event.dataTransfer.getData('application/json')
   if (!raw) { draggingData.value = null; return }
   const parsed = JSON.parse(raw)
-  // For slot drags, prefer draggingData which carries the full slot object
-  const data = (parsed.type === 'slot' && draggingData.value) ? draggingData.value : parsed
-  draggingData.value = null
+
   const rect = fieldRef.value.getBoundingClientRect()
   const x    = ((event.clientX - rect.left) / rect.width)  * 100
   const rawY = ((event.clientY - rect.top)  / rect.height) * 100
+  const y    = toStorageY(rawY)
+
+  if (parsed.type === 'opponent') {
+    emit('opponent-move', { slotId: parsed.slotId, x, y })
+    draggingData.value = null
+    return
+  }
+
+  // For slot drags, prefer draggingData which carries the full slot object
+  const data = (parsed.type === 'slot' && draggingData.value) ? draggingData.value : parsed
+  draggingData.value = null
   
   // Snap search: prefer a nearby empty slot; fall back to a nearby filled slot (swap)
   const draggingSlotId = data.slot?.slotId ?? null
@@ -181,7 +221,6 @@ function onFieldDrop(event) {
     })
   }
 
-  const y = toStorageY(rawY)
   if (targetSlot) {
     emit('slot-drop', { ...data, targetSlotId: targetSlot.slotId, targetX: targetSlot.x, targetY: targetSlot.y })
   } else {
@@ -194,10 +233,11 @@ function removeFromSlot(slotId) {
 }
 
 // ── Touch drag (mobile) ─────────────────────────────────────
-const touchGhost    = ref(null)
-const touchSlot     = ref(null)
-const touchPlayerId = ref(null)
-const touchBenchId  = ref(null)
+const touchGhost         = ref(null)
+const touchSlot          = ref(null)
+const touchOpponentSlot  = ref(null)
+const touchPlayerId      = ref(null)
+const touchBenchId       = ref(null)
 
 function playerInitials(player) {
   const parts = player.name.trim().split(/\s+/)
@@ -206,14 +246,29 @@ function playerInitials(player) {
 }
 
 function onTokenTouchStart(event, slot) {
+  touchOpponentSlot.value = null
   const touch = event.touches[0]
   touchSlot.value = slot
   touchGhost.value = {
     x: touch.clientX - 24,
     y: touch.clientY - 24,
     initials: playerInitials(slot.player),
+    color: props.teamShirt?.primary ?? '#1a6b3c',
   }
   emit('drag-active', true)
+}
+
+function onOpponentTouchStart(event, slot) {
+  touchSlot.value = null
+  draggingOpponentId.value = slot.slotId
+  const touch = event.touches[0]
+  touchOpponentSlot.value = slot
+  touchGhost.value = {
+    x: touch.clientX - 24,
+    y: touch.clientY - 24,
+    initials: String(slot.number),
+    color: props.opponentShirt?.primary ?? '#be123c',
+  }
 }
 
 function onTouchMove(event) {
@@ -223,7 +278,25 @@ function onTouchMove(event) {
 }
 
 function onTouchEnd(event) {
-  if (!touchGhost.value || !touchSlot.value) return
+  if (!touchGhost.value) return
+
+  if (touchOpponentSlot.value) {
+    const touch = event.changedTouches[0]
+    const rect  = fieldRef.value.getBoundingClientRect()
+    const x     = ((touch.clientX - rect.left) / rect.width)  * 100
+    const rawY  = ((touch.clientY - rect.top)  / rect.height) * 100
+    emit('opponent-move', {
+      slotId: touchOpponentSlot.value.slotId,
+      x,
+      y: toStorageY(rawY),
+    })
+    touchGhost.value = null
+    touchOpponentSlot.value = null
+    draggingOpponentId.value = null
+    return
+  }
+
+  if (!touchSlot.value) return
   const touch = event.changedTouches[0]
 
   // Check bench targets BEFORE emitting drag-active=false so the mobile drop zone is still in the DOM.
@@ -278,6 +351,7 @@ function onTouchEnd(event) {
 
   touchGhost.value = null
   touchSlot.value  = null
+  draggingId.value = null
 }
 </script>
 
