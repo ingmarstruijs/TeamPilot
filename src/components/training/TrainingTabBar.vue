@@ -33,7 +33,7 @@ defineEmits(['update:modelValue'])
   padding: var(--sp-1);
   background: var(--md-surface-container-low);
   border-radius: var(--md-shape-lg);
-  margin-bottom: var(--sp-4);
+  margin-bottom: var(--sp-2);
 }
 
 .training-tab {

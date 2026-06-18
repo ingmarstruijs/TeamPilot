@@ -59,38 +59,45 @@ function pickBest(pool, ctx, usedIds, targetMin = 0) {
   return ranked[0]
 }
 
-/** 4–5 exercises per session; shares apply to active (non-setup) minutes. */
+/** Warming-up + 4 core exercises + afsluiting (6 slots). Shares sum to 1.0. */
 const SESSION_TEMPLATES = {
   techniek: [
-    { category: 'warming-up', share: 0.12 },
-    { category: 'techniek', share: 0.28 },
-    { category: 'techniek', share: 0.28 },
+    { category: 'warming-up', share: 0.10 },
+    { category: 'techniek', share: 0.24 },
+    { category: 'techniek', share: 0.24 },
     { category: 'partijvorm', share: 0.22 },
+    { category: 'conditie', share: 0.10 },
     { category: 'afsluiting', share: 0.10 },
   ],
   tactiek: [
-    { category: 'warming-up', share: 0.12 },
-    { category: 'tactiek', share: 0.50 },
-    { category: 'partijvorm', share: 0.28 },
+    { category: 'warming-up', share: 0.10 },
+    { category: 'tactiek', share: 0.32 },
+    { category: 'tactiek', share: 0.23 },
+    { category: 'partijvorm', share: 0.25 },
     { category: 'afsluiting', share: 0.10 },
   ],
   conditie: [
-    { category: 'warming-up', share: 0.15 },
-    { category: 'conditie', share: 0.50 },
-    { category: 'partijvorm', share: 0.20 },
-    { category: 'afsluiting', share: 0.15 },
+    { category: 'warming-up', share: 0.12 },
+    { category: 'conditie', share: 0.32 },
+    { category: 'conditie', share: 0.23 },
+    { category: 'partijvorm', share: 0.23 },
+    { category: 'afsluiting', share: 0.10 },
   ],
   gemengd: [
-    { category: 'warming-up', share: 0.15 },
-    { categories: ['techniek', 'tactiek', 'conditie'], share: 0.45 },
-    { category: 'partijvorm', share: 0.30 },
+    { category: 'warming-up', share: 0.10 },
+    { categories: ['techniek', 'tactiek', 'conditie'], share: 0.22 },
+    { categories: ['techniek', 'tactiek', 'conditie'], share: 0.22 },
+    { category: 'partijvorm', share: 0.26 },
+    { categories: ['techniek', 'tactiek', 'conditie'], share: 0.10 },
     { category: 'afsluiting', share: 0.10 },
   ],
   partij: [
-    { category: 'warming-up', share: 0.15 },
-    { category: 'techniek', share: 0.15 },
-    { category: 'partijvorm', share: 0.55 },
-    { category: 'afsluiting', share: 0.15 },
+    { category: 'warming-up', share: 0.12 },
+    { category: 'partijvorm', share: 0.35 },
+    { category: 'partijvorm', share: 0.23 },
+    { category: 'techniek', share: 0.12 },
+    { category: 'tactiek', share: 0.08 },
+    { category: 'afsluiting', share: 0.10 },
   ],
 }
 

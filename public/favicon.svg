@@ -1,10 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" role="img" aria-label="TeamPilot">
+  <title>TeamPilot</title>
   <rect width="100" height="100" rx="22" fill="#059669"/>
   <path d="M50 20 L64 42 H56 V58 H44 V42 H36 L50 20Z" fill="#fff"/>
-  <circle cx="28" cy="56" r="5.5" fill="#fff"/>
-  <circle cx="72" cy="56" r="5.5" fill="#fff"/>
+  <circle cx="28" cy="56" r="5.5" fill="#fff" fill-opacity="0.95"/>
+  <circle cx="72" cy="56" r="5.5" fill="#fff" fill-opacity="0.95"/>
   <path d="M44 42 L28 50.5" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
   <path d="M56 42 L72 50.5" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M20 76 H80" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
-  <circle cx="50" cy="76" r="8.5" stroke="#fff" stroke-width="3" opacity="0.85"/>
+  <path d="M20 76 H80" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <circle cx="50" cy="76" r="8.5" stroke="#fff" stroke-width="3" opacity="0.8"/>
 </svg>

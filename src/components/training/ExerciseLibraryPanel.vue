@@ -1,7 +1,44 @@
 <template>
   <section class="library-panel card card-elevated">
+    <div class="session-strip" :class="{ 'session-strip--empty': !sessionBlocks.length }">
+      <div class="session-strip-head">
+        <span class="material-symbols-rounded session-strip-icon" aria-hidden="true">stadium</span>
+        <p class="md-label-md session-strip-title">
+          <template v-if="sessionBlocks.length">
+            Jouw training · {{ sessionBlocks.length }} {{ sessionBlocks.length === 1 ? 'oefening' : 'oefeningen' }}
+          </template>
+          <template v-else>
+            Nog geen oefeningen in je training
+          </template>
+        </p>
+        <button
+          v-if="sessionBlocks.length"
+          type="button"
+          class="btn btn-text session-strip-link"
+          @click="$emit('go-session')"
+        >
+          Naar sessie
+          <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
+        </button>
+      </div>
+      <div v-if="sessionBlocks.length" class="session-strip-list" role="list" aria-label="Huidige training">
+        <span
+          v-for="(block, i) in sessionBlocks"
+          :key="block.uid"
+          class="session-strip-chip md-label-sm"
+          role="listitem"
+        >
+          <span class="chip-num">{{ i + 1 }}</span>
+          {{ getExerciseTitle(block.exercise) }}
+        </span>
+      </div>
+      <p v-else class="md-body-sm session-strip-hint">
+        Oefeningen die je toevoegt komen onderaan je training te staan.
+      </p>
+    </div>
+
     <div class="section-head">
-      <p class="md-title-sm">Oefeningenbibliotheek</p>
+      <p class="md-title-sm">Bibliotheek</p>
       <button type="button" class="btn btn-tonal section-action" @click="$emit('create-custom')">
         <span class="material-symbols-rounded" style="font-size:18px">draw</span>
         Eigen oefening
@@ -50,11 +87,12 @@
           <button
             type="button"
             class="btn-icon manual-add"
-            aria-label="Toevoegen aan training"
-            title="Toevoegen"
+            :aria-label="`Toevoegen als oefening ${nextPosition}`"
+            :title="`Toevoegen als #${nextPosition}`"
             @click="$emit('add', ex)"
           >
             <span class="material-symbols-rounded">add</span>
+            <span class="add-pos md-label-sm">#{{ nextPosition }}</span>
           </button>
         </div>
       </div>
@@ -63,12 +101,14 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { EXERCISE_CATEGORIES } from '@/data/exercises'
 import ExerciseLibraryFilters from '@/components/training/ExerciseLibraryFilters.vue'
 import { getExerciseTitle, isCustomExercise, playerRangeLabel } from '@/utils/exerciseText'
 
-defineProps({
+const props = defineProps({
   exercises: { type: Array, required: true },
+  sessionBlocks: { type: Array, default: () => [] },
   query: { type: String, default: '' },
   category: { type: String, default: '' },
   suitableOnly: { type: Boolean, default: true },
@@ -77,12 +117,15 @@ defineProps({
 defineEmits([
   'preview',
   'add',
+  'go-session',
   'create-custom',
   'update:query',
   'update:category',
   'update:suitableOnly',
   'reset-filters',
 ])
+
+const nextPosition = computed(() => props.sessionBlocks.length + 1)
 
 function categoryLabel(id) {
   return EXERCISE_CATEGORIES.find(c => c.id === id)?.label ?? id
@@ -91,7 +134,92 @@ function categoryLabel(id) {
 
 <style scoped>
 .library-panel {
-  padding: var(--sp-4);
+  padding: var(--sp-3);
+}
+
+.session-strip {
+  margin-bottom: var(--sp-3);
+  padding: var(--sp-3);
+  border-radius: var(--md-shape-md);
+  background: var(--md-surface-container-low);
+  border: 1px solid var(--md-outline-variant);
+}
+
+.session-strip--empty {
+  border-style: dashed;
+}
+
+.session-strip-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-width: 0;
+}
+
+.session-strip-icon {
+  font-size: 20px;
+  color: var(--md-primary);
+  flex-shrink: 0;
+}
+
+.session-strip-title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+}
+
+.session-strip-link {
+  flex-shrink: 0;
+  min-height: 32px;
+  padding: 0 var(--sp-2);
+  gap: 2px;
+}
+
+.session-strip-link .material-symbols-rounded {
+  font-size: 18px;
+}
+
+.session-strip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1);
+  margin-top: var(--sp-2);
+  max-height: 4.5rem;
+  overflow-y: auto;
+}
+
+.session-strip-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  padding: 2px 8px 2px 4px;
+  border-radius: var(--md-shape-full);
+  background: var(--md-surface);
+  border: 1px solid var(--md-outline-variant);
+  color: var(--md-on-surface);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chip-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: var(--md-shape-full);
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  font-size: 10px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.session-strip-hint {
+  margin: var(--sp-1) 0 0;
+  color: var(--md-on-surface-variant);
 }
 
 .section-head {
@@ -99,7 +227,7 @@ function categoryLabel(id) {
   align-items: center;
   justify-content: space-between;
   gap: var(--sp-2);
-  margin-bottom: var(--sp-3);
+  margin-bottom: var(--sp-2);
 }
 
 .section-action {
@@ -108,7 +236,7 @@ function categoryLabel(id) {
 }
 
 .library-empty {
-  padding: var(--sp-4);
+  padding: var(--sp-3);
   text-align: center;
   color: var(--md-on-surface-variant);
 }
@@ -117,7 +245,7 @@ function categoryLabel(id) {
   display: flex;
   flex-direction: column;
   gap: var(--sp-1);
-  max-height: min(560px, 62dvh);
+  max-height: min(520px, 58dvh);
   overflow-y: auto;
 }
 
@@ -132,7 +260,7 @@ function categoryLabel(id) {
   flex: 1;
   min-width: 0;
   display: block;
-  padding: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
   border: none;
   background: transparent;
   cursor: pointer;
@@ -147,6 +275,7 @@ function categoryLabel(id) {
 .manual-item-actions {
   display: flex;
   flex-shrink: 0;
+  align-items: center;
   gap: 2px;
   padding-right: var(--sp-1);
 }
@@ -157,7 +286,22 @@ function categoryLabel(id) {
 }
 
 .manual-add {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
   color: var(--md-primary);
+  min-width: 40px;
+}
+
+.add-pos {
+  font-size: 10px;
+  line-height: 1;
+  margin-top: -2px;
+}
+
+.manual-add .material-symbols-rounded {
+  font-size: 22px;
 }
 
 .manual-title {

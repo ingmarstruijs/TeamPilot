@@ -4,6 +4,7 @@
     <section class="hero card card-elevated">
       <div class="hero-inner">
         <div class="hero-text">
+          <p v-if="!needsTeamSetup" class="hero-eyebrow md-label-sm">Dashboard</p>
           <h1 class="md-headline-sm">{{ needsTeamSetup ? 'Welkom bij TeamPilot' : activeTeam?.name }}</h1>
           <p class="md-body-md hero-sub">
             <template v-if="needsTeamSetup">
@@ -17,19 +18,30 @@
             <span v-if="needsTeamSetup && activeTeam?.name !== 'Mijn Team'" class="hero-chip md-label-sm">
               {{ activeTeam?.name }}
             </span>
-            <span v-if="!needsTeamSetup" class="hero-chip md-label-sm">
-              <span class="material-symbols-rounded" aria-hidden="true">group</span>
-              {{ playerCount }} spelers
-            </span>
-            <span v-if="!needsTeamSetup" class="hero-chip md-label-sm">
-              <span class="material-symbols-rounded" aria-hidden="true">calendar_today</span>
-              Cyclus week {{ cycleWeek }}/4
-            </span>
+            <template v-if="!needsTeamSetup">
+              <span class="hero-chip md-label-sm">
+                <span class="material-symbols-rounded" aria-hidden="true">group</span>
+                {{ playerCount }} spelers
+              </span>
+              <span class="hero-chip md-label-sm">
+                <span class="material-symbols-rounded" aria-hidden="true">calendar_today</span>
+                Cyclus week {{ cycleWeek }}/4
+              </span>
+              <span class="hero-chip hero-chip--theme md-label-sm">
+                <span class="material-symbols-rounded" aria-hidden="true">fitness_center</span>
+                {{ cycleThemeLabel }}
+              </span>
+            </template>
           </div>
         </div>
-        <div class="hero-shirt-badge" aria-hidden="true">
-          <ShirtAvatar :shirt="teamShirt" :size="56" />
-        </div>
+        <RouterLink v-if="!needsTeamSetup" :to="heroContinue.to" class="hero-continue">
+          <span class="material-symbols-rounded hero-continue-icon" aria-hidden="true">{{ heroContinue.icon }}</span>
+          <div class="hero-continue-text">
+            <p class="md-label-lg hero-continue-title">{{ heroContinue.title }}</p>
+            <p class="md-body-sm hero-continue-sub">{{ heroContinue.subtitle }}</p>
+          </div>
+          <span class="material-symbols-rounded hero-continue-chevron" aria-hidden="true">chevron_right</span>
+        </RouterLink>
       </div>
     </section>
 
@@ -227,6 +239,7 @@ import { computed } from 'vue'
 import { useTeamStore } from '@/stores/teamStore'
 import { AGE_GROUPS } from '@/data/formations'
 import { KNVB_CLASSES } from '@/data/knvbClasses'
+import { getCycleThemeLabel } from '@/utils/trainingEngine'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 import { showSnackbar } from '@/composables/useSnackbar'
 import { useMediaQuery } from '@/composables/useMediaQuery'
@@ -240,6 +253,7 @@ const knvbClassConfig = computed(() => store.knvbClassConfig)
 const recentColors = computed(() => store.recentColors.slice(0, 3))
 const playerCount = computed(() => activeTeam.value?.players?.length ?? 0)
 const cycleWeek = computed(() => store.getTrainingState().cycleWeek ?? 1)
+const cycleThemeLabel = computed(() => getCycleThemeLabel(cycleWeek.value))
 
 /** Team not yet configured — no players added yet. */
 const needsTeamSetup = computed(() => playerCount.value === 0)
@@ -251,6 +265,37 @@ const recentLineups = computed(() =>
     .sort((a, b) => b.updatedAt - a.updatedAt)
     .slice(0, 3)
 )
+
+const draftSession = computed(() => store.getTrainingState().draftSession)
+
+const heroContinue = computed(() => {
+  const draft = draftSession.value
+  if (draft?.blocks?.length) {
+    const count = draft.blocks.length
+    const totalMin = draft.blocks.reduce((s, b) => s + b.durationMin, 0)
+    return {
+      icon: 'stadium',
+      title: 'Ga verder met training',
+      subtitle: `${count} ${count === 1 ? 'oefening' : 'oefeningen'} · ${totalMin} min`,
+      to: '/training',
+    }
+  }
+  const latest = recentLineups.value[0]
+  if (latest) {
+    return {
+      icon: 'grid_view',
+      title: `Laatste opstelling: ${latest.name}`,
+      subtitle: formatDate(latest.updatedAt),
+      to: `/lineup/${latest.id}`,
+    }
+  }
+  return {
+    icon: 'fitness_center',
+    title: 'Plan je training',
+    subtitle: `Weekthema: ${cycleThemeLabel.value}`,
+    to: '/training',
+  }
+})
 
 function formatDate(ts) {
   return new Date(ts).toLocaleDateString('nl-NL', { day: 'numeric', month: 'short' })
@@ -399,11 +444,18 @@ function shareTeam() {
 
 .hero-inner {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--sp-4);
-  padding: var(--sp-5);
+  padding: var(--sp-4) var(--sp-5);
   position: relative;
   z-index: 1;
+}
+
+.hero-eyebrow {
+  margin: 0 0 var(--sp-1);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--md-on-primary) 72%, transparent);
 }
 
 .hero-text {
@@ -445,16 +497,54 @@ function shareTeam() {
   font-size: 16px;
 }
 
-.hero-shirt-badge {
-  flex-shrink: 0;
+.hero-chip--theme {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.hero-continue {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 72px;
-  height: 72px;
-  border-radius: var(--md-shape-lg);
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 4px 16px rgba(5, 150, 105, 0.25);
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--md-shape-md);
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: var(--md-on-primary);
+  text-decoration: none;
+  backdrop-filter: blur(6px);
+  transition: background var(--md-duration-short);
+}
+
+.hero-continue:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.hero-continue-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  opacity: 0.95;
+}
+
+.hero-continue-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-continue-title {
+  margin: 0;
+  font-weight: 500;
+}
+
+.hero-continue-sub {
+  margin: 2px 0 0;
+  color: color-mix(in srgb, var(--md-on-primary) 80%, transparent);
+}
+
+.hero-continue-chevron {
+  font-size: 22px;
+  flex-shrink: 0;
+  opacity: 0.75;
 }
 
 .section-title {

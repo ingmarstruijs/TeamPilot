@@ -17,7 +17,7 @@ describe('trainingEngine', () => {
     expect(balance.needsAttackFocus).toBe(true)
   })
 
-  it('generates 4–5 exercises for 60 min', () => {
+  it('generates warming-up + 4 core + afsluiting for 60 min', () => {
     const players = Array.from({ length: 10 }, () => ({ position: 'MID' }))
     const result = generateTraining({
       ageGroup: 'JO11',
@@ -27,8 +27,12 @@ describe('trainingEngine', () => {
       durationMin: 60,
       presentPlayers: players,
     })
-    expect(result.blocks.length).toBeGreaterThanOrEqual(4)
-    expect(result.blocks.length).toBeLessThanOrEqual(5)
+    expect(result.blocks.length).toBe(6)
+    expect(result.blocks[0].exercise.category).toBe('warming-up')
+    expect(result.blocks[result.blocks.length - 1].exercise.category).toBe('afsluiting')
+    const core = result.blocks.slice(1, -1)
+    expect(core).toHaveLength(4)
+    expect(core.every(b => !['warming-up', 'afsluiting'].includes(b.exercise.category))).toBe(true)
     expect(result.totalMin).toBeGreaterThanOrEqual(55)
     expect(result.totalMin).toBeLessThanOrEqual(65)
   })

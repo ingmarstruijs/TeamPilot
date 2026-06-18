@@ -70,7 +70,7 @@ const hasActiveFilters = computed(() =>
   display: flex;
   flex-direction: column;
   gap: var(--sp-2);
-  margin-bottom: var(--sp-3);
+  margin-bottom: var(--sp-2);
 }
 
 .search-row {

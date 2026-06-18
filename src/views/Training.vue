@@ -1,12 +1,10 @@
 <template>
   <div class="page training-page">
     <div class="training-header">
-      <div>
-        <h1 class="md-headline-sm">Training</h1>
-        <p class="md-body-md training-sub">
-          {{ activeTeam?.name }} · {{ knvbClassConfig.label }} · Cyclus week {{ syncedCycleWeek }}/4
-        </p>
-      </div>
+      <h1 class="md-headline-sm training-title">Training</h1>
+      <p v-if="roster.length" class="md-label-sm training-meta">
+        {{ activeTeam?.name }} · Week {{ syncedCycleWeek }}: {{ cycleThemeLabel }}
+      </p>
     </div>
 
     <div v-if="!roster.length" class="empty-state card card-elevated">
@@ -44,17 +42,14 @@
             />
 
             <div class="status-bar card" :class="{ 'status-bar--warn': sessionTiming.totalMin !== durationMin }">
-              <div class="status-primary">
-                <span class="md-label-md">
-                  {{ sessionBlocks.length }}
-                  {{ sessionBlocks.length === 1 ? 'oefening' : 'oefeningen' }}
-                </span>
-                <span class="status-dot" aria-hidden="true">·</span>
-                <span class="md-body-sm status-timing">
-                  {{ sessionTiming.totalMin }}/{{ durationMin }} min
-                </span>
-              </div>
-              <p class="md-label-sm status-hint">Automatisch opgeslagen per team</p>
+              <span class="md-label-md status-count">
+                {{ sessionBlocks.length }}
+                {{ sessionBlocks.length === 1 ? 'oefening' : 'oefeningen' }}
+              </span>
+              <span class="status-sep" aria-hidden="true">·</span>
+              <span class="md-label-sm status-timing">
+                {{ sessionTiming.totalMin }}/{{ durationMin }} min
+              </span>
             </div>
 
             <button
@@ -75,16 +70,16 @@
                   Delen
                 </button>
               </div>
-              <p class="md-label-sm saved-hint">
-                <span class="reorder-hint reorder-hint--touch">Houd ingedrukt om te verplaatsen</span>
-                <span class="reorder-hint reorder-hint--mouse">Sleep via het handvat om te verplaatsen</span>
-              </p>
 
               <div class="session-list">
                 <template v-for="(block, i) in sessionBlocks" :key="block.uid">
                   <div
                     class="session-row"
-                    :class="{ 'drag-over': dragOverIndex === i, 'is-dragging': dragIndex === i }"
+                    :class="{
+                      'drag-over': dragOverIndex === i,
+                      'is-dragging': dragIndex === i,
+                      'is-new': block.uid === highlightUid,
+                    }"
                     :data-session-index="i"
                     @touchstart="onRowTouchStart(i, $event)"
                     @touchmove="onRowTouchMove"
@@ -107,6 +102,7 @@
                       @keydown.enter.prevent="openDetail(block)"
                     >
                       <p class="md-title-sm session-title">
+                        <span class="session-index md-label-sm">{{ i + 1 }}</span>
                         <span
                           v-if="isCustomExercise(block.exercise)"
                           class="custom-ex-badge"
@@ -151,7 +147,7 @@
               <span class="material-symbols-rounded session-empty-icon" aria-hidden="true">stadium</span>
               <p class="md-title-sm">Nog geen training</p>
               <p class="md-body-sm session-empty-text">
-                Stel je instellingen in en tik op Genereer — of kies oefeningen in de tab Bibliotheek.
+                Genereer een training of kies oefeningen in de Bibliotheek.
               </p>
               <button type="button" class="btn btn-tonal" @click="activeTab = 'library'">
                 <span class="material-symbols-rounded" aria-hidden="true">library_books</span>
@@ -186,11 +182,13 @@
       <div v-show="activeTab === 'library'" class="tab-panel">
         <ExerciseLibraryPanel
           :exercises="filteredExercises"
+          :session-blocks="sessionBlocks"
           v-model:query="libraryQuery"
           v-model:category="libraryCategory"
           v-model:suitable-only="librarySuitableOnly"
           @preview="openPreview"
           @add="addManualExercise"
+          @go-session="activeTab = 'session'"
           @create-custom="showCustomDialog = true"
           @reset-filters="resetLibraryFilters"
         />
@@ -261,6 +259,8 @@ const libraryCategory = ref('')
 const librarySuitableOnly = ref(true)
 const dragIndex = ref(null)
 const dragOverIndex = ref(null)
+const highlightUid = ref(null)
+let highlightTimer = null
 let nextBlockUid = 1
 let suppressDetailClick = false
 
@@ -425,6 +425,7 @@ onMounted(() => {
 onUnmounted(() => {
   resetTouchReorder()
   resetPointerDrag()
+  if (highlightTimer) clearTimeout(highlightTimer)
 })
 
 function loadDraft() {
@@ -656,9 +657,14 @@ function shareTraining() {
 }
 
 function addManualExercise(ex) {
-  sessionBlocks.value = [...sessionBlocks.value, makeBlock(ex, ex.durationMin)]
+  const position = sessionBlocks.value.length + 1
+  const block = makeBlock(ex, ex.durationMin)
+  sessionBlocks.value = [...sessionBlocks.value, block]
   activeTab.value = 'session'
-  showSnackbar(`${getExerciseTitle(ex)} toegevoegd`)
+  highlightUid.value = block.uid
+  if (highlightTimer) clearTimeout(highlightTimer)
+  highlightTimer = setTimeout(() => { highlightUid.value = null }, 2000)
+  showSnackbar(`${getExerciseTitle(ex)} toegevoegd als oefening ${position}`)
   persistDraft()
 }
 
@@ -693,10 +699,19 @@ function addFromPreview(ex) {
 
 <style scoped>
 .training-header {
-  margin-bottom: var(--sp-3);
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-3);
+  margin-bottom: var(--sp-2);
 }
 
-.training-sub {
+.training-title {
+  margin: 0;
+}
+
+.training-meta {
+  margin: 0;
   color: var(--md-on-surface-variant);
 }
 
@@ -707,18 +722,22 @@ function addFromPreview(ex) {
 .session-layout {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-3);
+  gap: var(--sp-2);
 }
 
 .session-main {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-3);
+  gap: var(--sp-2);
   min-width: 0;
 }
 
 .status-bar {
-  padding: var(--sp-3) var(--sp-4);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
   background: var(--md-surface-container-low);
   border: 1px solid var(--md-outline-variant);
 }
@@ -727,14 +746,7 @@ function addFromPreview(ex) {
   border-color: color-mix(in srgb, var(--md-tertiary) 50%, var(--md-outline-variant));
 }
 
-.status-primary {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--sp-2);
-}
-
-.status-dot {
+.status-sep {
   color: var(--md-outline);
 }
 
@@ -742,19 +754,14 @@ function addFromPreview(ex) {
   color: var(--md-on-surface-variant);
 }
 
-.status-hint {
-  margin: var(--sp-1) 0 0;
-  color: var(--md-outline);
-}
-
 .generate-btn {
   width: 100%;
-  min-height: 48px;
+  min-height: 44px;
 }
 
 .session-card,
 .session-empty {
-  padding: var(--sp-4);
+  padding: var(--sp-3);
 }
 
 .session-card-head {
@@ -762,7 +769,7 @@ function addFromPreview(ex) {
   align-items: center;
   justify-content: space-between;
   gap: var(--sp-2);
-  margin-bottom: var(--sp-1);
+  margin-bottom: var(--sp-2);
 }
 
 .share-btn {
@@ -781,7 +788,7 @@ function addFromPreview(ex) {
   align-items: center;
   text-align: center;
   gap: var(--sp-2);
-  padding: var(--sp-6) var(--sp-4);
+  padding: var(--sp-4) var(--sp-3);
 }
 
 .session-empty-icon {
@@ -806,11 +813,16 @@ function addFromPreview(ex) {
   display: flex;
   align-items: center;
   gap: var(--sp-2);
-  padding: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
   border-radius: var(--md-shape-md);
-  transition: background var(--md-duration-short), opacity var(--md-duration-short);
+  transition: background var(--md-duration-short), opacity var(--md-duration-short), box-shadow var(--md-duration-short);
   touch-action: manipulation;
   user-select: none;
+}
+
+.session-row.is-new {
+  background: color-mix(in srgb, var(--md-primary) 10%, transparent);
+  box-shadow: inset 0 0 0 2px var(--md-primary);
 }
 
 .drag-handle {
@@ -906,6 +918,20 @@ function addFromPreview(ex) {
   white-space: nowrap;
 }
 
+.session-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.375rem;
+  height: 1.375rem;
+  flex-shrink: 0;
+  border-radius: var(--md-shape-full);
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  font-size: 11px;
+  font-weight: 600;
+}
+
 .session-title {
   display: flex;
   align-items: center;
@@ -919,20 +945,6 @@ function addFromPreview(ex) {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.reorder-hint--mouse {
-  display: none;
-}
-
-@media (min-width: 900px) {
-  .reorder-hint--touch {
-    display: none;
-  }
-
-  .reorder-hint--mouse {
-    display: inline;
-  }
 }
 
 @media (max-width: 599px) {
