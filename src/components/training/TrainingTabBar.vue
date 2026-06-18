@@ -41,15 +41,52 @@ defineEmits(['update:modelValue'])
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--sp-2);
+  gap: var(--sp-1);
   min-height: 44px;
-  padding: var(--sp-2) var(--sp-3);
+  padding: var(--sp-2);
   border: none;
   border-radius: var(--md-shape-md);
   background: transparent;
   color: var(--md-on-surface-variant);
   cursor: pointer;
   transition: background var(--md-duration-short), color var(--md-duration-short);
+}
+
+@media (max-width: 899px) {
+  .training-tabs {
+    gap: 2px;
+    padding: 2px;
+    border-radius: var(--md-shape-md);
+  }
+
+  .training-tab {
+    flex-direction: column;
+    gap: 2px;
+    min-height: 48px;
+    padding: var(--sp-1) var(--sp-1);
+  }
+
+  .tab-icon {
+    font-size: 22px;
+  }
+
+  .tab-label {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+
+  .tab-badge {
+    position: absolute;
+    top: 4px;
+    right: calc(50% - 22px);
+    font-size: 10px;
+    min-width: 1rem;
+    padding: 0 4px;
+  }
+
+  .training-tab {
+    position: relative;
+  }
 }
 
 .training-tab.active {

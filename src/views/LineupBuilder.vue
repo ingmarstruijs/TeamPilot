@@ -58,7 +58,7 @@
 
       <div class="toolbar-actions">
         <button class="btn btn-outlined" @click="resetAll" title="Alle posities leegmaken">
-          <span class="material-symbols-rounded" style="font-size:18px">refresh</span>
+          <span class="material-symbols-rounded" style="font-size:18px">delete_sweep</span>
           <span class="btn-lbl">Reset</span>
         </button>
         <button class="btn btn-filled" @click="openSaveDialog">

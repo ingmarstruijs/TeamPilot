@@ -15,13 +15,15 @@
     </div>
 
     <template v-else>
-      <TrainingTabBar v-model="activeTab" :tabs="tabItems" />
+      <div class="training-tabs-shell">
+        <TrainingTabBar v-model="activeTab" :tabs="tabItems" />
+      </div>
 
       <!-- Tab: Sessie -->
       <div v-show="activeTab === 'session'" class="tab-panel session-panel">
         <div class="session-layout">
           <div class="session-main">
-            <div class="session-start card">
+            <div class="session-start card card-elevated">
               <div class="session-start-header">
                 <h2 class="md-title-sm session-start-title">Start je training</h2>
                 <p class="md-label-sm session-start-theme">
@@ -53,6 +55,28 @@
               />
 
               <TrainingSettingsPanel
+                v-if="!isDesktop"
+                variant="collapsible"
+                nested
+                :summary="configSummary"
+                :show-present="false"
+                :show-config="true"
+                :show-cycle-info="false"
+                :roster="roster"
+                :present-ids="presentIds"
+                :all-present="allPresent"
+                :balance="balance"
+                :training-type="trainingType"
+                :duration-min="durationMin"
+                :cycle-week="syncedCycleWeek"
+                :cycle-theme-label="cycleThemeLabel"
+                :training-types="TRAINING_TYPES"
+                @update:training-type="trainingType = $event"
+                @update:duration-min="durationMin = +$event || 60"
+              />
+
+              <TrainingSettingsPanel
+                v-if="isDesktop"
                 variant="embedded"
                 :show-present="false"
                 :show-config="true"
@@ -423,6 +447,10 @@ const presentSummary = computed(() => {
   const count = n === 1 ? '1 aanwezig' : `${n} aanwezig`
   return `Wie is er? · ${count}`
 })
+
+const configSummary = computed(() =>
+  `Opzet · ${trainingTypeLabel.value} · ${durationMin.value} min`
+)
 
 function isDragExcludedTarget(el) {
   return el?.closest('input, .session-duration, button[aria-label="Verwijderen"], .drag-handle')
@@ -951,6 +979,43 @@ function addFromPreview(ex) {
   margin-bottom: var(--sp-2);
 }
 
+@media (max-width: 899px) {
+  .training-header {
+    display: none;
+  }
+
+  .training-page {
+    padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-5);
+  }
+
+  .training-tabs-shell {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    margin: calc(-1 * var(--sp-4)) calc(-1 * var(--sp-4)) 0;
+    padding: var(--sp-2) var(--sp-4);
+    background: var(--md-surface);
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+
+  .training-tabs-shell :deep(.training-tabs) {
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 899px) {
+  .training-tabs-shell {
+    margin-top: calc(-1 * var(--sp-5));
+    margin-left: calc(-1 * var(--sp-5));
+    margin-right: calc(-1 * var(--sp-5));
+    padding-left: var(--sp-5);
+    padding-right: var(--sp-5);
+  }
+}
+
 .training-title {
   margin: 0;
 }
@@ -1072,8 +1137,6 @@ function addFromPreview(ex) {
 
 .session-start {
   padding: var(--sp-4);
-  background: var(--md-surface-container-low);
-  border: 1px solid var(--md-outline-variant);
 }
 
 .session-start-header {

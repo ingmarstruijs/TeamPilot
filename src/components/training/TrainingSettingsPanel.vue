@@ -52,7 +52,7 @@
 
       <!-- 2. Type & duur -->
       <div v-if="showConfig" class="section-block section-block--config">
-        <p class="md-title-sm section-title">Opzet</p>
+        <p v-if="!nested" class="md-title-sm section-title">Opzet</p>
         <div class="settings-grid">
           <div class="field-wrap">
             <label class="field-label field-label--icon" for="training-type-select">

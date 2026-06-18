@@ -12,26 +12,11 @@
             </template>
             <template v-else>
               {{ ageGroupConfig?.label }} · {{ knvbClassConfig?.label }}
+              · Week {{ cycleWeek }}: {{ cycleThemeLabel }}
             </template>
           </p>
-          <div class="hero-meta">
-            <span v-if="needsTeamSetup && activeTeam?.name !== 'Mijn Team'" class="hero-chip md-label-sm">
-              {{ activeTeam?.name }}
-            </span>
-            <template v-if="!needsTeamSetup">
-              <span class="hero-chip md-label-sm">
-                <span class="material-symbols-rounded" aria-hidden="true">group</span>
-                {{ playerCount }} spelers
-              </span>
-              <span class="hero-chip md-label-sm">
-                <span class="material-symbols-rounded" aria-hidden="true">calendar_today</span>
-                Cyclus week {{ cycleWeek }}/4
-              </span>
-              <span class="hero-chip hero-chip--theme md-label-sm">
-                <span class="material-symbols-rounded" aria-hidden="true">{{ cycleThemeIcon }}</span>
-                {{ cycleThemeLabel }}
-              </span>
-            </template>
+          <div v-if="needsTeamSetup && activeTeam?.name !== 'Mijn Team'" class="hero-meta">
+            <span class="hero-chip md-label-sm">{{ activeTeam?.name }}</span>
           </div>
         </div>
         <RouterLink v-if="!needsTeamSetup" :to="heroContinue.to" class="hero-continue">
@@ -491,11 +476,6 @@ function shareTeam() {
 
 .hero-chip .material-symbols-rounded {
   font-size: 16px;
-}
-
-.hero-chip--theme {
-  background: rgba(255, 255, 255, 0.22);
-  border-color: rgba(255, 255, 255, 0.32);
 }
 
 .hero-continue {
