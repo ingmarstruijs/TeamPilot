@@ -286,7 +286,6 @@
             v-model:suitable-only="librarySuitableOnly"
             @preview="openPreview"
             @add="addManualExercise"
-            @go-session="activeTab = 'session'"
             @remove-block="removeBlockByUid"
             @create-custom="showCustomDialog = true"
             @reset-filters="resetLibraryFilters"
@@ -1034,6 +1033,7 @@ function addFromPreview(ex) {
     padding: 0 var(--sp-3) var(--sp-2);
     background: var(--md-surface);
     border-bottom: 1px solid var(--md-outline-variant);
+    box-shadow: var(--sticky-header-shadow);
   }
 
   .training-tabs-shell :deep(.training-tabs) {
@@ -1060,15 +1060,7 @@ function addFromPreview(ex) {
   .training-col-library.tab-panel {
     flex: 1;
     min-height: 0;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .training-col-library :deep(.library-panel) {
-    flex: 1;
-    min-height: 0;
-    overflow: hidden;
+    overflow-y: auto;
   }
 }
 
@@ -1483,11 +1475,6 @@ function addFromPreview(ex) {
   .training-col-library {
     display: flex;
     flex-direction: column;
-  }
-
-  .training-col-library :deep(.library-panel--sidebar) {
-    flex: 1;
-    min-height: 0;
   }
 }
 

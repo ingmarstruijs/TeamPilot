@@ -1,9 +1,8 @@
 <template>
-  <section class="library-panel card card-elevated" :class="{ 'library-panel--sidebar': hideSessionStrip }">
-    <div
+  <div class="library-panel" :class="{ 'library-panel--sidebar': hideSessionStrip }">
+    <section
       v-if="!hideSessionStrip"
-      class="session-strip"
-      :class="{ 'session-strip--empty': !sessionBlocks.length }"
+      class="session-card card card-elevated"
     >
       <div class="session-strip-head">
         <span class="material-symbols-rounded session-strip-icon" aria-hidden="true">stadium</span>
@@ -16,15 +15,6 @@
             Nog geen oefeningen in je training
           </template>
         </p>
-        <button
-          v-if="sessionBlocks.length"
-          type="button"
-          class="btn btn-text session-strip-link"
-          @click="$emit('go-session')"
-        >
-          Naar sessie
-          <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
-        </button>
       </div>
       <div
         v-if="sessionBlocks.length"
@@ -57,23 +47,23 @@
       <p v-else class="md-body-sm session-strip-hint">
         Oefeningen die je toevoegt komen onderaan je training te staan.
       </p>
-    </div>
+    </section>
 
-    <div class="library-main">
-      <div class="section-head">
-        <p class="md-title-sm">Bibliotheek</p>
+    <section class="library-card card card-elevated">
+      <div class="library-head">
+        <p class="md-title-sm library-title">Bibliotheek</p>
+        <ExerciseLibraryFilters
+          class="library-head-filters"
+          :query="query"
+          :category="category"
+          :suitable-only="suitableOnly"
+          :result-count="exercises.length"
+          @update:query="$emit('update:query', $event)"
+          @update:category="$emit('update:category', $event)"
+          @update:suitable-only="$emit('update:suitableOnly', $event)"
+          @reset="$emit('reset-filters')"
+        />
       </div>
-
-      <ExerciseLibraryFilters
-        :query="query"
-        :category="category"
-        :suitable-only="suitableOnly"
-        :result-count="exercises.length"
-        @update:query="$emit('update:query', $event)"
-        @update:category="$emit('update:category', $event)"
-        @update:suitable-only="$emit('update:suitableOnly', $event)"
-        @reset="$emit('reset-filters')"
-      />
 
       <div v-if="!exercises.length" class="library-empty md-body-sm">
         Geen oefeningen gevonden — pas je zoekterm of filters aan.
@@ -116,13 +106,13 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <button type="button" class="btn btn-tonal library-custom-btn" @click="$emit('create-custom')">
-      <span class="material-symbols-rounded" style="font-size:18px">draw</span>
-      Creëer eigen oefening
-    </button>
-  </section>
+      <button type="button" class="btn btn-tonal library-custom-btn" @click="$emit('create-custom')">
+        <span class="material-symbols-rounded" style="font-size:18px">draw</span>
+        Creëer eigen oefening
+      </button>
+    </section>
+  </div>
 </template>
 
 <script setup>
@@ -144,7 +134,6 @@ const props = defineProps({
 defineEmits([
   'preview',
   'add',
-  'go-session',
   'create-custom',
   'remove-block',
   'update:query',
@@ -175,39 +164,16 @@ function categoryLabel(id) {
 
 <style scoped>
 .library-panel {
-  padding: var(--sp-3);
   display: flex;
   flex-direction: column;
-  min-height: 0;
+  gap: var(--sp-3);
+  overflow: visible;
 }
 
-.library-panel--sidebar {
-  height: 100%;
-}
-
-.library-main {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-height: 0;
-}
-
-.library-panel--sidebar .library-main {
-  flex: 1;
-  min-height: 0;
-}
-
-.session-strip {
-  flex-shrink: 0;
-  margin-bottom: var(--sp-3);
+.session-card,
+.library-card {
   padding: var(--sp-3);
-  border-radius: var(--md-shape-md);
-  background: var(--md-surface-container-low);
-  border: 1px solid var(--md-outline-variant);
-}
-
-.session-strip--empty {
-  border-style: dashed;
+  overflow: visible;
 }
 
 .session-strip-head {
@@ -229,24 +195,11 @@ function categoryLabel(id) {
   margin: 0;
 }
 
-.session-strip-link {
-  flex-shrink: 0;
-  min-height: 32px;
-  padding: 0 var(--sp-2);
-  gap: 2px;
-}
-
-.session-strip-link .material-symbols-rounded {
-  font-size: 18px;
-}
-
 .session-strip-list {
   display: flex;
   flex-direction: column;
   gap: var(--sp-1);
   margin-top: var(--sp-2);
-  max-height: 7rem;
-  overflow-y: auto;
 }
 
 .session-strip-chip {
@@ -315,13 +268,23 @@ function categoryLabel(id) {
   color: var(--md-on-surface-variant);
 }
 
-.section-head {
+.library-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--sp-2);
   margin-bottom: var(--sp-2);
+}
+
+.library-title {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.library-head-filters {
   flex-shrink: 0;
+  margin-bottom: 0;
 }
 
 .library-empty {
@@ -334,13 +297,6 @@ function categoryLabel(id) {
   display: flex;
   flex-direction: column;
   gap: var(--sp-1);
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-}
-
-.library-panel--sidebar .manual-list {
-  max-height: none;
 }
 
 .manual-item {
@@ -442,8 +398,7 @@ function categoryLabel(id) {
 }
 
 .library-custom-btn {
-  flex-shrink: 0;
   width: 100%;
-  margin-top: var(--sp-3);
+  margin-top: var(--sp-4);
 }
 </style>

@@ -1393,6 +1393,7 @@ async function shareViaWhatsApp() {
     padding: var(--sp-2) var(--sp-3) 0;
     background: var(--md-surface);
     border-bottom: 1px solid var(--md-outline-variant);
+    box-shadow: var(--sticky-header-shadow);
     overflow: visible;
   }
 }

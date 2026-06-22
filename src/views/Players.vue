@@ -388,6 +388,7 @@ function confirmQuickFill() {
     padding: var(--sp-3) var(--sp-3);
     background: var(--md-surface);
     border-bottom: 1px solid var(--md-outline-variant);
+    box-shadow: var(--sticky-header-shadow);
   }
 
   .players-header {
@@ -407,13 +408,13 @@ function confirmQuickFill() {
 
   .player-list,
   .empty-state {
-    margin-top: var(--sp-4);
+    margin-top: var(--sp-5);
   }
 }
 
 @media (min-width: 900px) {
   .players-header-shell {
-    margin-bottom: var(--sp-5);
+    margin-bottom: var(--sp-6);
   }
 
   .players-title {
