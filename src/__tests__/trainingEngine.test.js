@@ -74,4 +74,19 @@ describe('trainingEngine', () => {
     expect(all.length).toBe(filtered.length)
     expect(all.length).toBeGreaterThan(10)
   })
+
+  it('includes imported Rinus drills for O12 (not only curated)', () => {
+    const o12 = browseExercises({ ageGroup: 'O12', knvbLevel: 3 })
+    expect(o12.length).toBeGreaterThan(60)
+    expect(o12.some(ex => String(ex.id).startsWith('rinus-'))).toBe(true)
+  })
+
+  it('matches legacy JO age tags on exercises when team uses O*', () => {
+    const joTagged = EXERCISES.find(ex => ex.ageGroups?.includes('JO12') || ex.ageGroups?.includes('O12'))
+    expect(joTagged).toBeTruthy()
+    const viaLegacyTeam = browseExercises({ ageGroup: 'JO12', knvbLevel: 3 })
+    const viaCurrent = browseExercises({ ageGroup: 'O12', knvbLevel: 3 })
+    expect(viaLegacyTeam.length).toBe(viaCurrent.length)
+    expect(viaCurrent.length).toBeGreaterThan(40)
+  })
 })

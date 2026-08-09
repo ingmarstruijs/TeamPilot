@@ -1,4 +1,5 @@
 import { EXERCISES } from '@/data/exercises'
+import { normalizeAgeGroup } from '@/data/formations'
 
 export function analyzePlayerBalance(players) {
   const counts = { GK: 0, DEF: 0, WB: 0, MID: 0, ATT: 0 }
@@ -29,8 +30,10 @@ export function filterExercises({
   category,
   categories,
 }) {
+  const normalizedAge = normalizeAgeGroup(ageGroup)
   return EXERCISES.filter(ex => {
-    if (!ex.ageGroups.includes(ageGroup)) return false
+    const ages = (ex.ageGroups ?? []).map(normalizeAgeGroup)
+    if (!ages.includes(normalizedAge)) return false
     if (knvbLevel < ex.minKnvbLevel || knvbLevel > ex.maxKnvbLevel) return false
     if (playerCount != null && (playerCount < ex.minPlayers || playerCount > ex.maxPlayers)) return false
     if (trainingType && !ex.trainingTypes.includes(trainingType)) return false
@@ -224,8 +227,10 @@ export function browseExercisesWithFilters({
       category: category || undefined,
     })
   } else {
+    const normalizedAge = normalizeAgeGroup(ageGroup)
     builtIn = EXERCISES.filter(ex => {
-      if (!ex.ageGroups.includes(ageGroup)) return false
+      const ages = (ex.ageGroups ?? []).map(normalizeAgeGroup)
+      if (!ages.includes(normalizedAge)) return false
       if (knvbLevel < ex.minKnvbLevel || knvbLevel > ex.maxKnvbLevel) return false
       if (category && ex.category !== category) return false
       return true
@@ -247,8 +252,10 @@ export function browseExercisesWithFilters({
 
 /** All exercises for manual browse — age group + level only (no type/player filter). */
 export function browseExercises({ ageGroup, knvbLevel }) {
+  const normalizedAge = normalizeAgeGroup(ageGroup)
   return EXERCISES.filter(ex => {
-    if (!ex.ageGroups.includes(ageGroup)) return false
+    const ages = (ex.ageGroups ?? []).map(normalizeAgeGroup)
+    if (!ages.includes(normalizedAge)) return false
     if (knvbLevel < ex.minKnvbLevel || knvbLevel > ex.maxKnvbLevel) return false
     return true
   })

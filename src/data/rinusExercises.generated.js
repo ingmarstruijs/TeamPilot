@@ -109,12 +109,12 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10",
-      "JO11",
-      "JO12",
-      "JO13",
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 1,
@@ -151,12 +151,12 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10",
-      "JO11",
-      "JO12",
-      "JO13",
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 1,
@@ -193,9 +193,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -231,9 +231,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -268,9 +268,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -305,9 +305,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -342,12 +342,12 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10",
-      "JO11",
-      "JO12",
-      "JO13",
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 1,
@@ -384,12 +384,12 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10",
-      "JO11",
-      "JO12",
-      "JO13",
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 1,
@@ -425,9 +425,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -463,9 +463,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -501,9 +501,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -539,9 +539,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -577,12 +577,12 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10",
-      "JO11",
-      "JO12",
-      "JO13",
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 1,
@@ -618,9 +618,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -656,9 +656,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -693,9 +693,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -731,12 +731,12 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10",
-      "JO11",
-      "JO12",
-      "JO13",
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 1,
@@ -772,9 +772,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "warming-up",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -810,9 +810,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -842,7 +842,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -873,7 +873,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -904,7 +904,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -935,8 +935,8 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO11",
-      "JO12"
+      "O11",
+      "O12"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 7,
@@ -966,12 +966,12 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10",
-      "JO11",
-      "JO12",
-      "JO13",
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 1,
@@ -1002,7 +1002,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1033,12 +1033,12 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10",
-      "JO11",
-      "JO12",
-      "JO13",
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 1,
@@ -1069,8 +1069,8 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO11",
-      "JO12"
+      "O11",
+      "O12"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 7,
@@ -1100,12 +1100,12 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10",
-      "JO11",
-      "JO12",
-      "JO13",
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 1,
@@ -1135,12 +1135,12 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10",
-      "JO11",
-      "JO12",
-      "JO13",
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 1,
@@ -1171,9 +1171,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -1203,8 +1203,8 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO11",
-      "JO12"
+      "O11",
+      "O12"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 7,
@@ -1233,9 +1233,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -1264,7 +1264,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1295,9 +1295,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -1327,7 +1327,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1358,7 +1358,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1389,7 +1389,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1420,7 +1420,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1451,7 +1451,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1482,7 +1482,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "techniek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1512,7 +1512,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1542,12 +1542,12 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10",
-      "JO11",
-      "JO12",
-      "JO13",
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1577,9 +1577,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -1608,8 +1608,8 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO11",
-      "JO12"
+      "O11",
+      "O12"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 7,
@@ -1639,7 +1639,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1670,7 +1670,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1702,8 +1702,8 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO11",
-      "JO12"
+      "O11",
+      "O12"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 7,
@@ -1732,7 +1732,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1763,12 +1763,12 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10",
-      "JO11",
-      "JO12",
-      "JO13",
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1800,7 +1800,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1832,7 +1832,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1864,7 +1864,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1896,7 +1896,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1928,7 +1928,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -1958,9 +1958,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -1991,7 +1991,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -2022,7 +2022,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -2053,9 +2053,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "tactiek",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -2084,8 +2084,8 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "conditie",
     "durationMin": 5,
     "ageGroups": [
-      "JO11",
-      "JO12"
+      "O11",
+      "O12"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 7,
@@ -2116,9 +2116,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "conditie",
     "durationMin": 5,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -2151,7 +2151,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "conditie",
     "durationMin": 5,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -2185,7 +2185,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "conditie",
     "durationMin": 5,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -2219,8 +2219,8 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "conditie",
     "durationMin": 5,
     "ageGroups": [
-      "JO11",
-      "JO12"
+      "O11",
+      "O12"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 7,
@@ -2253,8 +2253,8 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "conditie",
     "durationMin": 5,
     "ageGroups": [
-      "JO11",
-      "JO12"
+      "O11",
+      "O12"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 7,
@@ -2285,9 +2285,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "conditie",
     "durationMin": 5,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -2320,7 +2320,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "conditie",
     "durationMin": 5,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -2354,9 +2354,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "conditie",
     "durationMin": 5,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -2387,8 +2387,8 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "conditie",
     "durationMin": 5,
     "ageGroups": [
-      "JO11",
-      "JO12"
+      "O11",
+      "O12"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 7,
@@ -2419,7 +2419,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "conditie",
     "durationMin": 5,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -2453,9 +2453,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "conditie",
     "durationMin": 5,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -2488,7 +2488,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -2522,8 +2522,8 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO11",
-      "JO12"
+      "O11",
+      "O12"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 7,
@@ -2556,7 +2556,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -2590,7 +2590,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -2624,7 +2624,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -2658,9 +2658,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -2693,7 +2693,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -2727,8 +2727,8 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO11",
-      "JO12"
+      "O11",
+      "O12"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 7,
@@ -2761,7 +2761,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -2795,9 +2795,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -2830,7 +2830,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -2864,8 +2864,8 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO11",
-      "JO12"
+      "O11",
+      "O12"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 7,
@@ -2898,7 +2898,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -2932,7 +2932,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -2966,8 +2966,8 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO11",
-      "JO12"
+      "O11",
+      "O12"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 7,
@@ -3000,7 +3000,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -3035,9 +3035,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -3070,8 +3070,8 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "partijvorm",
     "durationMin": 15,
     "ageGroups": [
-      "JO11",
-      "JO12"
+      "O11",
+      "O12"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 7,
@@ -3105,7 +3105,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "afsluiting",
     "durationMin": 5,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -3142,7 +3142,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "afsluiting",
     "durationMin": 5,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,
@@ -3179,9 +3179,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "afsluiting",
     "durationMin": 5,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -3217,9 +3217,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "afsluiting",
     "durationMin": 5,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -3255,8 +3255,8 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "afsluiting",
     "durationMin": 5,
     "ageGroups": [
-      "JO11",
-      "JO12"
+      "O11",
+      "O12"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 7,
@@ -3292,9 +3292,9 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "afsluiting",
     "durationMin": 5,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10"
+      "O8",
+      "O9",
+      "O10"
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 5,
@@ -3330,12 +3330,12 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "afsluiting",
     "durationMin": 5,
     "ageGroups": [
-      "JO8",
-      "JO9",
-      "JO10",
-      "JO11",
-      "JO12",
-      "JO13",
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 1,
@@ -3372,7 +3372,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     "category": "afsluiting",
     "durationMin": 5,
     "ageGroups": [
-      "JO13",
+      "O13",
       "Senior"
     ],
     "minKnvbLevel": 2,

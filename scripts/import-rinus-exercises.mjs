@@ -28,23 +28,30 @@ const IMPORT_PLAN = [
   { category: 'afsluiting', typeIds: [362, 363], limit: 8 },
 ]
 
+/** Rinus category title → TeamPilot AGE_GROUPS id (KNVB O* naming). */
 const AGE_MAP = {
-  O8: 'JO8',
-  O9: 'JO9',
-  O10: 'JO10',
-  O11: 'JO11',
-  O12: 'JO12',
-  O13: 'JO13',
-  O14: 'JO13',
-  O15: 'JO13',
-  O16: 'JO13',
-  O17: 'JO13',
+  O8: 'O8',
+  O9: 'O9',
+  O10: 'O10',
+  O11: 'O11',
+  O12: 'O12',
+  O13: 'O13',
+  JO8: 'O8',
+  JO9: 'O9',
+  JO10: 'O10',
+  JO11: 'O11',
+  JO12: 'O12',
+  JO13: 'O13',
+  O14: 'O13',
+  O15: 'O13',
+  O16: 'O13',
+  O17: 'O13',
   O18: 'Senior',
   O19: 'Senior',
   Senioren: 'Senior',
 }
 
-const ALL_AGE = ['JO8', 'JO9', 'JO10', 'JO11', 'JO12', 'JO13', 'Senior']
+const ALL_AGE = ['O8', 'O9', 'O10', 'O11', 'O12', 'O13', 'Senior']
 
 const existingRinusIds = new Set([
   ...Object.values(RINUS_ID_MAP).map(String),
@@ -91,14 +98,14 @@ function mapAgeGroups(entry) {
   if (!ages.size) return [...ALL_AGE]
   // Broaden one step for practical grassroots use.
   const ordered = ALL_AGE.filter(a => ages.has(a))
-  if (ordered.includes('JO8') || ordered.includes('JO9') || ordered.includes('JO10')) {
-    ages.add('JO8'); ages.add('JO9'); ages.add('JO10')
+  if (ordered.includes('O8') || ordered.includes('O9') || ordered.includes('O10')) {
+    ages.add('O8'); ages.add('O9'); ages.add('O10')
   }
-  if (ordered.includes('JO11') || ordered.includes('JO12')) {
-    ages.add('JO11'); ages.add('JO12')
+  if (ordered.includes('O11') || ordered.includes('O12')) {
+    ages.add('O11'); ages.add('O12')
   }
-  if (ordered.includes('JO13') || ordered.includes('Senior')) {
-    ages.add('JO13'); ages.add('Senior')
+  if (ordered.includes('O13') || ordered.includes('Senior')) {
+    ages.add('O13'); ages.add('Senior')
   }
   return ALL_AGE.filter(a => ages.has(a))
 }
@@ -167,8 +174,8 @@ function intensityFor(category, entry) {
 }
 
 function knvbRange(ageGroups, category) {
-  const young = ageGroups.some(a => ['JO8', 'JO9', 'JO10'].includes(a))
-  const old = ageGroups.some(a => ['JO13', 'Senior'].includes(a))
+  const young = ageGroups.some(a => ['O8', 'O9', 'O10'].includes(a))
+  const old = ageGroups.some(a => ['O13', 'Senior'].includes(a))
   if (category === 'tactiek' && old) return [2, 7]
   if (young && !old) return [1, 5]
   if (!young && old) return [2, 7]
