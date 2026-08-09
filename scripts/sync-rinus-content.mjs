@@ -49,7 +49,10 @@ async function fetchRinusContent(rinusId) {
   return parseEntry(entry)
 }
 
-const uniqueIds = [...new Set(Object.values(RINUS_ID_MAP))]
+const uniqueIds = [...new Set([
+  ...Object.values(RINUS_ID_MAP),
+  ...EXERCISES.map(ex => ex.rinusId).filter(Boolean),
+])]
 const contentByRinusId = {}
 
 for (const id of uniqueIds) {

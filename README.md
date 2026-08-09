@@ -37,7 +37,7 @@ Built for **JO8 through Senior**, with KNVB competition classes, Rinus-style exe
   - 4-week exercise rotation with feedback learning
   - Editable training overview (reorder, duration, remove exercises)
   - Share training via link (WhatsApp); recipients view without needing the same team
-  - Manual selection from a local exercise library (~50 built-in exercises)
+  - Manual selection from a local exercise library (~150 built-in Rinus exercises)
   - **Custom exercises** — create your own drills (title, description, setup, rules, optional SVG diagram); stored per team in localStorage; shareable in training links
   - Built-in exercises use official KNVB Rinus SVG diagrams, spelregels, and metadata (offline)
 - **Share lineup via link** — two modes:
@@ -66,15 +66,16 @@ npm run test       # run tests (watch mode)
 npm run test:run   # run tests once
 ```
 
-### Sync Rinus exercise content (maintainers)
+### Sync / extend Rinus exercise content (maintainers)
 
-Built-in exercise diagrams, spelregels, titles and player counts are fetched from [KNVB Rinus](https://rinus.knvb.nl/) and stored as static maps. To refresh after updating `src/data/rinusLinks.js`:
+Built-in exercise diagrams, spelregels, titles and player counts are fetched from [KNVB Rinus](https://rinus.knvb.nl/) and stored as static maps.
 
 ```bash
-node scripts/sync-rinus-content.mjs
+node scripts/import-rinus-exercises.mjs   # discover more official outdoor drills → rinusExercises.generated.js
+node scripts/sync-rinus-content.mjs       # refresh SVG / spelregels / metadata maps
 ```
 
-This regenerates `src/data/rinusSvgMap.js`, `rinusRulesMap.js`, and `rinusMetaMap.js`. Requires network access.
+`sync-rinus-content.mjs` regenerates `src/data/rinusSvgMap.js`, `rinusRulesMap.js`, and `rinusMetaMap.js`. Requires network access.
 
 ## Sharing
 
@@ -105,7 +106,7 @@ Training suggestions use a local rule-based engine — no API, no cloud. The eng
 | **Feedback** | Thumbs up/down per exercise shapes future suggestions |
 | **Cycle week** | Theme fixed for the calendar week; advances automatically |
 
-The built-in library ships ~50 exercises offline. Each links to [KNVB Rinus](https://rinus.knvb.nl/); titles, SVG diagrams and spelregels come from synced metadata.
+The built-in library ships ~150 exercises offline (curated set plus an auto-imported batch of official outdoor KNVB Rinus drills). Each links to [KNVB Rinus](https://rinus.knvb.nl/); titles, SVG diagrams and spelregels come from synced metadata.
 
 ### Custom exercises
 
