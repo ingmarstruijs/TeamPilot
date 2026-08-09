@@ -65,8 +65,8 @@ describe('exerciseText', () => {
 })
 
 describe('exercise library', () => {
-  it('has at least 48 exercises', () => {
-    expect(EXERCISES.length).toBeGreaterThanOrEqual(48)
+  it('has at least 140 exercises', () => {
+    expect(EXERCISES.length).toBeGreaterThanOrEqual(140)
   })
 
   it('maps every exercise to a Rinus page', () => {

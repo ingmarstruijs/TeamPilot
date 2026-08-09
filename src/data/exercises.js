@@ -1,6 +1,8 @@
 /**
  * Training types (user selection) and exercise categories (session structure).
  */
+import { IMPORTED_RINUS_EXERCISES } from './rinusExercises.generated.js'
+
 export const TRAINING_TYPES = [
   { id: 'techniek', label: 'Techniek' },
   { id: 'tactiek',  label: 'Tactiek' },
@@ -21,7 +23,7 @@ export const EXERCISE_CATEGORIES = [
 const ALL_AGE = ['JO8', 'JO9', 'JO10', 'JO11', 'JO12', 'JO13', 'Senior']
 
 /** @type {import('./exercises.types').Exercise[]} */
-export const EXERCISES = [
+const CURATED_EXERCISES = [
   {
     id: 'wu-loopscholing',
     title: 'Loopscholing met bal',
@@ -1082,6 +1084,9 @@ export const EXERCISES = [
     diagram: { zones: [{ x: 30, y: 30, w: 40, h: 40, label: 'rondo' }] },
   },
 ]
+
+/** Curated library plus auto-imported official Rinus drills. */
+export const EXERCISES = [...CURATED_EXERCISES, ...IMPORTED_RINUS_EXERCISES]
 
 export function getExerciseById(id, customExercises = []) {
   const custom = customExercises.find(e => e.id === id)

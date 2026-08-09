@@ -3,7 +3,9 @@
  * Each id should point to the matching Rinus oefening (title/rules/svg align).
  * @see https://rinus.knvb.nl/nl/exercise/id/{id}
  */
-export const RINUS_ID_MAP = {
+import { IMPORTED_RINUS_ID_MAP } from './rinusExercises.generated.js'
+
+const CURATED_RINUS_ID_MAP = {
   // Warming-up
   'wu-loopscholing':        47607,  // Passen en lopen
   'wu-dynamisch-stretchen': 1135012, // Dynamische loopvormen 11+
@@ -69,4 +71,9 @@ export const RINUS_ID_MAP = {
   'af-stretchen-kring':     47863,  // Lunges met bal (cool-down variant)
   'af-evaluation':          47699,  // Passen en jagen (kring/evaluatie)
   'af-rondo-afsluit':       37787,  // 5 tegen 2 positiespel (lichte rondo)
+}
+
+export const RINUS_ID_MAP = {
+  ...CURATED_RINUS_ID_MAP,
+  ...IMPORTED_RINUS_ID_MAP,
 }
