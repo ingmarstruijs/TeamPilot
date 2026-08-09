@@ -7,7 +7,7 @@
       </div>
       <div v-if="!collapsed" class="drawer-team-info">
         <span class="drawer-team-name md-title-sm">{{ activeTeam?.name }}</span>
-        <span class="drawer-team-age md-label-sm">{{ activeTeam?.ageGroup }}</span>
+        <span class="drawer-team-age md-label-sm">{{ ageGroupLabel(activeTeam?.ageGroup) }}</span>
       </div>
     </div>
 
@@ -55,6 +55,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
+import { ageGroupLabel } from '@/data/formations'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 
 const route = useRoute()

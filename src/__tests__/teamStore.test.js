@@ -17,7 +17,7 @@ describe('knvbClass', () => {
 
   it('stores knvbClass when creating a team', () => {
     const store = useTeamStore()
-    const team = store.addTeam('Test', 'JO13', '#000000', '2e')
+    const team = store.addTeam('Test', 'O13', '#000000', '2e')
     expect(team.knvbClass).toBe('2e')
     store.setActiveTeam(team.id)
     expect(store.knvbClassConfig.label).toBe('2e klasse')
@@ -25,13 +25,13 @@ describe('knvbClass', () => {
 
   it('preserves knvbClass on importTeam when provided', () => {
     const store = useTeamStore()
-    const team = store.importTeam({ name: 'Ajax', ageGroup: 'JO13', knvbClass: 'hoofdklasse', players: [] })
+    const team = store.importTeam({ name: 'Ajax', ageGroup: 'O13', knvbClass: 'hoofdklasse', players: [] })
     expect(store.teams.find(t => t.id === team.id).knvbClass).toBe('hoofdklasse')
   })
 
   it('uses default knvbClass on importTeam when omitted', () => {
     const store = useTeamStore()
-    const team = store.importTeam({ name: 'Ajax', ageGroup: 'JO13', players: [] })
+    const team = store.importTeam({ name: 'Ajax', ageGroup: 'O13', players: [] })
     expect(store.teams.find(t => t.id === team.id).knvbClass).toBe(DEFAULT_KNVB_CLASS)
   })
 })
@@ -41,15 +41,15 @@ describe('knvbClass', () => {
 describe('importTeam', () => {
   it('creates a new team with the given name and ageGroup', () => {
     const store = useTeamStore()
-    const team = store.importTeam({ name: 'Ajax', ageGroup: 'JO13', players: [] })
+    const team = store.importTeam({ name: 'Ajax', ageGroup: 'O13', players: [] })
     const found = store.teams.find(t => t.id === team.id)
     expect(found.name).toBe('Ajax')
-    expect(found.ageGroup).toBe('JO13')
+    expect(found.ageGroup).toBe('O13')
   })
 
   it('returns the newly created team object', () => {
     const store = useTeamStore()
-    const result = store.importTeam({ name: 'FC Test', ageGroup: 'JO11', players: [] })
+    const result = store.importTeam({ name: 'FC Test', ageGroup: 'O11', players: [] })
     expect(result).toHaveProperty('id')
     expect(result.name).toBe('FC Test')
   })
@@ -70,7 +70,7 @@ describe('importTeam', () => {
   it('preserves player numbers and positions', () => {
     const store = useTeamStore()
     const team = store.importTeam({
-      name: 'T', ageGroup: 'JO12',
+      name: 'T', ageGroup: 'O12',
       players: [{ name: 'Lisa', number: 7, position: 'ATT' }],
     })
     const player = store.teams.find(t => t.id === team.id).players[0]
@@ -81,7 +81,7 @@ describe('importTeam', () => {
   it('stores null player numbers correctly', () => {
     const store = useTeamStore()
     const team = store.importTeam({
-      name: 'T', ageGroup: 'JO11',
+      name: 'T', ageGroup: 'O11',
       players: [{ name: 'Ali', number: null, position: 'MID' }],
     })
     const player = store.teams.find(t => t.id === team.id).players[0]
@@ -100,7 +100,7 @@ describe('importTeam', () => {
 
   it('uses a default solid shirt when none is provided', () => {
     const store = useTeamStore()
-    const team = store.importTeam({ name: 'NoShirt', ageGroup: 'JO11', players: [] })
+    const team = store.importTeam({ name: 'NoShirt', ageGroup: 'O11', players: [] })
     const found = store.teams.find(t => t.id === team.id)
     expect(found.shirt).toBeDefined()
     expect(found.shirt.style).toBe('solid')
@@ -109,7 +109,7 @@ describe('importTeam', () => {
   it('handles an empty players array without error', () => {
     const store = useTeamStore()
     const initialCount = store.teams.length
-    const team = store.importTeam({ name: 'Empty', ageGroup: 'JO08', players: [] })
+    const team = store.importTeam({ name: 'Empty', ageGroup: 'O8', players: [] })
     expect(store.teams).toHaveLength(initialCount + 1)
     expect(store.teams.find(t => t.id === team.id).players).toHaveLength(0)
   })
@@ -117,7 +117,7 @@ describe('importTeam', () => {
   it('adds the new team to the teams list', () => {
     const store = useTeamStore()
     const initialCount = store.teams.length
-    store.importTeam({ name: 'Extra', ageGroup: 'JO09', players: [] })
+    store.importTeam({ name: 'Extra', ageGroup: 'O9', players: [] })
     expect(store.teams).toHaveLength(initialCount + 1)
   })
 })

@@ -26,7 +26,7 @@ describe('cycleWeek', () => {
 describe('trainingShare', () => {
   const sample = {
     teamName: 'FC Test',
-    ageGroup: 'JO11',
+    ageGroup: 'O11',
     knvbClass: '5e',
     trainingType: 'gemengd',
     durationMin: 60,
@@ -55,7 +55,7 @@ describe('trainingShare', () => {
       trainingType: 'techniek',
       durationMin: 60,
       cycleTheme: 'passing',
-      ageGroup: 'JO11',
+      ageGroup: 'O11',
       knvbClass: '5e',
       blocks: [{ exercise: EXERCISES[0], durationMin: 10 }],
     })

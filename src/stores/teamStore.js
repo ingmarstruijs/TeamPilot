@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed, watch } from 'vue'
-import { AGE_GROUPS } from '@/data/formations'
+import { AGE_GROUPS, normalizeAgeGroup } from '@/data/formations'
 import { DEFAULT_KNVB_CLASS, getKnvbClass } from '@/data/knvbClasses'
 import { syncCycleWeek } from '@/utils/cycleWeek'
 import { createSavedTraining, MAX_SAVED_TRAININGS } from '@/utils/savedTraining'
@@ -18,9 +18,22 @@ function migrateTeam(team) {
   if (!team.knvbClass) {
     team.knvbClass = DEFAULT_KNVB_CLASS
   }
+  team.ageGroup = normalizeAgeGroup(team.ageGroup) || 'O11'
   // Keep color in sync with shirt.primary for backward compat
   team.color = team.shirt.primary
   return team
+}
+
+function migrateCustomExercises(byTeam) {
+  if (!byTeam || typeof byTeam !== 'object') return {}
+  for (const list of Object.values(byTeam)) {
+    if (!Array.isArray(list)) continue
+    for (const ex of list) {
+      if (!Array.isArray(ex?.ageGroups)) continue
+      ex.ageGroups = ex.ageGroups.map(normalizeAgeGroup)
+    }
+  }
+  return byTeam
 }
 
 function loadFromStorage() {
@@ -37,7 +50,7 @@ function loadFromStorage() {
       )
     }
     if (!data.trainingState) data.trainingState = {}
-    if (!data.customExercises) data.customExercises = {}
+    data.customExercises = migrateCustomExercises(data.customExercises ?? {})
     if (!data.savedTrainings) data.savedTrainings = {}
     return data
   } catch {
@@ -51,7 +64,7 @@ function defaultState() {
       {
         id: 'team-1',
         name: 'Mijn Team',
-        ageGroup: 'JO11',
+        ageGroup: 'O11',
         knvbClass: DEFAULT_KNVB_CLASS,
         color: '#1a6b3c',
         shirt: defaultShirt('#1a6b3c'),
@@ -121,7 +134,7 @@ export const useTeamStore = defineStore('team', () => {
     const team = {
       id: `team-${Date.now()}`,
       name,
-      ageGroup,
+      ageGroup: normalizeAgeGroup(ageGroup) || 'O11',
       knvbClass,
       color,
       shirt: defaultShirt(color),
@@ -134,9 +147,11 @@ export const useTeamStore = defineStore('team', () => {
   function updateTeam(id, patch) {
     const t = teams.value.find((t) => t.id === id)
     if (!t) return
-    Object.assign(t, patch)
+    const next = { ...patch }
+    if (next.ageGroup != null) next.ageGroup = normalizeAgeGroup(next.ageGroup) || t.ageGroup
+    Object.assign(t, next)
     // Keep color in sync with shirt.primary
-    if (patch.shirt) t.color = t.shirt.primary
+    if (next.shirt) t.color = t.shirt.primary
   }
 
   function setActiveTeam(id) {

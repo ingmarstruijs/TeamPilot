@@ -320,7 +320,7 @@
 
     <CustomExerciseDialog
       :open="showCustomDialog"
-      :age-group="activeTeam?.ageGroup ?? 'JO11'"
+      :age-group="activeTeam?.ageGroup ?? 'O11'"
       @close="showCustomDialog = false"
       @save="onCustomExerciseSaved"
     />

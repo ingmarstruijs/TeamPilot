@@ -20,7 +20,7 @@ describe('customExercises', () => {
       rules: 'Regel 1\nRegel 2',
       description: 'Test',
       setup: '2 velden',
-    }, 'JO11')
+    }, 'O11')
     expect(ex.custom).toBe(true)
     expect(ex.id.startsWith('custom-')).toBe(true)
     expect(ex.rules).toEqual(['Regel 1', 'Regel 2'])
@@ -35,11 +35,11 @@ describe('customExercises', () => {
       customSvg: 'data:image/svg+xml;base64,abc',
     })
     const data = serializeCustomForShare(ex)
-    const restored = restoreCustomExercise('custom-99', data, 'JO12')
+    const restored = restoreCustomExercise('custom-99', data, 'O12')
     expect(restored.title).toBe('Deelbaar')
     expect(restored.rules).toEqual(['A', 'B'])
     expect(restored.customSvg).toBe('data:image/svg+xml;base64,abc')
-    expect(restored.ageGroups).toEqual(['JO12'])
+    expect(restored.ageGroups).toEqual(['O12'])
   })
 
   it('parses rules text', () => {

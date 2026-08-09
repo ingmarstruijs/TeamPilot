@@ -101,7 +101,7 @@ import { buildCustomExercise, readSvgFile, parseRulesText } from '@/utils/custom
 
 const props = defineProps({
   open: { type: Boolean, default: false },
-  ageGroup: { type: String, default: 'JO11' },
+  ageGroup: { type: String, default: 'O11' },
 })
 
 const emit = defineEmits(['close', 'save'])
