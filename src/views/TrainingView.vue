@@ -16,7 +16,7 @@
             <template v-else-if="!isRecipe">Weekthema: {{ cycleThemeLabel }}</template>
           </p>
           <p v-if="ageMismatch" class="md-label-sm view-warn">
-            Let op: dit recept is voor {{ ageGroupLabel }} — jouw team is {{ myAgeGroupLabel }}.
+            Let op: dit is voor {{ ageGroupLabel }} — jouw team is {{ myAgeGroupLabel }}.
           </p>
         </div>
       </div>

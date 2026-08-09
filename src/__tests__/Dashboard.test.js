@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount, flushPromises } from '@vue/test-utils'
 import { createTestingPinia } from '@pinia/testing'
 
 vi.mock('@/composables/useSnackbar', () => ({ showSnackbar: vi.fn() }))
@@ -69,19 +69,21 @@ describe('Dashboard – shareTeam', () => {
   it('copies a URL to clipboard when navigator.share is unavailable', async () => {
     const wrapper = mountDashboard()
     await wrapper.find('button.share-btn').trigger('click')
+    await flushPromises()
     expect(writeText).toHaveBeenCalledOnce()
   })
 
   it('shows a success snackbar after copying', async () => {
     const wrapper = mountDashboard()
     await wrapper.find('button.share-btn').trigger('click')
-    await Promise.resolve()
+    await flushPromises()
     expect(showSnackbar).toHaveBeenCalledWith('Team-link gekopieerd!')
   })
 
   it('generated URL contains the #/?import= hash segment', async () => {
     const wrapper = mountDashboard()
     await wrapper.find('button.share-btn').trigger('click')
+    await flushPromises()
     const url = writeText.mock.calls[0][0]
     expect(url).toContain('#/?import=')
   })
@@ -89,6 +91,7 @@ describe('Dashboard – shareTeam', () => {
   it('encoded URL decodes back to the correct team name', async () => {
     const wrapper = mountDashboard()
     await wrapper.find('button.share-btn').trigger('click')
+    await flushPromises()
     const decoded = decodeShareUrl(writeText.mock.calls[0][0])
     expect(decoded.n).toBe('FC Utrecht')
   })
@@ -96,6 +99,7 @@ describe('Dashboard – shareTeam', () => {
   it('encoded URL decodes back to the correct ageGroup', async () => {
     const wrapper = mountDashboard()
     await wrapper.find('button.share-btn').trigger('click')
+    await flushPromises()
     const decoded = decodeShareUrl(writeText.mock.calls[0][0])
     expect(decoded.a).toBe('O13')
   })
@@ -103,6 +107,7 @@ describe('Dashboard – shareTeam', () => {
   it('encodes shirt style, primary and secondary color', async () => {
     const wrapper = mountDashboard()
     await wrapper.find('button.share-btn').trigger('click')
+    await flushPromises()
     const decoded = decodeShareUrl(writeText.mock.calls[0][0])
     expect(decoded.sh).toEqual(['stripes', '#cc0000', '#ffffff'])
   })
@@ -110,6 +115,7 @@ describe('Dashboard – shareTeam', () => {
   it('encodes all players as compact arrays', async () => {
     const wrapper = mountDashboard()
     await wrapper.find('button.share-btn').trigger('click')
+    await flushPromises()
     const decoded = decodeShareUrl(writeText.mock.calls[0][0])
     expect(decoded.p).toHaveLength(2)
     expect(decoded.p[0]).toEqual(['Lisa', 7, 'ATT'])
@@ -119,6 +125,7 @@ describe('Dashboard – shareTeam', () => {
   it('encodes null shirt as null when team has no shirt', async () => {
     const wrapper = mountDashboard({ shirt: null })
     await wrapper.find('button.share-btn').trigger('click')
+    await flushPromises()
     const decoded = decodeShareUrl(writeText.mock.calls[0][0])
     expect(decoded.sh).toBeNull()
   })
@@ -131,8 +138,21 @@ describe('Dashboard – shareTeam', () => {
     })
     const wrapper = mountDashboard()
     await wrapper.find('button.share-btn').trigger('click')
+    await flushPromises()
     expect(shareMock).toHaveBeenCalledOnce()
     expect(writeText).not.toHaveBeenCalled()
+  })
+
+  it('falls back to clipboard when share rejects (non-abort)', async () => {
+    Object.defineProperty(navigator, 'share', {
+      configurable: true,
+      value: vi.fn().mockRejectedValue(new Error('denied')),
+    })
+    const wrapper = mountDashboard()
+    await wrapper.find('button.share-btn').trigger('click')
+    await flushPromises()
+    expect(writeText).toHaveBeenCalledOnce()
+    expect(showSnackbar).toHaveBeenCalledWith('Team-link gekopieerd!')
   })
 
   it('share payload includes the correct URL', async () => {
@@ -143,6 +163,7 @@ describe('Dashboard – shareTeam', () => {
     })
     const wrapper = mountDashboard()
     await wrapper.find('button.share-btn').trigger('click')
+    await flushPromises()
     const { url } = shareMock.mock.calls[0][0]
     expect(url).toContain('#/?import=')
     const decoded = decodeShareUrl(url)

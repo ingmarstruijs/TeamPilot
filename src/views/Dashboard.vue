@@ -229,6 +229,8 @@ import { getCycleThemeIcon } from '@/utils/trainingIcons'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 import { showSnackbar } from '@/composables/useSnackbar'
 import { useMediaQuery } from '@/composables/useMediaQuery'
+import { shareLink } from '@/utils/shareLink'
+import { buildTeamShareUrl, encodeTeamShare } from '@/utils/teamShare'
 
 const store = useTeamStore()
 const isDesktop = useMediaQuery('(min-width: 720px)')
@@ -313,26 +315,17 @@ const SHIRT_STYLES = [
   { id: 'sash',     label: 'Sjerp'    },
 ]
 
-function shareTeam() {
+async function shareTeam() {
   const team = activeTeam.value
   if (!team) return
-  const data = {
-    n: team.name,
-    a: team.ageGroup,
-    sh: team.shirt ? [team.shirt.style, team.shirt.primary, team.shirt.secondary] : null,
-    p: (team.players ?? []).map(p => [p.name, p.number ?? null, p.position]),
-  }
-  const bytes = new TextEncoder().encode(JSON.stringify(data))
-  const b64url = btoa(String.fromCharCode(...bytes))
-    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '')
-  const url = `${window.location.origin}${window.location.pathname}#/?import=${b64url}`
-  if (navigator.share) {
-    navigator.share({ title: team.name, text: `Bekijk mijn team ${team.name} in TeamPilot`, url }).catch(() => {})
-  } else {
-    navigator.clipboard.writeText(url)
-      .then(() => showSnackbar('Team-link gekopieerd!'))
-      .catch(() => showSnackbar('Kopiëren mislukt'))
-  }
+  const url = buildTeamShareUrl(encodeTeamShare(team))
+  const result = await shareLink({
+    title: team.name,
+    text: `Bekijk mijn team ${team.name} in TeamPilot`,
+    url,
+  })
+  if (result === 'copied') showSnackbar('Team-link gekopieerd!')
+  if (result === 'failed') showSnackbar('Kopiëren mislukt')
 }
 </script>
 

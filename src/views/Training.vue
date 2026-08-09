@@ -356,6 +356,7 @@ import {
   computeSessionTiming,
 } from '@/utils/trainingEngine'
 import { encodeTrainingSession, encodeRecipe, buildTrainingShareUrl, buildRecipeShareUrl } from '@/utils/trainingShare'
+import { shareLink } from '@/utils/shareLink'
 import {
   defaultSavedName,
   blocksToSerializable,
@@ -924,13 +925,10 @@ function shareSavedRecipe(recipe) {
   })
   const url = buildRecipeShareUrl(encoded)
   const text = `${recipe.name} — TeamPilot trainingsrecept`
-  if (navigator.share) {
-    navigator.share({ title: 'TeamPilot trainingsrecept', text, url }).catch(() => {})
-  } else {
-    navigator.clipboard.writeText(url)
-      .then(() => showSnackbar('Receptlink gekopieerd!'))
-      .catch(() => showSnackbar('Kopiëren mislukt'))
-  }
+  shareLink({ title: 'TeamPilot trainingsrecept', text, url }).then(result => {
+    if (result === 'copied') showSnackbar('Receptlink gekopieerd!')
+    if (result === 'failed') showSnackbar('Kopiëren mislukt')
+  })
 }
 
 function shareTraining() {
@@ -947,13 +945,10 @@ function shareTraining() {
   })
   const url = buildTrainingShareUrl(encoded)
   const text = `Training ${activeTeam.value.name} (${totalMin.value} min)`
-  if (navigator.share) {
-    navigator.share({ title: 'Training TeamPilot', text, url }).catch(() => {})
-  } else {
-    navigator.clipboard.writeText(url)
-      .then(() => showSnackbar('Trainingslink gekopieerd!'))
-      .catch(() => showSnackbar('Kopiëren mislukt'))
-  }
+  shareLink({ title: 'Training TeamPilot', text, url }).then(result => {
+    if (result === 'copied') showSnackbar('Trainingslink gekopieerd!')
+    if (result === 'failed') showSnackbar('Kopiëren mislukt')
+  })
 }
 
 function addManualExercise(ex) {
