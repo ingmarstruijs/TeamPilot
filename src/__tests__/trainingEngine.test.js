@@ -20,7 +20,7 @@ describe('trainingEngine', () => {
   it('generates warming-up + 4 core + afsluiting for 60 min', () => {
     const players = Array.from({ length: 10 }, () => ({ position: 'MID' }))
     const result = generateTraining({
-      ageGroup: 'JO11',
+      ageGroup: 'O11',
       knvbLevel: 3,
       playerCount: 10,
       trainingType: 'gemengd',
@@ -57,7 +57,7 @@ describe('trainingEngine', () => {
 
   it('browseExercisesWithFilters supports text search', () => {
     const results = browseExercisesWithFilters({
-      ageGroup: 'JO11',
+      ageGroup: 'O11',
       knvbLevel: 3,
       query: 'partij',
       suitableOnly: false,
@@ -67,9 +67,9 @@ describe('trainingEngine', () => {
   })
 
   it('browseExercises returns all exercises for age group without type filter', () => {
-    const all = browseExercises({ ageGroup: 'JO11', knvbLevel: 3 })
+    const all = browseExercises({ ageGroup: 'O11', knvbLevel: 3 })
     const filtered = EXERCISES.filter(ex =>
-      ex.ageGroups.includes('JO11') && 3 >= ex.minKnvbLevel && 3 <= ex.maxKnvbLevel
+      ex.ageGroups.includes('O11') && 3 >= ex.minKnvbLevel && 3 <= ex.maxKnvbLevel
     )
     expect(all.length).toBe(filtered.length)
     expect(all.length).toBeGreaterThan(10)

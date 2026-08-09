@@ -34,7 +34,7 @@
             <p class="dialog-title">Team importeren</p>
             <p class="md-body-md" style="margin-bottom:4px"><strong>{{ importData.name }}</strong></p>
             <p class="md-body-sm" style="color:var(--md-on-surface-variant);margin-bottom:var(--sp-3)">
-              {{ importData.ageGroup }} &middot; {{ importData.players.length }} speler{{ importData.players.length !== 1 ? 's' : '' }}
+              {{ ageGroupLabel(importData.ageGroup) }} &middot; {{ importData.players.length }} speler{{ importData.players.length !== 1 ? 's' : '' }}
             </p>
             <template v-if="conflictTeam">
               <p class="dialog-body">Er bestaat al een team met de naam <strong>{{ importData.name }}</strong>. Wat wil je doen?</p>
@@ -67,6 +67,7 @@ import { useMediaQuery } from '@/composables/useMediaQuery'
 import { useNavDrawer } from '@/composables/useNavDrawer'
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { ageGroupLabel, normalizeAgeGroup } from '@/data/formations'
 import { useTeamStore } from '@/stores/teamStore'
 import { showSnackbar } from '@/composables/useSnackbar'
 
@@ -93,7 +94,7 @@ function decodeImport(encoded) {
     const d = JSON.parse(new TextDecoder().decode(bytes))
     return {
       name: d.n,
-      ageGroup: d.a,
+      ageGroup: normalizeAgeGroup(d.a),
       shirt: d.sh ? { style: d.sh[0], primary: d.sh[1], secondary: d.sh[2] } : null,
       players: (d.p ?? []).map(p => ({ name: p[0], number: p[1] ?? null, position: p[2] })),
     }

@@ -17,14 +17,14 @@
 
 TeamPilot helps you run your team from the sideline — without spreadsheets, without logins, and without waiting for a connection. Build lineups on a drag-and-drop pitch, generate smart training sessions for who's actually present, and share everything with assistants or parents in one tap.
 
-Built for **JO8 through Senior**, with KNVB competition classes, Rinus-style exercises, and data that stays on your device.
+Built for **O8 through Senior**, with KNVB competition classes, Rinus-style exercises, and data that stays on your device.
 
 ## Features
 
 - **Team management** — create teams with custom shirt colors, age group, and KNVB competition class (6e klasse through hoofdklasse)
 - **Player roster** — add players with name, number, and position
 - **Lineup builder** — drag-and-drop formation editor with pre-built formations per age group
-  - JO8–10: 6v6 · JO11–12: 8v8 · JO13+ / Senior: 11v11
+  - O8–10: 6v6 · O11–12: 8v8 · O13+ / Senior: 11v11
   - Formation snap, free positioning mode
   - Switch between saved lineups via dropdown (with unsaved-changes dialog)
   - Delete lineups from the dropdown

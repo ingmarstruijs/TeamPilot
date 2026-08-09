@@ -31,7 +31,7 @@ function encodeTeam(data) {
 const DEFAULT_TEAM = {
   id: 't1',
   name: 'Mijn Team',
-  ageGroup: 'JO11',
+  ageGroup: 'O11',
   shirt: { style: 'solid', primary: '#1a6b3c', secondary: '#ffffff' },
   players: [],
 }
@@ -86,21 +86,21 @@ describe('App – team import detection', () => {
   })
 
   it('shows the import dialog when a valid import param is present', async () => {
-    const encoded = encodeTeam({ name: 'FC Test', ageGroup: 'JO11', players: [] })
+    const encoded = encodeTeam({ name: 'FC Test', ageGroup: 'O11', players: [] })
     const { wrapper } = mountApp({ import: encoded })
     await flushPromises()
     expect(wrapper.find('.dialog').exists()).toBe(true)
   })
 
   it('displays the imported team name in the dialog', async () => {
-    const encoded = encodeTeam({ name: 'FC Test', ageGroup: 'JO13', players: [] })
+    const encoded = encodeTeam({ name: 'FC Test', ageGroup: 'O13', players: [] })
     const { wrapper } = mountApp({ import: encoded })
     await flushPromises()
     expect(wrapper.html()).toContain('FC Test')
   })
 
   it('clears the ?import= query param from the URL after detection', async () => {
-    const encoded = encodeTeam({ name: 'FC Test', ageGroup: 'JO11', players: [] })
+    const encoded = encodeTeam({ name: 'FC Test', ageGroup: 'O11', players: [] })
     const { mockReplace } = mountApp({ import: encoded })
     await flushPromises()
     expect(mockReplace).toHaveBeenCalledWith('/')
@@ -132,21 +132,21 @@ describe('App – import dialog: no name conflict', () => {
   })
 
   it('shows the "Importeren" button', async () => {
-    const encoded = encodeTeam({ name: 'Brand New Team', ageGroup: 'JO13', players: [] })
+    const encoded = encodeTeam({ name: 'Brand New Team', ageGroup: 'O13', players: [] })
     const { wrapper } = mountApp({ import: encoded })
     await flushPromises()
     expect(wrapper.html()).toContain('Importeren')
   })
 
   it('does not show the "Samenvoegen" (merge) button', async () => {
-    const encoded = encodeTeam({ name: 'Brand New Team', ageGroup: 'JO13', players: [] })
+    const encoded = encodeTeam({ name: 'Brand New Team', ageGroup: 'O13', players: [] })
     const { wrapper } = mountApp({ import: encoded })
     await flushPromises()
     expect(wrapper.html()).not.toContain('Samenvoegen')
   })
 
   it('closes the dialog when "Annuleren" is clicked', async () => {
-    const encoded = encodeTeam({ name: 'Brand New Team', ageGroup: 'JO13', players: [] })
+    const encoded = encodeTeam({ name: 'Brand New Team', ageGroup: 'O13', players: [] })
     const { wrapper } = mountApp({ import: encoded })
     await flushPromises()
     await wrapper.find('button.btn-text').trigger('click')
@@ -154,7 +154,7 @@ describe('App – import dialog: no name conflict', () => {
   })
 
   it('calls store.importTeam and shows snackbar on "Importeren"', async () => {
-    const encoded = encodeTeam({ name: 'Brand New Team', ageGroup: 'JO13', players: [] })
+    const encoded = encodeTeam({ name: 'Brand New Team', ageGroup: 'O13', players: [] })
     const { wrapper } = mountApp({ import: encoded })
     await flushPromises()
     await wrapper.find('button.btn-filled').trigger('click')
@@ -162,7 +162,7 @@ describe('App – import dialog: no name conflict', () => {
   })
 
   it('closes the dialog after importing', async () => {
-    const encoded = encodeTeam({ name: 'Brand New Team', ageGroup: 'JO13', players: [] })
+    const encoded = encodeTeam({ name: 'Brand New Team', ageGroup: 'O13', players: [] })
     const { wrapper } = mountApp({ import: encoded })
     await flushPromises()
     await wrapper.find('button.btn-filled').trigger('click')
@@ -176,21 +176,21 @@ describe('App – import dialog: name conflict', () => {
   })
 
   it('shows "Samenvoegen" button when team name already exists', async () => {
-    const encoded = encodeTeam({ name: 'Mijn Team', ageGroup: 'JO11', players: [] })
+    const encoded = encodeTeam({ name: 'Mijn Team', ageGroup: 'O11', players: [] })
     const { wrapper } = mountApp({ import: encoded }) // 'Mijn Team' is DEFAULT_TEAM's name
     await flushPromises()
     expect(wrapper.html()).toContain('Samenvoegen')
   })
 
   it('shows "Nieuwe kopie" button on conflict', async () => {
-    const encoded = encodeTeam({ name: 'Mijn Team', ageGroup: 'JO11', players: [] })
+    const encoded = encodeTeam({ name: 'Mijn Team', ageGroup: 'O11', players: [] })
     const { wrapper } = mountApp({ import: encoded })
     await flushPromises()
     expect(wrapper.html()).toContain('Nieuwe kopie')
   })
 
   it('does not show plain "Importeren" button on conflict', async () => {
-    const encoded = encodeTeam({ name: 'Mijn Team', ageGroup: 'JO11', players: [] })
+    const encoded = encodeTeam({ name: 'Mijn Team', ageGroup: 'O11', players: [] })
     const { wrapper } = mountApp({ import: encoded })
     await flushPromises()
     // "Importeren" text appears in the title but as a standalone btn-filled button it shouldn't be there
@@ -200,7 +200,7 @@ describe('App – import dialog: name conflict', () => {
   })
 
   it('closes dialog and shows snackbar when "Samenvoegen" is clicked', async () => {
-    const encoded = encodeTeam({ name: 'Mijn Team', ageGroup: 'JO11', players: [] })
+    const encoded = encodeTeam({ name: 'Mijn Team', ageGroup: 'O11', players: [] })
     const { wrapper } = mountApp({ import: encoded })
     await flushPromises()
     const mergeBtn = wrapper.findAll('button.btn-filled').find(b => b.text() === 'Samenvoegen')
@@ -210,7 +210,7 @@ describe('App – import dialog: name conflict', () => {
   })
 
   it('imports as new copy with "(2)" suffix when "Nieuwe kopie" is clicked', async () => {
-    const encoded = encodeTeam({ name: 'Mijn Team', ageGroup: 'JO11', players: [] })
+    const encoded = encodeTeam({ name: 'Mijn Team', ageGroup: 'O11', players: [] })
     const { wrapper } = mountApp({ import: encoded })
     await flushPromises()
     const copyBtn = wrapper.findAll('button').find(b => b.text() === 'Nieuwe kopie')
@@ -219,7 +219,7 @@ describe('App – import dialog: name conflict', () => {
   })
 
   it('conflict detection is case-insensitive', async () => {
-    const encoded = encodeTeam({ name: 'MIJN TEAM', ageGroup: 'JO11', players: [] })
+    const encoded = encodeTeam({ name: 'MIJN TEAM', ageGroup: 'O11', players: [] })
     const { wrapper } = mountApp({ import: encoded })
     await flushPromises()
     expect(wrapper.html()).toContain('Samenvoegen')

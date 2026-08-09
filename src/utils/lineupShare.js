@@ -10,7 +10,7 @@
  * {
  *   _t: 'bundle',
  *   tn: "FC Utrecht",                        // team name
- *   a:  "JO13",                              // age group
+ *   a:  "O13",                              // age group
  *   sh: ["solid","#cc0000","#fff"],           // shirt [style, primary, secondary]
  *   pl: [["Jan",1,"GK"], ["Marco",5,"DEF"]], // players [name, number|null, position]
  *   n:  "Thuis vs Ajax",                     // lineup name
@@ -24,7 +24,7 @@
  * {
  *   _t: 'lineup',
  *   tn: "FC Utrecht",                        // team name hint (for matching)
- *   a:  "JO13",                              // age group hint
+ *   a:  "O13",                              // age group hint
  *   n:  "Thuis vs Ajax",
  *   f:  "4-3-3",
  *   fl: true,
@@ -32,6 +32,8 @@
  *   b: [{ pn, num, pos }],
  * }
  */
+
+import { normalizeAgeGroup } from '@/data/formations'
 
 function encode(obj) {
   const bytes = new TextEncoder().encode(JSON.stringify(obj))
@@ -107,7 +109,7 @@ export function decodeSharePayload(encoded) {
       return {
         type: 'bundle',
         teamName:   d.tn,
-        ageGroup:   d.a,
+        ageGroup:   normalizeAgeGroup(d.a),
         shirt:      d.sh ? { style: d.sh[0], primary: d.sh[1], secondary: d.sh[2] } : null,
         players:    (d.pl ?? []).map(p => ({ name: p[0], number: p[1] ?? null, position: p[2] })),
         lineupName: d.n,
@@ -121,7 +123,7 @@ export function decodeSharePayload(encoded) {
       return {
         type: 'lineup',
         teamName:   d.tn,
-        ageGroup:   d.a,
+        ageGroup:   normalizeAgeGroup(d.a),
         lineupName: d.n,
         formationId: d.f ?? null,
         flipped:    d.fl ?? true,

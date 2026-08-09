@@ -1,16 +1,43 @@
 /**
- * Age groups and their configuration.
+ * Age groups and their configuration (KNVB "O" naming).
  * Easily extensible by adding entries to the array.
  */
 export const AGE_GROUPS = [
-  { id: 'JO08', label: 'JO8',      players: 6,  fieldSize: 'sm' },
-  { id: 'JO09', label: 'JO9',      players: 6,  fieldSize: 'sm' },
-  { id: 'JO10', label: 'JO10',     players: 6,  fieldSize: 'sm' },
-  { id: 'JO11', label: 'JO11',     players: 8,  fieldSize: 'md' },
-  { id: 'JO12', label: 'JO12',     players: 8,  fieldSize: 'md' },
-  { id: 'JO13', label: 'JO13',     players: 11, fieldSize: 'lg' },
+  { id: 'O8', label: 'O8',      players: 6,  fieldSize: 'sm' },
+  { id: 'O9', label: 'O9',      players: 6,  fieldSize: 'sm' },
+  { id: 'O10', label: 'O10',     players: 6,  fieldSize: 'sm' },
+  { id: 'O11', label: 'O11',     players: 8,  fieldSize: 'md' },
+  { id: 'O12', label: 'O12',     players: 8,  fieldSize: 'md' },
+  { id: 'O13', label: 'O13',     players: 11, fieldSize: 'lg' },
   { id: 'Senior', label: 'Senioren', players: 11, fieldSize: 'lg' },
 ]
+
+/** Legacy JO* / zero-padded ids → current KNVB O* ids. */
+const AGE_GROUP_ALIASES = {
+  JO08: 'O8',
+  JO8: 'O8',
+  O08: 'O8',
+  JO09: 'O9',
+  JO9: 'O9',
+  O09: 'O9',
+  JO10: 'O10',
+  JO11: 'O11',
+  JO12: 'O12',
+  JO13: 'O13',
+}
+
+/** Normalize stored/shared age-group ids to the current AGE_GROUPS ids. */
+export function normalizeAgeGroup(ageGroup) {
+  if (ageGroup == null || ageGroup === '') return ageGroup
+  if (AGE_GROUPS.some(g => g.id === ageGroup)) return ageGroup
+  return AGE_GROUP_ALIASES[ageGroup] ?? ageGroup
+}
+
+/** Display label for an age-group id (supports legacy JO* values). */
+export function ageGroupLabel(ageGroup) {
+  const id = normalizeAgeGroup(ageGroup)
+  return AGE_GROUPS.find(g => g.id === id)?.label ?? id ?? ''
+}
 
 export const POSITIONS = [
   { id: 'GK',  label: 'Keeper' },
@@ -45,7 +72,7 @@ const Y = FORMATION_Y
  * Formations per age group.
  * y=0 toward opponent goal in storage; GK sits on the low-y (own) side.
  */
-// 6vs6 formations (GK + 5 outfield = 6 total) — shared by JO8, JO9, JO10
+// 6vs6 formations (GK + 5 outfield = 6 total) — shared by O8, O9, O10
 const FORMATIONS_6V6 = [
   {
     id: '2-2-1',
@@ -85,7 +112,7 @@ const FORMATIONS_6V6 = [
   },
 ]
 
-// 8vs8 formations (GK + 7 outfield = 8 total) — shared by JO11, JO12
+// 8vs8 formations (GK + 7 outfield = 8 total) — shared by O11, O12
 const FORMATIONS_8V8 = [
   {
     id: '3-2-2',
@@ -203,11 +230,11 @@ const FORMATIONS_11V11 = [
 ]
 
 export const FORMATIONS = {
-  JO08: FORMATIONS_6V6,
-  JO09: FORMATIONS_6V6,
-  JO10: FORMATIONS_6V6,
-  JO11: FORMATIONS_8V8,
-  JO12: FORMATIONS_8V8,
-  JO13: FORMATIONS_11V11,
+  O8: FORMATIONS_6V6,
+  O9: FORMATIONS_6V6,
+  O10: FORMATIONS_6V6,
+  O11: FORMATIONS_8V8,
+  O12: FORMATIONS_8V8,
+  O13: FORMATIONS_11V11,
   Senior: FORMATIONS_11V11,
 }

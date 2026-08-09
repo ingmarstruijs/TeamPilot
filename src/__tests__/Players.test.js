@@ -25,7 +25,7 @@ function mountWithPlayers(players = []) {
               teams: [{
                 id: 't1',
                 name: 'Test Team',
-                ageGroup: 'JO11',
+                ageGroup: 'O11',
                 shirt: { style: 'solid', primary: '#1a6b3c', secondary: '#ffffff' },
                 players,
               }],

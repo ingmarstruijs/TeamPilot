@@ -8,6 +8,7 @@
  * { _t, n, th, tt, d, a, k, b, ce? }
  */
 
+import { normalizeAgeGroup } from '@/data/formations'
 import { isCustomExercise, restoreCustomExercise, serializeCustomForShare } from './customExercises'
 
 function encode(obj) {
@@ -35,8 +36,9 @@ function collectCustomExercises(blocks) {
 
 function parseCustomExercises(ce, ageGroup) {
   if (!ce) return []
+  const normalized = normalizeAgeGroup(ageGroup) || 'O11'
   return Object.entries(ce).map(([id, data]) =>
-    restoreCustomExercise(id, data, ageGroup ?? 'JO11')
+    restoreCustomExercise(id, data, normalized)
   )
 }
 
@@ -101,7 +103,7 @@ function decodeSessionPayload(d) {
   return {
     kind: 'session',
     teamName: d.tn ?? 'Training',
-    ageGroup: d.a ?? 'JO11',
+    ageGroup: normalizeAgeGroup(d.a) || 'O11',
     knvbClass: d.k ?? '5e',
     trainingType: d.tt ?? 'gemengd',
     durationMin: d.d ?? 60,
@@ -121,7 +123,7 @@ function decodeRecipePayload(d) {
     cycleTheme: d.th ?? null,
     trainingType: d.tt ?? 'gemengd',
     durationMin: d.d ?? 60,
-    ageGroup: d.a ?? 'JO11',
+    ageGroup: normalizeAgeGroup(d.a) || 'O11',
     knvbClass: d.k ?? '5e',
     blocks: parseBlocks(d.b),
     customExercises,

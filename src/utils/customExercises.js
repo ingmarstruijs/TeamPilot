@@ -2,6 +2,8 @@
  * Helpers for user-created exercises (no Rinus link).
  */
 
+import { normalizeAgeGroup } from '@/data/formations'
+
 const CUSTOM_ID_PREFIX = 'custom-'
 const MAX_SVG_BYTES = 400_000
 
@@ -29,7 +31,8 @@ export function rulesToText(rules) {
  * @param {object} input
  * @param {string} [ageGroup]
  */
-export function buildCustomExercise(input, ageGroup = 'JO11') {
+export function buildCustomExercise(input, ageGroup = 'O11') {
+  const normalizedAge = normalizeAgeGroup(ageGroup) || 'O11'
   return {
     id: input.id ?? createCustomExerciseId(),
     custom: true,
@@ -38,7 +41,7 @@ export function buildCustomExercise(input, ageGroup = 'JO11') {
     durationMin: Math.max(1, Math.min(60, Number(input.durationMin) || 10)),
     minPlayers: Math.max(1, Number(input.minPlayers) || 4),
     maxPlayers: Math.max(Number(input.maxPlayers) || 16, Number(input.minPlayers) || 4),
-    ageGroups: [ageGroup],
+    ageGroups: [normalizedAge],
     minKnvbLevel: 1,
     maxKnvbLevel: 7,
     focusPositions: ['MID', 'ATT', 'DEF'],
@@ -66,7 +69,7 @@ export function serializeCustomForShare(exercise) {
   }
 }
 
-export function restoreCustomExercise(id, data, ageGroup = 'JO11') {
+export function restoreCustomExercise(id, data, ageGroup = 'O11') {
   return buildCustomExercise({ ...data, id }, ageGroup)
 }
 

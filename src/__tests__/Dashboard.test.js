@@ -10,7 +10,7 @@ import Dashboard from '../views/Dashboard.vue'
 const TEAM = {
   id: 't1',
   name: 'FC Utrecht',
-  ageGroup: 'JO13',
+  ageGroup: 'O13',
   color: '#cc0000',
   shirt: { style: 'stripes', primary: '#cc0000', secondary: '#ffffff' },
   players: [
@@ -97,7 +97,7 @@ describe('Dashboard – shareTeam', () => {
     const wrapper = mountDashboard()
     await wrapper.find('button.share-btn').trigger('click')
     const decoded = decodeShareUrl(writeText.mock.calls[0][0])
-    expect(decoded.a).toBe('JO13')
+    expect(decoded.a).toBe('O13')
   })
 
   it('encodes shirt style, primary and secondary color', async () => {

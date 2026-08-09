@@ -29,7 +29,7 @@
                 {{ team.id === store.activeTeamId ? 'check' : '' }}
               </span>
               <span class="team-menu-name">{{ team.name }}</span>
-              <span class="team-menu-age">{{ team.ageGroup }}</span>
+              <span class="team-menu-age">{{ ageGroupLabel(team.ageGroup) }}</span>
             </button>
 
             <div class="team-menu-divider"></div>
@@ -182,7 +182,7 @@
 <script setup>
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 import { useTeamStore } from '@/stores/teamStore'
-import { AGE_GROUPS } from '@/data/formations'
+import { AGE_GROUPS, ageGroupLabel } from '@/data/formations'
 import { DEFAULT_KNVB_CLASS, KNVB_CLASSES } from '@/data/knvbClasses'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 
@@ -220,7 +220,7 @@ const SHIRT_STYLES = [
 const createOpen = ref(false)
 const newTeam = reactive({
   name: '',
-  ageGroup: 'JO11',
+  ageGroup: 'O11',
   knvbClass: DEFAULT_KNVB_CLASS,
   shirtStyle: 'solid',
   primary: '#1a6b3c',
@@ -229,7 +229,7 @@ const newTeam = reactive({
 
 function openCreate() {
   menuOpen.value = false
-  Object.assign(newTeam, { name: '', ageGroup: 'JO11', knvbClass: DEFAULT_KNVB_CLASS, shirtStyle: 'solid', primary: '#1a6b3c', secondary: '#ffffff' })
+  Object.assign(newTeam, { name: '', ageGroup: 'O11', knvbClass: DEFAULT_KNVB_CLASS, shirtStyle: 'solid', primary: '#1a6b3c', secondary: '#ffffff' })
   createOpen.value = true
 }
 

@@ -276,7 +276,7 @@
           <div class="field-wrap" style="margin-bottom:var(--sp-4)">
             <label class="field-label" for="lineup-name">Naam opstelling</label>
             <input id="lineup-name" class="field" v-model.trim="lineupName"
-              placeholder="bijv. Thuis vs Ajax JO11" maxlength="50" />
+              placeholder="bijv. Thuis vs Ajax O11" maxlength="50" />
           </div>
           <div class="dialog-actions">
             <button class="btn btn-text" @click="showSave=false">Annuleren</button>
