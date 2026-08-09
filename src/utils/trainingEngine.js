@@ -40,7 +40,7 @@ export function filterExercises({
   })
 }
 
-function scoreExercise(ex, ctx, targetMin = 0) {
+export function scoreExercise(ex, ctx, targetMin = 0) {
   let score = 10
   if (ex.cycleThemes?.includes(ctx.cycleTheme)) score += 5
   if (ex.focusPositions?.some(p => ctx.focusPositions?.includes(p))) score += 3
