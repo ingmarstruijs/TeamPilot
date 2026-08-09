@@ -378,6 +378,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
 import { FORMATIONS, FORMATION_Y } from '@/data/formations'
 import { encodeBundle, encodeLineupOnly } from '@/utils/lineupShare'
+import { shareLink } from '@/utils/shareLink'
 import {
   OPPONENT_MODES,
   buildOpponentSlotsForMode,
@@ -1062,7 +1063,7 @@ function closeShareDialog() {
   shareDialogStep.value = 'type'
 }
 
-function copyShareLink(mode) {
+async function copyShareLink(mode) {
   const team = activeTeam.value
   if (!team) return
   const slotsWithPlayers = fieldSlots.value.map(s => ({
@@ -1073,11 +1074,9 @@ function copyShareLink(mode) {
     ? encodeBundle(team, { name: lineupName.value, formationId: selectedFormationId.value, flipped: flipped.value }, slotsWithPlayers, benchPlayers.value)
     : encodeLineupOnly(team, { name: lineupName.value, formationId: selectedFormationId.value, flipped: flipped.value }, slotsWithPlayers, benchPlayers.value)
   const url = `${window.location.origin}${window.location.pathname}#/view?lineup=${encoded}`
-  if (navigator.share) {
-    navigator.share({ title: lineupName.value || 'Opstelling', url }).catch(() => {})
-  } else {
-    navigator.clipboard.writeText(url).then(() => showSnackbar('Link gekopieerd!'))
-  }
+  const result = await shareLink({ title: lineupName.value || 'Opstelling', text: lineupName.value || 'Opstelling', url })
+  if (result === 'copied') showSnackbar('Link gekopieerd!')
+  if (result === 'failed') showSnackbar('Kopiëren mislukt')
   closeShareDialog()
 }
 

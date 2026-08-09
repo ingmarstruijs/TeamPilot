@@ -205,7 +205,6 @@ function importBundle() {
   _saveLineupToTeam(team)
   showSnackbar(`Team & opstelling geïmporteerd ✓`)
   showImportDialog.value = false
-  router.replace('/')
 }
 
 // Bundle: team name conflict → create new team copy
@@ -215,7 +214,6 @@ function importAsNew() {
   _saveLineupToTeam(team)
   showSnackbar(`Team & opstelling geïmporteerd ✓`)
   showImportDialog.value = false
-  router.replace('/')
 }
 
 // Bundle: team name conflict → add lineup to existing team, match players by name
@@ -229,7 +227,6 @@ function importToExisting() {
   _saveLineupToTeam(freshTeam)
   showSnackbar(`Opstelling toegevoegd aan "${team.name}" ✓`)
   showImportDialog.value = false
-  router.replace('/')
 }
 
 // Lineup-only: match against selected local team
@@ -239,7 +236,6 @@ function importLineupOnly() {
   _saveLineupToTeam(team)
   showSnackbar(`Opstelling toegevoegd aan "${team.name}" ✓`)
   showImportDialog.value = false
-  router.replace('/')
 }
 
 function _saveLineupToTeam(team) {
@@ -254,6 +250,7 @@ function _saveLineupToTeam(team) {
     slots,
   })
   store.setActiveLineup(saved.id)
+  // Navigate to the imported lineup (callers must not override this route).
   router.replace(`/lineup/${saved.id}`)
 }
 </script>

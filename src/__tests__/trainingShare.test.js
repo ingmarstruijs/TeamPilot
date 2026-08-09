@@ -1,6 +1,14 @@
 import { describe, it, expect } from 'vitest'
 import { syncCycleWeek, getIsoWeekKey } from '../utils/cycleWeek'
-import { encodeTrainingSession, decodeTrainingSession, encodeRecipe, decodeRecipe, decodeSharedTraining } from '../utils/trainingShare'
+import {
+  encodeTrainingSession,
+  decodeTrainingSession,
+  encodeRecipe,
+  decodeRecipe,
+  decodeSharedTraining,
+  buildTrainingShareUrl,
+} from '../utils/trainingShare'
+import { encodeJson } from '../utils/base64url'
 import { EXERCISES } from '../data/exercises'
 import { buildCustomExercise } from '../utils/customExercises'
 
@@ -92,5 +100,55 @@ describe('trainingShare', () => {
     expect(decoded.customExercises).toHaveLength(1)
     expect(decoded.customExercises[0].title).toBe('Eigen passing')
     expect(decoded.customExercises[0].rules).toEqual(['Twee aanrakingen', 'Wissel na goal'])
+  })
+
+  it('rejects wrong payload types and missing blocks', () => {
+    const recipe = encodeRecipe({
+      name: 'R',
+      trainingType: 'techniek',
+      durationMin: 60,
+      cycleTheme: null,
+      ageGroup: 'O11',
+      knvbClass: '5e',
+      blocks: [{ exercise: EXERCISES[0], durationMin: 10 }],
+    })
+    expect(decodeTrainingSession(recipe)).toBeNull()
+    expect(decodeRecipe(encodeTrainingSession(sample))).toBeNull()
+    expect(decodeSharedTraining(encodeJson({ _t: 'training' }))).toBeNull()
+    expect(decodeSharedTraining(encodeJson({ _t: 'other', b: [] }))).toBeNull()
+  })
+
+  it('applies defaults for sparse training payloads', () => {
+    const encoded = encodeJson({ _t: 'training', b: [[EXERCISES[0].id, 8]] })
+    const decoded = decodeTrainingSession(encoded)
+    expect(decoded.teamName).toBe('Training')
+    expect(decoded.ageGroup).toBe('O11')
+    expect(decoded.knvbClass).toBe('5e')
+    expect(decoded.trainingType).toBe('gemengd')
+    expect(decoded.durationMin).toBe(60)
+    expect(decoded.playerCount).toBe(0)
+    expect(decoded.cycleWeek).toBe(1)
+  })
+
+  it('normalizes legacy JO age groups and builds share URLs', () => {
+    const encoded = encodeTrainingSession({ ...sample, ageGroup: 'JO13' })
+    expect(decodeTrainingSession(encoded).ageGroup).toBe('O13')
+    expect(decodeSharedTraining(encoded).kind).toBe('session')
+    expect(buildTrainingShareUrl(encoded)).toContain(`#/training/view?training=${encoded}`)
+  })
+
+  it('round-trips large custom SVG without crashing encoder', () => {
+    const custom = buildCustomExercise({
+      id: 'custom-big-svg',
+      title: 'Schema oefening',
+      customSvg: `data:image/svg+xml;base64,${'B'.repeat(250_000)}`,
+      rules: ['Regel'],
+    })
+    const encoded = encodeTrainingSession({
+      ...sample,
+      blocks: [{ exercise: custom, durationMin: 12 }],
+    })
+    const decoded = decodeTrainingSession(encoded)
+    expect(decoded.customExercises[0].customSvg.length).toBeGreaterThan(100_000)
   })
 })

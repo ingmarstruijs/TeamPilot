@@ -67,9 +67,10 @@ import { useMediaQuery } from '@/composables/useMediaQuery'
 import { useNavDrawer } from '@/composables/useNavDrawer'
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { ageGroupLabel, normalizeAgeGroup } from '@/data/formations'
+import { ageGroupLabel } from '@/data/formations'
 import { useTeamStore } from '@/stores/teamStore'
 import { showSnackbar } from '@/composables/useSnackbar'
+import { decodeTeamShare } from '@/utils/teamShare'
 
 const isDesktop = useMediaQuery('(min-width: 900px)')
 const { collapsed: drawerCollapsed, toggleDrawer } = useNavDrawer()
@@ -86,27 +87,12 @@ const conflictTeam = computed(() =>
     : null
 )
 
-function decodeImport(encoded) {
-  try {
-    // Support both base64url (new) and legacy encodeURIComponent+btoa (old links)
-    const b64 = encoded.replace(/-/g, '+').replace(/_/g, '/')
-    const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0))
-    const d = JSON.parse(new TextDecoder().decode(bytes))
-    return {
-      name: d.n,
-      ageGroup: normalizeAgeGroup(d.a),
-      shirt: d.sh ? { style: d.sh[0], primary: d.sh[1], secondary: d.sh[2] } : null,
-      players: (d.p ?? []).map(p => ({ name: p[0], number: p[1] ?? null, position: p[2] })),
-    }
-  } catch { return null }
-}
-
 onMounted(async () => {
   await router.isReady()
   // Team import via ?import=
   const encoded = route.query.import
   if (encoded) {
-    const data = decodeImport(String(encoded))
+    const data = decodeTeamShare(String(encoded))
     if (data) importData.value = data
     router.replace('/')
     return

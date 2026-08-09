@@ -124,6 +124,23 @@ describe('App – team import detection', () => {
     await flushPromises()
     expect(wrapper.find('.dialog').exists()).toBe(false)
   })
+
+  it('ignores JSON payloads without a team name', async () => {
+    const bytes = new TextEncoder().encode(JSON.stringify({ a: 'O11', p: [] }))
+    const encoded = btoa(String.fromCharCode(...bytes))
+      .replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '')
+    const { wrapper } = mountApp({ import: encoded })
+    await flushPromises()
+    expect(wrapper.find('.dialog').exists()).toBe(false)
+  })
+
+  it('normalizes legacy JO age groups in import dialog', async () => {
+    const encoded = encodeTeam({ name: 'Legacy FC', ageGroup: 'JO11', players: [] })
+    const { wrapper } = mountApp({ import: encoded })
+    await flushPromises()
+    expect(wrapper.text()).toContain('Legacy FC')
+    expect(wrapper.text()).toContain('O11')
+  })
 })
 
 describe('App – import dialog: no name conflict', () => {

@@ -9,19 +9,9 @@
  */
 
 import { normalizeAgeGroup } from '@/data/formations'
+import { decodeJson, encodeJson } from '@/utils/base64url'
+import { shareLink } from '@/utils/shareLink'
 import { isCustomExercise, restoreCustomExercise, serializeCustomForShare } from './customExercises'
-
-function encode(obj) {
-  const bytes = new TextEncoder().encode(JSON.stringify(obj))
-  return btoa(String.fromCharCode(...bytes))
-    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '')
-}
-
-function decode(encoded) {
-  const b64 = encoded.replace(/-/g, '+').replace(/_/g, '/')
-  const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0))
-  return JSON.parse(new TextDecoder().decode(bytes))
-}
 
 function collectCustomExercises(blocks) {
   const ce = {}
@@ -69,7 +59,7 @@ export function encodeTrainingSession({
   }
   const ce = collectCustomExercises(blocks)
   if (ce) payload.ce = ce
-  return encode(payload)
+  return encodeJson(payload)
 }
 
 export function encodeRecipe({
@@ -93,7 +83,7 @@ export function encodeRecipe({
   }
   const ce = collectCustomExercises(blocks)
   if (ce) payload.ce = ce
-  return encode(payload)
+  return encodeJson(payload)
 }
 
 function decodeSessionPayload(d) {
@@ -132,7 +122,7 @@ function decodeRecipePayload(d) {
 
 export function decodeTrainingSession(encoded) {
   try {
-    const d = decode(encoded)
+    const d = decodeJson(encoded)
     if (d._t !== 'training' || !Array.isArray(d.b)) return null
     const { kind, ...rest } = decodeSessionPayload(d)
     return rest
@@ -143,7 +133,7 @@ export function decodeTrainingSession(encoded) {
 
 export function decodeRecipe(encoded) {
   try {
-    const d = decode(encoded)
+    const d = decodeJson(encoded)
     if (d._t !== 'recipe' || !Array.isArray(d.b)) return null
     const { kind, ...rest } = decodeRecipePayload(d)
     return rest
@@ -154,7 +144,7 @@ export function decodeRecipe(encoded) {
 
 export function decodeSharedTraining(encoded) {
   try {
-    const d = decode(encoded)
+    const d = decodeJson(encoded)
     if (!Array.isArray(d.b)) return null
     if (d._t === 'recipe') return decodeRecipePayload(d)
     if (d._t === 'training') return decodeSessionPayload(d)
@@ -178,12 +168,7 @@ export function resolveSharedExercise(exerciseId, customExercises = []) {
   return null
 }
 
-export function shareUrl({ title, text, url }) {
-  if (navigator.share) {
-    navigator.share({ title, text, url }).catch(() => {})
-  } else {
-    navigator.clipboard.writeText(url)
-      .then(() => true)
-      .catch(() => false)
-  }
+/** @deprecated Prefer shareLink from '@/utils/shareLink'. Kept for callers/tests. */
+export function shareUrl(opts) {
+  return shareLink(opts)
 }

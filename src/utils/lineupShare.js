@@ -34,18 +34,7 @@
  */
 
 import { normalizeAgeGroup } from '@/data/formations'
-
-function encode(obj) {
-  const bytes = new TextEncoder().encode(JSON.stringify(obj))
-  return btoa(String.fromCharCode(...bytes))
-    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '')
-}
-
-function decode(encoded) {
-  const b64 = encoded.replace(/-/g, '+').replace(/_/g, '/')
-  const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0))
-  return JSON.parse(new TextDecoder().decode(bytes))
-}
+import { decodeJson, encodeJson } from '@/utils/base64url'
 
 // ── Encode ───────────────────────────────────────────────────────────────────
 
@@ -72,7 +61,7 @@ export function encodeBundle(team, lineup, slotsWithPlayers, bench) {
     }),
     b:  bench.map(p => ({ pn: p.name, num: p.number ?? null, pos: p.position })),
   }
-  return encode(payload)
+  return encodeJson(payload)
 }
 
 /**
@@ -93,7 +82,7 @@ export function encodeLineupOnly(team, lineup, slotsWithPlayers, bench) {
     }),
     b:  bench.map(p => ({ pn: p.name, num: p.number ?? null, pos: p.position })),
   }
-  return encode(payload)
+  return encodeJson(payload)
 }
 
 // ── Decode ───────────────────────────────────────────────────────────────────
@@ -104,7 +93,7 @@ export function encodeLineupOnly(team, lineup, slotsWithPlayers, bench) {
  */
 export function decodeSharePayload(encoded) {
   try {
-    const d = decode(encoded)
+    const d = decodeJson(encoded)
     if (d._t === 'bundle') {
       return {
         type: 'bundle',
