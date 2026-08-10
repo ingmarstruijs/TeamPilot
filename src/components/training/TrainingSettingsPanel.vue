@@ -67,6 +67,19 @@
             >
               <option v-for="t in trainingTypes" :key="t.id" :value="t.id">{{ t.label }}</option>
             </select>
+            <p v-if="typeFollowsTheme" class="md-label-sm type-theme-hint">
+              Volgt weekthema
+            </p>
+            <p v-else class="md-label-sm type-theme-hint type-theme-hint--override">
+              Afwijkend van weekthema · {{ cycleThemeLabel }}
+              <button
+                type="button"
+                class="btn btn-text type-follow-btn"
+                @click="$emit('follow-theme')"
+              >
+                Volg weekthema
+              </button>
+            </p>
           </div>
           <div class="field-wrap">
             <label class="field-label" for="training-duration-input">Duur (min)</label>
@@ -114,6 +127,7 @@ const props = defineProps({
   cycleWeek: { type: Number, required: true },
   cycleThemeLabel: { type: String, required: true },
   trainingTypes: { type: Array, required: true },
+  typeFollowsTheme: { type: Boolean, default: true },
 })
 
 defineEmits([
@@ -121,6 +135,7 @@ defineEmits([
   'toggle-player',
   'update:trainingType',
   'update:durationMin',
+  'follow-theme',
 ])
 
 const wrapperTag = computed(() => (props.variant === 'collapsible' ? 'details' : 'div'))
@@ -307,6 +322,25 @@ const cycleThemeIcon = computed(() => getCycleThemeIcon(getCycleTheme(props.cycl
   display: inline-flex;
   align-items: center;
   gap: var(--sp-1);
+}
+
+.type-theme-hint {
+  margin: var(--sp-1) 0 0;
+  color: var(--md-on-surface-variant);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-1);
+}
+
+.type-theme-hint--override {
+  color: var(--md-on-surface-variant);
+}
+
+.type-follow-btn {
+  height: 28px;
+  padding-inline: var(--sp-2);
+  font-size: 12px;
 }
 
 .is-sidebar .settings-body {

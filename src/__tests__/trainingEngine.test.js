@@ -55,6 +55,23 @@ describe('trainingEngine', () => {
     expect(themed.length).toBeGreaterThan(0)
   })
 
+  it('generates a session for trainingType passing', () => {
+    const players = Array.from({ length: 10 }, () => ({ position: 'MID' }))
+    const result = generateTraining({
+      ageGroup: 'O11',
+      knvbLevel: 3,
+      playerCount: 10,
+      trainingType: 'passing',
+      durationMin: 60,
+      cycleWeek: 2,
+      presentPlayers: players,
+    })
+    expect(result.cycleTheme).toBe('passing')
+    expect(result.blocks.length).toBeGreaterThanOrEqual(4)
+    expect(result.blocks[0].exercise.category).toBe('warming-up')
+    expect(result.blocks.at(-1).exercise.category).toBe('afsluiting')
+  })
+
   it('browseExercisesWithFilters supports text search', () => {
     const results = browseExercisesWithFilters({
       ageGroup: 'O11',

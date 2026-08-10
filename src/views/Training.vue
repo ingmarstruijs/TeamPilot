@@ -35,10 +35,12 @@
             :cycle-week="syncedCycleWeek"
             :cycle-theme-label="cycleThemeLabel"
             :training-types="TRAINING_TYPES"
+            :type-follows-theme="typeFollowsTheme"
             @toggle-all="toggleAll"
             @toggle-player="togglePlayer"
-            @update:training-type="trainingType = $event"
+            @update:training-type="setTrainingType"
             @update:duration-min="durationMin = +$event || 60"
+            @follow-theme="followWeekTheme"
           />
           <AiModelSettings class="card card-elevated ai-model-settings--sidebar" @change="refreshCoachMode" />
           <SavedTrainingsPanel
@@ -107,7 +109,6 @@
                       v-for="(part, i) in startSettingsSummaryParts"
                       :key="`${i}-${part}`"
                       class="session-start-meta-part"
-                      :class="{ 'is-wrap': part.startsWith('Focus vanavond') }"
                     >
                       <span v-if="i > 0" class="session-start-meta-sep" aria-hidden="true">·</span>
                       {{ part }}
@@ -204,8 +205,10 @@
                     :cycle-week="syncedCycleWeek"
                     :cycle-theme-label="cycleThemeLabel"
                     :training-types="TRAINING_TYPES"
-                    @update:training-type="trainingType = $event"
+                    :type-follows-theme="typeFollowsTheme"
+                    @update:training-type="setTrainingType"
                     @update:duration-min="durationMin = +$event || 60"
+                    @follow-theme="followWeekTheme"
                   />
 
                   <AiModelSettings v-if="!isDesktop" collapsible @change="refreshCoachMode" />
@@ -449,6 +452,7 @@ import {
   generateTraining,
   getCycleTheme,
   getCycleThemeLabel,
+  trainingTypeForCycleTheme,
   browseExercisesWithFilters,
   analyzePlayerBalance,
   computeSessionTiming,
@@ -495,8 +499,26 @@ const roster = computed(() => activeTeam.value?.players ?? [])
 const trainingState = computed(() => store.getTrainingState())
 
 const presentIds = ref(new Set())
-const trainingType = ref('gemengd')
 const durationMin = ref(60)
+const typeFollowsTheme = ref(true)
+const syncedCycleWeek = computed(() => trainingState.value.cycleWeek ?? 1)
+const trainingType = ref(
+  trainingTypeForCycleTheme(getCycleTheme(syncedCycleWeek.value)),
+)
+
+function mappedTypeForCurrentWeek() {
+  return trainingTypeForCycleTheme(getCycleTheme(syncedCycleWeek.value))
+}
+
+function setTrainingType(next) {
+  trainingType.value = next
+  typeFollowsTheme.value = next === mappedTypeForCurrentWeek()
+}
+
+function followWeekTheme() {
+  typeFollowsTheme.value = true
+  trainingType.value = mappedTypeForCurrentWeek()
+}
 const sessionBlocks = ref([])
 const activeSavedTrainingId = ref(null)
 const showSaveDialog = ref(false)
@@ -602,10 +624,13 @@ const startSettingsSummaryParts = computed(() => {
     `${presentPlayers.value.length} aanwezig`,
     trainingTypeLabel.value,
     `${durationMin.value} min`,
-    `Week ${syncedCycleWeek.value}/4 · ${cycleThemeLabel.value}`,
   ]
+  // When type diverges from week theme, keep both words visible once.
+  if (!typeFollowsTheme.value && trainingTypeLabel.value !== cycleThemeLabel.value) {
+    parts.splice(2, 0, `week ${cycleThemeLabel.value}`)
+  }
   const focus = coachFocus.value.trim()
-  parts.push(focus ? `Focus vanavond: ${focus}` : 'Focus vanavond: —')
+  if (focus) parts.push(focus)
   if (activeSavedTrainingName.value) parts.push(activeSavedTrainingName.value)
   return parts
 })
@@ -737,6 +762,12 @@ watch(
 
 watch(() => store.activeTeamId, () => loadDraft())
 
+watch(syncedCycleWeek, () => {
+  if (typeFollowsTheme.value) {
+    trainingType.value = mappedTypeForCurrentWeek()
+  }
+})
+
 watch(
   () => route.query.library,
   value => {
@@ -769,12 +800,16 @@ function loadDraft() {
   const draft = trainingState.value.draftSession
   const customList = store.getCustomExercises(store.activeTeamId)
   activeSavedTrainingId.value = draft?.activeSavedTrainingId ?? null
+  const themeType = mappedTypeForCurrentWeek()
   if (!draft?.blocks?.length) {
     sessionBlocks.value = []
+    trainingType.value = themeType
+    typeFollowsTheme.value = true
     startPanelOpen.value = true
     return
   }
-  trainingType.value = draft.trainingType ?? trainingType.value
+  trainingType.value = draft.trainingType ?? themeType
+  typeFollowsTheme.value = trainingType.value === themeType
   durationMin.value = draft.durationMin ?? durationMin.value
   if (draft.presentPlayerIds?.length) {
     presentIds.value = new Set(draft.presentPlayerIds)
@@ -925,8 +960,6 @@ const cycleThemeLabel = computed(() =>
 )
 
 const cycleThemeIcon = computed(() => getCycleThemeIcon(getCycleTheme(syncedCycleWeek.value)))
-
-const syncedCycleWeek = computed(() => trainingState.value.cycleWeek ?? 1)
 
 const sessionTiming = computed(() =>
   computeSessionTiming(sessionBlocks.value, durationMin.value)
@@ -1123,6 +1156,7 @@ function loadRecipeIntoSession(recipe) {
     return false
   }
   trainingType.value = recipe.trainingType
+  typeFollowsTheme.value = recipe.trainingType === mappedTypeForCurrentWeek()
   durationMin.value = recipe.durationMin
   sessionBlocks.value = resolved.map(b => makeBlock(b.exercise, b.durationMin))
   coachBriefing.value = ''
