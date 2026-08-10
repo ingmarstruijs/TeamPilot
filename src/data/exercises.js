@@ -5,6 +5,7 @@ import { IMPORTED_RINUS_EXERCISES } from './rinusExercises.generated.js'
 
 export const TRAINING_TYPES = [
   { id: 'techniek', label: 'Techniek' },
+  { id: 'passing',  label: 'Passing' },
   { id: 'tactiek',  label: 'Tactiek' },
   { id: 'conditie', label: 'Conditie' },
   { id: 'gemengd',  label: 'Gemengd' },

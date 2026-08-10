@@ -9,6 +9,7 @@ export const CYCLE_THEME_ICONS = {
 /** Material Symbols per trainingstype (sessie-instelling). */
 export const TRAINING_TYPE_ICONS = {
   techniek: 'sports_soccer',
+  passing: 'compare_arrows',
   tactiek: 'strategy',
   conditie: 'directions_run',
   gemengd: 'shuffle',

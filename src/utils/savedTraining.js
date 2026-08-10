@@ -1,5 +1,5 @@
 import { getExerciseById } from '@/data/exercises'
-import { CYCLE_THEMES } from '@/utils/trainingEngine'
+import { CYCLE_THEMES, getCycleThemeLabel } from '@/utils/trainingThemes'
 import { getCycleThemeIcon, getTrainingTypeIcon } from '@/utils/trainingIcons'
 
 export { getCycleThemeIcon, getTrainingTypeIcon }
@@ -10,7 +10,7 @@ export const CYCLE_THEME_OPTIONS = [
   { id: '', label: 'Geen thema', icon: 'stadium' },
   ...CYCLE_THEMES.map(id => ({
     id,
-    label: id.charAt(0).toUpperCase() + id.slice(1),
+    label: getCycleThemeLabel(id),
     icon: getCycleThemeIcon(id),
   })),
 ]

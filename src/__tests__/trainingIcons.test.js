@@ -12,6 +12,8 @@ describe('trainingIcons', () => {
   it('maps training types to icons', () => {
     expect(getTrainingTypeIcon('gemengd')).toBe('shuffle')
     expect(getTrainingTypeIcon('partij')).toBe('stadium')
+    expect(getTrainingTypeIcon('passing')).toBe('compare_arrows')
+    expect(getTrainingTypeIcon('passing')).toBe(getCycleThemeIcon('passing'))
   })
 
   it('falls back to stadium for unknown ids', () => {

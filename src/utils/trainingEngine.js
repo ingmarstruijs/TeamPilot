@@ -1,5 +1,18 @@
 import { EXERCISES } from '@/data/exercises'
 import { normalizeAgeGroup } from '@/data/formations'
+import {
+  CYCLE_THEMES,
+  getCycleTheme,
+  getCycleThemeLabel,
+  trainingTypeForCycleTheme,
+} from '@/utils/trainingThemes'
+
+export {
+  CYCLE_THEMES,
+  getCycleTheme,
+  getCycleThemeLabel,
+  trainingTypeForCycleTheme,
+}
 
 export function analyzePlayerBalance(players) {
   const counts = { GK: 0, DEF: 0, WB: 0, MID: 0, ATT: 0 }
@@ -22,6 +35,19 @@ export function analyzePlayerBalance(players) {
   }
 }
 
+function matchesTrainingType(ex, trainingType) {
+  if (!trainingType) return true
+  if (ex.trainingTypes?.includes(trainingType)) return true
+  // Passing is a cycle theme + type; few curated rows list it on trainingTypes yet.
+  if (trainingType === 'passing') {
+    return Boolean(
+      ex.cycleThemes?.includes('passing')
+      || ex.trainingTypes?.includes('techniek'),
+    )
+  }
+  return false
+}
+
 export function filterExercises({
   ageGroup,
   knvbLevel,
@@ -36,7 +62,7 @@ export function filterExercises({
     if (!ages.includes(normalizedAge)) return false
     if (knvbLevel < ex.minKnvbLevel || knvbLevel > ex.maxKnvbLevel) return false
     if (playerCount != null && (playerCount < ex.minPlayers || playerCount > ex.maxPlayers)) return false
-    if (trainingType && !ex.trainingTypes.includes(trainingType)) return false
+    if (!matchesTrainingType(ex, trainingType)) return false
     if (category && ex.category !== category) return false
     if (categories?.length && !categories.includes(ex.category)) return false
     return true
@@ -72,6 +98,14 @@ const SESSION_TEMPLATES = {
     { category: 'conditie', share: 0.10 },
     { category: 'afsluiting', share: 0.10 },
   ],
+  passing: [
+    { category: 'warming-up', share: 0.10 },
+    { category: 'techniek', share: 0.24 },
+    { category: 'techniek', share: 0.24 },
+    { category: 'partijvorm', share: 0.22 },
+    { category: 'tactiek', share: 0.10 },
+    { category: 'afsluiting', share: 0.10 },
+  ],
   tactiek: [
     { category: 'warming-up', share: 0.10 },
     { category: 'tactiek', share: 0.32 },
@@ -102,26 +136,6 @@ const SESSION_TEMPLATES = {
     { category: 'tactiek', share: 0.08 },
     { category: 'afsluiting', share: 0.10 },
   ],
-}
-
-const CYCLE_THEMES = ['techniek', 'passing', 'tactiek', 'conditie']
-
-export { CYCLE_THEMES }
-
-export function getCycleTheme(week) {
-  return CYCLE_THEMES[(week - 1) % CYCLE_THEMES.length]
-}
-
-const CYCLE_THEME_LABELS = {
-  techniek: 'Techniek',
-  passing: 'Passing',
-  tactiek: 'Tactiek',
-  conditie: 'Conditie',
-}
-
-export function getCycleThemeLabel(themeOrWeek) {
-  const theme = typeof themeOrWeek === 'number' ? getCycleTheme(themeOrWeek) : themeOrWeek
-  return CYCLE_THEME_LABELS[theme] ?? theme
 }
 
 export function computeSessionTiming(blocks, targetDurationMin = 60) {
