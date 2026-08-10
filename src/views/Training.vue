@@ -57,87 +57,145 @@
           v-show="isDesktop || activeTab === 'session'"
         >
           <div class="session-main">
-              <div class="session-start card card-elevated">
-                <div class="session-start-head">
-                  <h2 class="md-title-sm session-start-title">Start je training</h2>
-                  <div class="session-start-actions">
+              <div
+                class="session-start card card-elevated"
+                :class="{ 'is-collapsed': !startPanelOpen }"
+              >
+                <header class="session-start-head">
+                  <div class="session-start-top">
                     <button
                       type="button"
-                      class="btn btn-tonal session-head-btn"
-                      title="Kies opgeslagen"
-                      aria-label="Kies opgeslagen"
-                      @click="showPickSaved = true"
+                      class="session-start-toggle"
+                      :aria-expanded="startPanelOpen"
+                      aria-controls="session-start-body"
+                      @click="startPanelOpen = !startPanelOpen"
                     >
-                      <span class="material-symbols-rounded" aria-hidden="true">bookmark</span>
-                      <span class="session-head-btn-label">Kies opgeslagen</span>
+                      <h2 class="md-title-sm session-start-title">Start je training</h2>
+                      <span
+                        class="material-symbols-rounded session-start-chevron"
+                        aria-hidden="true"
+                      >expand_more</span>
                     </button>
-                    <button
-                      type="button"
-                      class="btn btn-filled session-head-btn"
-                      title="Genereer training"
-                      aria-label="Genereer training"
-                      :disabled="!presentPlayers.length"
-                      @click="generate"
-                    >
-                      <span class="material-symbols-rounded" aria-hidden="true">auto_fix_high</span>
-                      <span class="session-head-btn-label">Genereer</span>
-                    </button>
+                    <div class="session-start-actions">
+                      <button
+                        type="button"
+                        class="btn btn-tonal session-head-btn"
+                        title="Kies opgeslagen"
+                        aria-label="Kies opgeslagen"
+                        @click="showPickSaved = true"
+                      >
+                        <span class="material-symbols-rounded" aria-hidden="true">bookmark</span>
+                        <span class="session-head-btn-label">Kies opgeslagen</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-filled session-head-btn"
+                        :class="{ 'is-generating': isGenerating }"
+                        title="AI-training maken"
+                        aria-label="AI-training maken"
+                        :disabled="!presentPlayers.length || isGenerating"
+                        @click="generate"
+                      >
+                        <span class="material-symbols-rounded" aria-hidden="true">auto_awesome</span>
+                        <span class="session-head-btn-label">{{ isGenerating ? 'Bezig…' : 'AI-training maken' }}</span>
+                      </button>
+                    </div>
                   </div>
+                  <p class="md-label-sm session-start-meta">
+                    <span
+                      v-for="(part, i) in startSettingsSummaryParts"
+                      :key="`${i}-${part}`"
+                      class="session-start-meta-part"
+                      :class="{ 'is-wrap': part.startsWith('Focus vanavond') }"
+                    >
+                      <span v-if="i > 0" class="session-start-meta-sep" aria-hidden="true">·</span>
+                      {{ part }}
+                    </span>
+                  </p>
+                </header>
+
+                <div
+                  v-show="startPanelOpen"
+                  id="session-start-body"
+                  class="session-start-body"
+                >
+                  <p class="md-label-sm session-start-theme">
+                    <span class="material-symbols-rounded session-start-theme-icon" aria-hidden="true">{{ cycleThemeIcon }}</span>
+                    Week {{ syncedCycleWeek }}/4 · {{ cycleThemeLabel }}
+                  </p>
+
+                  <label v-if="AI_COACH_ENABLED" class="focus-field">
+                    <span class="md-label-sm focus-field-label">Focus vanavond (optioneel)</span>
+                    <input
+                      v-model="coachFocus"
+                      type="text"
+                      class="field"
+                      maxlength="80"
+                      placeholder="Bijv. druk zetten, afronden, opbouw"
+                      :disabled="isGenerating"
+                    />
+                  </label>
+
+                  <TrainingSettingsPanel
+                    v-if="!isDesktop"
+                    variant="collapsible"
+                    nested
+                    :force-open="!sessionBlocks.length"
+                    :summary="presentSummary"
+                    :show-present="true"
+                    :show-config="false"
+                    :show-cycle-info="false"
+                    :roster="roster"
+                    :present-ids="presentIds"
+                    :all-present="allPresent"
+                    :balance="balance"
+                    :training-type="trainingType"
+                    :duration-min="durationMin"
+                    :cycle-week="syncedCycleWeek"
+                    :cycle-theme-label="cycleThemeLabel"
+                    :training-types="TRAINING_TYPES"
+                    @toggle-all="toggleAll"
+                    @toggle-player="togglePlayer"
+                  />
+
+                  <TrainingSettingsPanel
+                    v-if="!isDesktop"
+                    variant="collapsible"
+                    nested
+                    :summary="configSummary"
+                    :show-present="false"
+                    :show-config="true"
+                    :show-cycle-info="false"
+                    :roster="roster"
+                    :present-ids="presentIds"
+                    :all-present="allPresent"
+                    :balance="balance"
+                    :training-type="trainingType"
+                    :duration-min="durationMin"
+                    :cycle-week="syncedCycleWeek"
+                    :cycle-theme-label="cycleThemeLabel"
+                    :training-types="TRAINING_TYPES"
+                    @update:training-type="trainingType = $event"
+                    @update:duration-min="durationMin = +$event || 60"
+                  />
+
+                  <p v-if="activeSavedTrainingName" class="md-label-sm session-source">
+                    Gebaseerd op: {{ activeSavedTrainingName }}
+                  </p>
                 </div>
-                <p class="md-label-sm session-start-theme">
-                  <span class="material-symbols-rounded session-start-theme-icon" aria-hidden="true">{{ cycleThemeIcon }}</span>
-                  Week {{ syncedCycleWeek }}/4 · {{ cycleThemeLabel }}
-                </p>
-
-                <TrainingSettingsPanel
-                  v-if="!isDesktop"
-                  variant="collapsible"
-                  nested
-                  :force-open="!sessionBlocks.length"
-                  :summary="presentSummary"
-                  :show-present="true"
-                  :show-config="false"
-                  :show-cycle-info="false"
-                  :roster="roster"
-                  :present-ids="presentIds"
-                  :all-present="allPresent"
-                  :balance="balance"
-                  :training-type="trainingType"
-                  :duration-min="durationMin"
-                  :cycle-week="syncedCycleWeek"
-                  :cycle-theme-label="cycleThemeLabel"
-                  :training-types="TRAINING_TYPES"
-                  @toggle-all="toggleAll"
-                  @toggle-player="togglePlayer"
-                />
-
-                <TrainingSettingsPanel
-                  v-if="!isDesktop"
-                  variant="collapsible"
-                  nested
-                  :summary="configSummary"
-                  :show-present="false"
-                  :show-config="true"
-                  :show-cycle-info="false"
-                  :roster="roster"
-                  :present-ids="presentIds"
-                  :all-present="allPresent"
-                  :balance="balance"
-                  :training-type="trainingType"
-                  :duration-min="durationMin"
-                  :cycle-week="syncedCycleWeek"
-                  :cycle-theme-label="cycleThemeLabel"
-                  :training-types="TRAINING_TYPES"
-                  @update:training-type="trainingType = $event"
-                  @update:duration-min="durationMin = +$event || 60"
-                />
-
-                <p v-if="activeSavedTrainingName" class="md-label-sm session-source">
-                  Gebaseerd op: {{ activeSavedTrainingName }}
-                </p>
               </div>
 
-              <section v-if="sessionBlocks.length" class="card card-elevated session-card">
+              <AiBriefingBanner
+                :text="coachBriefing"
+                :engine="coachEngine"
+                @dismiss="coachBriefing = ''"
+              />
+
+              <section
+                v-if="sessionBlocks.length"
+                class="card card-elevated session-card"
+                :class="{ 'session-card--fresh': sessionJustGenerated }"
+              >
               <header class="session-card-head">
                 <div class="session-card-top">
                   <h2 class="md-title-sm session-card-title">Trainingsoverzicht</h2>
@@ -193,7 +251,9 @@
                       'drag-over': dragOverIndex === i,
                       'is-dragging': dragIndex === i,
                       'is-new': block.uid === highlightUid,
+                      'session-row--stagger': sessionJustGenerated,
                     }"
+                    :style="sessionJustGenerated ? { '--stagger-i': i } : undefined"
                     :data-session-index="i"
                     @touchstart="onRowTouchStart(i, $event)"
                     @touchmove="onRowTouchMove"
@@ -229,6 +289,9 @@
                       <p class="md-body-sm session-meta">
                         {{ categoryLabel(block.exercise.category) }} · {{ playerRangeLabel(block.exercise) }}
                       </p>
+                      <p v-if="block.ai?.whyThis" class="md-label-sm session-why">
+                        {{ block.ai.whyThis }}
+                      </p>
                     </div>
                     <div class="session-duration">
                       <input
@@ -261,7 +324,7 @@
               <span class="material-symbols-rounded session-empty-icon" aria-hidden="true">stadium</span>
               <p class="md-title-sm">Nog geen training</p>
               <p class="md-body-sm session-empty-text">
-                Kies een opgeslagen training, genereer een sessie, of voeg oefeningen toe via de Bibliotheek.
+                Kies een opgeslagen training, maak een AI-training, of voeg oefeningen toe via de Bibliotheek.
               </p>
               <button v-if="!isDesktop" type="button" class="btn btn-tonal" @click="activeTab = 'saved'">
                 <span class="material-symbols-rounded" aria-hidden="true">bookmark</span>
@@ -314,8 +377,10 @@
       :exercise="previewExercise"
       :mode="previewExercise ? 'preview' : 'session'"
       :player-count="presentPlayers.length"
+      :adapting="isAdapting"
       @close="closeDetail"
       @add="addFromPreview"
+      @adapt="adaptDetailBlock"
     />
 
     <CustomExerciseDialog
@@ -360,6 +425,7 @@ import { buildCoachContext } from '@/ai/buildCoachContext'
 import { createCoach } from '@/ai/createCoach'
 import { orchestrateSession } from '@/ai/orchestrateSession'
 import { hydrateSessionPlan } from '@/ai/hydrateSessionPlan'
+import { applyAdaptedBlock, sessionBlockToPlanned } from '@/ai/sessionBlockBridge'
 import { encodeTrainingSession, encodeRecipe, buildTrainingShareUrl, buildRecipeShareUrl } from '@/utils/trainingShare'
 import { shareLink } from '@/utils/shareLink'
 import {
@@ -378,6 +444,7 @@ import CustomExerciseDialog from '@/components/training/CustomExerciseDialog.vue
 import SaveTrainingDialog from '@/components/training/SaveTrainingDialog.vue'
 import PickSavedTrainingDialog from '@/components/training/PickSavedTrainingDialog.vue'
 import SavedTrainingsPanel from '@/components/training/SavedTrainingsPanel.vue'
+import AiBriefingBanner from '@/components/training/AiBriefingBanner.vue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
 import { showSnackbar } from '@/composables/useSnackbar'
 import { playerRangeLabel, getExerciseTitle, isCustomExercise } from '@/utils/exerciseText'
@@ -408,7 +475,15 @@ const librarySuitableOnly = ref(true)
 const dragIndex = ref(null)
 const dragOverIndex = ref(null)
 const highlightUid = ref(null)
+const coachFocus = ref('')
+const coachBriefing = ref('')
+const coachEngine = ref('rules')
+const isGenerating = ref(false)
+const isAdapting = ref(false)
+const sessionJustGenerated = ref(false)
+const startPanelOpen = ref(true)
 let highlightTimer = null
+let staggerTimer = null
 let nextBlockUid = 1
 let suppressDetailClick = false
 
@@ -480,6 +555,19 @@ const presentSummary = computed(() => {
 const configSummary = computed(() =>
   `Opzet · ${trainingTypeLabel.value} · ${durationMin.value} min`
 )
+
+const startSettingsSummaryParts = computed(() => {
+  const parts = [
+    `${presentPlayers.value.length} aanwezig`,
+    trainingTypeLabel.value,
+    `${durationMin.value} min`,
+    `Week ${syncedCycleWeek.value}/4 · ${cycleThemeLabel.value}`,
+  ]
+  const focus = coachFocus.value.trim()
+  parts.push(focus ? `Focus vanavond: ${focus}` : 'Focus vanavond: —')
+  if (activeSavedTrainingName.value) parts.push(activeSavedTrainingName.value)
+  return parts
+})
 
 function isDragExcludedTarget(el) {
   return el?.closest('input, .session-duration, button[aria-label="Verwijderen"], .drag-handle')
@@ -587,6 +675,13 @@ watch(
   { deep: true },
 )
 
+watch(
+  () => sessionBlocks.value.length,
+  (len) => {
+    startPanelOpen.value = len === 0
+  },
+)
+
 watch(() => store.activeTeamId, () => loadDraft())
 
 watch(
@@ -613,6 +708,7 @@ onUnmounted(() => {
   resetTouchReorder()
   resetPointerDrag()
   if (highlightTimer) clearTimeout(highlightTimer)
+  if (staggerTimer) clearTimeout(staggerTimer)
 })
 
 function loadDraft() {
@@ -621,6 +717,7 @@ function loadDraft() {
   activeSavedTrainingId.value = draft?.activeSavedTrainingId ?? null
   if (!draft?.blocks?.length) {
     sessionBlocks.value = []
+    startPanelOpen.value = true
     return
   }
   trainingType.value = draft.trainingType ?? trainingType.value
@@ -640,6 +737,7 @@ function loadDraft() {
       }
     })
     .filter(Boolean)
+  startPanelOpen.value = sessionBlocks.value.length === 0
 }
 
 function persistDraft() {
@@ -820,35 +918,50 @@ function toggleAll() {
 }
 
 async function generate() {
+  if (isGenerating.value || !presentPlayers.value.length) return
+
   if (AI_COACH_ENABLED) {
-    const ctx = buildCoachContext({
-      ageGroup: activeTeam.value.ageGroup,
-      knvbLevel: getKnvbLevel(activeTeam.value.knvbClass),
-      knvbClass: activeTeam.value.knvbClass,
-      trainingType: trainingType.value,
-      durationMin: durationMin.value,
-      cycleWeek: syncedCycleWeek.value,
-      presentPlayers: presentPlayers.value,
-      recentExerciseIds: trainingState.value.recentExerciseIds ?? [],
-    })
-    const coach = await createCoach()
-    const plan = await orchestrateSession(ctx, coach, {
-      customExercises: store.getCustomExercises(store.activeTeamId),
-    })
-    const hydrated = hydrateSessionPlan(plan, {
-      customExercises: store.getCustomExercises(store.activeTeamId),
-      ageGroup: activeTeam.value.ageGroup,
-    })
-    sessionBlocks.value = hydrated.map(b => makeBlock(b.exercise, b.durationMin, b.ai))
-    activeSavedTrainingId.value = null
-    store.recordTrainingSession(
-      store.activeTeamId,
-      hydrated.map(b => b.exercise.id),
-    )
-    persistDraft()
-    activeTab.value = 'session'
-    const total = hydrated.reduce((s, b) => s + b.durationMin, 0)
-    showSnackbar(`Training gegenereerd (${hydrated.length} oefeningen, ${total} min)`)
+    isGenerating.value = true
+    try {
+      const ctx = buildCoachContext({
+        ageGroup: activeTeam.value.ageGroup,
+        knvbLevel: getKnvbLevel(activeTeam.value.knvbClass),
+        knvbClass: activeTeam.value.knvbClass,
+        trainingType: trainingType.value,
+        durationMin: durationMin.value,
+        cycleWeek: syncedCycleWeek.value,
+        presentPlayers: presentPlayers.value,
+        recentExerciseIds: trainingState.value.recentExerciseIds ?? [],
+        focus: coachFocus.value,
+      })
+      const coach = await createCoach()
+      const plan = await orchestrateSession(ctx, coach, {
+        customExercises: store.getCustomExercises(store.activeTeamId),
+      })
+      const hydrated = hydrateSessionPlan(plan, {
+        customExercises: store.getCustomExercises(store.activeTeamId),
+        ageGroup: activeTeam.value.ageGroup,
+      })
+      sessionBlocks.value = hydrated.map(b => makeBlock(b.exercise, b.durationMin, b.ai))
+      coachBriefing.value = plan.coachBriefing ?? ''
+      coachEngine.value = plan.engine ?? 'rules'
+      startPanelOpen.value = false
+      markSessionFresh()
+      activeSavedTrainingId.value = null
+      store.recordTrainingSession(
+        store.activeTeamId,
+        hydrated.map(b => b.exercise.id),
+      )
+      persistDraft()
+      activeTab.value = 'session'
+      const total = hydrated.reduce((s, b) => s + b.durationMin, 0)
+      showSnackbar(`AI-training klaar (${hydrated.length} oefeningen, ${total} min)`)
+    } catch (err) {
+      console.error(err)
+      showSnackbar('AI-training mislukt — probeer opnieuw')
+    } finally {
+      isGenerating.value = false
+    }
     return
   }
 
@@ -863,6 +976,8 @@ async function generate() {
     presentPlayers: presentPlayers.value,
   })
   sessionBlocks.value = result.blocks.map(b => makeBlock(b.exercise, b.durationMin))
+  coachBriefing.value = ''
+  startPanelOpen.value = false
   activeSavedTrainingId.value = null
   store.recordTrainingSession(
     store.activeTeamId,
@@ -871,6 +986,57 @@ async function generate() {
   persistDraft()
   activeTab.value = 'session'
   showSnackbar(`Training gegenereerd (${result.blocks.length} oefeningen, ${result.totalMin} min)`)
+}
+
+function markSessionFresh() {
+  sessionJustGenerated.value = true
+  if (staggerTimer) clearTimeout(staggerTimer)
+  staggerTimer = window.setTimeout(() => {
+    sessionJustGenerated.value = false
+    staggerTimer = null
+  }, 900)
+}
+
+function currentCoachContext() {
+  return buildCoachContext({
+    ageGroup: activeTeam.value.ageGroup,
+    knvbLevel: getKnvbLevel(activeTeam.value.knvbClass),
+    knvbClass: activeTeam.value.knvbClass,
+    trainingType: trainingType.value,
+    durationMin: durationMin.value,
+    cycleWeek: syncedCycleWeek.value,
+    presentPlayers: presentPlayers.value,
+    recentExerciseIds: trainingState.value.recentExerciseIds ?? [],
+    focus: coachFocus.value,
+  })
+}
+
+async function adaptDetailBlock(instruction) {
+  if (!detailBlock.value || isAdapting.value) return
+  isAdapting.value = true
+  try {
+    const coach = await createCoach()
+    const ctx = currentCoachContext()
+    const planned = sessionBlockToPlanned(detailBlock.value)
+    const adapted = await coach.adaptBlock(ctx, planned, instruction)
+    const next = applyAdaptedBlock(detailBlock.value, adapted, {
+      engine: coachEngine.value,
+    })
+    const idx = sessionBlocks.value.findIndex(b => b.uid === next.uid)
+    if (idx >= 0) {
+      const copy = [...sessionBlocks.value]
+      copy[idx] = next
+      sessionBlocks.value = copy
+    }
+    detailBlock.value = next
+    persistDraft()
+    showSnackbar('Oefening aangepast')
+  } catch (err) {
+    console.error(err)
+    showSnackbar('Aanpassen mislukt')
+  } finally {
+    isAdapting.value = false
+  }
 }
 
 function loadRecipeIntoSession(recipe) {
@@ -883,6 +1049,8 @@ function loadRecipeIntoSession(recipe) {
   trainingType.value = recipe.trainingType
   durationMin.value = recipe.durationMin
   sessionBlocks.value = resolved.map(b => makeBlock(b.exercise, b.durationMin))
+  coachBriefing.value = ''
+  startPanelOpen.value = false
   activeSavedTrainingId.value = recipe.id
   persistDraft()
   activeTab.value = 'session'
@@ -1141,7 +1309,8 @@ function addFromPreview(ex) {
   min-width: 0;
 }
 
-.session-card-head {
+.session-card-head,
+.session-start-head {
   display: flex;
   flex-direction: column;
   gap: var(--sp-1);
@@ -1150,8 +1319,14 @@ function addFromPreview(ex) {
   border-bottom: 1px solid var(--md-outline-variant);
 }
 
+.session-start.is-collapsed .session-start-head {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
 .session-card-top,
-.session-start-head {
+.session-start-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1159,16 +1334,47 @@ function addFromPreview(ex) {
   min-width: 0;
 }
 
-.session-card-title {
+.session-card-title,
+.session-start-title {
   margin: 0;
   line-height: 1.3;
   flex: 1;
   min-width: 0;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  color: var(--md-on-surface);
 }
 
-.session-card-meta {
+.session-card-meta,
+.session-start-meta {
   margin: 0;
   color: var(--md-on-surface-variant);
+  line-height: 1.45;
+}
+
+.session-start-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0;
+  row-gap: 2px;
+}
+
+.session-start-meta-part {
+  display: inline-flex;
+  align-items: baseline;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+.session-start-meta-part.is-wrap {
+  white-space: normal;
+}
+
+.session-start-meta-sep {
+  margin: 0 0.35em;
+  flex-shrink: 0;
 }
 
 .session-card-meta--warn {
@@ -1220,15 +1426,43 @@ function addFromPreview(ex) {
   }
 }
 
-.session-start {
-  padding: var(--sp-4);
+.session-card,
+.session-start,
+.session-empty {
+  padding: var(--sp-3);
 }
 
-.session-start-title {
-  margin: 0;
-  line-height: 1.3;
+.session-start-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
   flex: 1;
   min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.session-start-chevron {
+  flex-shrink: 0;
+  font-size: 22px;
+  color: var(--md-on-surface-variant);
+  transition: transform var(--md-duration-short) var(--md-motion-standard);
+}
+
+.session-start.is-collapsed .session-start-chevron {
+  transform: rotate(-90deg);
+}
+
+.session-start-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
 }
 
 .session-start-theme {
@@ -1236,7 +1470,7 @@ function addFromPreview(ex) {
   flex-wrap: wrap;
   align-items: center;
   gap: var(--sp-1);
-  margin: var(--sp-1) 0 var(--sp-3);
+  margin: 0;
   color: var(--md-on-surface-variant);
 }
 
@@ -1246,13 +1480,54 @@ function addFromPreview(ex) {
 }
 
 .session-source {
-  margin: var(--sp-2) 0 0;
+  margin: 0;
   color: var(--md-on-surface-variant);
 }
 
-.session-card,
-.session-empty {
-  padding: var(--sp-3);
+.focus-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  margin: 0;
+}
+
+.focus-field-label {
+  color: var(--md-on-surface-variant);
+}
+
+.session-head-btn.is-generating {
+  animation: generate-pulse 1s ease-in-out infinite;
+}
+
+@keyframes generate-pulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.12); }
+}
+
+.session-why {
+  margin: 2px 0 0;
+  color: var(--md-primary);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.session-row--stagger {
+  animation: session-stagger-in 0.42s var(--md-motion-standard) both;
+  animation-delay: calc(var(--stagger-i, 0) * 45ms);
+}
+
+@keyframes session-stagger-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .saved-hint {

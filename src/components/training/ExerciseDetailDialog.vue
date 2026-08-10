@@ -38,12 +38,54 @@
                 <strong>Opstelling:</strong> {{ setup }}
               </p>
 
-              <div v-if="rules.length" class="rules-block">
-                <p class="md-label-md">Spelregels</p>
-                <ul class="rules-list md-body-sm">
+              <section v-if="rules.length" class="content-section">
+                <h3 class="content-section-title">Spelregels</h3>
+                <ul class="content-list md-body-sm">
                   <li v-for="(rule, i) in rules" :key="i">{{ rule }}</li>
                 </ul>
-              </div>
+              </section>
+
+              <section v-if="hasCoachNotes" class="coach-notes">
+                <h3 class="content-section-title">Voor vanavond</h3>
+                <p v-if="whyThis" class="md-body-sm coach-why">{{ whyThis }}</p>
+                <ul v-if="adaptations.length" class="content-list md-body-sm">
+                  <li v-for="(item, i) in adaptations" :key="`a-${i}`">{{ item }}</li>
+                </ul>
+                <ul v-if="coachingCues.length" class="content-list content-list--cues md-body-sm">
+                  <li v-for="(item, i) in coachingCues" :key="`c-${i}`">{{ item }}</li>
+                </ul>
+              </section>
+
+              <section
+                v-if="showAdaptChips"
+                class="adapt-panel"
+                aria-labelledby="adapt-heading"
+              >
+                <div class="adapt-panel-copy">
+                  <h3 id="adapt-heading" class="adapt-panel-title">Speelwijze</h3>
+                  <p class="md-label-sm adapt-panel-hint">
+                    Zelfde oefening, andere variant. Tijd regel je bij de minuten.
+                  </p>
+                </div>
+                <div class="adapt-chips" role="group" aria-label="Speelwijze aanpassen">
+                  <button
+                    v-for="chip in ADAPT_CHIPS"
+                    :key="chip.id"
+                    type="button"
+                    class="btn btn-tonal adapt-chip"
+                    :disabled="adapting"
+                    :title="chip.hint"
+                    :aria-label="chip.hint"
+                    @click="$emit('adapt', chip.id)"
+                  >
+                    <span class="material-symbols-rounded" aria-hidden="true">{{ chip.icon }}</span>
+                    {{ chip.label }}
+                  </button>
+                </div>
+                <p v-if="adapting" class="md-label-sm adapt-panel-status" aria-live="polite">
+                  Bezig met aanpassen…
+                </p>
+              </section>
             </div>
           </div>
 
@@ -93,15 +135,31 @@ import {
   playerRangeLabel,
 } from '@/utils/exerciseText'
 
+const ADAPT_CHIPS = [
+  {
+    id: 'makkelijker',
+    label: 'Makkelijker',
+    icon: 'trending_down',
+    hint: 'Voeg een makkelijkere variant toe (meer ruimte, minder druk)',
+  },
+  {
+    id: 'moeilijker',
+    label: 'Moeilijker',
+    icon: 'trending_up',
+    hint: 'Voeg een zwaardere variant toe (minder touches, meer druk)',
+  },
+]
+
 const props = defineProps({
   block: { type: Object, default: null },
   exercise: { type: Object, default: null },
   mode: { type: String, default: 'session' },
   playerCount: { type: Number, default: 0 },
   showPlayerRange: { type: Boolean, default: true },
+  adapting: { type: Boolean, default: false },
 })
 
-const emit = defineEmits(['close', 'add'])
+const emit = defineEmits(['close', 'add', 'adapt'])
 
 const titleId = useId()
 const isDesktop = useMediaQuery('(min-width: 720px)')
@@ -128,9 +186,33 @@ const setup = computed(() =>
     : ''
 )
 
-const rules = computed(() =>
-  resolvedExercise.value ? getRinusRules(resolvedExercise.value) : []
+const aiMeta = computed(() => props.block?.ai ?? null)
+
+const whyThis = computed(() => aiMeta.value?.whyThis?.trim() || '')
+
+const adaptations = computed(() =>
+  Array.isArray(aiMeta.value?.adaptations) ? aiMeta.value.adaptations.filter(Boolean) : []
 )
+
+const coachingCues = computed(() =>
+  Array.isArray(aiMeta.value?.coachingCues) ? aiMeta.value.coachingCues.filter(Boolean) : []
+)
+
+const hasCoachNotes = computed(() =>
+  Boolean(whyThis.value || adaptations.value.length || coachingCues.value.length)
+)
+
+const showAdaptChips = computed(() =>
+  props.mode === 'session' && Boolean(props.block)
+)
+
+const rules = computed(() => {
+  if (!resolvedExercise.value) return []
+  if (Array.isArray(aiMeta.value?.rules) && aiMeta.value.rules.length) {
+    return aiMeta.value.rules
+  }
+  return getRinusRules(resolvedExercise.value)
+})
 
 const rinusUrl = computed(() =>
   resolvedExercise.value ? getRinusUrl(resolvedExercise.value) : null
@@ -231,37 +313,122 @@ onUnmounted(() => {
   padding: var(--sp-4);
   display: flex;
   flex-direction: column;
-  gap: var(--sp-3);
+  gap: var(--sp-4);
+}
+
+.detail-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  min-width: 0;
 }
 
 .section-text {
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .section-muted {
   margin: 0;
   color: var(--md-on-surface-variant);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
-.rules-block {
-  padding-top: var(--sp-3);
+.content-section,
+.coach-notes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding-top: var(--sp-1);
   border-top: 1px solid var(--md-outline-variant);
 }
 
-.rules-block .md-label-md {
-  margin: 0 0 var(--sp-2);
+.content-section-title {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--md-on-surface-variant);
 }
 
-.rules-list {
+.content-list {
   margin: 0;
-  padding-left: 1.25rem;
+  padding-left: 1.15rem;
   color: var(--md-on-surface-variant);
   display: flex;
   flex-direction: column;
   gap: var(--sp-2);
-  line-height: 1.45;
+  line-height: 1.5;
+}
+
+.content-list--cues {
+  margin-top: var(--sp-1);
+  color: var(--md-on-surface);
+}
+
+.coach-why {
+  margin: 0;
+  color: var(--md-on-surface);
+  line-height: 1.5;
+}
+
+.adapt-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-top: var(--sp-1);
+  padding: var(--sp-3) 0 0;
+  border-top: 1px solid var(--md-outline-variant);
+}
+
+.adapt-panel-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.adapt-panel-title {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--md-on-surface-variant);
+}
+
+.adapt-panel-hint {
+  margin: 0;
+  color: var(--md-on-surface-variant);
+  line-height: 1.4;
+}
+
+.adapt-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.adapt-chip {
+  height: 40px;
+  min-height: 40px;
+  padding: 0 var(--sp-4);
+  font-size: 14px;
+  gap: var(--sp-1);
+}
+
+.adapt-chip .material-symbols-rounded {
+  font-size: 18px;
+}
+
+.adapt-chip:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.adapt-panel-status {
+  margin: 0;
+  color: var(--md-on-surface-variant);
 }
 
 .exercise-detail-footer {
@@ -315,25 +482,21 @@ onUnmounted(() => {
   .exercise-detail-dialog.is-desktop .exercise-detail-body {
     flex-direction: row;
     align-items: flex-start;
-    gap: var(--sp-4);
-    padding: var(--sp-4) var(--sp-5);
+    gap: var(--sp-5);
+    padding: var(--sp-5);
   }
 
   .exercise-detail-dialog.is-desktop .exercise-detail-body :deep(.diagram-wrap) {
-    flex: 0 0 44%;
-    max-width: 44%;
+    flex: 0 0 42%;
+    max-width: 42%;
   }
 
   .detail-text {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--sp-3);
+    gap: var(--sp-4);
   }
 
   .exercise-detail-header {
-    padding: var(--sp-5) var(--sp-5) var(--sp-3);
+    padding: var(--sp-5) var(--sp-5) var(--sp-4);
   }
 
   .exercise-detail-title {
