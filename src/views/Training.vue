@@ -40,6 +40,7 @@
             @update:training-type="trainingType = $event"
             @update:duration-min="durationMin = +$event || 60"
           />
+          <AiModelSettings class="card card-elevated ai-model-settings--sidebar" @change="refreshCoachMode" />
           <SavedTrainingsPanel
             class="saved-panel--sidebar"
             :recipes="savedRecipes"
@@ -87,18 +88,18 @@
                         <span class="material-symbols-rounded" aria-hidden="true">bookmark</span>
                         <span class="session-head-btn-label">Kies opgeslagen</span>
                       </button>
-                      <button
-                        type="button"
-                        class="btn btn-filled session-head-btn"
-                        :class="{ 'is-generating': isGenerating }"
-                        title="AI-training maken"
-                        aria-label="AI-training maken"
-                        :disabled="!presentPlayers.length || isGenerating"
-                        @click="generate"
-                      >
-                        <span class="material-symbols-rounded" aria-hidden="true">auto_awesome</span>
-                        <span class="session-head-btn-label">{{ isGenerating ? 'Bezig…' : 'AI-training maken' }}</span>
-                      </button>
+                    <button
+                      type="button"
+                      class="btn btn-filled session-head-btn"
+                      :class="{ 'is-generating': isGenerating }"
+                      :title="generateButtonLabel"
+                      :aria-label="generateButtonLabel"
+                      :disabled="!presentPlayers.length || isGenerating"
+                      @click="generate"
+                    >
+                      <span class="material-symbols-rounded" aria-hidden="true">{{ localLlmReady ? 'auto_awesome' : 'auto_fix_high' }}</span>
+                      <span class="session-head-btn-label">{{ isGenerating ? 'Bezig…' : generateButtonLabel }}</span>
+                    </button>
                     </div>
                   </div>
                   <p class="md-label-sm session-start-meta">
@@ -112,6 +113,34 @@
                       {{ part }}
                     </span>
                   </p>
+                  <div
+                    v-if="isGenerating"
+                    class="session-generate-progress"
+                    role="status"
+                    aria-live="polite"
+                  >
+                    <div class="session-generate-progress-head">
+                      <span class="material-symbols-rounded session-generate-spinner" aria-hidden="true">progress_activity</span>
+                      <p class="md-label-sm session-generate-status">
+                        {{ generateStatus || 'Training maken…' }}
+                      </p>
+                      <span class="md-label-sm session-generate-pct">
+                        {{ Math.round(generateProgress * 100) }}%
+                      </span>
+                    </div>
+                    <div
+                      class="session-generate-bar"
+                      role="progressbar"
+                      :aria-valuenow="Math.round(generateProgress * 100)"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    >
+                      <div
+                        class="session-generate-bar-fill"
+                        :style="{ width: `${Math.max(2, Math.round(generateProgress * 100))}%` }"
+                      />
+                    </div>
+                  </div>
                 </header>
 
                 <div
@@ -178,6 +207,8 @@
                     @update:training-type="trainingType = $event"
                     @update:duration-min="durationMin = +$event || 60"
                   />
+
+                  <AiModelSettings v-if="!isDesktop" collapsible @change="refreshCoachMode" />
 
                   <p v-if="activeSavedTrainingName" class="md-label-sm session-source">
                     Gebaseerd op: {{ activeSavedTrainingName }}
@@ -324,7 +355,7 @@
               <span class="material-symbols-rounded session-empty-icon" aria-hidden="true">stadium</span>
               <p class="md-title-sm">Nog geen training</p>
               <p class="md-body-sm session-empty-text">
-                Kies een opgeslagen training, maak een AI-training, of voeg oefeningen toe via de Bibliotheek.
+                Kies een opgeslagen training, maak een training, of voeg oefeningen toe via de Bibliotheek.
               </p>
               <button v-if="!isDesktop" type="button" class="btn btn-tonal" @click="activeTab = 'saved'">
                 <span class="material-symbols-rounded" aria-hidden="true">bookmark</span>
@@ -378,6 +409,8 @@
       :mode="previewExercise ? 'preview' : 'session'"
       :player-count="presentPlayers.length"
       :adapting="isAdapting"
+      :adapt-progress="adaptProgress"
+      :adapt-status="adaptStatus"
       @close="closeDetail"
       @add="addFromPreview"
       @adapt="adaptDetailBlock"
@@ -423,6 +456,8 @@ import {
 import { AI_COACH_ENABLED } from '@/ai/featureFlag'
 import { buildCoachContext } from '@/ai/buildCoachContext'
 import { createCoach } from '@/ai/createCoach'
+import { readAiPreferences } from '@/ai/aiPreferences'
+import { canRunLocalLlm } from '@/ai/canRunLocalLlm'
 import { orchestrateSession } from '@/ai/orchestrateSession'
 import { hydrateSessionPlan } from '@/ai/hydrateSessionPlan'
 import { applyAdaptedBlock, sessionBlockToPlanned } from '@/ai/sessionBlockBridge'
@@ -445,6 +480,7 @@ import SaveTrainingDialog from '@/components/training/SaveTrainingDialog.vue'
 import PickSavedTrainingDialog from '@/components/training/PickSavedTrainingDialog.vue'
 import SavedTrainingsPanel from '@/components/training/SavedTrainingsPanel.vue'
 import AiBriefingBanner from '@/components/training/AiBriefingBanner.vue'
+import AiModelSettings from '@/components/training/AiModelSettings.vue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
 import { showSnackbar } from '@/composables/useSnackbar'
 import { playerRangeLabel, getExerciseTitle, isCustomExercise } from '@/utils/exerciseText'
@@ -479,9 +515,14 @@ const coachFocus = ref('')
 const coachBriefing = ref('')
 const coachEngine = ref('rules')
 const isGenerating = ref(false)
+const generateStatus = ref('')
+const generateProgress = ref(0)
 const isAdapting = ref(false)
+const adaptProgress = ref(0)
+const adaptStatus = ref('')
 const sessionJustGenerated = ref(false)
 const startPanelOpen = ref(true)
+const localLlmReady = ref(false)
 let highlightTimer = null
 let staggerTimer = null
 let nextBlockUid = 1
@@ -568,6 +609,18 @@ const startSettingsSummaryParts = computed(() => {
   if (activeSavedTrainingName.value) parts.push(activeSavedTrainingName.value)
   return parts
 })
+
+const generateButtonLabel = computed(() =>
+  localLlmReady.value ? 'AI-training maken' : 'Training maken'
+)
+
+async function refreshCoachMode() {
+  const prefs = readAiPreferences()
+  const supported = await canRunLocalLlm()
+  localLlmReady.value = Boolean(
+    prefs.preferLocalLlm && prefs.downloadAcceptedAt && supported,
+  )
+}
 
 function isDragExcludedTarget(el) {
   return el?.closest('input, .session-duration, button[aria-label="Verwijderen"], .drag-handle')
@@ -700,6 +753,7 @@ watch(
 
 onMounted(() => {
   loadDraft()
+  refreshCoachMode()
   if (route.query.library === '1') activeTab.value = 'library'
   if (route.query.saved === '1') activeTab.value = 'saved'
 })
@@ -922,6 +976,10 @@ async function generate() {
 
   if (AI_COACH_ENABLED) {
     isGenerating.value = true
+    generateProgress.value = 0.02
+    generateStatus.value = localLlmReady.value
+      ? 'Lokale AI starten…'
+      : 'Slimme planning starten…'
     try {
       const ctx = buildCoachContext({
         ageGroup: activeTeam.value.ageGroup,
@@ -937,7 +995,13 @@ async function generate() {
       const coach = await createCoach()
       const plan = await orchestrateSession(ctx, coach, {
         customExercises: store.getCustomExercises(store.activeTeamId),
+        onProgress: ({ progress, text }) => {
+          generateProgress.value = Math.max(generateProgress.value, Math.min(1, progress || 0))
+          if (text) generateStatus.value = text
+        },
       })
+      generateProgress.value = 0.97
+      generateStatus.value = 'Training afronden…'
       const hydrated = hydrateSessionPlan(plan, {
         customExercises: store.getCustomExercises(store.activeTeamId),
         ageGroup: activeTeam.value.ageGroup,
@@ -954,13 +1018,16 @@ async function generate() {
       )
       persistDraft()
       activeTab.value = 'session'
+      generateProgress.value = 1
       const total = hydrated.reduce((s, b) => s + b.durationMin, 0)
-      showSnackbar(`AI-training klaar (${hydrated.length} oefeningen, ${total} min)`)
+      showSnackbar(`Training klaar (${hydrated.length} oefeningen, ${total} min)`)
     } catch (err) {
       console.error(err)
-      showSnackbar('AI-training mislukt — probeer opnieuw')
+      showSnackbar('Training maken mislukt — probeer opnieuw')
     } finally {
       isGenerating.value = false
+      generateStatus.value = ''
+      generateProgress.value = 0
     }
     return
   }
@@ -1014,11 +1081,18 @@ function currentCoachContext() {
 async function adaptDetailBlock(instruction) {
   if (!detailBlock.value || isAdapting.value) return
   isAdapting.value = true
+  adaptProgress.value = 0.08
+  adaptStatus.value = 'Aanpassen…'
   try {
     const coach = await createCoach()
     const ctx = currentCoachContext()
     const planned = sessionBlockToPlanned(detailBlock.value)
-    const adapted = await coach.adaptBlock(ctx, planned, instruction)
+    const adapted = await coach.adaptBlock(ctx, planned, instruction, {
+      onProgress: ({ progress, text }) => {
+        adaptProgress.value = Math.max(adaptProgress.value, Math.min(1, progress || 0))
+        if (text) adaptStatus.value = text
+      },
+    })
     const next = applyAdaptedBlock(detailBlock.value, adapted, {
       engine: coachEngine.value,
     })
@@ -1036,6 +1110,8 @@ async function adaptDetailBlock(instruction) {
     showSnackbar('Aanpassen mislukt')
   } finally {
     isAdapting.value = false
+    adaptProgress.value = 0
+    adaptStatus.value = ''
   }
 }
 
@@ -1361,6 +1437,58 @@ function addFromPreview(ex) {
   row-gap: 2px;
 }
 
+.session-generate-progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  margin: var(--sp-2) 0 0;
+}
+
+.session-generate-progress-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  min-width: 0;
+}
+
+.session-generate-status {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  color: var(--md-primary);
+  line-height: 1.4;
+}
+
+.session-generate-pct {
+  flex-shrink: 0;
+  color: var(--md-on-surface-variant);
+  font-variant-numeric: tabular-nums;
+}
+
+.session-generate-spinner {
+  font-size: 18px;
+  color: var(--md-primary);
+  animation: generate-spin 0.9s linear infinite;
+}
+
+.session-generate-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--md-on-surface) 10%, transparent);
+  overflow: hidden;
+}
+
+.session-generate-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--md-primary);
+  transition: width 180ms linear;
+}
+
+@keyframes generate-spin {
+  to { transform: rotate(360deg); }
+}
+
 .session-start-meta-part {
   display: inline-flex;
   align-items: baseline;
@@ -1462,7 +1590,27 @@ function addFromPreview(ex) {
 .session-start-body {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-3);
+  gap: var(--sp-2);
+}
+
+.session-start-body :deep(.settings-panel.is-nested) {
+  margin: 0;
+}
+
+.session-start-body :deep(.settings-panel.is-nested .settings-summary) {
+  padding: var(--sp-1) 0;
+}
+
+.session-start-body :deep(.ai-model-settings.is-collapsible) {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.ai-model-settings--sidebar {
+  padding: var(--sp-3);
+  margin-top: var(--sp-2);
+  border-top: 0;
 }
 
 .session-start-theme {
@@ -1487,7 +1635,7 @@ function addFromPreview(ex) {
 .focus-field {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-1);
+  gap: 2px;
   margin: 0;
 }
 

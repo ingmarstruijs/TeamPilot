@@ -46,9 +46,11 @@ describe('orchestrateSession', () => {
       async explainBlock() { return '' },
     }
     const plan = await orchestrateSession(baseCtx(), badCoach)
-    expect(plan.modelId).toBe('rules-fallback')
+    expect(plan.modelId).toBe('rules-v1')
+    expect(plan.engine).toBe('rules')
     expect(plan.blocks.length).toBeGreaterThan(0)
-    expect(plan.coachBriefing).toMatch(/ongeldig|Veilige/i)
+    expect(plan.coachBriefing).not.toMatch(/ongeldig|fallback|bruikbaar plan/i)
+    expect(plan.blocks.every(b => !/fallback|ongeldig|regel-engine/i.test(b.whyThis || ''))).toBe(true)
   })
 
   it('falls back when planSession throws', async () => {
@@ -60,7 +62,7 @@ describe('orchestrateSession', () => {
       async explainBlock() { return '' },
     }
     const plan = await orchestrateSession(baseCtx(), exploding)
-    expect(plan.modelId).toBe('rules-fallback')
+    expect(plan.modelId).toBe('rules-v1')
     expect(plan.blocks.length).toBeGreaterThan(0)
   })
 })

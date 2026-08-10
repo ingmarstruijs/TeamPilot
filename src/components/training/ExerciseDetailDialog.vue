@@ -82,9 +82,24 @@
                     {{ chip.label }}
                   </button>
                 </div>
-                <p v-if="adapting" class="md-label-sm adapt-panel-status" aria-live="polite">
-                  Bezig met aanpassen…
-                </p>
+                <div v-if="adapting" class="adapt-progress" aria-live="polite">
+                  <p class="md-label-sm adapt-panel-status">
+                    {{ adaptStatusText }}
+                  </p>
+                  <div
+                    class="adapt-progress-track"
+                    role="progressbar"
+                    :aria-valuenow="adaptPercent"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    :aria-label="adaptStatusText"
+                  >
+                    <div
+                      class="adapt-progress-fill"
+                      :style="{ width: `${adaptPercent}%` }"
+                    />
+                  </div>
+                </div>
               </section>
             </div>
           </div>
@@ -157,12 +172,22 @@ const props = defineProps({
   playerCount: { type: Number, default: 0 },
   showPlayerRange: { type: Boolean, default: true },
   adapting: { type: Boolean, default: false },
+  adaptProgress: { type: Number, default: 0 },
+  adaptStatus: { type: String, default: '' },
 })
 
 const emit = defineEmits(['close', 'add', 'adapt'])
 
 const titleId = useId()
 const isDesktop = useMediaQuery('(min-width: 720px)')
+
+const adaptPercent = computed(() =>
+  Math.round(Math.max(0, Math.min(1, props.adaptProgress || 0)) * 100)
+)
+
+const adaptStatusText = computed(() =>
+  props.adaptStatus?.trim() || 'Bezig met aanpassen…'
+)
 
 const visible = computed(() => Boolean(props.block || props.exercise))
 
@@ -429,6 +454,26 @@ onUnmounted(() => {
 .adapt-panel-status {
   margin: 0;
   color: var(--md-on-surface-variant);
+}
+
+.adapt-progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.adapt-progress-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--md-surface-container-highest);
+  overflow: hidden;
+}
+
+.adapt-progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--md-primary);
+  transition: width 0.2s ease;
 }
 
 .exercise-detail-footer {
