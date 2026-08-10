@@ -355,6 +355,11 @@ import {
   analyzePlayerBalance,
   computeSessionTiming,
 } from '@/utils/trainingEngine'
+import { AI_COACH_ENABLED } from '@/ai/featureFlag'
+import { buildCoachContext } from '@/ai/buildCoachContext'
+import { createCoach } from '@/ai/createCoach'
+import { orchestrateSession } from '@/ai/orchestrateSession'
+import { hydrateSessionPlan } from '@/ai/hydrateSessionPlan'
 import { encodeTrainingSession, encodeRecipe, buildTrainingShareUrl, buildRecipeShareUrl } from '@/utils/trainingShare'
 import { shareLink } from '@/utils/shareLink'
 import {
@@ -627,7 +632,12 @@ function loadDraft() {
     .map(b => {
       const exercise = getExerciseById(b.exerciseId, customList)
       if (!exercise) return null
-      return { uid: nextBlockUid++, exercise, durationMin: b.durationMin }
+      return {
+        uid: nextBlockUid++,
+        exercise,
+        durationMin: b.durationMin,
+        ...(b.ai ? { ai: b.ai } : {}),
+      }
     })
     .filter(Boolean)
 }
@@ -647,12 +657,18 @@ function persistDraft() {
     blocks: sessionBlocks.value.map(b => ({
       exerciseId: b.exercise.id,
       durationMin: b.durationMin,
+      ...(b.ai ? { ai: b.ai } : {}),
     })),
   })
 }
 
-function makeBlock(exercise, durationMin) {
-  return { uid: nextBlockUid++, exercise, durationMin }
+function makeBlock(exercise, durationMin, ai = null) {
+  return {
+    uid: nextBlockUid++,
+    exercise,
+    durationMin,
+    ...(ai ? { ai } : {}),
+  }
 }
 
 function reorderBlocks(from, to) {
@@ -803,7 +819,39 @@ function toggleAll() {
   else presentIds.value = new Set(roster.value.map(p => p.id))
 }
 
-function generate() {
+async function generate() {
+  if (AI_COACH_ENABLED) {
+    const ctx = buildCoachContext({
+      ageGroup: activeTeam.value.ageGroup,
+      knvbLevel: getKnvbLevel(activeTeam.value.knvbClass),
+      knvbClass: activeTeam.value.knvbClass,
+      trainingType: trainingType.value,
+      durationMin: durationMin.value,
+      cycleWeek: syncedCycleWeek.value,
+      presentPlayers: presentPlayers.value,
+      recentExerciseIds: trainingState.value.recentExerciseIds ?? [],
+    })
+    const coach = await createCoach()
+    const plan = await orchestrateSession(ctx, coach, {
+      customExercises: store.getCustomExercises(store.activeTeamId),
+    })
+    const hydrated = hydrateSessionPlan(plan, {
+      customExercises: store.getCustomExercises(store.activeTeamId),
+      ageGroup: activeTeam.value.ageGroup,
+    })
+    sessionBlocks.value = hydrated.map(b => makeBlock(b.exercise, b.durationMin, b.ai))
+    activeSavedTrainingId.value = null
+    store.recordTrainingSession(
+      store.activeTeamId,
+      hydrated.map(b => b.exercise.id),
+    )
+    persistDraft()
+    activeTab.value = 'session'
+    const total = hydrated.reduce((s, b) => s + b.durationMin, 0)
+    showSnackbar(`Training gegenereerd (${hydrated.length} oefeningen, ${total} min)`)
+    return
+  }
+
   const result = generateTraining({
     ageGroup: activeTeam.value.ageGroup,
     knvbLevel: getKnvbLevel(activeTeam.value.knvbClass),

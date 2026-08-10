@@ -30,6 +30,7 @@ export function blocksToSerializable(blocks) {
   return blocks.map(b => ({
     exerciseId: b.exercise.id,
     durationMin: b.durationMin,
+    ...(b.ai ? { ai: b.ai } : {}),
   }))
 }
 
