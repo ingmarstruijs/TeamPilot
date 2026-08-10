@@ -54,6 +54,36 @@ function buildWhyThis(ctx, exercise) {
 }
 
 /**
+ * Fill empty coach narration on a planned block (e.g. thin local-LLM output).
+ *
+ * @param {import('../types.js').CoachContext} ctx
+ * @param {import('../types.js').PlannedBlock} block
+ * @param {object} [exercise]
+ * @returns {import('../types.js').PlannedBlock}
+ */
+export function fillPlannedBlockNarration(ctx, block, exercise) {
+  const ex = exercise || {
+    title: block.title,
+    description: block.description,
+    category: block.category,
+    focusPositions: block.focusPositions,
+    cycleThemes: block.cycleThemes,
+  }
+  const adaptations = Array.isArray(block.adaptations) ? block.adaptations.filter(Boolean) : []
+  const coachingCues = Array.isArray(block.coachingCues) ? block.coachingCues.filter(Boolean) : []
+  const whyThis = typeof block.whyThis === 'string' ? block.whyThis.trim() : ''
+
+  return {
+    ...block,
+    whyThis: whyThis || buildWhyThis(ctx, ex),
+    adaptations: adaptations.length ? adaptations : buildAdaptations(ctx, ex),
+    coachingCues: coachingCues.length
+      ? coachingCues
+      : (COACHING_CUES[ex.category || block.category] ?? ['Houd iedereen betrokken.']),
+  }
+}
+
+/**
  * @param {import('../types.js').CoachContext} ctx
  * @param {object} exercise
  * @param {number} durationMin
@@ -196,12 +226,14 @@ export function adaptBlockSync(ctx, block, instruction) {
     next.rules.push('Makkelijker: meer touches toegestaan / minder druk op de balbezitter.')
     next.adaptations.push('Variant: verlaag weerstand of vergroot speelruimte.')
     next.coachingCues = ['Geef succeservaringen, bouw daarna op.']
+    next.whyThis = [next.whyThis, 'Makkelijkere variant voor vanavond'].filter(Boolean).join(' · ')
     return next
   }
   if (/moeilijker|zwaarder|lastiger/.test(text)) {
     next.rules.push('Moeilijker: sneller handelen, minder touches, meer druk.')
     next.adaptations.push('Variant: kleinere ruimte of extra verdediger.')
     next.coachingCues = ['Eis tempo en scherpe keuzes.']
+    next.whyThis = [next.whyThis, 'Zwaardere variant voor vanavond'].filter(Boolean).join(' · ')
     return next
   }
   if (/korter|korter maken|inkorten/.test(text)) {
@@ -245,10 +277,14 @@ export function createRulesCoach() {
     async status() {
       return 'offline-rules'
     },
-    async planSession(ctx) {
-      return planSessionSync(ctx)
+    async planSession(ctx, opts = {}) {
+      opts.onProgress?.({ progress: 0.35, text: 'Slimme planning samenstellen…' })
+      const plan = planSessionSync(ctx)
+      opts.onProgress?.({ progress: 1, text: 'Klaar' })
+      return plan
     },
-    async adaptBlock(ctx, block, instruction) {
+    async adaptBlock(ctx, block, instruction, opts = {}) {
+      opts.onProgress?.({ progress: 1, text: 'Aangepast' })
       return adaptBlockSync(ctx, block, instruction)
     },
     async explainBlock(ctx, block) {

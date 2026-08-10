@@ -3,7 +3,8 @@
     <div class="top-bar__inner">
       <RouterLink to="/" class="top-bar__leading">
         <div class="app-logo-mark">
-          <img src="/logo-mark.svg" alt="" width="36" height="36" />
+          <!-- Bound URL (not static src) so Vitest SSR does not try to import /logo-mark.svg -->
+          <img :src="logoMarkUrl" alt="" width="36" height="36" />
         </div>
         <span class="app-name">TeamPilot</span>
       </RouterLink>
@@ -185,6 +186,9 @@ import { useTeamStore } from '@/stores/teamStore'
 import { AGE_GROUPS, ageGroupLabel } from '@/data/formations'
 import { DEFAULT_KNVB_CLASS, KNVB_CLASSES } from '@/data/knvbClasses'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
+
+/** Public asset — keep as runtime string so Vite SSR/Vitest does not rewrite it to an import. */
+const logoMarkUrl = `${import.meta.env.BASE_URL}logo-mark.svg`
 
 const store = useTeamStore()
 const activeTeam = computed(() => store.activeTeam)
