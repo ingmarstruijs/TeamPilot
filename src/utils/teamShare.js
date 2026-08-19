@@ -1,8 +1,10 @@
 /**
- * Team roster share encode / decode (`#/?import=`).
+ * Team roster share encode / decode (`#/import?team=`).
+ * Legacy links (`#/?import=`) are still accepted by the importer.
  */
 
 import { normalizeAgeGroup } from '@/data/formations'
+import { buildHashShareUrl } from '@/utils/appShareUrl'
 import { decodeJson, encodeJson } from '@/utils/base64url'
 
 export function encodeTeamShare(team) {
@@ -41,5 +43,5 @@ export function decodeTeamShare(encoded) {
 }
 
 export function buildTeamShareUrl(encoded) {
-  return `${window.location.origin}${window.location.pathname}#/?import=${encoded}`
+  return buildHashShareUrl('/import', { team: encoded })
 }

@@ -10,6 +10,7 @@
 
 import { normalizeAgeGroup } from '@/data/formations'
 import { decodeJson, encodeJson } from '@/utils/base64url'
+import { buildHashShareUrl } from '@/utils/appShareUrl'
 import { shareLink } from '@/utils/shareLink'
 import { isCustomExercise, restoreCustomExercise, serializeCustomForShare } from './customExercises'
 
@@ -155,7 +156,7 @@ export function decodeSharedTraining(encoded) {
 }
 
 export function buildTrainingShareUrl(encoded) {
-  return `${window.location.origin}${window.location.pathname}#/training/view?training=${encoded}`
+  return buildHashShareUrl('/training/view', { training: encoded })
 }
 
 export function buildRecipeShareUrl(encoded) {

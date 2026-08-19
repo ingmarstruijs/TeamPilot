@@ -96,7 +96,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
 import { decodeSharedTraining } from '@/utils/trainingShare'
@@ -113,7 +113,11 @@ const route = useRoute()
 const router = useRouter()
 const store = useTeamStore()
 
-const payload = ref(null)
+const payload = computed(() => {
+  const encoded = route.query.training ?? route.query.recipe
+  if (!encoded) return null
+  return decodeSharedTraining(String(encoded))
+})
 const detailBlock = ref(null)
 const importName = ref('')
 
@@ -214,12 +218,6 @@ function importSessionToTeam() {
   showSnackbar('Sessie geladen in jouw team ✓')
   router.push('/training')
 }
-
-onMounted(() => {
-  const encoded = route.query.training ?? route.query.recipe
-  if (!encoded) return
-  payload.value = decodeSharedTraining(String(encoded))
-})
 </script>
 
 <style scoped>

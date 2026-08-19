@@ -65,12 +65,13 @@ import BottomNav     from '@/components/layout/BottomNav.vue'
 import Snackbar      from '@/components/ui/Snackbar.vue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
 import { useNavDrawer } from '@/composables/useNavDrawer'
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ageGroupLabel } from '@/data/formations'
 import { useTeamStore } from '@/stores/teamStore'
 import { showSnackbar } from '@/composables/useSnackbar'
 import { decodeTeamShare } from '@/utils/teamShare'
+import { firstQueryValue, resolveIncomingShare, stripLocationSearch } from '@/utils/appShareUrl'
 
 const isDesktop = useMediaQuery('(min-width: 900px)')
 const { collapsed: drawerCollapsed, toggleDrawer } = useNavDrawer()
@@ -89,20 +90,50 @@ const conflictTeam = computed(() =>
 
 onMounted(async () => {
   await router.isReady()
-  // Team import via ?import=
-  const encoded = route.query.import
-  if (encoded) {
-    const data = decodeTeamShare(String(encoded))
+  consumeIncomingShare()
+})
+
+watch(() => route.fullPath, () => {
+  consumeIncomingShare()
+})
+
+function consumeIncomingShare() {
+  const incoming = resolveIncomingShare(route)
+  if (!incoming) return
+
+  if (incoming.kind === 'team') {
+    const data = decodeTeamShare(incoming.encoded)
     if (data) importData.value = data
-    router.replace('/')
+    stripLocationSearch()
+    if (route.path !== '/' || route.query.team || route.query.import) {
+      router.replace({ path: '/' })
+    }
     return
   }
-  // Lineup (or bundle) share via ?lineup=
-  const lineupEncoded = route.query.lineup
-  if (lineupEncoded) {
-    router.replace({ path: '/view', query: { lineup: String(lineupEncoded) } })
+
+  if (incoming.kind === 'lineup') {
+    const alreadyOnView =
+      route.path === '/view' && firstQueryValue(route.query.lineup) === incoming.encoded
+    stripLocationSearch()
+    if (!alreadyOnView) {
+      router.replace({ path: '/view', query: { lineup: incoming.encoded } })
+    }
+    return
   }
-})
+
+  if (incoming.kind === 'training') {
+    const alreadyOnView =
+      route.path === '/training/view'
+      && (
+        firstQueryValue(route.query.training) === incoming.encoded
+        || firstQueryValue(route.query.recipe) === incoming.encoded
+      )
+    stripLocationSearch()
+    if (!alreadyOnView) {
+      router.replace({ path: '/training/view', query: { training: incoming.encoded } })
+    }
+  }
+}
 
 function doImport() {
   const team = store.importTeam(importData.value)

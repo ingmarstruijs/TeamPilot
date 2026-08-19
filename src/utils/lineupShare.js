@@ -34,6 +34,7 @@
  */
 
 import { normalizeAgeGroup } from '@/data/formations'
+import { buildHashShareUrl } from '@/utils/appShareUrl'
 import { decodeJson, encodeJson } from '@/utils/base64url'
 
 // ── Encode ───────────────────────────────────────────────────────────────────
@@ -145,4 +146,8 @@ export function resolveSlotsForTeam(slots, teamPlayers) {
     }
     return slot
   })
+}
+
+export function buildLineupShareUrl(encoded) {
+  return buildHashShareUrl('/view', { lineup: encoded })
 }

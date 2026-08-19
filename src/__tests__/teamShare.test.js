@@ -52,7 +52,8 @@ describe('teamShare', () => {
 
   it('builds import URL hash', () => {
     const encoded = encodeTeamShare(team)
-    expect(buildTeamShareUrl(encoded)).toContain(`#/?import=${encoded}`)
+    expect(buildTeamShareUrl(encoded)).toContain(`#/import?team=${encoded}`)
+    expect(buildTeamShareUrl(encoded)).not.toContain('#/?import=')
   })
 
   it('handles unicode names', () => {

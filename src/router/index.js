@@ -8,6 +8,7 @@ import LineupView from '@/views/LineupView.vue'
 
 const routes = [
   { path: '/', name: 'dashboard', component: Dashboard },
+  { path: '/import', name: 'team-import', component: Dashboard },
   { path: '/players', name: 'players', component: Players },
   { path: '/lineup/new', name: 'lineup-new', component: LineupBuilder },
   { path: '/lineup/:id', name: 'lineup-edit', component: LineupBuilder, props: true },
