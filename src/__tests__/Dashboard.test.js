@@ -43,8 +43,10 @@ function mountDashboard(teamOverride = {}) {
 }
 
 function decodeShareUrl(url) {
-  const b64url = url.split('#/?import=')[1]
-  const b64 = b64url.replace(/-/g, '+').replace(/_/g, '/')
+  const hash = url.split('#')[1] ?? ''
+  const qs = hash.includes('?') ? hash.slice(hash.indexOf('?') + 1) : ''
+  const encoded = new URLSearchParams(qs).get('team') || new URLSearchParams(qs).get('import')
+  const b64 = encoded.replace(/-/g, '+').replace(/_/g, '/')
   const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0))
   return JSON.parse(new TextDecoder().decode(bytes))
 }
@@ -80,12 +82,13 @@ describe('Dashboard – shareTeam', () => {
     expect(showSnackbar).toHaveBeenCalledWith('Team-link gekopieerd!')
   })
 
-  it('generated URL contains the #/?import= hash segment', async () => {
+  it('generated URL contains the #/import?team= hash segment', async () => {
     const wrapper = mountDashboard()
     await wrapper.find('button.share-btn').trigger('click')
     await flushPromises()
     const url = writeText.mock.calls[0][0]
-    expect(url).toContain('#/?import=')
+    expect(url).toContain('#/import?team=')
+    expect(url).not.toContain('#/?import=')
   })
 
   it('encoded URL decodes back to the correct team name', async () => {
@@ -165,7 +168,7 @@ describe('Dashboard – shareTeam', () => {
     await wrapper.find('button.share-btn').trigger('click')
     await flushPromises()
     const { url } = shareMock.mock.calls[0][0]
-    expect(url).toContain('#/?import=')
+    expect(url).toContain('#/import?team=')
     const decoded = decodeShareUrl(url)
     expect(decoded.n).toBe('FC Utrecht')
   })

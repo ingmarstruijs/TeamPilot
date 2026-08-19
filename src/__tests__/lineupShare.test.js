@@ -4,6 +4,7 @@ import {
   encodeLineupOnly,
   decodeSharePayload,
   resolveSlotsForTeam,
+  buildLineupShareUrl,
 } from '../utils/lineupShare'
 import { encodeJson } from '../utils/base64url'
 
@@ -106,5 +107,11 @@ describe('resolveSlotsForTeam', () => {
       team.players,
     )
     expect(resolved[0].playerId).toBe('p3')
+  })
+
+  it('builds a path-based share URL', () => {
+    const encoded = encodeBundle(team, lineup, slotsWithPlayers, bench)
+    expect(buildLineupShareUrl(encoded)).toContain(`#/view?lineup=${encoded}`)
+    expect(buildLineupShareUrl(encoded)).not.toContain('#/?')
   })
 })

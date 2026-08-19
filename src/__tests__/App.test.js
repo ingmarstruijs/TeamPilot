@@ -1,10 +1,11 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { shallowMount, flushPromises } from '@vue/test-utils'
 import { createTestingPinia } from '@pinia/testing'
+import { reactive } from 'vue'
 
 // vi.mock calls are hoisted by Vitest — they apply before any imports below
 vi.mock('vue-router', () => ({
-  useRoute: vi.fn(() => ({ query: {} })),
+  useRoute: vi.fn(() => ({ query: {}, path: '/', fullPath: '/' })),
   useRouter: vi.fn(() => ({ replace: vi.fn(), isReady: vi.fn(() => Promise.resolve()) })),
 }))
 vi.mock('@/composables/useSnackbar', () => ({ showSnackbar: vi.fn() }))
@@ -36,9 +37,15 @@ const DEFAULT_TEAM = {
   players: [],
 }
 
-function mountApp(routeQuery = {}, teams = null) {
+function mountApp(routeQuery = {}, teams = null, { path = '/' } = {}) {
   const mockReplace = vi.fn()
-  useRoute.mockReturnValue({ query: routeQuery })
+  const qs = new URLSearchParams(routeQuery).toString()
+  const route = reactive({
+    path,
+    query: routeQuery,
+    fullPath: qs ? `${path}?${qs}` : path,
+  })
+  useRoute.mockReturnValue(route)
   useRouter.mockReturnValue({ replace: mockReplace, isReady: vi.fn(() => Promise.resolve()) })
 
   const wrapper = shallowMount(App, {
@@ -69,7 +76,7 @@ function mountApp(routeQuery = {}, teams = null) {
     },
   })
 
-  return { wrapper, mockReplace }
+  return { wrapper, mockReplace, route }
 }
 
 // ── Tests ────────────────────────────────────────────────────────────────────
@@ -77,6 +84,10 @@ function mountApp(routeQuery = {}, teams = null) {
 describe('App – team import detection', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+  })
+
+  afterEach(() => {
+    window.history.replaceState(window.history.state, '', '/')
   })
 
   it('does not show a dialog when there is no import query param', async () => {
@@ -103,7 +114,7 @@ describe('App – team import detection', () => {
     const encoded = encodeTeam({ name: 'FC Test', ageGroup: 'O11', players: [] })
     const { mockReplace } = mountApp({ import: encoded })
     await flushPromises()
-    expect(mockReplace).toHaveBeenCalledWith('/')
+    expect(mockReplace).toHaveBeenCalledWith({ path: '/' })
   })
 
   it('does not call router.replace when there is no import param', async () => {
@@ -140,6 +151,56 @@ describe('App – team import detection', () => {
     await flushPromises()
     expect(wrapper.text()).toContain('Legacy FC')
     expect(wrapper.text()).toContain('O11')
+  })
+
+  it('shows the import dialog for a #/import?team= share', async () => {
+    const encoded = encodeTeam({ name: 'FC Path', ageGroup: 'O11', players: [] })
+    const { wrapper, mockReplace } = mountApp({ team: encoded }, null, { path: '/import' })
+    await flushPromises()
+    expect(wrapper.find('.dialog').exists()).toBe(true)
+    expect(wrapper.html()).toContain('FC Path')
+    expect(mockReplace).toHaveBeenCalledWith({ path: '/' })
+  })
+
+  it('opens import dialog when a team share lands after the app is already mounted', async () => {
+    const { wrapper, route, mockReplace } = mountApp({})
+    await flushPromises()
+    expect(wrapper.find('.dialog').exists()).toBe(false)
+
+    const encoded = encodeTeam({ name: 'Late Import', ageGroup: 'O11', players: [] })
+    route.path = '/import'
+    route.query = { team: encoded }
+    route.fullPath = `/import?team=${encoded}`
+    await flushPromises()
+
+    expect(wrapper.find('.dialog').exists()).toBe(true)
+    expect(wrapper.html()).toContain('Late Import')
+    expect(mockReplace).toHaveBeenCalledWith({ path: '/' })
+  })
+
+  it('recovers a team share when the query was moved out of the hash', async () => {
+    const encoded = encodeTeam({ name: 'Search Team', ageGroup: 'O13', players: [] })
+    window.history.replaceState(window.history.state, '', `/?import=${encoded}#/`)
+    const { wrapper } = mountApp({})
+    await flushPromises()
+    expect(wrapper.find('.dialog').exists()).toBe(true)
+    expect(wrapper.html()).toContain('Search Team')
+    expect(window.location.search).toBe('')
+  })
+
+  it('redirects a lineup share on the home route to /view', async () => {
+    const { mockReplace } = mountApp({ lineup: 'LINEUPDATA' })
+    await flushPromises()
+    expect(mockReplace).toHaveBeenCalledWith({ path: '/view', query: { lineup: 'LINEUPDATA' } })
+  })
+
+  it('redirects a training share on the home route to /training/view', async () => {
+    const { mockReplace } = mountApp({ training: 'TRAININGDATA' })
+    await flushPromises()
+    expect(mockReplace).toHaveBeenCalledWith({
+      path: '/training/view',
+      query: { training: 'TRAININGDATA' },
+    })
   })
 })
 

@@ -377,7 +377,7 @@ import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
 import { FORMATIONS, FORMATION_Y } from '@/data/formations'
-import { encodeBundle, encodeLineupOnly } from '@/utils/lineupShare'
+import { encodeBundle, encodeLineupOnly, buildLineupShareUrl } from '@/utils/lineupShare'
 import { shareLink } from '@/utils/shareLink'
 import {
   OPPONENT_MODES,
@@ -1073,7 +1073,7 @@ async function copyShareLink(mode) {
   const encoded = mode === 'bundle'
     ? encodeBundle(team, { name: lineupName.value, formationId: selectedFormationId.value, flipped: flipped.value }, slotsWithPlayers, benchPlayers.value)
     : encodeLineupOnly(team, { name: lineupName.value, formationId: selectedFormationId.value, flipped: flipped.value }, slotsWithPlayers, benchPlayers.value)
-  const url = `${window.location.origin}${window.location.pathname}#/view?lineup=${encoded}`
+  const url = buildLineupShareUrl(encoded)
   const result = await shareLink({ title: lineupName.value || 'Opstelling', text: lineupName.value || 'Opstelling', url })
   if (result === 'copied') showSnackbar('Link gekopieerd!')
   if (result === 'failed') showSnackbar('Kopiëren mislukt')
