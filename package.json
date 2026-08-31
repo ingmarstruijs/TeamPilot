@@ -24,9 +24,9 @@
   "devDependencies": {
     "@pinia/testing": "^2.0.1",
     "@vitejs/plugin-vue": "^6.0.8",
-    "@vue/test-utils": "^2.4.11",
-    "happy-dom": "^20.11.2",
-    "vite": "^8.2.1",
-    "vitest": "^4.1.10"
+    "@vue/test-utils": "^2.5.0",
+    "happy-dom": "^20.11.13",
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
   }
 }
