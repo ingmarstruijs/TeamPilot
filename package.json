@@ -19,7 +19,7 @@
     "html2canvas": "^1.4.1",
     "pinia": "^4.0.2",
     "vue": "^3.5.41",
-    "vue-router": "^5.2.0"
+    "vue-router": "^5.3.1"
   },
   "devDependencies": {
     "@pinia/testing": "^2.0.1",
