@@ -1,17 +1,17 @@
 <template>
   <div class="page training-page">
     <div class="training-header">
-      <h1 class="md-headline-sm training-title">Training</h1>
+      <h1 class="md-headline-sm training-title">{{ t('training.title') }}</h1>
       <p v-if="roster.length" class="md-label-sm training-meta">
-        {{ activeTeam?.name }} · Week {{ syncedCycleWeek }}: {{ cycleThemeLabel }}
+        {{ t('training.weekMeta', { team: activeTeam?.name, week: syncedCycleWeek, theme: cycleThemeLabel }) }}
       </p>
     </div>
 
     <div v-if="!roster.length" class="empty-state card card-elevated">
       <span class="material-symbols-rounded empty-icon">group_off</span>
-      <p class="md-title-md">Geen spelers</p>
-      <p class="md-body-md">Voeg eerst spelers toe om een training te plannen.</p>
-      <RouterLink to="/players" class="btn btn-filled mt-3">Naar spelers</RouterLink>
+      <p class="md-title-md">{{ t('training.noPlayersTitle') }}</p>
+      <p class="md-body-md">{{ t('training.noPlayersBody') }}</p>
+      <RouterLink to="/players" class="btn btn-filled mt-3">{{ t('training.toPlayers') }}</RouterLink>
     </div>
 
     <template v-else>
@@ -34,7 +34,7 @@
             :duration-min="durationMin"
             :cycle-week="syncedCycleWeek"
             :cycle-theme-label="cycleThemeLabel"
-            :training-types="TRAINING_TYPES"
+            :training-types="translatedTrainingTypes"
             :type-follows-theme="typeFollowsTheme"
             @toggle-all="toggleAll"
             @toggle-player="togglePlayer"
@@ -73,7 +73,7 @@
                       aria-controls="session-start-body"
                       @click="startPanelOpen = !startPanelOpen"
                     >
-                      <h2 class="md-title-sm session-start-title">Start je training</h2>
+                      <h2 class="md-title-sm session-start-title">{{ t('training.start') }}</h2>
                       <span
                         class="material-symbols-rounded session-start-chevron"
                         aria-hidden="true"
@@ -83,12 +83,12 @@
                       <button
                         type="button"
                         class="btn btn-tonal session-head-btn"
-                        title="Kies opgeslagen"
-                        aria-label="Kies opgeslagen"
+                        :title="t('training.pickSaved')"
+                        :aria-label="t('training.pickSaved')"
                         @click="showPickSaved = true"
                       >
                         <span class="material-symbols-rounded" aria-hidden="true">bookmark</span>
-                        <span class="session-head-btn-label">Kies opgeslagen</span>
+                        <span class="session-head-btn-label">{{ t('training.pickSaved') }}</span>
                       </button>
                     <button
                       type="button"
@@ -100,7 +100,7 @@
                       @click="generate"
                     >
                       <span class="material-symbols-rounded" aria-hidden="true">{{ localLlmReady ? 'auto_awesome' : 'auto_fix_high' }}</span>
-                      <span class="session-head-btn-label">{{ isGenerating ? 'Bezig…' : generateButtonLabel }}</span>
+                      <span class="session-head-btn-label">{{ isGenerating ? t('training.busy') : generateButtonLabel }}</span>
                     </button>
                     </div>
                   </div>
@@ -151,17 +151,17 @@
                 >
                   <p class="md-label-sm session-start-theme">
                     <span class="material-symbols-rounded session-start-theme-icon" aria-hidden="true">{{ cycleThemeIcon }}</span>
-                    Week {{ syncedCycleWeek }}/4 · {{ cycleThemeLabel }}
+                    {{ t('training.weekOf', { week: syncedCycleWeek, theme: cycleThemeLabel }) }}
                   </p>
 
                   <label v-if="AI_COACH_ENABLED" class="focus-field">
-                    <span class="md-label-sm focus-field-label">Focus vanavond (optioneel)</span>
+                    <span class="md-label-sm focus-field-label">{{ t('training.focusLabel') }}</span>
                     <input
                       v-model="coachFocus"
                       type="text"
                       class="field"
                       maxlength="80"
-                      placeholder="Bijv. druk zetten, afronden, opbouw"
+                      :placeholder="t('training.focusPlaceholder')"
                       :disabled="isGenerating"
                     />
                   </label>
@@ -183,7 +183,7 @@
                     :duration-min="durationMin"
                     :cycle-week="syncedCycleWeek"
                     :cycle-theme-label="cycleThemeLabel"
-                    :training-types="TRAINING_TYPES"
+                    :training-types="translatedTrainingTypes"
                     @toggle-all="toggleAll"
                     @toggle-player="togglePlayer"
                   />
@@ -204,7 +204,7 @@
                     :duration-min="durationMin"
                     :cycle-week="syncedCycleWeek"
                     :cycle-theme-label="cycleThemeLabel"
-                    :training-types="TRAINING_TYPES"
+                    :training-types="translatedTrainingTypes"
                     :type-follows-theme="typeFollowsTheme"
                     @update:training-type="setTrainingType"
                     @update:duration-min="durationMin = +$event || 60"
@@ -248,22 +248,22 @@
                     <button
                       type="button"
                       class="btn btn-tonal session-head-btn"
-                      title="Opslaan"
-                      aria-label="Opslaan"
+                      :title="t('training.save')"
+                      :aria-label="t('training.save')"
                       @click="openSaveDialog()"
                     >
                       <span class="material-symbols-rounded" aria-hidden="true">bookmark_add</span>
-                      <span class="session-head-btn-label">Opslaan</span>
+                      <span class="session-head-btn-label">{{ t('training.save') }}</span>
                     </button>
                     <button
                       type="button"
                       class="btn btn-tonal session-head-btn"
-                      title="Deel sessie"
-                      aria-label="Deel sessie"
+                      :title="t('training.shareSession')"
+                      :aria-label="t('training.shareSession')"
                       @click="shareTraining"
                     >
                       <span class="material-symbols-rounded" aria-hidden="true">share</span>
-                      <span class="session-head-btn-label">Deel sessie</span>
+                      <span class="session-head-btn-label">{{ t('training.shareSession') }}</span>
                     </button>
                   </div>
                 </div>
@@ -272,8 +272,8 @@
                   :class="{ 'session-card-meta--warn': sessionTiming.totalMin !== durationMin }"
                 >
                   {{ sessionBlocks.length }}
-                  {{ sessionBlocks.length === 1 ? 'oefening' : 'oefeningen' }}
-                  · {{ sessionTiming.totalMin }}/{{ durationMin }} min
+                  {{ sessionBlocks.length === 1 ? t('word.exercise') : t('word.exercises') }}
+                  · {{ sessionTiming.totalMin }}/{{ durationMin }} {{ t('common.min') }}
                 </p>
               </header>
 
@@ -294,13 +294,35 @@
                     @touchend="onRowTouchEnd"
                     @touchcancel="onRowTouchCancel"
                   >
-                    <div
-                      class="drag-handle"
-                      aria-label="Sleep om te verplaatsen"
-                      title="Sleep om te verplaatsen"
-                      @pointerdown="onHandlePointerDown(i, $event)"
-                    >
-                      <span class="material-symbols-rounded" aria-hidden="true">drag_indicator</span>
+                    <div class="session-reorder">
+                      <button
+                        type="button"
+                        class="btn-icon session-move"
+                        :disabled="i === 0"
+                        :aria-label="t('training.moveUp')"
+                        :title="t('training.moveUp')"
+                        @click="moveBlock(i, -1)"
+                      >
+                        <span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_up</span>
+                      </button>
+                      <div
+                        class="drag-handle"
+                        :aria-label="t('training.drag')"
+                        :title="t('training.drag')"
+                        @pointerdown="onHandlePointerDown(i, $event)"
+                      >
+                        <span class="material-symbols-rounded" aria-hidden="true">drag_indicator</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn-icon session-move"
+                        :disabled="i === sessionBlocks.length - 1"
+                        :aria-label="t('training.moveDown')"
+                        :title="t('training.moveDown')"
+                        @click="moveBlock(i, 1)"
+                      >
+                        <span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_down</span>
+                      </button>
                     </div>
                     <div
                       class="session-info session-info-btn"
@@ -314,7 +336,7 @@
                         <span
                           v-if="isCustomExercise(block.exercise)"
                           class="custom-ex-badge"
-                          title="Eigen oefening"
+                          :title="t('training.customExercise')"
                         >
                           <span class="material-symbols-rounded" aria-hidden="true">draw</span>
                         </span>
@@ -323,6 +345,7 @@
                       <p class="md-body-sm session-meta">
                         {{ categoryLabel(block.exercise.category) }} · {{ playerRangeLabel(block.exercise) }}
                       </p>
+                      <FootballRealityRating :rating="getFootballReality(block.exercise)" />
                       <p v-if="block.ai?.whyThis" class="md-label-sm session-why">
                         {{ block.ai.whyThis }}
                       </p>
@@ -336,14 +359,14 @@
                         max="60"
                         step="1"
                         @change="e => setBlockDuration(i, +e.target.value)"
-                        aria-label="Duur in minuten"
+                        :aria-label="t('training.durationAria')"
                       />
-                      <span class="md-label-sm duration-suffix">min</span>
+                      <span class="md-label-sm duration-suffix">{{ t('common.min') }}</span>
                     </div>
                     <button
                       type="button"
-                      class="btn-icon"
-                      aria-label="Verwijderen"
+                      class="btn-icon session-delete"
+                      :aria-label="t('training.remove')"
                       style="color:var(--md-error)"
                       @click="removeBlock(i)"
                     >
@@ -356,13 +379,13 @@
 
             <div v-else class="session-empty card card-elevated">
               <span class="material-symbols-rounded session-empty-icon" aria-hidden="true">stadium</span>
-              <p class="md-title-sm">Nog geen training</p>
+              <p class="md-title-sm">{{ t('training.emptyTitle') }}</p>
               <p class="md-body-sm session-empty-text">
-                Kies een opgeslagen training, maak een training, of voeg oefeningen toe via de Bibliotheek.
+                {{ t('training.emptyBody') }}
               </p>
               <button v-if="!isDesktop" type="button" class="btn btn-tonal" @click="activeTab = 'saved'">
                 <span class="material-symbols-rounded" aria-hidden="true">bookmark</span>
-                Opgeslagen trainingen
+                {{ t('training.savedTrainings') }}
               </button>
             </div>
           </div>
@@ -376,14 +399,13 @@
           <ExerciseLibraryPanel
             :exercises="filteredExercises"
             :session-blocks="sessionBlocks"
-            :highlight-uid="highlightUid"
-            :hide-session-strip="isDesktop"
+            :sidebar="isDesktop"
             v-model:query="libraryQuery"
             v-model:category="libraryCategory"
             v-model:suitable-only="librarySuitableOnly"
+            v-model:min-football-reality="libraryMinReality"
             @preview="openPreview"
             @add="addManualExercise"
-            @remove-block="removeBlockByUid"
             @create-custom="showCustomDialog = true"
             @reset-filters="resetLibraryFilters"
           />
@@ -447,7 +469,7 @@
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
-import { TRAINING_TYPES, EXERCISE_CATEGORIES, getExerciseById } from '@/data/exercises'
+import { TRAINING_TYPES, getExerciseById } from '@/data/exercises'
 import {
   generateTraining,
   getCycleTheme,
@@ -487,7 +509,9 @@ import AiBriefingBanner from '@/components/training/AiBriefingBanner.vue'
 import AiModelSettings from '@/components/training/AiModelSettings.vue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
 import { showSnackbar } from '@/composables/useSnackbar'
-import { playerRangeLabel, getExerciseTitle, isCustomExercise } from '@/utils/exerciseText'
+import { playerRangeLabel, getExerciseTitle, getFootballReality, isCustomExercise } from '@/utils/exerciseText'
+import { t } from '@/i18n'
+import FootballRealityRating from '@/components/training/FootballRealityRating.vue'
 
 const store = useTeamStore()
 const route = useRoute()
@@ -530,6 +554,7 @@ const previewExercise = ref(null)
 const libraryQuery = ref('')
 const libraryCategory = ref('')
 const librarySuitableOnly = ref(true)
+const libraryMinReality = ref(0)
 const dragIndex = ref(null)
 const dragOverIndex = ref(null)
 const highlightUid = ref(null)
@@ -568,19 +593,19 @@ let pointerDrag = null
 const tabItems = computed(() => [
   {
     id: 'session',
-    label: 'Sessie',
+    label: t('training.tabSession'),
     icon: 'stadium',
     badge: sessionBlocks.value.length || null,
   },
   {
     id: 'saved',
-    label: 'Opgeslagen',
+    label: t('training.tabSaved'),
     icon: 'bookmark',
     badge: savedRecipes.value.length || null,
   },
   {
     id: 'library',
-    label: 'Bibliotheek',
+    label: t('training.tabLibrary'),
     icon: 'library_books',
     badge: null,
   },
@@ -598,36 +623,36 @@ const activeSavedTrainingName = computed(() => {
 const saveDefaultName = computed(() =>
   defaultSavedName({
     cycleWeek: syncedCycleWeek.value,
-    cycleThemeLabel: cycleThemeLabel.value,
-    trainingTypeLabel: trainingTypeLabel.value,
+    cycleThemeLabel: getCycleThemeLabel(getCycleTheme(syncedCycleWeek.value)),
+    trainingTypeLabel: TRAINING_TYPES.find(type => type.id === trainingType.value)?.label ?? trainingType.value,
   })
 )
 
 const saveDefaultTheme = computed(() => getCycleTheme(syncedCycleWeek.value))
 
-const trainingTypeLabel = computed(() =>
-  TRAINING_TYPES.find(t => t.id === trainingType.value)?.label ?? trainingType.value
+const translatedTrainingTypes = computed(() =>
+  TRAINING_TYPES.map(type => ({ ...type, label: t(`trainingType.${type.id}`) }))
 )
 
-const presentSummary = computed(() => {
-  const n = presentPlayers.value.length
-  const count = n === 1 ? '1 aanwezig' : `${n} aanwezig`
-  return `Wie is er? · ${count}`
-})
+const trainingTypeLabel = computed(() => t(`trainingType.${trainingType.value}`))
+
+const presentSummary = computed(() =>
+  t('training.presentSummary', { count: presentPlayers.value.length })
+)
 
 const configSummary = computed(() =>
-  `Opzet · ${trainingTypeLabel.value} · ${durationMin.value} min`
+  t('training.configSummary', { type: trainingTypeLabel.value, min: durationMin.value })
 )
 
 const startSettingsSummaryParts = computed(() => {
   const parts = [
-    `${presentPlayers.value.length} aanwezig`,
+    t('training.present', { count: presentPlayers.value.length }),
     trainingTypeLabel.value,
-    `${durationMin.value} min`,
+    `${durationMin.value} ${t('common.min')}`,
   ]
   // When type diverges from week theme, keep both words visible once.
   if (!typeFollowsTheme.value && trainingTypeLabel.value !== cycleThemeLabel.value) {
-    parts.splice(2, 0, `week ${cycleThemeLabel.value}`)
+    parts.splice(2, 0, t('training.weekTheme', { theme: cycleThemeLabel.value }))
   }
   const focus = coachFocus.value.trim()
   if (focus) parts.push(focus)
@@ -636,7 +661,7 @@ const startSettingsSummaryParts = computed(() => {
 })
 
 const generateButtonLabel = computed(() =>
-  localLlmReady.value ? 'AI-training maken' : 'Training maken'
+  localLlmReady.value ? t('training.makeAi') : t('training.make')
 )
 
 async function refreshCoachMode() {
@@ -648,7 +673,7 @@ async function refreshCoachMode() {
 }
 
 function isDragExcludedTarget(el) {
-  return el?.closest('input, .session-duration, button[aria-label="Verwijderen"], .drag-handle')
+  return el?.closest('input, .session-duration, .session-delete, .session-reorder')
 }
 
 function clearDragVisuals() {
@@ -866,6 +891,10 @@ function reorderBlocks(from, to) {
   sessionBlocks.value = arr
 }
 
+function moveBlock(index, delta) {
+  reorderBlocks(index, index + delta)
+}
+
 function onTouchMove(e) {
   if (!touchReorder.active || touchReorder.index === null) return
   e.preventDefault()
@@ -940,10 +969,6 @@ function removeBlock(index) {
   sessionBlocks.value = sessionBlocks.value.filter((_, i) => i !== index)
 }
 
-function removeBlockByUid(uid) {
-  sessionBlocks.value = sessionBlocks.value.filter(b => b.uid !== uid)
-}
-
 const allPresent = computed(() => presentIds.value.size === roster.value.length)
 
 const presentPlayers = computed(() =>
@@ -956,7 +981,7 @@ const balance = computed(() => {
 })
 
 const cycleThemeLabel = computed(() =>
-  getCycleThemeLabel(getCycleTheme(syncedCycleWeek.value))
+  t(`trainingType.${getCycleTheme(syncedCycleWeek.value)}`)
 )
 
 const cycleThemeIcon = computed(() => getCycleThemeIcon(getCycleTheme(syncedCycleWeek.value)))
@@ -976,6 +1001,7 @@ const filteredExercises = computed(() => {
     category: libraryCategory.value || undefined,
     query: libraryQuery.value.trim(),
     suitableOnly: librarySuitableOnly.value,
+    minFootballReality: libraryMinReality.value,
     customExercises: custom,
   }).sort((a, b) =>
     getExerciseTitle(a).localeCompare(getExerciseTitle(b), 'nl')
@@ -986,10 +1012,11 @@ function resetLibraryFilters() {
   libraryQuery.value = ''
   libraryCategory.value = ''
   librarySuitableOnly.value = true
+  libraryMinReality.value = 0
 }
 
 function categoryLabel(id) {
-  return EXERCISE_CATEGORIES.find(c => c.id === id)?.label ?? id
+  return t(`category.${id}`)
 }
 
 function togglePlayer(id) {
@@ -1053,10 +1080,10 @@ async function generate() {
       activeTab.value = 'session'
       generateProgress.value = 1
       const total = hydrated.reduce((s, b) => s + b.durationMin, 0)
-      showSnackbar(`Training klaar (${hydrated.length} oefeningen, ${total} min)`)
+      showSnackbar(t('training.ready', { count: hydrated.length, min: total }))
     } catch (err) {
       console.error(err)
-      showSnackbar('Training maken mislukt — probeer opnieuw')
+      showSnackbar(t('training.failed'))
     } finally {
       isGenerating.value = false
       generateStatus.value = ''
@@ -1085,7 +1112,7 @@ async function generate() {
   )
   persistDraft()
   activeTab.value = 'session'
-  showSnackbar(`Training gegenereerd (${result.blocks.length} oefeningen, ${result.totalMin} min)`)
+  showSnackbar(t('training.generated', { count: result.blocks.length, min: result.totalMin }))
 }
 
 function markSessionFresh() {
@@ -1137,10 +1164,10 @@ async function adaptDetailBlock(instruction) {
     }
     detailBlock.value = next
     persistDraft()
-    showSnackbar('Oefening aangepast')
+    showSnackbar(t('training.adapted'))
   } catch (err) {
     console.error(err)
-    showSnackbar('Aanpassen mislukt')
+    showSnackbar(t('training.adaptFailed'))
   } finally {
     isAdapting.value = false
     adaptProgress.value = 0
@@ -1152,7 +1179,7 @@ function loadRecipeIntoSession(recipe) {
   const customList = store.getCustomExercises(store.activeTeamId)
   const resolved = resolveSavedBlocks(recipe, customList)
   if (!resolved.length) {
-    showSnackbar('Oefeningen niet beschikbaar voor dit recept')
+    showSnackbar(t('training.recipeMissing'))
     return false
   }
   trainingType.value = recipe.trainingType
@@ -1169,19 +1196,19 @@ function loadRecipeIntoSession(recipe) {
 
 function useSavedRecipe(recipe) {
   if (loadRecipeIntoSession(recipe)) {
-    showSnackbar(`"${recipe.name}" geladen`)
+    showSnackbar(t('training.loaded', { name: recipe.name }))
   }
 }
 
 function editSavedRecipe(recipe) {
   if (loadRecipeIntoSession(recipe)) {
-    showSnackbar(`"${recipe.name}" bewerken in Sessie`)
+    showSnackbar(t('training.editing', { name: recipe.name }))
   }
 }
 
 function duplicateSavedRecipe(recipe) {
   const copy = store.duplicateSavedTraining(store.activeTeamId, recipe.id)
-  if (copy) showSnackbar(`"${copy.name}" aangemaakt`)
+  if (copy) showSnackbar(t('training.duplicated', { name: copy.name }))
 }
 
 function deleteSavedRecipe(recipe) {
@@ -1189,7 +1216,7 @@ function deleteSavedRecipe(recipe) {
     activeSavedTrainingId.value = null
   }
   store.deleteSavedTraining(store.activeTeamId, recipe.id)
-  showSnackbar('Trainingsrecept verwijderd')
+  showSnackbar(t('training.recipeDeleted'))
 }
 
 function openSaveDialog() {
@@ -1213,7 +1240,7 @@ function onSaveDialogSubmit({ name, cycleTheme }) {
   activeSavedTrainingId.value = recipe.id
   persistDraft()
   closeSaveDialog()
-  showSnackbar(`"${name}" opgeslagen`)
+  showSnackbar(t('training.namedSaved', { name }))
 }
 
 function updateActiveSaved() {
@@ -1225,7 +1252,7 @@ function updateActiveSaved() {
     durationMin: durationMin.value,
     blocks: blocksToSerializable(sessionBlocks.value),
   })
-  showSnackbar(`"${existing.name}" bijgewerkt`)
+  showSnackbar(t('training.namedUpdated', { name: existing.name }))
 }
 
 function onPickSaved(recipe) {
@@ -1237,7 +1264,7 @@ function shareSavedRecipe(recipe) {
   const customList = store.getCustomExercises(store.activeTeamId)
   const blocks = resolveSavedBlocks(recipe, customList)
   if (!blocks.length) {
-    showSnackbar('Kan recept niet delen — oefeningen ontbreken')
+    showSnackbar(t('training.cannotShare'))
     return
   }
   const encoded = encodeRecipe({
@@ -1252,8 +1279,8 @@ function shareSavedRecipe(recipe) {
   const url = buildRecipeShareUrl(encoded)
   const text = `${recipe.name} — TeamPilot trainingsrecept`
   shareLink({ title: 'TeamPilot trainingsrecept', text, url }).then(result => {
-    if (result === 'copied') showSnackbar('Receptlink gekopieerd!')
-    if (result === 'failed') showSnackbar('Kopiëren mislukt')
+    if (result === 'copied') showSnackbar(t('share.recipeCopied'))
+    if (result === 'failed') showSnackbar(t('share.copyFailed'))
   })
 }
 
@@ -1272,8 +1299,8 @@ function shareTraining() {
   const url = buildTrainingShareUrl(encoded)
   const text = `Training ${activeTeam.value.name} (${totalMin.value} min)`
   shareLink({ title: 'Training TeamPilot', text, url }).then(result => {
-    if (result === 'copied') showSnackbar('Trainingslink gekopieerd!')
-    if (result === 'failed') showSnackbar('Kopiëren mislukt')
+    if (result === 'copied') showSnackbar(t('share.trainingCopied'))
+    if (result === 'failed') showSnackbar(t('share.copyFailed'))
   })
 }
 
@@ -1284,7 +1311,7 @@ function addManualExercise(ex) {
   highlightUid.value = block.uid
   if (highlightTimer) clearTimeout(highlightTimer)
   highlightTimer = setTimeout(() => { highlightUid.value = null }, 2000)
-  showSnackbar(`${getExerciseTitle(ex)} toegevoegd als oefening ${position}`)
+  showSnackbar(t('training.added', { title: getExerciseTitle(ex), position }))
   persistDraft()
 }
 
@@ -1292,7 +1319,7 @@ function onCustomExerciseSaved(exercise) {
   store.addCustomExercise(store.activeTeamId, exercise)
   showCustomDialog.value = false
   activeTab.value = 'library'
-  showSnackbar(`"${exercise.title}" opgeslagen in je bibliotheek`)
+  showSnackbar(t('training.customSaved', { title: exercise.title }))
 }
 
 function openPreview(ex) {
@@ -1760,18 +1787,44 @@ function addFromPreview(ex) {
   box-shadow: inset 0 0 0 2px var(--md-primary);
 }
 
+.session-reorder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  gap: 0;
+  margin-left: -4px;
+}
+
+.session-move {
+  width: 28px;
+  height: 22px;
+  color: var(--md-on-surface-variant);
+}
+
+.session-move .material-symbols-rounded {
+  font-size: 20px;
+}
+
+.session-move:disabled {
+  opacity: 0.28;
+}
+
 .drag-handle {
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   cursor: grab;
   color: var(--md-on-surface-variant);
   touch-action: none;
-  padding: var(--sp-1);
+  padding: 0;
   border-radius: var(--md-shape-sm);
 }
 
 .drag-handle .material-symbols-rounded {
-  font-size: 22px;
+  font-size: 20px;
   pointer-events: none;
 }
 
@@ -1804,6 +1857,10 @@ function addFromPreview(ex) {
 .session-info-btn {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
   border: none;
   background: transparent;
   cursor: pointer;

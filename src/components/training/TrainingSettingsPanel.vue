@@ -16,15 +16,15 @@
 
     <div class="settings-body" :class="{ 'card card-elevated': variant !== 'embedded' && !nested }">
       <p v-if="variant === 'sidebar'" class="md-title-sm settings-heading">
-        {{ showConfig ? 'Instellingen' : 'Wie is er?' }}
+        {{ showConfig ? t('settings.title') : t('settings.who') }}
       </p>
 
       <!-- 1. Wie is er? -->
       <div v-if="showPresent" class="section-block">
         <div class="section-head" :class="{ 'section-head--action-only': nested }">
-          <p v-if="!nested" class="md-title-sm section-title">Wie is er?</p>
+          <p v-if="!nested" class="md-title-sm section-title">{{ t('settings.who') }}</p>
           <button type="button" class="btn btn-text section-action" @click="$emit('toggle-all')">
-            {{ allPresent ? 'Geen' : 'Alle' }}
+            {{ allPresent ? t('common.none') : t('common.all') }}
           </button>
         </div>
         <div class="player-chips">
@@ -40,11 +40,11 @@
           </button>
         </div>
         <p v-if="balance" class="md-body-sm balance-line">
-          {{ balance.counts.DEF + balance.counts.GK }} verdedigers ·
-          {{ balance.counts.MID }} midden ·
-          {{ balance.counts.ATT + balance.counts.WB }} aanvallers
-          <span v-if="balance.needsAttackFocus" class="balance-hint"> — extra aanval</span>
-          <span v-else-if="balance.needsDefenceFocus" class="balance-hint"> — extra verdediging</span>
+          {{ t('settings.defenders', { n: balance.counts.DEF + balance.counts.GK }) }} ·
+          {{ t('settings.mid', { n: balance.counts.MID }) }} ·
+          {{ t('settings.attackers', { n: balance.counts.ATT + balance.counts.WB }) }}
+          <span v-if="balance.needsAttackFocus" class="balance-hint">{{ t('settings.extraAttack') }}</span>
+          <span v-else-if="balance.needsDefenceFocus" class="balance-hint">{{ t('settings.extraDefence') }}</span>
         </p>
       </div>
 
@@ -52,37 +52,37 @@
 
       <!-- 2. Type & duur -->
       <div v-if="showConfig" class="section-block section-block--config">
-        <p v-if="!nested" class="md-title-sm section-title">Opzet</p>
-        <div class="settings-grid">
-          <div class="field-wrap">
-            <label class="field-label field-label--icon" for="training-type-select">
-              <span class="material-symbols-rounded field-icon" aria-hidden="true">{{ trainingTypeIcon }}</span>
-              Type
-            </label>
-            <select
-              id="training-type-select"
-              class="field field-select"
-              :value="trainingType"
-              @change="$emit('update:trainingType', $event.target.value)"
-            >
-              <option v-for="t in trainingTypes" :key="t.id" :value="t.id">{{ t.label }}</option>
-            </select>
-            <p v-if="typeFollowsTheme" class="md-label-sm type-theme-hint">
-              Volgt weekthema
-            </p>
-            <p v-else class="md-label-sm type-theme-hint type-theme-hint--override">
-              Afwijkend van weekthema · {{ cycleThemeLabel }}
-              <button
-                type="button"
-                class="btn btn-text type-follow-btn"
-                @click="$emit('follow-theme')"
-              >
-                Volg weekthema
-              </button>
+            <p v-if="!nested" class="md-title-sm section-title">{{ t('training.setup') }}</p>
+            <div class="settings-grid">
+              <div class="field-wrap">
+                <label class="field-label field-label--icon" for="training-type-select">
+                  <span class="material-symbols-rounded field-icon" aria-hidden="true">{{ trainingTypeIcon }}</span>
+                  {{ t('settings.type') }}
+                </label>
+                <select
+                  id="training-type-select"
+                  class="field field-select"
+                  :value="trainingType"
+                  @change="$emit('update:trainingType', $event.target.value)"
+                >
+                  <option v-for="type in trainingTypes" :key="type.id" :value="type.id">{{ type.label }}</option>
+                </select>
+                <p v-if="typeFollowsTheme" class="md-label-sm type-theme-hint">
+                  {{ t('settings.followsTheme') }}
+                </p>
+                <p v-else class="md-label-sm type-theme-hint type-theme-hint--override">
+                  {{ t('settings.overrideTheme', { theme: cycleThemeLabel }) }}
+                  <button
+                    type="button"
+                    class="btn btn-text type-follow-btn"
+                    @click="$emit('follow-theme')"
+                  >
+                    {{ t('settings.followTheme') }}
+                  </button>
             </p>
           </div>
           <div class="field-wrap">
-            <label class="field-label" for="training-duration-input">Duur (min)</label>
+            <label class="field-label" for="training-duration-input">{{ t('settings.duration') }}</label>
             <input
               id="training-duration-input"
               class="field"
@@ -99,7 +99,7 @@
 
       <p v-if="showCycleInfo" class="md-body-sm cycle-info">
         <span class="material-symbols-rounded cycle-theme-icon" aria-hidden="true">{{ cycleThemeIcon }}</span>
-        Weekthema (cyclus week {{ cycleWeek }}/4): <strong>{{ cycleThemeLabel }}</strong>
+        {{ t('settings.weekThemeCycle', { week: cycleWeek }) }} <strong>{{ cycleThemeLabel }}</strong>
       </p>
     </div>
   </component>
@@ -109,6 +109,7 @@
 import { computed } from 'vue'
 import { getCycleTheme } from '@/utils/trainingEngine'
 import { getCycleThemeIcon, getTrainingTypeIcon } from '@/utils/trainingIcons'
+import { t } from '@/i18n'
 
 const props = defineProps({
   variant: { type: String, default: 'collapsible' },

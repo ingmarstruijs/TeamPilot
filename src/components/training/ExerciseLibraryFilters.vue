@@ -9,8 +9,8 @@
       @click.stop="open = !open"
     >
       <span class="material-symbols-rounded filters-trigger-icon" aria-hidden="true">tune</span>
-      <span class="filters-trigger-text">Zoeken &amp; filters</span>
-      <span v-if="hasActiveFilters" class="filters-active-dot" aria-label="Filters actief" />
+      <span class="filters-trigger-text">{{ t('library.searchFilters') }}</span>
+      <span v-if="hasActiveFilters" class="filters-active-dot" :aria-label="t('library.filtersActive')" />
       <span class="material-symbols-rounded filters-chevron" aria-hidden="true">expand_more</span>
     </button>
 
@@ -18,7 +18,7 @@
       v-if="open"
       class="filters-popover"
       role="dialog"
-      aria-label="Zoeken en filters"
+      :aria-label="t('library.searchAria')"
       @click.stop
     >
       <div class="filters-body">
@@ -29,8 +29,8 @@
             class="search-input"
             type="search"
             :value="query"
-            placeholder="Zoek oefening…"
-            aria-label="Zoek oefening"
+            :placeholder="t('library.searchPlaceholder')"
+            :aria-label="t('library.searchLabel')"
             @input="$emit('update:query', $event.target.value)"
           />
         </label>
@@ -38,23 +38,34 @@
         <select
           class="filter-select"
           :value="category"
-          aria-label="Categorie"
+          :aria-label="t('library.category')"
           @change="$emit('update:category', $event.target.value)"
         >
-          <option value="">Alle categorieën</option>
-          <option v-for="c in EXERCISE_CATEGORIES" :key="c.id" :value="c.id">{{ c.label }}</option>
+          <option value="">{{ t('library.allCategories') }}</option>
+          <option v-for="c in EXERCISE_CATEGORIES" :key="c.id" :value="c.id">{{ t(`category.${c.id}`) }}</option>
+        </select>
+
+        <select
+          class="filter-select"
+          :value="minFootballReality"
+          :aria-label="t('library.reality')"
+          @change="$emit('update:minFootballReality', Number($event.target.value) || 0)"
+        >
+          <option :value="0">{{ t('library.allReality') }}</option>
+          <option :value="1">{{ t('library.minRealityOne') }}</option>
+          <option v-for="n in [2, 3, 4, 5]" :key="n" :value="n">{{ t('library.minReality', { n }) }}</option>
         </select>
 
         <label
           class="suitable-toggle md-label-sm"
-          title="Verberg oefeningen die niet passen bij leeftijd, klasse en aantal spelers van je team"
+          :title="t('library.suitableTitle')"
         >
           <input
             type="checkbox"
             :checked="suitableOnly"
             @change="$emit('update:suitableOnly', $event.target.checked)"
           />
-          <span class="suitable-label">Alleen passend</span>
+          <span class="suitable-label">{{ t('library.suitableOnly') }}</span>
         </label>
 
         <button
@@ -64,12 +75,14 @@
           @click="$emit('reset')"
         >
           <span class="material-symbols-rounded" aria-hidden="true">close</span>
-          Filters wissen
+          {{ t('library.clear') }}
         </button>
       </div>
 
       <p class="result-count md-label-sm">
-        {{ resultCount }} {{ resultCount === 1 ? 'oefening' : 'oefeningen' }}
+        {{ resultCount === 1
+          ? t('library.resultOne', { n: resultCount })
+          : t('library.resultMany', { n: resultCount }) }}
       </p>
     </div>
   </div>
@@ -78,22 +91,24 @@
 <script setup>
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { EXERCISE_CATEGORIES } from '@/data/exercises'
+import { t } from '@/i18n'
 
 const props = defineProps({
   query: { type: String, default: '' },
   category: { type: String, default: '' },
   suitableOnly: { type: Boolean, default: true },
+  minFootballReality: { type: Number, default: 0 },
   resultCount: { type: Number, default: 0 },
 })
 
-defineEmits(['update:query', 'update:category', 'update:suitableOnly', 'reset'])
+defineEmits(['update:query', 'update:category', 'update:suitableOnly', 'update:minFootballReality', 'reset'])
 
 const open = ref(false)
 const rootRef = ref(null)
 const searchInputRef = ref(null)
 
 const hasActiveFilters = computed(() =>
-  Boolean(props.query || props.category || !props.suitableOnly)
+  Boolean(props.query || props.category || !props.suitableOnly || props.minFootballReality)
 )
 
 watch(open, async (isOpen) => {

@@ -1,79 +1,32 @@
 <template>
-  <div class="library-panel" :class="{ 'library-panel--sidebar': hideSessionStrip }">
-    <section
-      v-if="!hideSessionStrip"
-      class="session-card card card-elevated"
-    >
-      <div class="session-strip-head">
-        <span class="material-symbols-rounded session-strip-icon" aria-hidden="true">stadium</span>
-        <p class="md-label-md session-strip-title">
-          <template v-if="sessionBlocks.length">
-            Jouw training · {{ sessionBlocks.length }} {{ sessionBlocks.length === 1 ? 'oefening' : 'oefeningen' }}
-            · {{ totalMin }} min
-          </template>
-          <template v-else>
-            Nog geen oefeningen in je training
-          </template>
-        </p>
-      </div>
-      <div
-        v-if="sessionBlocks.length"
-        ref="sessionStripListRef"
-        class="session-strip-list"
-        role="list"
-        aria-label="Huidige training"
-      >
-        <span
-          v-for="(block, i) in sessionBlocks"
-          :key="block.uid"
-          class="session-strip-chip md-label-sm"
-          :class="{ 'is-new': block.uid === highlightUid }"
-          :data-block-uid="block.uid"
-          role="listitem"
-        >
-          <span class="chip-num">{{ i + 1 }}</span>
-          <span class="chip-label">{{ getExerciseTitle(block.exercise) }}</span>
-          <span class="chip-duration md-label-sm">{{ block.durationMin }} min</span>
-          <button
-            type="button"
-            class="chip-remove btn-icon"
-            :aria-label="`Verwijder ${getExerciseTitle(block.exercise)}`"
-            @click="$emit('remove-block', block.uid)"
-          >
-            <span class="material-symbols-rounded">close</span>
-          </button>
-        </span>
-      </div>
-      <p v-else class="md-body-sm session-strip-hint">
-        Oefeningen die je toevoegt komen onderaan je training te staan.
-      </p>
-    </section>
-
+  <div class="library-panel" :class="{ 'library-panel--sidebar': sidebar }">
     <section class="library-card card card-elevated">
       <div class="library-head">
-        <p class="md-title-sm library-title">Bibliotheek</p>
+        <p class="md-title-sm library-title">{{ t('library.title') }}</p>
         <ExerciseLibraryFilters
           class="library-head-filters"
           :query="query"
           :category="category"
           :suitable-only="suitableOnly"
+          :min-football-reality="minFootballReality"
           :result-count="exercises.length"
           @update:query="$emit('update:query', $event)"
           @update:category="$emit('update:category', $event)"
           @update:suitable-only="$emit('update:suitableOnly', $event)"
+          @update:min-football-reality="$emit('update:minFootballReality', $event)"
           @reset="$emit('reset-filters')"
         />
       </div>
 
       <div v-if="!exercises.length" class="library-empty md-body-sm">
-        Geen oefeningen gevonden — pas je zoekterm of filters aan.
+        {{ t('library.empty') }}
       </div>
       <div v-else class="manual-list">
         <div v-for="ex in exercises" :key="ex.id" class="manual-item">
           <button type="button" class="manual-item-main" @click="$emit('preview', ex)">
             <div class="manual-item-body">
               <p class="md-label-lg manual-title">
-                <span v-if="isCustomExercise(ex)" class="custom-ex-badge" title="Eigen oefening">
+                <span v-if="isCustomExercise(ex)" class="custom-ex-badge" :title="t('training.customExercise')">
                   <span class="material-symbols-rounded" aria-hidden="true">draw</span>
                 </span>
                 <span class="manual-title-text">{{ getExerciseTitle(ex) }}</span>
@@ -81,14 +34,15 @@
               <p class="md-body-sm manual-meta">
                 {{ categoryLabel(ex.category) }} · {{ ex.durationMin }} min · {{ playerRangeLabel(ex) }}
               </p>
+              <FootballRealityRating :rating="getFootballReality(ex)" />
             </div>
           </button>
           <div class="manual-item-actions">
             <button
               type="button"
               class="btn-icon manual-info"
-              aria-label="Details bekijken"
-              title="Details bekijken"
+              :aria-label="t('library.details')"
+              :title="t('library.details')"
               @click="$emit('preview', ex)"
             >
               <span class="material-symbols-rounded">info</span>
@@ -96,8 +50,8 @@
             <button
               type="button"
               class="btn-icon manual-add"
-              :aria-label="`Toevoegen als oefening ${nextPosition}`"
-              :title="`Toevoegen als #${nextPosition}`"
+              :aria-label="t('library.addAs', { position: nextPosition })"
+              :title="t('library.addAsTitle', { position: nextPosition })"
               @click="$emit('add', ex)"
             >
               <span class="material-symbols-rounded">add</span>
@@ -109,56 +63,44 @@
 
       <button type="button" class="btn btn-tonal library-custom-btn" @click="$emit('create-custom')">
         <span class="material-symbols-rounded" style="font-size:18px">draw</span>
-        Creëer eigen oefening
+        {{ t('library.createCustom') }}
       </button>
     </section>
   </div>
 </template>
 
 <script setup>
-import { computed, ref, watch, nextTick } from 'vue'
-import { EXERCISE_CATEGORIES } from '@/data/exercises'
+import { computed } from 'vue'
 import ExerciseLibraryFilters from '@/components/training/ExerciseLibraryFilters.vue'
-import { getExerciseTitle, isCustomExercise, playerRangeLabel } from '@/utils/exerciseText'
+import FootballRealityRating from '@/components/training/FootballRealityRating.vue'
+import { t } from '@/i18n'
+import { getExerciseTitle, getFootballReality, isCustomExercise, playerRangeLabel } from '@/utils/exerciseText'
 
 const props = defineProps({
   exercises: { type: Array, required: true },
   sessionBlocks: { type: Array, default: () => [] },
-  highlightUid: { type: String, default: null },
   query: { type: String, default: '' },
   category: { type: String, default: '' },
   suitableOnly: { type: Boolean, default: true },
-  hideSessionStrip: { type: Boolean, default: false },
+  minFootballReality: { type: Number, default: 0 },
+  sidebar: { type: Boolean, default: false },
 })
 
 defineEmits([
   'preview',
   'add',
   'create-custom',
-  'remove-block',
   'update:query',
   'update:category',
   'update:suitableOnly',
+  'update:minFootballReality',
   'reset-filters',
 ])
 
 const nextPosition = computed(() => props.sessionBlocks.length + 1)
-const totalMin = computed(() =>
-  props.sessionBlocks.reduce((sum, block) => sum + block.durationMin, 0)
-)
-const sessionStripListRef = ref(null)
-
-watch(() => props.highlightUid, async (uid) => {
-  if (!uid) return
-  await nextTick()
-  const list = sessionStripListRef.value
-  if (!list) return
-  const chip = list.querySelector(`[data-block-uid="${uid}"]`)
-  chip?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
-})
 
 function categoryLabel(id) {
-  return EXERCISE_CATEGORIES.find(c => c.id === id)?.label ?? id
+  return t(`category.${id}`)
 }
 </script>
 
@@ -170,102 +112,9 @@ function categoryLabel(id) {
   overflow: visible;
 }
 
-.session-card,
 .library-card {
   padding: var(--sp-3);
   overflow: visible;
-}
-
-.session-strip-head {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-  min-width: 0;
-}
-
-.session-strip-icon {
-  font-size: 20px;
-  color: var(--md-primary);
-  flex-shrink: 0;
-}
-
-.session-strip-title {
-  flex: 1;
-  min-width: 0;
-  margin: 0;
-}
-
-.session-strip-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-1);
-  margin-top: var(--sp-2);
-}
-
-.session-strip-chip {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  width: 100%;
-  padding: 4px 4px 4px 6px;
-  border-radius: var(--md-shape-md);
-  background: var(--md-surface);
-  border: 1px solid var(--md-outline-variant);
-  color: var(--md-on-surface);
-}
-
-.session-strip-chip.is-new {
-  animation: chip-highlight 2s ease-out;
-}
-
-@keyframes chip-highlight {
-  0%, 40% { background: color-mix(in srgb, var(--md-primary) 16%, var(--md-surface)); }
-  100% { background: var(--md-surface); }
-}
-
-.chip-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.125rem;
-  height: 1.125rem;
-  border-radius: var(--md-shape-full);
-  background: var(--md-primary-container);
-  color: var(--md-on-primary-container);
-  font-size: 10px;
-  font-weight: 600;
-  flex-shrink: 0;
-}
-
-.chip-label {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.chip-duration {
-  flex-shrink: 0;
-  color: var(--md-on-surface-variant);
-  font-size: 11px;
-  white-space: nowrap;
-}
-
-.chip-remove {
-  flex-shrink: 0;
-  width: 28px;
-  height: 28px;
-  color: var(--md-on-surface-variant);
-}
-
-.chip-remove .material-symbols-rounded {
-  font-size: 18px;
-}
-
-.session-strip-hint {
-  margin: var(--sp-1) 0 0;
-  color: var(--md-on-surface-variant);
 }
 
 .library-head {
@@ -379,6 +228,14 @@ function categoryLabel(id) {
 .manual-meta {
   margin: 2px 0 0;
   color: var(--md-on-surface-variant);
+}
+
+.manual-item-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
 }
 
 .custom-ex-badge {

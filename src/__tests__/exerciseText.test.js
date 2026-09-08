@@ -5,6 +5,7 @@ import {
   buildExerciseDescription,
   buildExerciseSetup,
   getExerciseTitle,
+  getFootballReality,
   getRinusRules,
   getRinusSvgUrl,
   getRinusUrl,
@@ -92,5 +93,12 @@ describe('exercise library', () => {
       expect(getExerciseTitle(ex)).toBeTruthy()
       expect(buildExerciseDescription(ex, ex.minPlayers)).toBeTruthy()
     }
+  })
+
+  it('exposes Rinus football-reality ball ratings', () => {
+    const rated = EXERCISES.filter(ex => getFootballReality(ex) != null)
+    expect(rated.length).toBeGreaterThan(100)
+    expect(getFootballReality(EXERCISES[0])).toBeGreaterThanOrEqual(1)
+    expect(getFootballReality(EXERCISES[0])).toBeLessThanOrEqual(5)
   })
 })

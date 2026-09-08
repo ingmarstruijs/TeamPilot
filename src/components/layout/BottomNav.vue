@@ -20,6 +20,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
+import { t } from '@/i18n'
 
 const route = useRoute()
 const store = useTeamStore()
@@ -40,10 +41,10 @@ const lineupTo = computed(() => {
 })
 
 const navItems = computed(() => [
-  { to: '/',           icon: 'home',          label: 'Home'       },
-  { to: '/players',    icon: 'groups',        label: 'Spelers'    },
-  { to: lineupTo.value, icon: 'grid_view',   label: 'Opstelling' },
-  { to: '/training',  icon: 'stadium',       label: 'Training' },
+  { to: '/',           icon: 'home',          label: t('nav.home') },
+  { to: '/players',    icon: 'groups',        label: t('nav.players') },
+  { to: lineupTo.value, icon: 'grid_view',   label: t('nav.lineup') },
+  { to: '/training',  icon: 'stadium',       label: t('nav.training') },
 ])
 
 function isActive(item) {

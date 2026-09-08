@@ -1,5 +1,5 @@
 <template>
-  <nav class="nav-drawer" :class="{ 'nav-drawer--collapsed': collapsed }" aria-label="Hoofdnavigatie">
+  <nav class="nav-drawer" :class="{ 'nav-drawer--collapsed': collapsed }" :aria-label="t('nav.main')">
     <!-- Team identity block -->
     <div class="drawer-team">
       <div class="drawer-team-badge">
@@ -37,14 +37,14 @@
       <button
         type="button"
         class="drawer-toggle"
-        :aria-label="collapsed ? 'Navigatie uitklappen' : 'Navigatie inklappen'"
-        :title="collapsed ? 'Uitklappen' : 'Inklappen'"
+        :aria-label="collapsed ? t('nav.expand') : t('nav.collapse')"
+        :title="collapsed ? t('nav.expandLabel') : t('nav.collapseLabel')"
         @click="$emit('toggle')"
       >
         <span class="material-symbols-rounded drawer-toggle-icon" aria-hidden="true">
           {{ collapsed ? 'chevron_right' : 'chevron_left' }}
         </span>
-        <span v-if="!collapsed" class="drawer-toggle-label md-label-sm">Inklappen</span>
+        <span v-if="!collapsed" class="drawer-toggle-label md-label-sm">{{ t('nav.collapseLabel') }}</span>
       </button>
       <span v-if="!collapsed" class="md-label-sm drawer-version">TeamPilot</span>
     </div>
@@ -57,6 +57,7 @@ import { useRoute } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
 import { ageGroupLabel } from '@/data/formations'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
+import { t } from '@/i18n'
 
 const route = useRoute()
 const store = useTeamStore()
@@ -73,12 +74,12 @@ const teamInitials = computed(() => {
   return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)
 })
 
-const navItems = [
-  { to: '/',           icon: 'home',          label: 'Home'       },
-  { to: '/players',    icon: 'groups',        label: 'Spelers'    },
-  { to: '/lineup/new', icon: 'grid_view',     label: 'Opstelling' },
-  { to: '/training',  icon: 'stadium',       label: 'Training' },
-]
+const navItems = computed(() => [
+  { to: '/',           icon: 'home',          label: t('nav.home') },
+  { to: '/players',    icon: 'groups',        label: t('nav.players') },
+  { to: '/lineup/new', icon: 'grid_view',     label: t('nav.lineup') },
+  { to: '/training',  icon: 'stadium',       label: t('nav.training') },
+])
 
 function isActive(item) {
   if (item.to === '/lineup/new') return route.path.startsWith('/lineup/')

@@ -26,6 +26,11 @@ function parseEntry(entry) {
     .map(d => d.title?.trim())
     .filter(Boolean)
 
+  const ratings = content.exerciseRatings ?? []
+  const realityRaw = ratings.find(r => r?.ratingType === 'exerciseReality')?.rating
+  const reality = Number.parseInt(realityRaw, 10)
+  const footballReality = Number.isInteger(reality) && reality >= 1 && reality <= 5 ? reality : null
+
   return {
     title: content.exerciseTitle?.trim() ?? null,
     durationMin: content.exerciseDuration ?? null,
@@ -34,6 +39,7 @@ function parseEntry(entry) {
     dimensions,
     description: activity?.activityExplanation?.trim() ?? null,
     footballAction: activity?.activityCategory?.[0]?.title?.trim() ?? null,
+    footballReality,
     svg,
     rules,
   }
@@ -79,6 +85,7 @@ for (const [id, content] of Object.entries(contentByRinusId)) {
     dimensions: content.dimensions,
     description: content.description,
     footballAction: content.footballAction,
+    footballReality: content.footballReality,
   }
 }
 

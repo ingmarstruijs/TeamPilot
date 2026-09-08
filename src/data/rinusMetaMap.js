@@ -14,7 +14,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Tussen de lijn en het doel: 8 - 10 - 12 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 3
   },
   "34023": {
     "title": "Oversteekspel - 2 verdedigers",
@@ -26,7 +27,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15/18 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 3
   },
   "34031": {
     "title": "Oversteekspel - 1 verdediger",
@@ -38,7 +40,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/15 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 3
   },
   "34045": {
     "title": "Pionschietspel vaste afstand",
@@ -50,7 +53,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/12 meter"
     ],
     "description": "De bal aan- of meenemen om verder te kunnen voetballen",
-    "footballAction": "Bal aannemen / meenemen"
+    "footballAction": "Bal aannemen / meenemen",
+    "footballReality": 2
   },
   "34053": {
     "title": "Poortschietspel met keeper",
@@ -62,7 +66,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/12 meter"
     ],
     "description": "De bal aan- of meenemen om verder te kunnen voetballen",
-    "footballAction": "Bal aannemen / meenemen"
+    "footballAction": "Bal aannemen / meenemen",
+    "footballReality": 2
   },
   "34073": {
     "title": "Poortschietspel vaste afstand",
@@ -74,7 +79,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/12 meter"
     ],
     "description": "De bal aan- of meenemen om verder te kunnen voetballen",
-    "footballAction": "Bal aannemen / meenemen"
+    "footballAction": "Bal aannemen / meenemen",
+    "footballReality": 2
   },
   "34159": {
     "title": "Dribbel pionschietspel met verdedigers  - niveau 1",
@@ -87,7 +93,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Van de lijn tot de pionnen: 10 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 3
   },
   "34231": {
     "title": "1 tegen 1 met 2 kleine doeltjes",
@@ -99,7 +106,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/12 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 5
   },
   "34301": {
     "title": "1 tegen 1 met pionnen",
@@ -111,7 +119,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/12 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "34343": {
     "title": "1 tegen 1 lijnvoetbal",
@@ -123,7 +132,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "34417": {
     "title": "1 tegen 1 met 4 doeltjes",
@@ -135,7 +145,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 12/15 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 5
   },
   "34535": {
     "title": "1 tegen 1+k groot doel, kleine doeltjes",
@@ -147,7 +158,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/15 meter"
     ],
     "description": "Zo snel mogelijk een poging doen de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "34561": {
     "title": "1 tegen 1+k groot doel, kleine doeltjes",
@@ -159,7 +171,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/15 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 5
   },
   "34563": {
     "title": "1 tegen 1+k grote doelen tegenstander van voren",
@@ -171,7 +184,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/15 meter"
     ],
     "description": "Het voorkomen van een schot op doel",
-    "footballAction": "Blokkeren"
+    "footballAction": "Blokkeren",
+    "footballReality": 5
   },
   "34789": {
     "title": "1+k tegen 1+k grote doelen",
@@ -183,7 +197,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 5
   },
   "35127": {
     "title": "3 tegen 3 met pionnen",
@@ -195,7 +210,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 30/40 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 5
   },
   "35181": {
     "title": "3 tegen 3 met 2 grote doelen",
@@ -207,7 +223,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 5
   },
   "35297": {
     "title": "2 tegen 2 met 4 kleine doeltjes",
@@ -219,7 +236,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15/18 meter"
     ],
     "description": "Zo snel mogelijk een poging doen de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "35379": {
     "title": "2+k tegen 1+k met breed veld en grote doelen",
@@ -231,7 +249,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/15 meter"
     ],
     "description": "Een doelpoging met de voet kan met wreef, binnenkant, buitenkant, punt of hak",
-    "footballAction": "Schieten"
+    "footballAction": "Schieten",
+    "footballReality": 5
   },
   "35529": {
     "title": "3 tegen 2 met 4 kleine doeltjes",
@@ -243,7 +262,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 30 meter"
     ],
     "description": "Zo snel mogelijk voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": null
   },
   "35669": {
     "title": "1 tegen 1+k groot doel en 1 klein doeltje (tegenstander van opzij)",
@@ -255,7 +275,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 5
   },
   "35683": {
     "title": "Oversteekspel met pionnen (2 verdedigers)",
@@ -267,7 +288,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 2
   },
   "35687": {
     "title": "Oversteekspel met pionnen (1 verdediger)",
@@ -279,7 +301,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 2
   },
   "35803": {
     "title": "3 tegen 1 positiespel",
@@ -291,7 +314,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 7/10 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 2
   },
   "35929": {
     "title": "Dribbelschietspel met 2 kleine doeltjes (2 aanvallers + 1 verdediger)",
@@ -303,7 +327,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 3
   },
   "35967": {
     "title": "3+k tegen 2+k lang smal veld grote doelen",
@@ -315,7 +340,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/15 meter"
     ],
     "description": "Een doelpoging met de voet kan met wreef, binnenkant, buitenkant, punt of hak",
-    "footballAction": "Schieten"
+    "footballAction": "Schieten",
+    "footballReality": 5
   },
   "36149": {
     "title": "4 tegen 2 positiespel",
@@ -327,7 +353,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15/18 meter"
     ],
     "description": "De bal aan- of meenemen om verder te kunnen voetballen",
-    "footballAction": "Bal aannemen / meenemen"
+    "footballAction": "Bal aannemen / meenemen",
+    "footballReality": 2
   },
   "36281": {
     "title": "1 tegen 1 met 4 kleine doeltjes",
@@ -339,7 +366,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15/30 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 5
   },
   "36383": {
     "title": "3+k tegen 2+k grote doelen",
@@ -351,7 +379,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15/18 meter"
     ],
     "description": "De bal veroveren en binnen de lijnen houden",
-    "footballAction": "Sliding"
+    "footballAction": "Sliding",
+    "footballReality": 5
   },
   "36557": {
     "title": "Startvorm met 2, 3 of 4 tikkers",
@@ -363,7 +392,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20/25 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 1
   },
   "36621": {
     "title": "4 tegen 3 met 4 doeltjes",
@@ -375,7 +405,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 40 meter"
     ],
     "description": "Het (kunnen) ondersteunen van medespelers",
-    "footballAction": "Knijpen"
+    "footballAction": "Knijpen",
+    "footballReality": 5
   },
   "36851": {
     "title": "Vrije voorzet 4+k tegen 3+k grote doelen",
@@ -387,7 +418,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 40/45 meter"
     ],
     "description": "De bal verdedigend koppen",
-    "footballAction": "Koppen"
+    "footballAction": "Koppen",
+    "footballReality": 4
   },
   "37045": {
     "title": "4 tegen 2 positiespel (smal veld)",
@@ -399,7 +431,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 12/15 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 2
   },
   "37175": {
     "title": "4 tegen 4 met 4 doeltjes",
@@ -411,7 +444,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 40 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "37207": {
     "title": "4+k tegen 3+k grote doelen",
@@ -423,7 +457,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 40 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 5
   },
   "37331": {
     "title": "8 tegen 8 circuit training",
@@ -435,7 +470,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 30 meter"
     ],
     "description": "Een tegenstander uitspelen",
-    "footballAction": "Passeren"
+    "footballAction": "Passeren",
+    "footballReality": null
   },
   "37545": {
     "title": "4 tegen 4 basisvorm",
@@ -447,7 +483,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "De bal veroveren en binnen de lijnen houden",
-    "footballAction": "Sliding"
+    "footballAction": "Sliding",
+    "footballReality": 5
   },
   "37587": {
     "title": "4+k tegen 4+k grote doelen",
@@ -459,7 +496,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 40 meter"
     ],
     "description": "Zo snel mogelijk een poging doen de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "37685": {
     "title": "7 tegen 7",
@@ -471,7 +509,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 50/55 meter"
     ],
     "description": "Zodanig positie kiezen of vrijlopen dat je aangespeeld kunt worden door een medespeler",
-    "footballAction": "Vrijlopen"
+    "footballAction": "Vrijlopen",
+    "footballReality": 5
   },
   "37729": {
     "title": "4 tegen 4 lijnvoetbal",
@@ -483,7 +522,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 40 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 5
   },
   "37787": {
     "title": "5 tegen 2 positiespel",
@@ -495,7 +535,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 12/15 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 2
   },
   "37947": {
     "title": "4+k tegen 3+k lang smal veld grote doelen",
@@ -507,7 +548,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15/18 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 5
   },
   "38095": {
     "title": "5 tegen 5",
@@ -519,7 +561,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 40 meter"
     ],
     "description": "Een tegenstander uitspelen",
-    "footballAction": "Passeren"
+    "footballAction": "Passeren",
+    "footballReality": 5
   },
   "38235": {
     "title": "4+k tegen 4+k, lang smal veld, grote doelen",
@@ -531,7 +574,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/15 meter"
     ],
     "description": "Zodanig positie kiezen of vrijlopen dat je aangespeeld kunt worden door een medespeler",
-    "footballAction": "Vrijlopen"
+    "footballAction": "Vrijlopen",
+    "footballReality": 5
   },
   "38301": {
     "title": "4 tegen 4 met 2 kleine doeltjes",
@@ -543,7 +587,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 5
   },
   "38507": {
     "title": "5 tegen 2 positiespel (smal veld)",
@@ -555,7 +600,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 8/12 meter"
     ],
     "description": "De bal aan- of meenemen om verder te kunnen voetballen",
-    "footballAction": "Bal aannemen / meenemen"
+    "footballAction": "Bal aannemen / meenemen",
+    "footballReality": 2
   },
   "38687": {
     "title": "4 tegen 4 met 4 kleine doeltjes",
@@ -567,7 +613,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 30/40 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 5
   },
   "38735": {
     "title": "4 tegen 4 met pionnen",
@@ -579,7 +626,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 30/40 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 5
   },
   "38925": {
     "title": "1 tegen 1 + 2 tegen 1 op klein doel",
@@ -591,7 +639,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15 meter"
     ],
     "description": "Een doelpoging met de voet kan met wreef, binnenkant, buitenkant, punt of hak",
-    "footballAction": "Schieten"
+    "footballAction": "Schieten",
+    "footballReality": 5
   },
   "38937": {
     "title": "3+K tegen 3+K met 2 grote doelen",
@@ -603,7 +652,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 40 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 5
   },
   "39039": {
     "title": "2 tegen 2 op kleine doelen",
@@ -615,7 +665,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/15 meter"
     ],
     "description": "Een tegenstander uitspelen",
-    "footballAction": "Passeren"
+    "footballAction": "Passeren",
+    "footballReality": 5
   },
   "39409": {
     "title": "Dribbel in + vorm",
@@ -627,7 +678,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 1
   },
   "39479": {
     "title": "Dribbelslalom - Niveau 2",
@@ -639,7 +691,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 1
   },
   "39671": {
     "title": "Pion dribbelspel",
@@ -651,7 +704,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 1
   },
   "39713": {
     "title": "Dribbel in slalom - Niveau 1",
@@ -663,7 +717,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 1
   },
   "39729": {
     "title": "2+k tegen 2 op 1 groot en 1 klein doel",
@@ -675,7 +730,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15/18 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 5
   },
   "39907": {
     "title": "4+k tegen 3 opbouwen met de centrale spelers",
@@ -687,7 +743,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 30 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 5
   },
   "40517": {
     "title": "1 tegen 1 van achteren",
@@ -699,7 +756,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15 meter"
     ],
     "description": "Een doelpoging met de voet kan met wreef, binnenkant, buitenkant, punt of hak",
-    "footballAction": "Schieten"
+    "footballAction": "Schieten",
+    "footballReality": 5
   },
   "40701": {
     "title": "1 tegen 1 schuin met twee poortjes",
@@ -711,7 +769,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "40811": {
     "title": "2 tegen 2 + 2 neutrale in 2 vakken positiespel",
@@ -723,7 +782,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 2
   },
   "40933": {
     "title": "2 tegen 2 met 2 neutrale op 2 kleine doelen",
@@ -735,7 +795,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 3
   },
   "41175": {
     "title": "4+K tegen 3 opbouw met de backs",
@@ -747,7 +808,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 30 meter"
     ],
     "description": "Zodanig positie kiezen of vrijlopen dat je aangespeeld kunt worden door een medespeler",
-    "footballAction": "Vrijlopen"
+    "footballAction": "Vrijlopen",
+    "footballReality": 5
   },
   "42143": {
     "title": "1+K tegen 1+K omschakelen",
@@ -759,7 +821,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 3
   },
   "42383": {
     "title": "1 tegen 1 na lange pass",
@@ -772,7 +835,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Tussenzone: 5 meter breed"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 4
   },
   "42495": {
     "title": "1 tegen 1 van de zijkant",
@@ -784,7 +848,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "42937": {
     "title": "4 tegen 3+k in 2 vakken, groot doel klein doel",
@@ -796,7 +861,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Het voorkomen van een schot op doel",
-    "footballAction": "Blokkeren"
+    "footballAction": "Blokkeren",
+    "footballReality": 4
   },
   "43061": {
     "title": "1 tegen 1+k verdedigen op 2 lijnen + scoren",
@@ -808,7 +874,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 3
   },
   "43099": {
     "title": "1 tegen 1+k verdedigen op 2 lijnen + scoren",
@@ -820,7 +887,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10 meter"
     ],
     "description": "Het voorkomen van een schot op doel",
-    "footballAction": "Blokkeren"
+    "footballAction": "Blokkeren",
+    "footballReality": 3
   },
   "43509": {
     "title": "4+k tegen 4 omschakelen, groot doel kleine doeltjes",
@@ -832,7 +900,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 30 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 5
   },
   "43877": {
     "title": "Lion King met kleine doeltjes",
@@ -844,7 +913,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 2
   },
   "43971": {
     "title": "1 tegen 1+k met dribbelparcours",
@@ -856,7 +926,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 4
   },
   "44063": {
     "title": "1 tegen 1 na richtingsverandering",
@@ -868,7 +939,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 3
   },
   "44111": {
     "title": "1 tegen 1 met 2 kaatsers",
@@ -880,7 +952,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 2
   },
   "44215": {
     "title": "1 tegen 1 na commando",
@@ -892,7 +965,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 3
   },
   "44273": {
     "title": "3+k tegen 3 met groot doel, klein doeltje in 2 vakken",
@@ -904,7 +978,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 4
   },
   "44645": {
     "title": "1 tegen 1 omschakelen naar 2 tegen 2",
@@ -916,7 +991,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 12 meter (per veldje)"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "44655": {
     "title": "1+k tegen 1+k grote doelen vanuit afwisselende posities",
@@ -928,7 +1004,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15/20 meter"
     ],
     "description": "Een doelpoging met de voet kan met wreef, binnenkant, buitenkant, punt of hak",
-    "footballAction": "Schieten"
+    "footballAction": "Schieten",
+    "footballReality": 4
   },
   "45587": {
     "title": "2+k tegen 2 + 1 neutrale, recht van de aanval",
@@ -940,7 +1017,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Een doelpoging met de voet kan met wreef, binnenkant, buitenkant, punt of hak",
-    "footballAction": "Schieten"
+    "footballAction": "Schieten",
+    "footballReality": 4
   },
   "45645": {
     "title": "Positiespel 2 tegen 1 spel verplaatsen",
@@ -953,7 +1031,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Tussenzone: 2 meter"
     ],
     "description": "De bal aan- of meenemen om verder te kunnen voetballen",
-    "footballAction": "Bal aannemen / meenemen"
+    "footballAction": "Bal aannemen / meenemen",
+    "footballReality": 3
   },
   "45657": {
     "title": "Positiespel 2 tegen 1 spel verplaatsen",
@@ -966,7 +1045,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Tussenzone: 2 meter"
     ],
     "description": "De bal aan- of meenemen om verder te kunnen voetballen",
-    "footballAction": "Bal aannemen / meenemen"
+    "footballAction": "Bal aannemen / meenemen",
+    "footballReality": 3
   },
   "45811": {
     "title": "Positiespel 3 tegen 2 spel verplaatsen",
@@ -979,7 +1059,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Tussenzone: 2 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 3
   },
   "45843": {
     "title": "1 tegen 1 met omgekeerde poortjes",
@@ -991,7 +1072,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 3
   },
   "46271": {
     "title": "4 tegen 4 met verdediger in de rug",
@@ -1003,7 +1085,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 40 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 5
   },
   "46443": {
     "title": "2 tegen 1+k stroomvorm",
@@ -1015,7 +1098,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15 meter (per veldje)"
     ],
     "description": "Het voorkomen van een schot op doel",
-    "footballAction": "Blokkeren"
+    "footballAction": "Blokkeren",
+    "footballReality": 5
   },
   "46587": {
     "title": "3+k tegen 3+k met grote doelen in 2 vakken",
@@ -1027,7 +1111,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 4
   },
   "46659": {
     "title": "Doelschietspel met keeper",
@@ -1039,7 +1124,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 2
   },
   "46677": {
     "title": "Dribbelschietspel met pionnen (1 verdediger)",
@@ -1051,7 +1137,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 3
   },
   "46685": {
     "title": "Dribbelschietspel met pionnen (2 verdedigers)",
@@ -1063,7 +1150,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 3
   },
   "46847": {
     "title": "3 tegen 2 op 4 doelen op 2 veldjes",
@@ -1075,7 +1163,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Een doelpoging met de voet kan met wreef, binnenkant, buitenkant, punt of hak",
-    "footballAction": "Schieten"
+    "footballAction": "Schieten",
+    "footballReality": 5
   },
   "46885": {
     "title": "3 tegen 2, lang smal veld, kleine doeltjes",
@@ -1087,7 +1176,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10/12 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 5
   },
   "47293": {
     "title": "4 tegen 4 met 4 kleine doeltjes",
@@ -1099,7 +1189,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 30/40 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 5
   },
   "47347": {
     "title": "2 tegen 2 met pionnen",
@@ -1111,7 +1202,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20/30 meter"
     ],
     "description": "Een tegenstander uitspelen",
-    "footballAction": "Passeren"
+    "footballAction": "Passeren",
+    "footballReality": 5
   },
   "47393": {
     "title": "Hinkel estafette met bal",
@@ -1123,7 +1215,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47441": {
     "title": "Hesje roven",
@@ -1135,7 +1228,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 5 meter (per vak)"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47449": {
     "title": "Stuiter- en dribbel estafette",
@@ -1148,7 +1242,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Afstand tussen pionnen: 3 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 2
   },
   "47477": {
     "title": "Vind je maatje",
@@ -1160,7 +1255,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 2
   },
   "47499": {
     "title": "Bruggetje met bal",
@@ -1172,7 +1268,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47531": {
     "title": "Koprollen met de bal",
@@ -1184,7 +1281,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47551": {
     "title": "Bokje springen estafette",
@@ -1197,7 +1295,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Afstand tussen de pionnen: 3 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47565": {
     "title": "Bal beschermen in kruiphouding",
@@ -1209,7 +1308,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47607": {
     "title": "Passen en lopen",
@@ -1221,7 +1321,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47613": {
     "title": "Latje gooi",
@@ -1233,7 +1334,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 2
   },
   "47623": {
     "title": "Rugboarden",
@@ -1245,7 +1347,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47671": {
     "title": "Elastiek sprint",
@@ -1257,7 +1360,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47673": {
     "title": "Sprint uit startpositie",
@@ -1269,7 +1373,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47699": {
     "title": "Passen en jagen",
@@ -1281,7 +1386,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 2
   },
   "47701": {
     "title": "Passen en lopen",
@@ -1293,7 +1399,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47727": {
     "title": "Ontsnappen",
@@ -1305,7 +1412,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47771": {
     "title": "1 tegen 1 na contactsprong",
@@ -1317,7 +1425,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 25 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 3
   },
   "47799": {
     "title": "Hamstringloop",
@@ -1329,7 +1438,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47817": {
     "title": "Op één been duwen en trekken",
@@ -1341,7 +1451,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47831": {
     "title": "Plankenrace",
@@ -1353,7 +1464,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47837": {
     "title": "Balans in driehoek",
@@ -1365,7 +1477,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47853": {
     "title": "Kriskrassen",
@@ -1377,7 +1490,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47859": {
     "title": "Lijnenloop",
@@ -1389,7 +1503,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 15 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47863": {
     "title": "Lunges met bal",
@@ -1401,7 +1516,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47875": {
     "title": "Planken op de bal",
@@ -1413,7 +1529,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "47931": {
     "title": "De vrije speler zoeken",
@@ -1426,7 +1543,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "5 spelers per vorm, eventueel meerdere organisaties uitzetten"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": null
   },
   "47961": {
     "title": "Lijnen dribbel",
@@ -1439,7 +1557,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Vierkant: 5 bij 5 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": null
   },
   "47965": {
     "title": "Scoren uit voorzet",
@@ -1452,7 +1571,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Pionnen op de achterlijn: Op de kruizing van de 16 meter en achterlijn, daarna elke 5 meter een pion"
     ],
     "description": "De bal verplaatsen naar een medespeler voor het doel",
-    "footballAction": "Voorzet geven"
+    "footballAction": "Voorzet geven",
+    "footballReality": null
   },
   "48167": {
     "title": "Doelschietspel met keeper - niveau 1",
@@ -1465,7 +1585,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Tussen de lijn en het doel: 8 - 10 - 12 meter"
     ],
     "description": "Een doelpoging met de voet kan met wreef, binnenkant, buitenkant, punt of hak",
-    "footballAction": "Schieten"
+    "footballAction": "Schieten",
+    "footballReality": 3
   },
   "48209": {
     "title": "Keepers: 1 tegen 1 vierkant verdedigen",
@@ -1478,7 +1599,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Vierkant: 4 bij 4 meter"
     ],
     "description": "Het verdedigen van de één tegen één situatie wanneer een aanvaller alleen op de keeper komt",
-    "footballAction": "Keepers: 1 tegen 1"
+    "footballAction": "Keepers: 1 tegen 1",
+    "footballReality": null
   },
   "48213": {
     "title": "Keepers: 1 tegen 1 doelschietspel",
@@ -1490,7 +1612,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte 15 meter"
     ],
     "description": "Het verdedigen van de één tegen één situatie wanneer een aanvaller alleen op de keeper komt",
-    "footballAction": "Keepers: 1 tegen 1"
+    "footballAction": "Keepers: 1 tegen 1",
+    "footballReality": null
   },
   "193212": {
     "title": "Kleuren strijd",
@@ -1502,7 +1625,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "193333": {
     "title": "Sprint uit startpositie",
@@ -1514,7 +1638,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "193337": {
     "title": "Flagg football",
@@ -1526,7 +1651,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 25 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 2
   },
   "197790": {
     "title": "Piraten",
@@ -1538,7 +1664,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 3
   },
   "312839": {
     "title": "2 tegen 2 met kleine doeltjes vanuit afwisselende posities",
@@ -1550,7 +1677,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Breedte 15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 4
   },
   "1135012": {
     "title": "Dynamische loopvormen 11+",
@@ -1563,7 +1691,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Afstand tussen pionnen: 5 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "1484136": {
     "title": "Koppen en keepen",
@@ -1576,7 +1705,8 @@ export const RINUS_META_BY_RINUS_ID = {
       "Afstand tot het doel: 5 meter"
     ],
     "description": "Door middelen van koppen proberen te scoren",
-    "footballAction": "Koppen"
+    "footballAction": "Koppen",
+    "footballReality": 2
   }
 }
 
@@ -1591,7 +1721,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "wu-dynamisch-stretchen": {
     "title": "Dynamische loopvormen 11+",
@@ -1604,7 +1735,8 @@ export const RINUS_META_MAP = {
       "Afstand tussen pionnen: 5 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "wu-rondo-licht": {
     "title": "5 tegen 2 positiespel",
@@ -1616,7 +1748,8 @@ export const RINUS_META_MAP = {
       "Breedte: 12/15 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 2
   },
   "wu-snelheidsladders": {
     "title": "Lijnenloop",
@@ -1628,7 +1761,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "tech-driehoek-passen": {
     "title": "Passen en lopen",
@@ -1640,7 +1774,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "tech-een-tegen-een": {
     "title": "1 tegen 1+k groot doel, kleine doeltjes",
@@ -1652,7 +1787,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Zo snel mogelijk een poging doen de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "tech-afwerken": {
     "title": "Doelschietspel met keeper - niveau 1",
@@ -1665,7 +1801,8 @@ export const RINUS_META_MAP = {
       "Tussen de lijn en het doel: 8 - 10 - 12 meter"
     ],
     "description": "Een doelpoging met de voet kan met wreef, binnenkant, buitenkant, punt of hak",
-    "footballAction": "Schieten"
+    "footballAction": "Schieten",
+    "footballReality": 3
   },
   "tech-kopbal": {
     "title": "Koppen en keepen",
@@ -1678,7 +1815,8 @@ export const RINUS_META_MAP = {
       "Afstand tot het doel: 5 meter"
     ],
     "description": "Door middelen van koppen proberen te scoren",
-    "footballAction": "Koppen"
+    "footballAction": "Koppen",
+    "footballReality": 2
   },
   "tech-dribbel-parcours": {
     "title": "Dribbel in + vorm",
@@ -1690,7 +1828,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 1
   },
   "tech-snel-passen": {
     "title": "De vrije speler zoeken",
@@ -1703,7 +1842,8 @@ export const RINUS_META_MAP = {
       "5 spelers per vorm, eventueel meerdere organisaties uitzetten"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": null
   },
   "tech-voorzet-afmaken": {
     "title": "Scoren uit voorzet",
@@ -1716,7 +1856,8 @@ export const RINUS_META_MAP = {
       "Pionnen op de achterlijn: Op de kruizing van de 16 meter en achterlijn, daarna elke 5 meter een pion"
     ],
     "description": "De bal verplaatsen naar een medespeler voor het doel",
-    "footballAction": "Voorzet geven"
+    "footballAction": "Voorzet geven",
+    "footballReality": null
   },
   "tac-druk-zetten": {
     "title": "5 tegen 2 positiespel (smal veld)",
@@ -1728,7 +1869,8 @@ export const RINUS_META_MAP = {
       "Breedte: 8/12 meter"
     ],
     "description": "De bal aan- of meenemen om verder te kunnen voetballen",
-    "footballAction": "Bal aannemen / meenemen"
+    "footballAction": "Bal aannemen / meenemen",
+    "footballReality": 2
   },
   "tac-opbouwen": {
     "title": "4+K tegen 3 opbouw met de backs",
@@ -1740,7 +1882,8 @@ export const RINUS_META_MAP = {
       "Breedte: 30 meter"
     ],
     "description": "Zodanig positie kiezen of vrijlopen dat je aangespeeld kunt worden door een medespeler",
-    "footballAction": "Vrijlopen"
+    "footballAction": "Vrijlopen",
+    "footballReality": 5
   },
   "tac-overload": {
     "title": "Positiespel 2 tegen 1 spel verplaatsen",
@@ -1753,7 +1896,8 @@ export const RINUS_META_MAP = {
       "Tussenzone: 2 meter"
     ],
     "description": "De bal aan- of meenemen om verder te kunnen voetballen",
-    "footballAction": "Bal aannemen / meenemen"
+    "footballAction": "Bal aannemen / meenemen",
+    "footballReality": 3
   },
   "tac-transitie": {
     "title": "1+K tegen 1+K omschakelen",
@@ -1765,7 +1909,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 3
   },
   "tac-zone-spel": {
     "title": "Positiespel 3 tegen 2 spel verplaatsen",
@@ -1778,7 +1923,8 @@ export const RINUS_META_MAP = {
       "Tussenzone: 2 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 3
   },
   "con-interval": {
     "title": "Lijnenloop",
@@ -1790,7 +1936,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "con-shuttle": {
     "title": "Hinkel estafette met bal",
@@ -1802,7 +1949,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "con-kleine-partij": {
     "title": "4 tegen 4 basisvorm",
@@ -1814,7 +1962,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "De bal veroveren en binnen de lijnen houden",
-    "footballAction": "Sliding"
+    "footballAction": "Sliding",
+    "footballReality": 5
   },
   "con-weerstand": {
     "title": "Elastiek sprint",
@@ -1826,7 +1975,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "part-5v5": {
     "title": "5 tegen 5",
@@ -1838,7 +1988,8 @@ export const RINUS_META_MAP = {
       "Breedte: 40 meter"
     ],
     "description": "Een tegenstander uitspelen",
-    "footballAction": "Passeren"
+    "footballAction": "Passeren",
+    "footballReality": 5
   },
   "part-7v7": {
     "title": "7 tegen 7",
@@ -1850,7 +2001,8 @@ export const RINUS_META_MAP = {
       "Breedte: 50/55 meter"
     ],
     "description": "Zodanig positie kiezen of vrijlopen dat je aangespeeld kunt worden door een medespeler",
-    "footballAction": "Vrijlopen"
+    "footballAction": "Vrijlopen",
+    "footballReality": 5
   },
   "part-8v8": {
     "title": "8 tegen 8 circuit training",
@@ -1862,7 +2014,8 @@ export const RINUS_META_MAP = {
       "Breedte: 30 meter"
     ],
     "description": "Een tegenstander uitspelen",
-    "footballAction": "Passeren"
+    "footballAction": "Passeren",
+    "footballReality": null
   },
   "af-koordans": {
     "title": "Lunges met bal",
@@ -1874,7 +2027,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "af-spelletje": {
     "title": "Passen en jagen",
@@ -1886,7 +2040,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 2
   },
   "tech-vrije-speler": {
     "title": "De vrije speler zoeken",
@@ -1899,7 +2054,8 @@ export const RINUS_META_MAP = {
       "5 spelers per vorm, eventueel meerdere organisaties uitzetten"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": null
   },
   "tech-3v1-opbouw": {
     "title": "3 tegen 1 positiespel",
@@ -1911,7 +2067,8 @@ export const RINUS_META_MAP = {
       "Breedte: 7/10 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 2
   },
   "tech-4v2-positiespel": {
     "title": "4 tegen 2 positiespel",
@@ -1923,7 +2080,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15/18 meter"
     ],
     "description": "De bal aan- of meenemen om verder te kunnen voetballen",
-    "footballAction": "Bal aannemen / meenemen"
+    "footballAction": "Bal aannemen / meenemen",
+    "footballReality": 2
   },
   "tech-balans-driehoek": {
     "title": "Balans in driehoek",
@@ -1935,7 +2093,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "tech-lijnen-dribbel": {
     "title": "Lijnen dribbel",
@@ -1948,7 +2107,8 @@ export const RINUS_META_MAP = {
       "Vierkant: 5 bij 5 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": null
   },
   "tech-dribbel-in-vorm": {
     "title": "Dribbel in + vorm",
@@ -1960,7 +2120,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 1
   },
   "tech-1v1-keeper": {
     "title": "Keepers: 1 tegen 1 doelschietspel",
@@ -1972,7 +2133,8 @@ export const RINUS_META_MAP = {
       "Breedte 15 meter"
     ],
     "description": "Het verdedigen van de één tegen één situatie wanneer een aanvaller alleen op de keeper komt",
-    "footballAction": "Keepers: 1 tegen 1"
+    "footballAction": "Keepers: 1 tegen 1",
+    "footballReality": null
   },
   "tech-1v1-omschakelen": {
     "title": "1+K tegen 1+K omschakelen",
@@ -1984,7 +2146,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 3
   },
   "tech-1v1-doeltjes": {
     "title": "1 tegen 1+k groot doel, kleine doeltjes",
@@ -1996,7 +2159,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Zo snel mogelijk een poging doen de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "tac-2v1-verplaatsen": {
     "title": "Positiespel 2 tegen 1 spel verplaatsen",
@@ -2009,7 +2173,8 @@ export const RINUS_META_MAP = {
       "Tussenzone: 2 meter"
     ],
     "description": "De bal aan- of meenemen om verder te kunnen voetballen",
-    "footballAction": "Bal aannemen / meenemen"
+    "footballAction": "Bal aannemen / meenemen",
+    "footballReality": 3
   },
   "tac-3v2-verplaatsen": {
     "title": "Positiespel 3 tegen 2 spel verplaatsen",
@@ -2022,7 +2187,8 @@ export const RINUS_META_MAP = {
       "Tussenzone: 2 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 3
   },
   "tac-4k-opbouw-backs": {
     "title": "4+K tegen 3 opbouw met de backs",
@@ -2034,7 +2200,8 @@ export const RINUS_META_MAP = {
       "Breedte: 30 meter"
     ],
     "description": "Zodanig positie kiezen of vrijlopen dat je aangespeeld kunt worden door een medespeler",
-    "footballAction": "Vrijlopen"
+    "footballAction": "Vrijlopen",
+    "footballReality": 5
   },
   "tac-1v1-verdedigen": {
     "title": "1 tegen 1+k verdedigen op 2 lijnen + scoren",
@@ -2046,7 +2213,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Het voorkomen van een schot op doel",
-    "footballAction": "Blokkeren"
+    "footballAction": "Blokkeren",
+    "footballReality": 3
   },
   "gk-1v1-vierkant": {
     "title": "Keepers: 1 tegen 1 vierkant verdedigen",
@@ -2059,7 +2227,8 @@ export const RINUS_META_MAP = {
       "Vierkant: 4 bij 4 meter"
     ],
     "description": "Het verdedigen van de één tegen één situatie wanneer een aanvaller alleen op de keeper komt",
-    "footballAction": "Keepers: 1 tegen 1"
+    "footballAction": "Keepers: 1 tegen 1",
+    "footballReality": null
   },
   "part-4v4-pionnen": {
     "title": "4 tegen 4 met pionnen",
@@ -2071,7 +2240,8 @@ export const RINUS_META_MAP = {
       "Breedte: 30/40 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 5
   },
   "part-4v4-doeltjes": {
     "title": "4 tegen 4 met 4 kleine doeltjes",
@@ -2083,7 +2253,8 @@ export const RINUS_META_MAP = {
       "Breedte: 30/40 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 5
   },
   "part-4v4-basis-o11": {
     "title": "4 tegen 4 basisvorm",
@@ -2095,7 +2266,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "De bal veroveren en binnen de lijnen houden",
-    "footballAction": "Sliding"
+    "footballAction": "Sliding",
+    "footballReality": 5
   },
   "part-9v9": {
     "title": "8 tegen 8 circuit training",
@@ -2107,7 +2279,8 @@ export const RINUS_META_MAP = {
       "Breedte: 30 meter"
     ],
     "description": "Een tegenstander uitspelen",
-    "footballAction": "Passeren"
+    "footballAction": "Passeren",
+    "footballReality": null
   },
   "wu-voetbalfit-balans": {
     "title": "Balans in driehoek",
@@ -2119,7 +2292,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "con-positiespel-3v2": {
     "title": "Positiespel 3 tegen 2 spel verplaatsen",
@@ -2132,7 +2306,8 @@ export const RINUS_META_MAP = {
       "Tussenzone: 2 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 3
   },
   "tech-muur-passen": {
     "title": "De vrije speler zoeken",
@@ -2145,7 +2320,8 @@ export const RINUS_META_MAP = {
       "5 spelers per vorm, eventueel meerdere organisaties uitzetten"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": null
   },
   "tac-hoog-druk-4v2": {
     "title": "4 tegen 2 positiespel",
@@ -2157,7 +2333,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15/18 meter"
     ],
     "description": "De bal aan- of meenemen om verder te kunnen voetballen",
-    "footballAction": "Bal aannemen / meenemen"
+    "footballAction": "Bal aannemen / meenemen",
+    "footballReality": 2
   },
   "tech-afwerken-keeper": {
     "title": "Keepers: 1 tegen 1 doelschietspel",
@@ -2169,7 +2346,8 @@ export const RINUS_META_MAP = {
       "Breedte 15 meter"
     ],
     "description": "Het verdedigen van de één tegen één situatie wanneer een aanvaller alleen op de keeper komt",
-    "footballAction": "Keepers: 1 tegen 1"
+    "footballAction": "Keepers: 1 tegen 1",
+    "footballReality": null
   },
   "cond-richting-wissel": {
     "title": "Sprint uit startpositie",
@@ -2181,7 +2359,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "af-stretchen-kring": {
     "title": "Lunges met bal",
@@ -2193,7 +2372,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "af-evaluation": {
     "title": "Passen en jagen",
@@ -2205,7 +2385,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 2
   },
   "af-rondo-afsluit": {
     "title": "5 tegen 2 positiespel",
@@ -2217,7 +2398,8 @@ export const RINUS_META_MAP = {
       "Breedte: 12/15 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 2
   },
   "rinus-34159": {
     "title": "Dribbel pionschietspel met verdedigers  - niveau 1",
@@ -2230,7 +2412,8 @@ export const RINUS_META_MAP = {
       "Van de lijn tot de pionnen: 10 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 3
   },
   "rinus-36557": {
     "title": "Startvorm met 2, 3 of 4 tikkers",
@@ -2242,7 +2425,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20/25 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 1
   },
   "rinus-39713": {
     "title": "Dribbel in slalom - Niveau 1",
@@ -2254,7 +2438,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 1
   },
   "rinus-35683": {
     "title": "Oversteekspel met pionnen (2 verdedigers)",
@@ -2266,7 +2451,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 2
   },
   "rinus-34053": {
     "title": "Poortschietspel met keeper",
@@ -2278,7 +2464,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/12 meter"
     ],
     "description": "De bal aan- of meenemen om verder te kunnen voetballen",
-    "footballAction": "Bal aannemen / meenemen"
+    "footballAction": "Bal aannemen / meenemen",
+    "footballReality": 2
   },
   "rinus-34023": {
     "title": "Oversteekspel - 2 verdedigers",
@@ -2290,7 +2477,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15/18 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 3
   },
   "rinus-33773": {
     "title": "Doelschietspel met keeper - niveau 1",
@@ -2303,7 +2491,8 @@ export const RINUS_META_MAP = {
       "Tussen de lijn en het doel: 8 - 10 - 12 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 3
   },
   "rinus-35687": {
     "title": "Oversteekspel met pionnen (1 verdediger)",
@@ -2315,7 +2504,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 2
   },
   "rinus-46659": {
     "title": "Doelschietspel met keeper",
@@ -2327,7 +2517,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 2
   },
   "rinus-43877": {
     "title": "Lion King met kleine doeltjes",
@@ -2339,7 +2530,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 2
   },
   "rinus-34073": {
     "title": "Poortschietspel vaste afstand",
@@ -2351,7 +2543,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/12 meter"
     ],
     "description": "De bal aan- of meenemen om verder te kunnen voetballen",
-    "footballAction": "Bal aannemen / meenemen"
+    "footballAction": "Bal aannemen / meenemen",
+    "footballReality": 2
   },
   "rinus-46677": {
     "title": "Dribbelschietspel met pionnen (1 verdediger)",
@@ -2363,7 +2556,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 3
   },
   "rinus-39671": {
     "title": "Pion dribbelspel",
@@ -2375,7 +2569,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 1
   },
   "rinus-34045": {
     "title": "Pionschietspel vaste afstand",
@@ -2387,7 +2582,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/12 meter"
     ],
     "description": "De bal aan- of meenemen om verder te kunnen voetballen",
-    "footballAction": "Bal aannemen / meenemen"
+    "footballAction": "Bal aannemen / meenemen",
+    "footballReality": 2
   },
   "rinus-35929": {
     "title": "Dribbelschietspel met 2 kleine doeltjes (2 aanvallers + 1 verdediger)",
@@ -2399,7 +2595,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 3
   },
   "rinus-46685": {
     "title": "Dribbelschietspel met pionnen (2 verdedigers)",
@@ -2411,7 +2608,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 3
   },
   "rinus-39479": {
     "title": "Dribbelslalom - Niveau 2",
@@ -2423,7 +2621,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 1
   },
   "rinus-34031": {
     "title": "Oversteekspel - 1 verdediger",
@@ -2435,7 +2634,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 3
   },
   "rinus-34417": {
     "title": "1 tegen 1 met 4 doeltjes",
@@ -2447,7 +2647,8 @@ export const RINUS_META_MAP = {
       "Breedte: 12/15 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 5
   },
   "rinus-45843": {
     "title": "1 tegen 1 met omgekeerde poortjes",
@@ -2459,7 +2660,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 3
   },
   "rinus-43061": {
     "title": "1 tegen 1+k verdedigen op 2 lijnen + scoren",
@@ -2471,7 +2673,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 3
   },
   "rinus-34563": {
     "title": "1 tegen 1+k grote doelen tegenstander van voren",
@@ -2483,7 +2686,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Het voorkomen van een schot op doel",
-    "footballAction": "Blokkeren"
+    "footballAction": "Blokkeren",
+    "footballReality": 5
   },
   "rinus-40701": {
     "title": "1 tegen 1 schuin met twee poortjes",
@@ -2495,7 +2699,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "rinus-44111": {
     "title": "1 tegen 1 met 2 kaatsers",
@@ -2507,7 +2712,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 2
   },
   "rinus-47347": {
     "title": "2 tegen 2 met pionnen",
@@ -2519,7 +2725,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20/30 meter"
     ],
     "description": "Een tegenstander uitspelen",
-    "footballAction": "Passeren"
+    "footballAction": "Passeren",
+    "footballReality": 5
   },
   "rinus-44645": {
     "title": "1 tegen 1 omschakelen naar 2 tegen 2",
@@ -2531,7 +2738,8 @@ export const RINUS_META_MAP = {
       "Breedte: 12 meter (per veldje)"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "rinus-34789": {
     "title": "1+k tegen 1+k grote doelen",
@@ -2543,7 +2751,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 5
   },
   "rinus-36281": {
     "title": "1 tegen 1 met 4 kleine doeltjes",
@@ -2555,7 +2764,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15/30 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 5
   },
   "rinus-44215": {
     "title": "1 tegen 1 na commando",
@@ -2567,7 +2777,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 3
   },
   "rinus-34561": {
     "title": "1 tegen 1+k groot doel, kleine doeltjes",
@@ -2579,7 +2790,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 5
   },
   "rinus-44655": {
     "title": "1+k tegen 1+k grote doelen vanuit afwisselende posities",
@@ -2591,7 +2803,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15/20 meter"
     ],
     "description": "Een doelpoging met de voet kan met wreef, binnenkant, buitenkant, punt of hak",
-    "footballAction": "Schieten"
+    "footballAction": "Schieten",
+    "footballReality": 4
   },
   "rinus-35669": {
     "title": "1 tegen 1+k groot doel en 1 klein doeltje (tegenstander van opzij)",
@@ -2603,7 +2816,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 5
   },
   "rinus-44063": {
     "title": "1 tegen 1 na richtingsverandering",
@@ -2615,7 +2829,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 3
   },
   "rinus-42495": {
     "title": "1 tegen 1 van de zijkant",
@@ -2627,7 +2842,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "rinus-34301": {
     "title": "1 tegen 1 met pionnen",
@@ -2639,7 +2855,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/12 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "rinus-43971": {
     "title": "1 tegen 1+k met dribbelparcours",
@@ -2651,7 +2868,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 4
   },
   "rinus-34231": {
     "title": "1 tegen 1 met 2 kleine doeltjes",
@@ -2663,7 +2881,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/12 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 5
   },
   "rinus-42383": {
     "title": "1 tegen 1 na lange pass",
@@ -2676,7 +2895,8 @@ export const RINUS_META_MAP = {
       "Tussenzone: 5 meter breed"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 4
   },
   "rinus-34343": {
     "title": "1 tegen 1 lijnvoetbal",
@@ -2688,7 +2908,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "rinus-40517": {
     "title": "1 tegen 1 van achteren",
@@ -2700,7 +2921,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15 meter"
     ],
     "description": "Een doelpoging met de voet kan met wreef, binnenkant, buitenkant, punt of hak",
-    "footballAction": "Schieten"
+    "footballAction": "Schieten",
+    "footballReality": 5
   },
   "rinus-39907": {
     "title": "4+k tegen 3 opbouwen met de centrale spelers",
@@ -2712,7 +2934,8 @@ export const RINUS_META_MAP = {
       "Breedte: 30 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 5
   },
   "rinus-46443": {
     "title": "2 tegen 1+k stroomvorm",
@@ -2724,7 +2947,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15 meter (per veldje)"
     ],
     "description": "Het voorkomen van een schot op doel",
-    "footballAction": "Blokkeren"
+    "footballAction": "Blokkeren",
+    "footballReality": 5
   },
   "rinus-42937": {
     "title": "4 tegen 3+k in 2 vakken, groot doel klein doel",
@@ -2736,7 +2960,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Het voorkomen van een schot op doel",
-    "footballAction": "Blokkeren"
+    "footballAction": "Blokkeren",
+    "footballReality": 4
   },
   "rinus-36621": {
     "title": "4 tegen 3 met 4 doeltjes",
@@ -2748,7 +2973,8 @@ export const RINUS_META_MAP = {
       "Breedte: 40 meter"
     ],
     "description": "Het (kunnen) ondersteunen van medespelers",
-    "footballAction": "Knijpen"
+    "footballAction": "Knijpen",
+    "footballReality": 5
   },
   "rinus-46885": {
     "title": "3 tegen 2, lang smal veld, kleine doeltjes",
@@ -2760,7 +2986,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/12 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 5
   },
   "rinus-40811": {
     "title": "2 tegen 2 + 2 neutrale in 2 vakken positiespel",
@@ -2772,7 +2999,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 2
   },
   "rinus-37045": {
     "title": "4 tegen 2 positiespel (smal veld)",
@@ -2784,7 +3012,8 @@ export const RINUS_META_MAP = {
       "Breedte: 12/15 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 2
   },
   "rinus-36851": {
     "title": "Vrije voorzet 4+k tegen 3+k grote doelen",
@@ -2796,7 +3025,8 @@ export const RINUS_META_MAP = {
       "Breedte: 40/45 meter"
     ],
     "description": "De bal verdedigend koppen",
-    "footballAction": "Koppen"
+    "footballAction": "Koppen",
+    "footballReality": 4
   },
   "rinus-37947": {
     "title": "4+k tegen 3+k lang smal veld grote doelen",
@@ -2808,7 +3038,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15/18 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 5
   },
   "rinus-38925": {
     "title": "1 tegen 1 + 2 tegen 1 op klein doel",
@@ -2820,7 +3051,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15 meter"
     ],
     "description": "Een doelpoging met de voet kan met wreef, binnenkant, buitenkant, punt of hak",
-    "footballAction": "Schieten"
+    "footballAction": "Schieten",
+    "footballReality": 5
   },
   "rinus-40933": {
     "title": "2 tegen 2 met 2 neutrale op 2 kleine doelen",
@@ -2832,7 +3064,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 3
   },
   "rinus-35379": {
     "title": "2+k tegen 1+k met breed veld en grote doelen",
@@ -2844,7 +3077,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Een doelpoging met de voet kan met wreef, binnenkant, buitenkant, punt of hak",
-    "footballAction": "Schieten"
+    "footballAction": "Schieten",
+    "footballReality": 5
   },
   "rinus-45657": {
     "title": "Positiespel 2 tegen 1 spel verplaatsen",
@@ -2857,7 +3091,8 @@ export const RINUS_META_MAP = {
       "Tussenzone: 2 meter"
     ],
     "description": "De bal aan- of meenemen om verder te kunnen voetballen",
-    "footballAction": "Bal aannemen / meenemen"
+    "footballAction": "Bal aannemen / meenemen",
+    "footballReality": 3
   },
   "rinus-35529": {
     "title": "3 tegen 2 met 4 kleine doeltjes",
@@ -2869,7 +3104,8 @@ export const RINUS_META_MAP = {
       "Breedte: 30 meter"
     ],
     "description": "Zo snel mogelijk voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": null
   },
   "rinus-35967": {
     "title": "3+k tegen 2+k lang smal veld grote doelen",
@@ -2881,7 +3117,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Een doelpoging met de voet kan met wreef, binnenkant, buitenkant, punt of hak",
-    "footballAction": "Schieten"
+    "footballAction": "Schieten",
+    "footballReality": 5
   },
   "rinus-36383": {
     "title": "3+k tegen 2+k grote doelen",
@@ -2893,7 +3130,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15/18 meter"
     ],
     "description": "De bal veroveren en binnen de lijnen houden",
-    "footballAction": "Sliding"
+    "footballAction": "Sliding",
+    "footballReality": 5
   },
   "rinus-46847": {
     "title": "3 tegen 2 op 4 doelen op 2 veldjes",
@@ -2905,7 +3143,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Een doelpoging met de voet kan met wreef, binnenkant, buitenkant, punt of hak",
-    "footballAction": "Schieten"
+    "footballAction": "Schieten",
+    "footballReality": 5
   },
   "rinus-37207": {
     "title": "4+k tegen 3+k grote doelen",
@@ -2917,7 +3156,8 @@ export const RINUS_META_MAP = {
       "Breedte: 40 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 5
   },
   "rinus-197790": {
     "title": "Piraten",
@@ -2929,7 +3169,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 3
   },
   "rinus-47477": {
     "title": "Vind je maatje",
@@ -2941,7 +3182,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 2
   },
   "rinus-47853": {
     "title": "Kriskrassen",
@@ -2953,7 +3195,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "rinus-47799": {
     "title": "Hamstringloop",
@@ -2965,7 +3208,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "rinus-47613": {
     "title": "Latje gooi",
@@ -2977,7 +3221,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 2
   },
   "rinus-193333": {
     "title": "Sprint uit startpositie",
@@ -2989,7 +3234,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "rinus-47551": {
     "title": "Bokje springen estafette",
@@ -3002,7 +3248,8 @@ export const RINUS_META_MAP = {
       "Afstand tussen de pionnen: 3 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "rinus-47831": {
     "title": "Plankenrace",
@@ -3014,7 +3261,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "rinus-193212": {
     "title": "Kleuren strijd",
@@ -3026,7 +3274,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "rinus-193337": {
     "title": "Flagg football",
@@ -3038,7 +3287,8 @@ export const RINUS_META_MAP = {
       "Breedte: 25 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 2
   },
   "rinus-47875": {
     "title": "Planken op de bal",
@@ -3050,7 +3300,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "rinus-47449": {
     "title": "Stuiter- en dribbel estafette",
@@ -3063,7 +3314,8 @@ export const RINUS_META_MAP = {
       "Afstand tussen pionnen: 3 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 2
   },
   "rinus-35297": {
     "title": "2 tegen 2 met 4 kleine doeltjes",
@@ -3075,7 +3327,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15/18 meter"
     ],
     "description": "Zo snel mogelijk een poging doen de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "rinus-312839": {
     "title": "2 tegen 2 met kleine doeltjes vanuit afwisselende posities",
@@ -3087,7 +3340,8 @@ export const RINUS_META_MAP = {
       "Breedte 15 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 4
   },
   "rinus-39729": {
     "title": "2+k tegen 2 op 1 groot en 1 klein doel",
@@ -3099,7 +3353,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15/18 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 5
   },
   "rinus-37729": {
     "title": "4 tegen 4 lijnvoetbal",
@@ -3111,7 +3366,8 @@ export const RINUS_META_MAP = {
       "Breedte: 40 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 5
   },
   "rinus-39039": {
     "title": "2 tegen 2 op kleine doelen",
@@ -3123,7 +3379,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Een tegenstander uitspelen",
-    "footballAction": "Passeren"
+    "footballAction": "Passeren",
+    "footballReality": 5
   },
   "rinus-35127": {
     "title": "3 tegen 3 met pionnen",
@@ -3135,7 +3392,8 @@ export const RINUS_META_MAP = {
       "Breedte: 30/40 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 5
   },
   "rinus-38937": {
     "title": "3+K tegen 3+K met 2 grote doelen",
@@ -3147,7 +3405,8 @@ export const RINUS_META_MAP = {
       "Breedte: 40 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 5
   },
   "rinus-46271": {
     "title": "4 tegen 4 met verdediger in de rug",
@@ -3159,7 +3418,8 @@ export const RINUS_META_MAP = {
       "Breedte: 40 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 5
   },
   "rinus-37587": {
     "title": "4+k tegen 4+k grote doelen",
@@ -3171,7 +3431,8 @@ export const RINUS_META_MAP = {
       "Breedte: 40 meter"
     ],
     "description": "Zo snel mogelijk een poging doen de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "rinus-35181": {
     "title": "3 tegen 3 met 2 grote doelen",
@@ -3183,7 +3444,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 5
   },
   "rinus-44273": {
     "title": "3+k tegen 3 met groot doel, klein doeltje in 2 vakken",
@@ -3195,7 +3457,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 4
   },
   "rinus-45587": {
     "title": "2+k tegen 2 + 1 neutrale, recht van de aanval",
@@ -3207,7 +3470,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Een doelpoging met de voet kan met wreef, binnenkant, buitenkant, punt of hak",
-    "footballAction": "Schieten"
+    "footballAction": "Schieten",
+    "footballReality": 4
   },
   "rinus-46587": {
     "title": "3+k tegen 3+k met grote doelen in 2 vakken",
@@ -3219,7 +3483,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Met de bal een afstand overbruggen",
-    "footballAction": "Dribbelen"
+    "footballAction": "Dribbelen",
+    "footballReality": 4
   },
   "rinus-43509": {
     "title": "4+k tegen 4 omschakelen, groot doel kleine doeltjes",
@@ -3231,7 +3496,8 @@ export const RINUS_META_MAP = {
       "Breedte: 30 meter"
     ],
     "description": "De bal verplaatsen naar een medespeler",
-    "footballAction": "Passen"
+    "footballAction": "Passen",
+    "footballReality": 5
   },
   "rinus-38235": {
     "title": "4+k tegen 4+k, lang smal veld, grote doelen",
@@ -3243,7 +3509,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10/15 meter"
     ],
     "description": "Zodanig positie kiezen of vrijlopen dat je aangespeeld kunt worden door een medespeler",
-    "footballAction": "Vrijlopen"
+    "footballAction": "Vrijlopen",
+    "footballReality": 5
   },
   "rinus-47293": {
     "title": "4 tegen 4 met 4 kleine doeltjes",
@@ -3255,7 +3522,8 @@ export const RINUS_META_MAP = {
       "Breedte: 30/40 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 5
   },
   "rinus-38301": {
     "title": "4 tegen 4 met 2 kleine doeltjes",
@@ -3267,7 +3535,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Voorkomen dat de bal vooruit kan worden gedribbeld of gespeeld",
-    "footballAction": "Druk zetten"
+    "footballAction": "Druk zetten",
+    "footballReality": 5
   },
   "rinus-37175": {
     "title": "4 tegen 4 met 4 doeltjes",
@@ -3279,7 +3548,8 @@ export const RINUS_META_MAP = {
       "Breedte: 40 meter"
     ],
     "description": "Poging doen om de bal te veroveren",
-    "footballAction": "Duel om de bal"
+    "footballAction": "Duel om de bal",
+    "footballReality": 5
   },
   "rinus-47771": {
     "title": "1 tegen 1 na contactsprong",
@@ -3291,7 +3561,8 @@ export const RINUS_META_MAP = {
       "Breedte: 25 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 3
   },
   "rinus-47817": {
     "title": "Op één been duwen en trekken",
@@ -3303,7 +3574,8 @@ export const RINUS_META_MAP = {
       "Breedte: 20 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "rinus-47565": {
     "title": "Bal beschermen in kruiphouding",
@@ -3315,7 +3587,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "rinus-47499": {
     "title": "Bruggetje met bal",
@@ -3327,7 +3600,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "rinus-47623": {
     "title": "Rugboarden",
@@ -3339,7 +3613,8 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "rinus-47531": {
     "title": "Koprollen met de bal",
@@ -3351,7 +3626,8 @@ export const RINUS_META_MAP = {
       "Breedte: 15 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "rinus-47441": {
     "title": "Hesje roven",
@@ -3363,7 +3639,8 @@ export const RINUS_META_MAP = {
       "Breedte: 5 meter (per vak)"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   },
   "rinus-47727": {
     "title": "Ontsnappen",
@@ -3375,6 +3652,7 @@ export const RINUS_META_MAP = {
       "Breedte: 10 meter"
     ],
     "description": "Geen voetbalhandeling",
-    "footballAction": "Geen voetbalhandeling"
+    "footballAction": "Geen voetbalhandeling",
+    "footballReality": 1
   }
 }

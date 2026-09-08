@@ -4,15 +4,15 @@
     <section class="hero card card-elevated">
       <div class="hero-inner">
         <div class="hero-text">
-          <p v-if="!needsTeamSetup" class="hero-eyebrow md-label-sm">Dashboard</p>
-          <h1 class="md-headline-sm">{{ needsTeamSetup ? 'Welkom bij TeamPilot' : activeTeam?.name }}</h1>
+          <p v-if="!needsTeamSetup" class="hero-eyebrow md-label-sm">{{ t('dashboard.title') }}</p>
+          <h1 class="md-headline-sm">{{ needsTeamSetup ? t('dashboard.welcome') : activeTeam?.name }}</h1>
           <p class="md-body-md hero-sub">
             <template v-if="needsTeamSetup">
-              Stel je team in om trainingen en opstellingen te plannen
+              {{ t('dashboard.setupSub') }}
             </template>
             <template v-else>
               {{ ageGroupConfig?.label }} · {{ knvbClassConfig?.label }}
-              · Week {{ cycleWeek }}: {{ cycleThemeLabel }}
+              · {{ t('dashboard.week', { week: cycleWeek, theme: cycleThemeLabel }) }}
             </template>
           </p>
           <div v-if="needsTeamSetup && activeTeam?.name !== 'Mijn Team'" class="hero-meta">
@@ -32,31 +32,31 @@
 
     <!-- Quick actions -->
     <section class="quick-actions dashboard-actions">
-      <p class="section-title md-title-sm">Snelle acties</p>
+      <p class="section-title md-title-sm">{{ t('dashboard.quickActions') }}</p>
       <div class="action-grid">
         <RouterLink to="/training" class="action-tile card">
           <span class="material-symbols-rounded action-icon">stadium</span>
-          <span class="md-label-lg">Training</span>
+          <span class="md-label-lg">{{ t('nav.training') }}</span>
         </RouterLink>
         <RouterLink to="/lineup/new" class="action-tile card">
           <span class="material-symbols-rounded action-icon">grid_view</span>
-          <span class="md-label-lg">Opstelling</span>
+          <span class="md-label-lg">{{ t('nav.lineup') }}</span>
         </RouterLink>
         <RouterLink to="/players" class="action-tile card" :class="{ 'action-tile--highlight': needsTeamSetup }">
           <span class="material-symbols-rounded action-icon">groups</span>
-          <span class="md-label-lg">Spelers</span>
-          <span v-if="needsTeamSetup" class="action-hint md-label-sm">Volgende stap</span>
+          <span class="md-label-lg">{{ t('nav.players') }}</span>
+          <span v-if="needsTeamSetup" class="action-hint md-label-sm">{{ t('dashboard.nextStep') }}</span>
         </RouterLink>
         <RouterLink to="/training?library=1" class="action-tile card">
           <span class="material-symbols-rounded action-icon">library_books</span>
-          <span class="md-label-lg">Bibliotheek</span>
+          <span class="md-label-lg">{{ t('dashboard.library') }}</span>
         </RouterLink>
       </div>
     </section>
 
     <!-- Recent lineups -->
     <section v-if="recentLineups.length" class="recent-section">
-      <p class="section-title md-title-sm">Recente opstellingen</p>
+      <p class="section-title md-title-sm">{{ t('dashboard.recentLineups') }}</p>
       <div class="recent-list">
         <RouterLink
           v-for="lineup in recentLineups"
@@ -79,12 +79,12 @@
     <div v-if="!needsTeamSetup" class="card share-card dashboard-share">
       <div class="share-row">
         <div>
-          <p class="md-body-md">Team delen</p>
-          <p class="md-body-sm share-desc">Stuur een link met jouw team en spelers</p>
+          <p class="md-body-md">{{ t('dashboard.shareTeam') }}</p>
+          <p class="md-body-sm share-desc">{{ t('dashboard.shareDesc') }}</p>
         </div>
         <button class="btn btn-tonal share-btn" @click="shareTeam">
           <span class="material-symbols-rounded" style="font-size:18px">share</span>
-          Deel link
+          {{ t('dashboard.shareLink') }}
         </button>
       </div>
     </div>
@@ -96,25 +96,25 @@
       :open="settingsOpen"
     >
       <summary v-if="!needsTeamSetup" class="settings-summary md-title-sm">
-        <span>Team instellingen</span>
+        <span>{{ t('dashboard.settings') }}</span>
         <span class="material-symbols-rounded settings-chevron">expand_more</span>
       </summary>
 
       <div v-if="needsTeamSetup" class="setup-intro">
-        <p class="md-title-sm setup-title">Stel je team in</p>
+        <p class="md-title-sm setup-title">{{ t('dashboard.setupTitle') }}</p>
         <p class="md-body-sm setup-desc">
-          Vul je teamgegevens in. Daarna voeg je spelers toe om te starten.
+          {{ t('dashboard.setupDesc') }}
         </p>
         <ol class="setup-steps md-body-sm">
-          <li>Teamnaam en leeftijdsgroep</li>
-          <li>Competitieklasse en shirtkleur</li>
-          <li>Spelers toevoegen</li>
+          <li>{{ t('dashboard.setupStep1') }}</li>
+          <li>{{ t('dashboard.setupStep2') }}</li>
+          <li>{{ t('dashboard.setupStep3') }}</li>
         </ol>
       </div>
 
       <div class="card team-settings">
         <div class="settings-row">
-          <span class="md-body-md">Teamnaam</span>
+          <span class="md-body-md">{{ t('team.name') }}</span>
           <input
             class="settings-input"
             :value="activeTeam?.name"
@@ -124,21 +124,21 @@
         </div>
         <div class="divider"></div>
         <div class="settings-row">
-          <span class="md-body-md">Leeftijdsgroep</span>
+          <span class="md-body-md">{{ t('team.ageGroup') }}</span>
           <select class="settings-input field-select" :value="activeTeam?.ageGroup" @change="e => updateTeam('ageGroup', e.target.value)">
             <option v-for="g in AGE_GROUPS" :key="g.id" :value="g.id">{{ g.label }}</option>
           </select>
         </div>
         <div class="divider"></div>
         <div class="settings-row">
-          <span class="md-body-md">Competitieklasse</span>
+          <span class="md-body-md">{{ t('team.knvbClass') }}</span>
           <select class="settings-input field-select" :value="activeTeam?.knvbClass" @change="e => updateTeam('knvbClass', e.target.value)">
             <option v-for="c in KNVB_CLASSES" :key="c.id" :value="c.id">{{ c.label }}</option>
           </select>
         </div>
         <div class="divider"></div>
         <div class="settings-row settings-row--col">
-          <span class="md-body-md">Shirtkleur</span>
+          <span class="md-body-md">{{ t('team.shirt') }}</span>
           <div class="shirt-styles">
             <button
               v-for="s in SHIRT_STYLES"
@@ -146,16 +146,16 @@
               class="shirt-style-btn"
               :class="{ active: activeTeam?.shirt?.style === s.id }"
               @click="updateShirt('style', s.id)"
-              :aria-label="s.label"
+              :aria-label="t(`shirt.${s.id}`)"
             >
               <ShirtAvatar :shirt="{ ...( activeTeam?.shirt ?? defaultShirtFallback), style: s.id }" :size="28" />
-              <span class="shirt-style-label">{{ s.label }}</span>
+              <span class="shirt-style-label">{{ t(`shirt.${s.id}`) }}</span>
             </button>
           </div>
         </div>
         <div class="divider"></div>
         <div class="settings-row">
-          <span class="md-body-md">Primaire kleur</span>
+          <span class="md-body-md">{{ t('team.primaryColor') }}</span>
           <div class="color-picker-group">
             <div v-if="recentColors.length" class="color-swatches-group">
               <span class="color-swatches-label">Recent</span>
@@ -182,7 +182,7 @@
         <template v-if="activeTeam?.shirt?.style !== 'solid'">
           <div class="divider"></div>
           <div class="settings-row">
-            <span class="md-body-md">Secundaire kleur</span>
+            <span class="md-body-md">{{ t('team.secondaryColor') }}</span>
             <div class="color-picker-group">
               <div v-if="recentColors.length" class="color-swatches-group">
                 <span class="color-swatches-label">Recent</span>
@@ -212,7 +212,7 @@
       <div v-if="needsTeamSetup" class="setup-footer">
         <RouterLink to="/players" class="btn btn-filled setup-players-btn">
           <span class="material-symbols-rounded" aria-hidden="true">group_add</span>
-          Spelers toevoegen
+          {{ t('dashboard.setupStep3') }}
         </RouterLink>
       </div>
     </details>
@@ -224,13 +224,14 @@ import { computed } from 'vue'
 import { useTeamStore } from '@/stores/teamStore'
 import { AGE_GROUPS } from '@/data/formations'
 import { KNVB_CLASSES } from '@/data/knvbClasses'
-import { getCycleThemeLabel, getCycleTheme } from '@/utils/trainingEngine'
+import { getCycleTheme } from '@/utils/trainingEngine'
 import { getCycleThemeIcon } from '@/utils/trainingIcons'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 import { showSnackbar } from '@/composables/useSnackbar'
 import { useMediaQuery } from '@/composables/useMediaQuery'
 import { shareLink } from '@/utils/shareLink'
 import { buildTeamShareUrl, encodeTeamShare } from '@/utils/teamShare'
+import { t } from '@/i18n'
 
 const store = useTeamStore()
 const isDesktop = useMediaQuery('(min-width: 720px)')
@@ -242,7 +243,7 @@ const recentColors = computed(() => store.recentColors.slice(0, 3))
 const playerCount = computed(() => activeTeam.value?.players?.length ?? 0)
 const cycleWeek = computed(() => store.getTrainingState().cycleWeek ?? 1)
 const cycleTheme = computed(() => getCycleTheme(cycleWeek.value))
-const cycleThemeLabel = computed(() => getCycleThemeLabel(cycleTheme.value))
+const cycleThemeLabel = computed(() => t(`trainingType.${cycleTheme.value}`))
 const cycleThemeIcon = computed(() => getCycleThemeIcon(cycleTheme.value))
 
 /** Team not yet configured — no players added yet. */
@@ -324,8 +325,8 @@ async function shareTeam() {
     text: `Bekijk mijn team ${team.name} in TeamPilot`,
     url,
   })
-  if (result === 'copied') showSnackbar('Team-link gekopieerd!')
-  if (result === 'failed') showSnackbar('Kopiëren mislukt')
+  if (result === 'copied') showSnackbar(t('share.teamCopied'))
+  if (result === 'failed') showSnackbar(t('share.copyFailed'))
 }
 </script>
 

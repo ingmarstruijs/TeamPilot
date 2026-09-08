@@ -3,26 +3,26 @@
     <div v-if="payload" class="view-content">
       <div class="view-header">
         <div>
-          <h1 class="md-headline-sm">{{ isRecipe ? 'Gedeeld trainingsrecept' : 'Gedeelde trainingssessie' }}</h1>
+          <h1 class="md-headline-sm">{{ isRecipe ? t('trainingShare.recipeTitle') : t('trainingShare.sessionTitle') }}</h1>
           <p v-if="isRecipe" class="md-title-sm view-recipe-name">{{ payload.name }}</p>
           <p class="md-body-sm view-meta">
             <template v-if="!isRecipe">{{ payload.teamName }} · </template>
             {{ ageGroupLabel }} · {{ knvbLabel }}
-            <template v-if="!isRecipe"> · {{ trainingTypeLabel }} · {{ payload.playerCount }} spelers</template>
+            <template v-if="!isRecipe"> · {{ trainingTypeLabel }} · {{ payload.playerCount }} {{ t('word.players') }}</template>
             <template v-else> · {{ trainingTypeLabel }} · {{ payload.durationMin }} min</template>
           </p>
           <p class="md-label-sm view-meta">
-            <template v-if="isRecipe && recipeThemeLabel">Weekthema: {{ recipeThemeLabel }}</template>
-            <template v-else-if="!isRecipe">Weekthema: {{ cycleThemeLabel }}</template>
+            <template v-if="isRecipe && recipeThemeLabel">{{ t('trainingShare.weekTheme', { theme: recipeThemeLabel }) }}</template>
+            <template v-else-if="!isRecipe">{{ t('trainingShare.weekTheme', { theme: cycleThemeLabel }) }}</template>
           </p>
           <p v-if="ageMismatch" class="md-label-sm view-warn">
-            Let op: dit is voor {{ ageGroupLabel }} — jouw team is {{ myAgeGroupLabel }}.
+            {{ t('trainingShare.ageWarn', { age: ageGroupLabel, mine: myAgeGroupLabel }) }}
           </p>
         </div>
       </div>
 
       <div v-if="isRecipe && canImport" class="import-name card">
-        <label class="field-label" for="import-name">Naam in jouw lijst</label>
+        <label class="field-label" for="import-name">{{ t('trainingShare.nameInList') }}</label>
         <input id="import-name" v-model.trim="importName" class="field" maxlength="80" />
       </div>
 
@@ -30,21 +30,25 @@
         <template v-if="isRecipe">
           <button class="btn btn-filled" :disabled="!importName || !blocks.length" @click="saveRecipeToTeam">
             <span class="material-symbols-rounded" style="font-size:18px">bookmark_add</span>
-            Opslaan in mijn trainingen
+            {{ t('trainingShare.saveToMine') }}
           </button>
           <button class="btn btn-tonal" :disabled="!blocks.length" @click="useRecipeNow">
             <span class="material-symbols-rounded" style="font-size:18px">play_arrow</span>
-            Nu gebruiken
+            {{ t('trainingShare.useNow') }}
           </button>
         </template>
         <button v-else class="btn btn-filled" :disabled="!blocks.length" @click="importSessionToTeam">
           <span class="material-symbols-rounded" style="font-size:18px">download</span>
-          In mijn team
+          {{ t('trainingShare.intoMyTeam') }}
         </button>
       </div>
 
       <p class="md-label-md total-line">
-        {{ totalMin }} min · {{ blocks.length }} oefening{{ blocks.length !== 1 ? 'en' : '' }}
+        {{ t('trainingShare.total', {
+          min: totalMin,
+          count: blocks.length,
+          exerciseWord: blocks.length === 1 ? t('word.exercise') : t('word.exercises'),
+        }) }}
       </p>
 
       <div class="session-list">
@@ -60,7 +64,7 @@
               <span
                 v-if="isCustomExercise(block.exercise)"
                 class="custom-ex-badge"
-                title="Eigen oefening"
+                :title="t('training.customExercise')"
               >
                 <span class="material-symbols-rounded" aria-hidden="true">draw</span>
               </span>
@@ -75,15 +79,15 @@
       </div>
 
       <p v-if="payload && !blocks.length" class="md-body-sm missing-hint">
-        Sommige oefeningen zijn niet beschikbaar in deze app-versie.
+        {{ t('trainingShare.missing') }}
       </p>
     </div>
 
     <div v-else class="empty-state">
       <span class="material-symbols-rounded empty-icon">link_off</span>
-      <p class="md-title-md">Ongeldige link</p>
-      <p class="md-body-md">Deze trainingslink is ongeldig of verlopen.</p>
-      <RouterLink to="/" class="btn btn-tonal mt-3">Naar TeamPilot</RouterLink>
+      <p class="md-title-md">{{ t('trainingShare.invalidTitle') }}</p>
+      <p class="md-body-md">{{ t('trainingShare.invalidBody') }}</p>
+      <RouterLink to="/" class="btn btn-tonal mt-3">{{ t('trainingShare.toApp') }}</RouterLink>
     </div>
 
     <ExerciseDetailDialog
@@ -100,14 +104,14 @@ import { ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
 import { decodeSharedTraining } from '@/utils/trainingShare'
-import { getExerciseById, EXERCISE_CATEGORIES, TRAINING_TYPES } from '@/data/exercises'
+import { getExerciseById } from '@/data/exercises'
 import { getKnvbClass } from '@/data/knvbClasses'
 import { AGE_GROUPS } from '@/data/formations'
-import { getCycleTheme, getCycleThemeLabel } from '@/utils/trainingEngine'
-import { cycleThemeLabel as formatRecipeTheme } from '@/utils/savedTraining'
+import { getCycleTheme } from '@/utils/trainingEngine'
 import ExerciseDetailDialog from '@/components/training/ExerciseDetailDialog.vue'
 import { getExerciseTitle, isCustomExercise } from '@/utils/exerciseText'
 import { showSnackbar } from '@/composables/useSnackbar'
+import { t } from '@/i18n'
 
 const route = useRoute()
 const router = useRouter()
@@ -150,15 +154,15 @@ const knvbLabel = computed(() =>
 )
 
 const trainingTypeLabel = computed(() =>
-  TRAINING_TYPES.find(t => t.id === payload.value?.trainingType)?.label ?? payload.value?.trainingType
+  payload.value?.trainingType ? t(`trainingType.${payload.value.trainingType}`) : ''
 )
 
 const cycleThemeLabel = computed(() =>
-  getCycleThemeLabel(getCycleTheme(payload.value?.cycleWeek ?? 1))
+  t(`trainingType.${getCycleTheme(payload.value?.cycleWeek ?? 1)}`)
 )
 
 const recipeThemeLabel = computed(() =>
-  formatRecipeTheme(payload.value?.cycleTheme)
+  payload.value?.cycleTheme ? t(`trainingType.${payload.value.cycleTheme}`) : ''
 )
 
 const ageMismatch = computed(() =>
@@ -176,7 +180,7 @@ watch(payload, p => {
 }, { immediate: true })
 
 function categoryLabel(id) {
-  return EXERCISE_CATEGORIES.find(c => c.id === id)?.label ?? id
+  return t(`category.${id}`)
 }
 
 function sharedPayloadBase() {
@@ -195,7 +199,7 @@ function saveRecipeToTeam() {
     cycleTheme: payload.value.cycleTheme,
     name: payload.value.name,
   }, importName.value.trim())
-  showSnackbar(`"${importName.value.trim()}" opgeslagen ✓`)
+  showSnackbar(t('trainingShare.recipeSaved', { name: importName.value.trim() }))
   router.push('/training?saved=1')
 }
 
@@ -205,7 +209,7 @@ function useRecipeNow() {
     ...sharedPayloadBase(),
     playerCount: null,
   })
-  showSnackbar('Recept geladen in sessie ✓')
+  showSnackbar(t('trainingShare.recipeLoaded'))
   router.push('/training')
 }
 
@@ -215,7 +219,7 @@ function importSessionToTeam() {
     ...sharedPayloadBase(),
     playerCount: payload.value.playerCount,
   })
-  showSnackbar('Sessie geladen in jouw team ✓')
+  showSnackbar(t('trainingShare.sessionLoaded'))
   router.push('/training')
 }
 </script>
