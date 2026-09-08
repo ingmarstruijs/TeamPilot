@@ -19,11 +19,16 @@
               <h2 :id="titleId" class="exercise-detail-title">{{ getExerciseTitle(resolvedExercise) }}</h2>
               <p class="exercise-detail-meta">
                 {{ categoryLabel(resolvedExercise.category) }}
-                · {{ displayDuration }} min
+                · {{ displayDuration }} {{ t('common.min') }}
                 <template v-if="showPlayerRange"> · {{ playerRangeLabel(resolvedExercise) }}</template>
               </p>
+              <FootballRealityRating
+                v-if="footballReality"
+                class="detail-reality"
+                :rating="footballReality"
+              />
             </div>
-            <button type="button" class="btn-icon close-btn" aria-label="Sluiten" @click="close">
+            <button type="button" class="btn-icon close-btn" :aria-label="t('common.close')" @click="close">
               <span class="material-symbols-rounded">close</span>
             </button>
           </header>
@@ -35,18 +40,18 @@
               <p class="md-body-md section-text">{{ description }}</p>
 
               <p class="md-body-sm section-muted">
-                <strong>Opstelling:</strong> {{ setup }}
+                <strong>{{ t('exercise.setup') }}:</strong> {{ setup }}
               </p>
 
               <section v-if="rules.length" class="content-section">
-                <h3 class="content-section-title">Spelregels</h3>
+                <h3 class="content-section-title">{{ t('exercise.rules') }}</h3>
                 <ul class="content-list md-body-sm">
                   <li v-for="(rule, i) in rules" :key="i">{{ rule }}</li>
                 </ul>
               </section>
 
               <section v-if="hasCoachNotes" class="coach-notes">
-                <h3 class="content-section-title">Voor vanavond</h3>
+                <h3 class="content-section-title">{{ t('exercise.tonight') }}</h3>
                 <p v-if="whyThis" class="md-body-sm coach-why">{{ whyThis }}</p>
                 <ul v-if="adaptations.length" class="content-list md-body-sm">
                   <li v-for="(item, i) in adaptations" :key="`a-${i}`">{{ item }}</li>
@@ -62,14 +67,14 @@
                 aria-labelledby="adapt-heading"
               >
                 <div class="adapt-panel-copy">
-                  <h3 id="adapt-heading" class="adapt-panel-title">Speelwijze</h3>
+                  <h3 id="adapt-heading" class="adapt-panel-title">{{ t('exercise.playstyle') }}</h3>
                   <p class="md-label-sm adapt-panel-hint">
-                    Zelfde oefening, andere variant. Tijd regel je bij de minuten.
+                    {{ t('exercise.playstyleHint') }}
                   </p>
                 </div>
-                <div class="adapt-chips" role="group" aria-label="Speelwijze aanpassen">
+                <div class="adapt-chips" role="group" :aria-label="t('exercise.playstyleGroup')">
                   <button
-                    v-for="chip in ADAPT_CHIPS"
+                    v-for="chip in adaptChips"
                     :key="chip.id"
                     type="button"
                     class="btn btn-tonal adapt-chip"
@@ -113,7 +118,7 @@
               class="rinus-link btn btn-tonal"
             >
               <span class="material-symbols-rounded" aria-hidden="true">open_in_new</span>
-              Bekijk in KNVB Rinus
+              {{ t('exercise.viewRinus') }}
             </a>
 
             <button
@@ -123,11 +128,11 @@
               @click="$emit('add', resolvedExercise)"
             >
               <span class="material-symbols-rounded" aria-hidden="true">add</span>
-              Toevoegen aan training
+              {{ t('exercise.addToTraining') }}
             </button>
 
             <button type="button" class="btn btn-filled close-action" @click="close">
-              Sluiten
+              {{ t('common.close') }}
             </button>
           </footer>
         </div>
@@ -138,32 +143,34 @@
 
 <script setup>
 import { computed, useId, watch, onUnmounted } from 'vue'
-import { EXERCISE_CATEGORIES } from '@/data/exercises'
 import ExerciseDiagram from '@/components/training/ExerciseDiagram.vue'
+import FootballRealityRating from '@/components/training/FootballRealityRating.vue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
+import { t } from '@/i18n'
 import {
   buildExerciseDescription,
   buildExerciseSetup,
   getExerciseTitle,
+  getFootballReality,
   getRinusRules,
   getRinusUrl,
   playerRangeLabel,
 } from '@/utils/exerciseText'
 
-const ADAPT_CHIPS = [
+const adaptChips = computed(() => [
   {
     id: 'makkelijker',
-    label: 'Makkelijker',
+    label: t('exercise.easier'),
     icon: 'trending_down',
-    hint: 'Voeg een makkelijkere variant toe (meer ruimte, minder druk)',
+    hint: t('exercise.easierHint'),
   },
   {
     id: 'moeilijker',
-    label: 'Moeilijker',
+    label: t('exercise.harder'),
     icon: 'trending_up',
-    hint: 'Voeg een zwaardere variant toe (minder touches, meer druk)',
+    hint: t('exercise.harderHint'),
   },
-]
+])
 
 const props = defineProps({
   block: { type: Object, default: null },
@@ -186,7 +193,7 @@ const adaptPercent = computed(() =>
 )
 
 const adaptStatusText = computed(() =>
-  props.adaptStatus?.trim() || 'Bezig met aanpassen…'
+  props.adaptStatus?.trim() || t('exercise.adapting')
 )
 
 const visible = computed(() => Boolean(props.block || props.exercise))
@@ -243,8 +250,12 @@ const rinusUrl = computed(() =>
   resolvedExercise.value ? getRinusUrl(resolvedExercise.value) : null
 )
 
+const footballReality = computed(() =>
+  resolvedExercise.value ? getFootballReality(resolvedExercise.value) : null
+)
+
 function categoryLabel(id) {
-  return EXERCISE_CATEGORIES.find(c => c.id === id)?.label ?? id
+  return t(`category.${id}`)
 }
 
 function close() {
@@ -306,6 +317,11 @@ onUnmounted(() => {
 .header-text {
   flex: 1;
   min-width: 0;
+}
+
+.detail-reality {
+  display: block;
+  margin-top: 6px;
 }
 
 .exercise-detail-title {

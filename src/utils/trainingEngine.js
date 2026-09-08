@@ -1,5 +1,6 @@
 import { EXERCISES } from '@/data/exercises'
 import { normalizeAgeGroup } from '@/data/formations'
+import { getFootballReality } from '@/utils/exerciseText'
 import {
   CYCLE_THEMES,
   getCycleTheme,
@@ -230,6 +231,7 @@ export function browseExercisesWithFilters({
   query = '',
   suitableOnly = true,
   customExercises = [],
+  minFootballReality = 0,
 }) {
   let builtIn
   if (suitableOnly) {
@@ -261,7 +263,11 @@ export function browseExercisesWithFilters({
   }
 
   const merged = [...custom, ...builtIn.filter(ex => exerciseMatchesQuery(ex, query))]
-  return merged.sort((a, b) => a.title.localeCompare(b.title, 'nl'))
+  const minReality = Number(minFootballReality) || 0
+  const filtered = minReality
+    ? merged.filter(ex => (getFootballReality(ex) ?? 0) >= minReality)
+    : merged
+  return filtered.sort((a, b) => a.title.localeCompare(b.title, 'nl'))
 }
 
 /** All exercises for manual browse — age group + level only (no type/player filter). */

@@ -31,24 +31,24 @@
       <Transition name="dialog-fade">
         <div v-if="importData" class="dialog-backdrop" @click.self="importData = null">
           <div class="dialog">
-            <p class="dialog-title">Team importeren</p>
+            <p class="dialog-title">{{ t('share.importTitle') }}</p>
             <p class="md-body-md" style="margin-bottom:4px"><strong>{{ importData.name }}</strong></p>
             <p class="md-body-sm" style="color:var(--md-on-surface-variant);margin-bottom:var(--sp-3)">
-              {{ ageGroupLabel(importData.ageGroup) }} &middot; {{ importData.players.length }} speler{{ importData.players.length !== 1 ? 's' : '' }}
+              {{ ageGroupLabel(importData.ageGroup) }} &middot; {{ importData.players.length }} {{ importData.players.length !== 1 ? t('word.players') : t('word.player') }}
             </p>
             <template v-if="conflictTeam">
-              <p class="dialog-body">Er bestaat al een team met de naam <strong>{{ importData.name }}</strong>. Wat wil je doen?</p>
+              <p class="dialog-body">{{ t('share.conflict', { name: importData.name }) }}</p>
               <div class="dialog-actions" style="flex-wrap:wrap;gap:var(--sp-2)">
-                <button class="btn btn-text" @click="importData = null">Annuleren</button>
-                <button class="btn btn-outlined" @click="doImportCopy">Nieuwe kopie</button>
-                <button class="btn btn-filled" @click="doMerge">Samenvoegen</button>
+                <button class="btn btn-text" @click="importData = null">{{ t('common.cancel') }}</button>
+                <button class="btn btn-outlined" @click="doImportCopy">{{ t('share.copyNew') }}</button>
+                <button class="btn btn-filled" @click="doMerge">{{ t('share.merge') }}</button>
               </div>
             </template>
             <template v-else>
-              <p class="dialog-body">Wil je dit team importeren in TeamPilot?</p>
+              <p class="dialog-body">{{ t('share.importQuestion') }}</p>
               <div class="dialog-actions">
-                <button class="btn btn-text" @click="importData = null">Annuleren</button>
-                <button class="btn btn-filled" @click="doImport">Importeren</button>
+                <button class="btn btn-text" @click="importData = null">{{ t('common.cancel') }}</button>
+                <button class="btn btn-filled" @click="doImport">{{ t('share.import') }}</button>
               </div>
             </template>
           </div>
@@ -72,6 +72,7 @@ import { useTeamStore } from '@/stores/teamStore'
 import { showSnackbar } from '@/composables/useSnackbar'
 import { decodeTeamShare } from '@/utils/teamShare'
 import { firstQueryValue, resolveIncomingShare, stripLocationSearch } from '@/utils/appShareUrl'
+import { t } from '@/i18n'
 
 const isDesktop = useMediaQuery('(min-width: 900px)')
 const { collapsed: drawerCollapsed, toggleDrawer } = useNavDrawer()
@@ -138,7 +139,7 @@ function consumeIncomingShare() {
 function doImport() {
   const team = store.importTeam(importData.value)
   store.setActiveTeam(team.id)
-  showSnackbar(`Team "${team.name}" geïmporteerd ✓`)
+  showSnackbar(t('share.imported', { name: team.name }))
   importData.value = null
 }
 
@@ -146,14 +147,15 @@ function doImportCopy() {
   const data = { ...importData.value, name: importData.value.name + ' (2)' }
   const team = store.importTeam(data)
   store.setActiveTeam(team.id)
-  showSnackbar(`Team "${team.name}" geïmporteerd ✓`)
+  showSnackbar(t('share.imported', { name: team.name }))
   importData.value = null
 }
 
 function doMerge() {
   const added = store.mergeTeam(conflictTeam.value.id, importData.value)
   store.setActiveTeam(conflictTeam.value.id)
-  showSnackbar(`${added} speler${added !== 1 ? 's' : ''} toegevoegd aan "${conflictTeam.value.name}" ✓`)
+  const playerWord = added === 1 ? t('word.player') : t('word.players')
+  showSnackbar(t('share.merged', { count: added, playerWord, name: conflictTeam.value.name }))
   importData.value = null
 }
 </script>

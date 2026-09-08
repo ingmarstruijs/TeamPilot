@@ -3,9 +3,9 @@
     <div class="players-header-shell">
       <div class="players-header">
         <div class="players-header-text">
-          <h1 class="players-title md-title-sm">Spelers lijst</h1>
+          <h1 class="players-title md-title-sm">{{ t('players.title') }}</h1>
           <p class="md-label-sm players-meta">
-            {{ players.length }} speler{{ players.length !== 1 ? 's' : '' }}
+            {{ t('players.count', { count: players.length, playerWord: players.length === 1 ? t('word.player') : t('word.players') }) }}
             <span v-if="ageGroupConfig"> (min {{ ageGroupConfig.players }})</span>
           </p>
         </div>
@@ -14,10 +14,10 @@
             class="btn btn-outlined"
             @click="copyRoster"
             :disabled="!players.length"
-            title="Kopieer spelerslijst als tekst"
+            :title="t('players.copyTitle')"
           >
             <span class="material-symbols-rounded" style="font-size:18px">content_copy</span>
-            <span class="btn-lbl">Kopieer</span>
+            <span class="btn-lbl">{{ t('common.copy') }}</span>
           </button>
           <button
             v-if="missingCount > 0"
@@ -26,11 +26,11 @@
             :title="`Vul ${missingCount} speler${missingCount !== 1 ? 's' : ''} aan met standaardnamen`"
           >
             <span class="material-symbols-rounded" style="font-size:18px">bolt</span>
-            <span class="btn-lbl">Snel aanvullen</span>
+            <span class="btn-lbl">{{ t('players.quickFill') }}</span>
           </button>
-          <button class="btn btn-filled" @click="openAdd" title="Speler toevoegen">
+          <button class="btn btn-filled" @click="openAdd" :title="t('players.addPlayer')">
             <span class="material-symbols-rounded" style="font-size:18px">add</span>
-            <span class="btn-lbl">Toevoegen</span>
+            <span class="btn-lbl">{{ t('common.add') }}</span>
           </button>
         </div>
       </div>
@@ -39,14 +39,14 @@
     <!-- Empty state -->
     <div v-if="!players.length" class="empty-state">
       <span class="material-symbols-rounded empty-icon">group_off</span>
-      <p class="md-title-md">Nog geen spelers</p>
-      <p class="md-body-md">Voeg je eerste speler toe of vul het team in één klik aan.</p>
+      <p class="md-title-md">{{ t('players.emptyTitle') }}</p>
+      <p class="md-body-md">{{ t('players.emptyBody') }}</p>
       <div class="flex gap-3 mt-3" style="flex-wrap:wrap;justify-content:center">
         <button class="btn btn-tonal" @click="openQuickFill">
           <span class="material-symbols-rounded" style="font-size:18px">bolt</span>
           Snel aanvullen
         </button>
-        <button class="btn btn-filled" @click="openAdd">Speler toevoegen</button>
+        <button class="btn btn-filled" @click="openAdd">{{ t('players.addPlayer') }}</button>
       </div>
     </div>
 
@@ -69,7 +69,7 @@
           <button class="btn-icon" @click="openEdit(player)" aria-label="Bewerken">
             <span class="material-symbols-rounded">edit</span>
           </button>
-          <button class="btn-icon" @click="confirmDelete(player)" aria-label="Verwijderen"
+          <button class="btn-icon" @click="confirmDelete(player)" :aria-label="t('common.delete')"
             style="color:var(--md-error)">
             <span class="material-symbols-rounded">delete</span>
           </button>
@@ -81,23 +81,23 @@
     <Transition name="fade">
       <div v-if="showDialog" class="dialog-backdrop" @click.self="closeDialog">
         <div class="dialog" role="dialog" :aria-label="editingId ? 'Speler bewerken' : 'Speler toevoegen'">
-          <p class="dialog-title">{{ editingId ? 'Speler bewerken' : 'Speler toevoegen' }}</p>
+          <p class="dialog-title">{{ editingId ? t('players.editPlayer') : t('players.addPlayer') }}</p>
 
           <div class="form-grid">
             <div class="field-wrap" style="grid-column: 1/-1">
-              <label class="field-label" for="f-name">Naam *</label>
+              <label class="field-label" for="f-name">{{ t('players.name') }}</label>
               <input id="f-name" class="field" v-model.trim="form.name"
                 placeholder="Voornaam Achternaam" maxlength="40" autofocus />
             </div>
             <div class="field-wrap">
-              <label class="field-label" for="f-num">Rugnummer</label>
+              <label class="field-label" for="f-num">{{ t('players.number') }}</label>
               <input id="f-num" class="field" v-model.number="form.number"
                 type="number" min="1" max="99" placeholder="–" />
             </div>
             <div class="field-wrap">
-              <label class="field-label" for="f-pos">Positie</label>
+              <label class="field-label" for="f-pos">{{ t('players.position') }}</label>
               <select id="f-pos" class="field field-select" v-model="form.position">
-                <option v-for="p in POSITIONS" :key="p.id" :value="p.id">{{ p.label }}</option>
+                <option v-for="p in POSITIONS" :key="p.id" :value="p.id">{{ t(`position.${p.id}`) }}</option>
               </select>
             </div>
           </div>
@@ -105,11 +105,11 @@
           <!-- Preview -->
           <div class="avatar-preview">
             <PlayerAvatar :player="formAsPlayer" :shirt="activeTeam?.shirt" size="lg" />
-            <span class="md-label-md" style="color:var(--md-on-surface-variant)">Voorbeeld</span>
+            <span class="md-label-md" style="color:var(--md-on-surface-variant)">{{ t('players.preview') }}</span>
           </div>
 
           <div class="dialog-actions">
-            <button class="btn btn-text" @click="closeDialog">Annuleren</button>
+            <button class="btn btn-text" @click="closeDialog">{{ t('common.cancel') }}</button>
             <button class="btn btn-filled" :disabled="!form.name" @click="savePlayer">
               {{ editingId ? 'Opslaan' : 'Toevoegen' }}
             </button>
@@ -122,13 +122,13 @@
     <Transition name="fade">
       <div v-if="deleteTarget" class="dialog-backdrop" @click.self="deleteTarget = null">
         <div class="dialog">
-          <p class="dialog-title">Speler verwijderen?</p>
+          <p class="dialog-title">{{ t('players.deleteTitle') }}</p>
           <p class="dialog-body">
             <strong>{{ deleteTarget.name }}</strong> wordt permanent verwijderd uit het team.
           </p>
           <div class="dialog-actions">
-            <button class="btn btn-text" @click="deleteTarget = null">Annuleren</button>
-            <button class="btn btn-filled" style="background:var(--md-error)" @click="doDelete">Verwijderen</button>
+            <button class="btn btn-text" @click="deleteTarget = null">{{ t('common.cancel') }}</button>
+            <button class="btn btn-filled" style="background:var(--md-error)" @click="doDelete">{{ t('common.delete') }}</button>
           </div>
         </div>
       </div>
@@ -181,7 +181,7 @@
           </div>
 
           <div class="dialog-actions">
-            <button class="btn btn-text" @click="showQuickFill = false">Annuleren</button>
+            <button class="btn btn-text" @click="showQuickFill = false">{{ t('common.cancel') }}</button>
             <button class="btn btn-outlined" @click="reshufflePlayers" title="Nieuwe namen genereren">
               <span class="material-symbols-rounded" style="font-size:16px">shuffle</span>
               Nieuwe namen
@@ -204,6 +204,7 @@ import { POSITIONS } from '@/data/formations'
 import PlayerAvatar from '@/components/ui/PlayerAvatar.vue'
 import { showSnackbar } from '@/composables/useSnackbar'
 import { generatePlayers } from '@/utils/generatePlayers'
+import { t } from '@/i18n'
 
 const store = useTeamStore()
 const activeTeam     = computed(() => store.activeTeam)
@@ -296,7 +297,7 @@ function copyRoster() {
       return `${p.position.padEnd(3)}  ${num.padEnd(4)}  ${p.name}`
     })
   navigator.clipboard.writeText(header + '\n\n' + lines.join('\n'))
-    .then(() => showSnackbar('Spelerslijst gekopieerd!'))
+    .then(() => showSnackbar(t('players.copied')))
     .catch(() => showSnackbar('Kopiëren mislukt'))
 }
 

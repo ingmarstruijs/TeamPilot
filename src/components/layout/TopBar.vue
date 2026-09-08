@@ -37,7 +37,7 @@
 
             <button class="team-menu-item team-menu-item--add" @click="openCreate" role="menuitem">
               <span class="material-symbols-rounded team-menu-icon">add_circle</span>
-              <span>Nieuw team</span>
+              <span>{{ t('team.new') }}</span>
             </button>
             <button
               class="team-menu-item team-menu-item--delete"
@@ -46,10 +46,24 @@
               role="menuitem"
             >
               <span class="material-symbols-rounded team-menu-icon">delete</span>
-              <span>Team verwijderen</span>
+              <span>{{ t('team.delete') }}</span>
             </button>
           </div>
         </Transition>
+      </div>
+
+      <div class="lang-switch" role="group" :aria-label="t('common.language')">
+        <button
+          v-for="lang in SUPPORTED_LOCALES"
+          :key="lang.id"
+          type="button"
+          class="lang-btn md-label-sm"
+          :class="{ active: locale === lang.id }"
+          :aria-pressed="locale === lang.id"
+          @click="setLocale(lang.id)"
+        >
+          {{ lang.nativeLabel }}
+        </button>
       </div>
     </div>
   </header>
@@ -59,16 +73,16 @@
     <Transition name="dialog-fade">
       <div v-if="createOpen" class="dialog-backdrop" @click.self="closeCreate">
         <div class="dialog create-dialog">
-          <p class="dialog-title">Nieuw team</p>
+          <p class="dialog-title">{{ t('team.new') }}</p>
 
           <div class="create-form">
             <!-- Name -->
             <div class="cf-field">
-              <label class="cf-label">Teamnaam</label>
+              <label class="cf-label">{{ t('team.name') }}</label>
               <input
                 class="cf-input"
                 v-model="newTeam.name"
-                placeholder="bijv. FC Junior"
+                :placeholder="t('team.namePlaceholder')"
                 maxlength="40"
                 autofocus
                 @keydown.enter="confirmCreate"
@@ -77,7 +91,7 @@
 
             <!-- Age group -->
             <div class="cf-field">
-              <label class="cf-label">Leeftijdsgroep</label>
+              <label class="cf-label">{{ t('team.ageGroup') }}</label>
               <select class="cf-input cf-select" v-model="newTeam.ageGroup">
                 <option v-for="g in AGE_GROUPS" :key="g.id" :value="g.id">{{ g.label }}</option>
               </select>
@@ -85,7 +99,7 @@
 
             <!-- KNVB class -->
             <div class="cf-field">
-              <label class="cf-label">Competitieklasse</label>
+              <label class="cf-label">{{ t('team.knvbClass') }}</label>
               <select class="cf-input cf-select" v-model="newTeam.knvbClass">
                 <option v-for="c in KNVB_CLASSES" :key="c.id" :value="c.id">{{ c.label }}</option>
               </select>
@@ -93,7 +107,7 @@
 
             <!-- Shirt style -->
             <div class="cf-field cf-field--col">
-              <label class="cf-label">Shirtkleur</label>
+              <label class="cf-label">{{ t('team.shirt') }}</label>
               <div class="shirt-styles">
                 <button
                   v-for="s in SHIRT_STYLES"
@@ -102,17 +116,17 @@
                   class="shirt-style-btn"
                   :class="{ active: newTeam.shirtStyle === s.id }"
                   @click="newTeam.shirtStyle = s.id"
-                  :aria-label="s.label"
+                  :aria-label="t(`shirt.${s.id}`)"
                 >
                   <ShirtAvatar :shirt="{ style: s.id, primary: newTeam.primary, secondary: newTeam.secondary }" :size="28" />
-                  <span class="shirt-style-label">{{ s.label }}</span>
+                  <span class="shirt-style-label">{{ t(`shirt.${s.id}`) }}</span>
                 </button>
               </div>
             </div>
 
             <!-- Primary color -->
             <div class="cf-field cf-field--row">
-              <label class="cf-label">Primaire kleur</label>
+              <label class="cf-label">{{ t('team.primaryColor') }}</label>
               <div class="color-picker-group">
                 <input type="color" class="color-picker" v-model="newTeam.primary" />
                 <div v-if="store.recentColors.length" class="color-swatches">
@@ -132,7 +146,7 @@
 
             <!-- Secondary color (hidden for solid) -->
             <div v-if="newTeam.shirtStyle !== 'solid'" class="cf-field cf-field--row">
-              <label class="cf-label">Secundaire kleur</label>
+              <label class="cf-label">{{ t('team.secondaryColor') }}</label>
               <div class="color-picker-group">
                 <input type="color" class="color-picker" v-model="newTeam.secondary" />
                 <div v-if="store.recentColors.length" class="color-swatches">
@@ -152,8 +166,8 @@
           </div>
 
           <div class="dialog-actions">
-            <button class="btn btn-text" @click="closeCreate">Annuleren</button>
-            <button class="btn btn-filled" @click="confirmCreate" :disabled="!newTeam.name.trim()">Aanmaken</button>
+            <button class="btn btn-text" @click="closeCreate">{{ t('common.cancel') }}</button>
+            <button class="btn btn-filled" @click="confirmCreate" :disabled="!newTeam.name.trim()">{{ t('team.create') }}</button>
           </div>
         </div>
       </div>
@@ -165,14 +179,13 @@
     <Transition name="dialog-fade">
       <div v-if="deleteOpen" class="dialog-backdrop" @click.self="closeDelete">
         <div class="dialog">
-          <p class="dialog-title">Team verwijderen</p>
+          <p class="dialog-title">{{ t('team.delete') }}</p>
           <p class="dialog-body">
-            Weet je zeker dat je <strong>{{ activeTeam?.name }}</strong> wil verwijderen?
-            Alle spelers en opstellingen van dit team worden ook verwijderd.
+            {{ t('team.deleteConfirm', { name: activeTeam?.name }) }}
           </p>
           <div class="dialog-actions">
-            <button class="btn btn-text" @click="closeDelete">Annuleren</button>
-            <button class="btn btn-filled" style="background: var(--md-error)" @click="confirmDelete">Verwijderen</button>
+            <button class="btn btn-text" @click="closeDelete">{{ t('common.cancel') }}</button>
+            <button class="btn btn-filled" style="background: var(--md-error)" @click="confirmDelete">{{ t('common.delete') }}</button>
           </div>
         </div>
       </div>
@@ -186,6 +199,7 @@ import { useTeamStore } from '@/stores/teamStore'
 import { AGE_GROUPS, ageGroupLabel } from '@/data/formations'
 import { DEFAULT_KNVB_CLASS, KNVB_CLASSES } from '@/data/knvbClasses'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
+import { t, locale, setLocale, SUPPORTED_LOCALES } from '@/i18n'
 
 /** Public asset — keep as runtime string so Vite SSR/Vitest does not rewrite it to an import. */
 const logoMarkUrl = `${import.meta.env.BASE_URL}logo-mark.svg`
@@ -213,12 +227,12 @@ onUnmounted(() => document.removeEventListener('mousedown', handleOutsideClick))
 
 // ── Create team ──────────────────────────────────────────────
 const SHIRT_STYLES = [
-  { id: 'solid',    label: 'Effen'    },
-  { id: 'gradient', label: 'Verloop'  },
-  { id: 'halves-v', label: 'Links/Re' },
-  { id: 'halves-h', label: 'Boven/On' },
-  { id: 'stripes',  label: 'Strepen'  },
-  { id: 'sash',     label: 'Sjerp'    },
+  { id: 'solid' },
+  { id: 'gradient' },
+  { id: 'halves-v' },
+  { id: 'halves-h' },
+  { id: 'stripes' },
+  { id: 'sash' },
 ]
 
 const createOpen = ref(false)
@@ -324,6 +338,37 @@ function confirmDelete() {
 /* ── Team switcher ───────────────────────────────────────── */
 .team-switcher {
   position: relative;
+  margin-left: auto;
+}
+
+.lang-switch {
+  display: flex;
+  align-items: center;
+  margin-left: var(--sp-2);
+  padding: 2px;
+  border-radius: 8px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+  flex-shrink: 0;
+}
+
+.lang-btn {
+  min-width: 32px;
+  min-height: 28px;
+  padding: 0 8px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255,255,255,.7);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.lang-btn.active {
+  background: rgba(255,255,255,.16);
+  color: #ffffff;
 }
 
 .team-btn {

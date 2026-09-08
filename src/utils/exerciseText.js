@@ -7,6 +7,7 @@ import { RINUS_META_BY_RINUS_ID, RINUS_META_MAP } from '@/data/rinusMetaMap'
 import { RINUS_SVG_BY_RINUS_ID, RINUS_SVG_MAP } from '@/data/rinusSvgMap'
 import { RINUS_RULES_BY_RINUS_ID, RINUS_RULES_MAP } from '@/data/rinusRulesMap'
 import { isCustomExercise } from '@/utils/customExercises'
+import { t } from '@/i18n'
 
 export { isCustomExercise }
 
@@ -68,19 +69,43 @@ export function getRinusRules(exercise) {
   return []
 }
 
+export function getFootballReality(exercise) {
+  if (!exercise || isCustomExercise(exercise)) return null
+  const n = getRinusMeta(exercise)?.footballReality
+  return Number.isInteger(n) && n >= 1 && n <= 5 ? n : null
+}
+
 export function formatPlayerNote(exercise, playerCount) {
   const { minPlayers, maxPlayers } = playerBounds(exercise)
   if (playerCount == null) return ''
+  const playerWord = playerCount === 1 ? t('word.player') : t('word.players')
 
   if (playerCount < minPlayers) {
     const diff = minPlayers - playerCount
-    return `Met ${playerCount} aanwezige speler${playerCount !== 1 ? 's' : ''} (${minPlayers}–${maxPlayers} ideaal, ${diff} tekort): verdeel het team in kleinere groepen, wissel met een andere oefening, of vul aan met spelbegeleiders. `
+    return t('exercise.note.tooFew', {
+      count: playerCount,
+      playerWord,
+      min: minPlayers,
+      max: maxPlayers,
+      diff,
+    })
   }
   if (playerCount > maxPlayers) {
     const groups = Math.ceil(playerCount / maxPlayers)
-    return `Met ${playerCount} aanwezige spelers (${minPlayers}–${maxPlayers} per groep): maak ${groups} groepen en roteer elke ${getExerciseDurationMin(exercise)} min. `
+    return t('exercise.note.tooMany', {
+      count: playerCount,
+      min: minPlayers,
+      max: maxPlayers,
+      groups,
+      duration: getExerciseDurationMin(exercise),
+    })
   }
-  return `Met ${playerCount} aanwezige speler${playerCount !== 1 ? 's' : ''} (${minPlayers}–${maxPlayers}): `
+  return t('exercise.note.ok', {
+    count: playerCount,
+    playerWord,
+    min: minPlayers,
+    max: maxPlayers,
+  })
 }
 
 export function buildExerciseDescription(exercise, playerCount) {
@@ -110,18 +135,19 @@ export function buildExerciseSetup(exercise, playerCount) {
 
   const { minPlayers, maxPlayers } = playerBounds(exercise)
   if (playerCount >= minPlayers && playerCount <= maxPlayers) {
-    return `${base} Werk met ${playerCount} spelers.`
+    return t('exercise.setupOk', { base, count: playerCount })
   }
   if (playerCount > maxPlayers) {
     const groups = Math.ceil(playerCount / maxPlayers)
     const perGroup = Math.ceil(playerCount / groups)
-    return `${base} Verdeel ${playerCount} spelers over ${groups} velden (ca. ${perGroup} per veld).`
+    return t('exercise.setupTooMany', { base, count: playerCount, groups, perGroup })
   }
-  return `${base} Pas de opstelling aan voor ${playerCount} speler${playerCount !== 1 ? 's' : ''} (minimaal ${minPlayers} aanbevolen).`
+  const playerWord = playerCount === 1 ? t('word.player') : t('word.players')
+  return t('exercise.setupTooFew', { base, count: playerCount, playerWord, min: minPlayers })
 }
 
 export function playerRangeLabel(exercise) {
   const { minPlayers, maxPlayers } = playerBounds(exercise)
-  if (minPlayers === maxPlayers) return `${minPlayers} spelers`
-  return `${minPlayers}–${maxPlayers} spelers`
+  if (minPlayers === maxPlayers) return t('exercise.playerExact', { n: minPlayers })
+  return t('exercise.playerRange', { min: minPlayers, max: maxPlayers })
 }

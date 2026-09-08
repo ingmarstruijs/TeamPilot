@@ -83,6 +83,22 @@ describe('trainingEngine', () => {
     expect(results.some(e => e.title.toLowerCase().includes('partij') || e.category === 'partijvorm')).toBe(true)
   })
 
+  it('browseExercisesWithFilters can require a minimum football-reality rating', () => {
+    const all = browseExercisesWithFilters({
+      ageGroup: 'O11',
+      knvbLevel: 3,
+      suitableOnly: false,
+    })
+    const high = browseExercisesWithFilters({
+      ageGroup: 'O11',
+      knvbLevel: 3,
+      suitableOnly: false,
+      minFootballReality: 5,
+    })
+    expect(high.length).toBeLessThan(all.length)
+    expect(high.length).toBeGreaterThan(0)
+  })
+
   it('browseExercises returns all exercises for age group without type filter', () => {
     const all = browseExercises({ ageGroup: 'O11', knvbLevel: 3 })
     const filtered = EXERCISES.filter(ex =>
