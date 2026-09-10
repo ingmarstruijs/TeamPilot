@@ -99,16 +99,28 @@
               <span v-if="benchPlayers.length" class="chip-badge">{{ benchPlayers.length }}</span>
             </button>
           </div>
-          <label class="sr-only" for="formation-select">Formatie types</label>
-          <select
-            id="formation-select"
-            class="formation-dropdown formation-dropdown--inline"
-            :value="selectedFormationId || ''"
-            @change="onFormationChange"
-          >
-            <option value="">Vrij</option>
-            <option v-for="f in availableFormations" :key="f.id" :value="f.id">{{ f.label }}</option>
-          </select>
+          <label class="sr-only" for="formation-select">{{ t('lineup.formations') }}</label>
+          <div class="formation-select-wrap">
+            <select
+              id="formation-select"
+              class="formation-dropdown formation-dropdown--inline"
+              :value="selectedFormationId || ''"
+              @change="onFormationChange"
+            >
+              <option value="">{{ t('lineup.free') }}</option>
+              <option v-for="f in availableFormations" :key="f.id" :value="f.id">{{ f.label }}</option>
+            </select>
+            <button
+              type="button"
+              class="chip chip-toggle chip-toggle--icon formation-info-btn"
+              :disabled="!canShowFormationInfo"
+              :title="formationInfoTitle"
+              :aria-label="formationInfoTitle"
+              @click="showFormationInfo = true"
+            >
+              <span class="material-symbols-rounded" aria-hidden="true">info</span>
+            </button>
+          </div>
           <button
             class="chip chip-toggle chip-toggle--icon"
             :class="{ active: isOpponentVisible, [`opponent-mode-${opponentMode}`]: isOpponentVisible }"
@@ -152,7 +164,19 @@
 
     <div class="builder-body">
       <aside v-if="isDesktop" class="builder-col-formation card card-elevated">
-        <p class="md-title-sm controls-title">Formatie types</p>
+        <div class="controls-title-row">
+          <p class="md-title-sm controls-title">{{ t('lineup.formations') }}</p>
+          <button
+            type="button"
+            class="btn-icon formation-info-btn"
+            :disabled="!canShowFormationInfo"
+            :title="formationInfoTitle"
+            :aria-label="formationInfoTitle"
+            @click="showFormationInfo = true"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">info</span>
+          </button>
+        </div>
         <div class="formation-chips formation-chips--stacked">
           <button
             v-for="f in availableFormations"
@@ -163,7 +187,7 @@
           >{{ f.label }}</button>
           <button class="chip" :class="{ active: !selectedFormationId }" @click="freeMode">
             <span class="material-symbols-rounded" style="font-size:14px">edit</span>
-            Vrij
+            {{ t('lineup.free') }}
           </button>
         </div>
       </aside>
@@ -236,6 +260,12 @@
     >{{ benchTouchGhost.initials }}</div>
 
 
+
+    <FormationInfoDialog
+      :open="showFormationInfo"
+      :formation-id="selectedFormationId"
+      @close="showFormationInfo = false"
+    />
 
     <!-- Unsaved changes dialog -->
     <Transition name="fade">
@@ -387,8 +417,11 @@ import {
 import { getOpponentShirt } from '@/utils/opponentShirt'
 import FootballField from '@/components/field/FootballField.vue'
 import BenchPanel    from '@/components/field/BenchPanel.vue'
+import FormationInfoDialog from '@/components/lineup/FormationInfoDialog.vue'
 import { showSnackbar } from '@/composables/useSnackbar'
 import { useMediaQuery } from '@/composables/useMediaQuery'
+import { t } from '@/i18n'
+import { hasFormationGuide } from '@/utils/formationGuide'
 
 const props = defineProps({ id: String })
 const store  = useTeamStore()
@@ -611,6 +644,18 @@ const playersMap = computed(() => {
 const lineupId           = ref(null)
 const lineupName         = ref('')
 const selectedFormationId = ref(null)
+const showFormationInfo = ref(false)
+
+const canShowFormationInfo = computed(() => hasFormationGuide(selectedFormationId.value))
+const formationInfoTitle = computed(() => (
+  canShowFormationInfo.value
+    ? t('lineup.formationInfo', { formation: selectedFormationId.value })
+    : t('lineup.formationInfoDisabled')
+))
+
+watch(selectedFormationId, (id) => {
+  if (!hasFormationGuide(id)) showFormationInfo.value = false
+})
 const flipped             = ref(true) // true = GK at bottom (default)
 
 // fieldSlots: [{ slotId, position, x, y, playerId|null }]
@@ -1591,12 +1636,37 @@ async function shareViaWhatsApp() {
   flex-shrink: 0;
 }
 
+.formation-select-wrap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+}
+
 .formation-dropdown--inline {
   flex: 1;
   min-width: 0;
   min-height: 36px;
   padding: var(--sp-1) var(--sp-2);
   font-size: 13px;
+}
+
+.formation-info-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.controls-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-2);
+}
+
+.controls-title-row .controls-title {
+  margin: 0;
 }
 
 .chip-toggle--icon {
