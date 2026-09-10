@@ -125,6 +125,8 @@ export default {
     deleted: 'Opstelling verwijderd',
     attackUp: 'Aanval omhoog',
     keeperDown: 'Keeper omlaag',
+    formationInfo: 'Uitleg over formatie {formation}',
+    formationInfoDisabled: 'Kies eerst een formatie voor uitleg',
   },
   training: {
     title: 'Training',
@@ -471,5 +473,166 @@ export default {
   },
   ageGroup: {
     Senior: 'Senioren',
+  },
+  formationGuide: {
+    dialogTitle: 'Formatie {formation}',
+    shape: 'Opbouw',
+    strengths: 'Sterke punten',
+    watchouts: 'Aandachtspunten',
+    withBall: 'Bij balbezit',
+    withoutBall: 'Zonder bal',
+    tip: 'Zie de formatie als startpositie: zodra de bal beweegt, bewegen spelers mee. Rouleren blijft bij jeugd vaak belangrijker dan één vaste rol.',
+    items: {
+      '2-2-1': {
+        summary: 'Gebalanceerde 6v6-basis met duidelijke breedte, twee linies in het veld en één spits voor diepte. Logisch startpunt voor O8–O10.',
+        shape: 'Keeper · 2 verdedigers · 2 middenvelders · 1 spits',
+        strengths: [
+          'Duidelijke breedte en overzichtelijke linies',
+          'Middenvelders kunnen aanvallen én terugzakken',
+          'Spits houdt diepte en maakt het veld lang',
+        ],
+        watchouts: [
+          'Verdedigers niet te dicht naast elkaar op dezelfde hoogte',
+          'Spits kan geïsoleerd raken zonder steun van middenveld',
+        ],
+        withBall: 'Verdedigers breed, middenvelders zoeken verschillende hoogtes of de zijkant, spits biedt diepte.',
+        withoutBall: 'Middenvelders sluiten aan; spits stuurt de opbouw van de tegenstander een kant op.',
+      },
+      '2-1-2': {
+        summary: 'Aanvallendere 6v6-vorm met twee voorin. Goed als je wilt oefenen op samenwerken rond het doel en 1-tegen-1.',
+        shape: 'Keeper · 2 verdedigers · 1 middenvelder · 2 aanvallers',
+        strengths: [
+          'Twee aanvallers voor samen druk zetten en afronden',
+          'Centrale middenvelder verbindt opbouw en aanval',
+          'Past bij teams die graag vooruit spelen',
+        ],
+        watchouts: [
+          'Slechts twee vaste spelers achterin — omschakeling moet snel',
+          'Middenvelder moet veel meters maken',
+        ],
+        withBall: 'Aanvallers breed of diep, middenvelder komt mee of blijft beschikbaar als steunpunt.',
+        withoutBall: 'Eén aanvaller kan druk zetten terwijl de ander dekking zoekt; middenvelder helpt de linie.',
+      },
+      '1-3-1': {
+        summary: 'Compacte 6v6-vorm met breedte via drie middenvelders/spelers in de as. Eenvoudig herkenbaar, maar vraagt meters van de flanken.',
+        shape: 'Keeper · 1 verdediger · 3 middenvelders · 1 spits',
+        strengths: [
+          'Breedte aan beide kanten',
+          'Centrale speler kan veel steunen',
+          'Team blijft vaak compact',
+        ],
+        watchouts: [
+          'Buitenste spelers mogen niet te laag blijven hangen',
+          'Niet laten voelen alsof “drie verdedigers” nooit mogen doorschuiven',
+        ],
+        withBall: 'Buitenste spelers maken het veld breed; centrale speler biedt steun; spits geeft diepte.',
+        withoutBall: 'Linies dichter bij elkaar; centrale speler helpt de laatste man.',
+      },
+      '3-2-2': {
+        summary: 'Sterk 8v8-centrum met drie achterin en twee voorin. Past bij teams die stevig willen staan en samen druk zetten.',
+        shape: 'Keeper · 3 verdedigers · 2 middenvelders · 2 aanvallers',
+        strengths: [
+          'Goede bezetting achterin',
+          'Twee aanvallers kunnen samen druk zetten',
+          'Compact centrum',
+        ],
+        watchouts: [
+          'Breedte moet komen van buitenste verdedigers of aanvallers',
+          'Zonder breedte wordt het team smal en voorspelbaar',
+        ],
+        withBall: 'Buitenste verdedigers of aanvallers zoeken de zijkant; middenveld speelt kort door.',
+        withoutBall: 'Drie achterin blijven compact; middenvelders helpen dekking.',
+      },
+      '2-3-2': {
+        summary: 'Aanvallende 8v8-opstelling met drie middenvelders en twee voorin. Meer dreiging, maar vraagt goede omschakeling.',
+        shape: 'Keeper · 2 verdedigers · 3 middenvelders · 2 aanvallers',
+        strengths: [
+          'Twee spelers voorin voor samenwerking rond het doel',
+          'Drie middenvelders geven breedte en steun',
+          'Goed voor teams die vooruit willen spelen',
+        ],
+        watchouts: [
+          'Slechts twee vaste verdedigers',
+          'Middenvelders moeten snel terugschuiven bij balverlies',
+        ],
+        withBall: 'Middenvelders op verschillende hoogtes; aanvallers zoeken diepte en breedte.',
+        withoutBall: 'Middenveld zakt in tot een scherm voor de twee verdedigers.',
+      },
+      '3-3-1': {
+        summary: 'Overzichtelijke 8v8-basis met drie duidelijke linies. Sterk startpunt voor O11/O12 en een herkenbare stap richting 11v11.',
+        shape: 'Keeper · 3 verdedigers · 3 middenvelders · 1 spits',
+        strengths: [
+          'Duidelijke linies en goede breedte',
+          'Middenveld kan aansluiten in opbouw',
+          'Herkenbare overstap naar grotere velden',
+        ],
+        watchouts: [
+          'Spits kan geïsoleerd raken',
+          'Buitenste spelers moeten op het juiste moment doorschuiven',
+        ],
+        withBall: 'Buitenste verdedigers breed; middenvelders op verschillende hoogtes; spits biedt diepte.',
+        withoutBall: 'Linies dichter bij elkaar; middenveld helpt de verdediging.',
+      },
+      '4-3-3': {
+        summary: 'Evenwichtige 11v11-formatie met breedte voorin en een driehoek op het middenveld. Sterk voor druk zetten en balbezit over de flanken.',
+        shape: 'Keeper · 4 verdedigers · 3 middenvelders · 3 aanvallers',
+        strengths: [
+          'Balans tussen aanval en verdediging',
+          'Breedte via vleugelaanvallers',
+          'Goed voor hoge druk en snel omschakelen',
+        ],
+        watchouts: [
+          'Vraagt fitte vleugels die ook terugverdedigen',
+          'Centrale spits heeft steun nodig van de 10/middenveld',
+        ],
+        withBall: 'Fullbacks of vleugels maken breedte; middenveld zoekt de derde man; voorste drie wisselt posities.',
+        withoutBall: 'Voorste linie zet eerste druk; middenveld blijft compact voor de vier achterin.',
+      },
+      '4-4-2': {
+        summary: 'Klassieke, overzichtelijke 11v11-vorm met twee banken van vier en een aanvallend duo. Sterk in organisatie en tegenaanval.',
+        shape: 'Keeper · 4 verdedigers · 4 middenvelders · 2 aanvallers',
+        strengths: [
+          'Eenvoudig te coachen en te herkennen',
+          'Sterke aanwezigheid in beide fases',
+          'Twee spitsen kunnen elkaar vastleggen en diepte geven',
+        ],
+        watchouts: [
+          'Vlak middenveld kan creativiteit missen zonder doorschuiven',
+          'Tegenovertal in het centrum bij teams met drie middenvelders',
+        ],
+        withBall: 'Brede middenvelders of fullbacks geven breedte; tweede spits zakt soms in als steun.',
+        withoutBall: 'Twee compacte linies van vier; snelle omschakeling via de twee voorin.',
+      },
+      '4-2-3-1': {
+        summary: 'Moderne 11v11-formatie met dubbele pivot en een creatief trio achter één spits. Veel controle en flexibele aanval.',
+        shape: 'Keeper · 4 verdedigers · 2 controlerende middenvelders · 3 aanvallende middenvelders · 1 spits',
+        strengths: [
+          'Sterke defensieve basis via de dubbele 6',
+          'Breedte en creativiteit via de drie achter de spits',
+          'Goed voor balbezit én tegenaanval',
+        ],
+        watchouts: [
+          'Spits kan alleen komen te staan zonder timing van de 10',
+          'Vraagt discipline van de twee controlerende middenvelders',
+        ],
+        withBall: 'Pivots beveiligen; 10 en vleugels zoeken tussenlijnen; spits beweegt diep of haalt naar zich toe.',
+        withoutBall: 'Dubbele pivot schermt de as; vleugels zakken mee; spits verstoort de opbouw.',
+      },
+      '3-5-2': {
+        summary: 'Flexibele 11v11-vorm met drie centrale verdedigers, wingbacks en twee spitsen. Combineert stevigheid achterin met overtal op het middenveld.',
+        shape: 'Keeper · 3 verdedigers · 2 wingbacks · 3 middenvelders · 2 aanvallers',
+        strengths: [
+          'Solide as van drie achterin',
+          'Veel bezetting op het middenveld',
+          'Wingbacks geven breedte in balbezit',
+        ],
+        watchouts: [
+          'Wingbacks moeten enorm fit zijn (op en neer)',
+          'Bij balverlies kan de zijkant open liggen als wingbacks hoog staan',
+        ],
+        withBall: 'Wingbacks hoog en breed; centrale middenvelders beheersen het tempo; spitsen wisselen diepte.',
+        withoutBall: 'Wingbacks zakken in tot vijf achterin; middenveld blijft compact.',
+      },
+    },
   },
 }

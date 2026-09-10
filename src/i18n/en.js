@@ -125,6 +125,8 @@ export default {
     deleted: 'Lineup deleted',
     attackUp: 'Attack at the top',
     keeperDown: 'Goalkeeper at the bottom',
+    formationInfo: 'About formation {formation}',
+    formationInfoDisabled: 'Select a formation to see the guide',
   },
   training: {
     title: 'Training',
@@ -471,5 +473,166 @@ export default {
   },
   ageGroup: {
     Senior: 'Seniors',
+  },
+  formationGuide: {
+    dialogTitle: 'Formation {formation}',
+    shape: 'Shape',
+    strengths: 'Strengths',
+    watchouts: 'Watch-outs',
+    withBall: 'In possession',
+    withoutBall: 'Out of possession',
+    tip: 'Treat the formation as a starting shape: once the ball moves, players move with it. For youth teams, rotating roles often matters more than locking one position.',
+    items: {
+      '2-2-1': {
+        summary: 'Balanced 6v6 base with clear width, two outfield lines and one striker for depth. A solid starting point for O8–O10.',
+        shape: 'GK · 2 defenders · 2 midfielders · 1 striker',
+        strengths: [
+          'Clear width and easy-to-read lines',
+          'Midfielders can attack and drop',
+          'Striker keeps the pitch long',
+        ],
+        watchouts: [
+          'Defenders should not stand too close on the same line',
+          'Striker can get isolated without midfield support',
+        ],
+        withBall: 'Defenders stay wide, midfielders vary height or move outside, striker offers depth.',
+        withoutBall: 'Midfielders drop in; striker channels the opponent’s build-up to one side.',
+      },
+      '2-1-2': {
+        summary: 'More attacking 6v6 with two up top. Good for finishing combinations and 1v1s.',
+        shape: 'GK · 2 defenders · 1 midfielder · 2 forwards',
+        strengths: [
+          'Two forwards to press and finish together',
+          'Central midfielder links build-up and attack',
+          'Fits teams that like to play forward',
+        ],
+        watchouts: [
+          'Only two fixed defenders — transitions must be quick',
+          'The single midfielder covers a lot of ground',
+        ],
+        withBall: 'Forwards stretch wide or deep; midfielder joins or stays as the outlet.',
+        withoutBall: 'One forward presses while the other covers; midfielder helps the back line.',
+      },
+      '1-3-1': {
+        summary: 'Compact 6v6 with width from three central/wide midfielders. Easy to recognise, but flanks must work hard.',
+        shape: 'GK · 1 defender · 3 midfielders · 1 striker',
+        strengths: [
+          'Width on both sides',
+          'Central player can support a lot',
+          'Team often stays compact',
+        ],
+        watchouts: [
+          'Wide players must not sit too deep',
+          'Avoid teaching “three defenders” who never step up',
+        ],
+        withBall: 'Wide players stretch the pitch; central player supports; striker offers depth.',
+        withoutBall: 'Lines tighten; central player helps the last defender.',
+      },
+      '3-2-2': {
+        summary: 'Strong 8v8 centre with three at the back and two up front. Good when you want solidity and joint pressing.',
+        shape: 'GK · 3 defenders · 2 midfielders · 2 forwards',
+        strengths: [
+          'Solid numbers at the back',
+          'Two forwards can press together',
+          'Compact centre',
+        ],
+        watchouts: [
+          'Width must come from outside defenders or forwards',
+          'Without width the team becomes narrow',
+        ],
+        withBall: 'Outside defenders or forwards find the flanks; midfield plays short.',
+        withoutBall: 'Back three stay compact; midfielders help cover.',
+      },
+      '2-3-2': {
+        summary: 'Attacking 8v8 with three midfielders and two forwards. More threat, but needs clean transitions.',
+        shape: 'GK · 2 defenders · 3 midfielders · 2 forwards',
+        strengths: [
+          'Two forwards for combinations near goal',
+          'Three midfielders add width and support',
+          'Suits forward-oriented teams',
+        ],
+        watchouts: [
+          'Only two fixed defenders',
+          'Midfield must recover quickly on turnovers',
+        ],
+        withBall: 'Midfielders stagger heights; forwards stretch depth and width.',
+        withoutBall: 'Midfield drops into a screen in front of the two defenders.',
+      },
+      '3-3-1': {
+        summary: 'Clear 8v8 base with three lines. Strong start for O11/O12 and a recognisable step toward 11v11.',
+        shape: 'GK · 3 defenders · 3 midfielders · 1 striker',
+        strengths: [
+          'Clear lines and good width',
+          'Midfield can join the build-up',
+          'Familiar bridge toward larger pitches',
+        ],
+        watchouts: [
+          'Striker can get isolated',
+          'Wide players must time when to step on',
+        ],
+        withBall: 'Outside defenders stay wide; midfielders vary height; striker offers depth.',
+        withoutBall: 'Lines compress; midfield helps the defence.',
+      },
+      '4-3-3': {
+        summary: 'Balanced 11v11 with width up front and a midfield three. Strong for pressing and play down the flanks.',
+        shape: 'GK · 4 defenders · 3 midfielders · 3 forwards',
+        strengths: [
+          'Balance between attack and defence',
+          'Width through wide forwards',
+          'Good for high press and quick transitions',
+        ],
+        watchouts: [
+          'Needs fit wingers who also track back',
+          'Central striker needs support from midfield',
+        ],
+        withBall: 'Full-backs or wingers create width; midfield finds the third man; front three rotate.',
+        withoutBall: 'Front line starts the press; midfield stays compact in front of the back four.',
+      },
+      '4-4-2': {
+        summary: 'Classic, clear 11v11 with two banks of four and a striking pair. Strong for organisation and counters.',
+        shape: 'GK · 4 defenders · 4 midfielders · 2 forwards',
+        strengths: [
+          'Easy to coach and recognise',
+          'Strong presence in both phases',
+          'Two strikers can pin and stretch the defence',
+        ],
+        watchouts: [
+          'Flat midfield can lack creativity without movement',
+          'Can be outnumbered centrally vs midfield threes',
+        ],
+        withBall: 'Wide midfielders or full-backs provide width; second striker can drop as a link.',
+        withoutBall: 'Two compact banks of four; quick counters through the two forwards.',
+      },
+      '4-2-3-1': {
+        summary: 'Modern 11v11 with a double pivot and a creative three behind one striker. Lots of control and flexible attacking.',
+        shape: 'GK · 4 defenders · 2 holding midfielders · 3 attacking midfielders · 1 striker',
+        strengths: [
+          'Solid base through the double six',
+          'Width and creativity behind the striker',
+          'Works for possession and counters',
+        ],
+        watchouts: [
+          'Striker can get isolated without timing from the 10',
+          'Needs discipline from the two holding midfielders',
+        ],
+        withBall: 'Pivots protect; 10 and wingers find half-spaces; striker goes deep or drops to link.',
+        withoutBall: 'Double pivot screens the centre; wingers drop; striker disrupts the build-up.',
+      },
+      '3-5-2': {
+        summary: 'Flexible 11v11 with a back three, wing-backs and two strikers. Solidity behind with midfield numbers.',
+        shape: 'GK · 3 defenders · 2 wing-backs · 3 midfielders · 2 forwards',
+        strengths: [
+          'Solid central three at the back',
+          'Strong midfield occupancy',
+          'Wing-backs provide width in possession',
+        ],
+        watchouts: [
+          'Wing-backs must be very fit',
+          'Flanks open up if wing-backs are caught high',
+        ],
+        withBall: 'Wing-backs high and wide; central midfield sets the tempo; strikers vary depth.',
+        withoutBall: 'Wing-backs drop into a back five; midfield stays compact.',
+      },
+    },
   },
 }
