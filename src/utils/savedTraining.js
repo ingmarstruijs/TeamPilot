@@ -1,29 +1,34 @@
 import { getExerciseById } from '@/data/exercises'
-import { CYCLE_THEMES, getCycleThemeLabel } from '@/utils/trainingThemes'
+import { CYCLE_THEMES } from '@/utils/trainingThemes'
 import { getCycleThemeIcon, getTrainingTypeIcon } from '@/utils/trainingIcons'
+import { t, formatShortDate } from '@/i18n'
 
 export { getCycleThemeIcon, getTrainingTypeIcon }
 
 export const MAX_SAVED_TRAININGS = 25
 
-export const CYCLE_THEME_OPTIONS = [
-  { id: '', label: 'Geen thema', icon: 'stadium' },
-  ...CYCLE_THEMES.map(id => ({
-    id,
-    label: getCycleThemeLabel(id),
-    icon: getCycleThemeIcon(id),
-  })),
-]
+export function getCycleThemeOptions() {
+  return [
+    { id: '', label: t('savedTraining.noTheme'), icon: 'stadium' },
+    ...CYCLE_THEMES.map(id => ({
+      id,
+      label: t(`trainingType.${id}`),
+      icon: getCycleThemeIcon(id),
+    })),
+  ]
+}
 
 export function cycleThemeLabel(theme) {
   if (!theme) return null
-  return CYCLE_THEME_OPTIONS.find(o => o.id === theme)?.label ?? theme
+  return t(`trainingType.${theme}`)
 }
 
 export function defaultSavedName({ cycleWeek, cycleThemeLabel: themeLabel, trainingTypeLabel }) {
-  const date = new Date().toLocaleDateString('nl-NL', { day: 'numeric', month: 'short' })
-  if (themeLabel) return `Week ${cycleWeek} ${themeLabel} · ${date}`
-  return `${trainingTypeLabel} · ${date}`
+  const date = formatShortDate()
+  if (themeLabel) {
+    return t('savedTraining.defaultWeekName', { week: cycleWeek, theme: themeLabel, date })
+  }
+  return t('savedTraining.defaultTypeName', { type: trainingTypeLabel, date })
 }
 
 export function blocksToSerializable(blocks) {

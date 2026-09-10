@@ -16,7 +16,7 @@
       <button
         type="button"
         class="btn-icon ai-briefing-dismiss"
-        aria-label="Briefing sluiten"
+        :aria-label="t('aiBriefing.dismiss')"
         @click="$emit('dismiss')"
       >
         <span class="material-symbols-rounded" aria-hidden="true">close</span>
@@ -27,6 +27,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import { t } from '@/i18n'
 
 const props = defineProps({
   text: { type: String, default: '' },
@@ -36,7 +37,7 @@ const props = defineProps({
 defineEmits(['dismiss'])
 
 const engineLabel = computed(() =>
-  props.engine === 'local-llm' ? 'Lokale AI' : 'Slimme planning'
+  props.engine === 'local-llm' ? t('aiBriefing.localLlm') : t('aiBriefing.rules')
 )
 </script>
 

@@ -66,7 +66,7 @@
           </span>
         </div>
         <div class="player-actions">
-          <button class="btn-icon" @click="openEdit(player)" aria-label="Bewerken">
+          <button class="btn-icon" @click="openEdit(player)" :aria-label="t('savedTraining.edit')">
             <span class="material-symbols-rounded">edit</span>
           </button>
           <button class="btn-icon" @click="confirmDelete(player)" :aria-label="t('common.delete')"
@@ -80,14 +80,14 @@
     <!-- Add/Edit dialog -->
     <Transition name="fade">
       <div v-if="showDialog" class="dialog-backdrop" @click.self="closeDialog">
-        <div class="dialog" role="dialog" :aria-label="editingId ? 'Speler bewerken' : 'Speler toevoegen'">
+        <div class="dialog" role="dialog" :aria-label="editingId ? t('players.editPlayer') : t('players.addPlayer')">
           <p class="dialog-title">{{ editingId ? t('players.editPlayer') : t('players.addPlayer') }}</p>
 
           <div class="form-grid">
             <div class="field-wrap" style="grid-column: 1/-1">
               <label class="field-label" for="f-name">{{ t('players.name') }}</label>
               <input id="f-name" class="field" v-model.trim="form.name"
-                placeholder="Voornaam Achternaam" maxlength="40" autofocus />
+                :placeholder="t('players.namePlaceholder')" maxlength="40" autofocus />
             </div>
             <div class="field-wrap">
               <label class="field-label" for="f-num">{{ t('players.number') }}</label>
@@ -111,7 +111,7 @@
           <div class="dialog-actions">
             <button class="btn btn-text" @click="closeDialog">{{ t('common.cancel') }}</button>
             <button class="btn btn-filled" :disabled="!form.name" @click="savePlayer">
-              {{ editingId ? 'Opslaan' : 'Toevoegen' }}
+              {{ editingId ? t('common.save') : t('common.add') }}
             </button>
           </div>
         </div>
@@ -175,14 +175,14 @@
                 type="number"
                 v-model.number="quickPlayers[i].number"
                 min="1" max="99"
-                title="Rugnummer"
+                :title="t('players.number')"
               />
             </div>
           </div>
 
           <div class="dialog-actions">
             <button class="btn btn-text" @click="showQuickFill = false">{{ t('common.cancel') }}</button>
-            <button class="btn btn-outlined" @click="reshufflePlayers" title="Nieuwe namen genereren">
+            <button class="btn btn-outlined" @click="reshufflePlayers" :title="t('players.reshuffleTitle')">
               <span class="material-symbols-rounded" style="font-size:16px">shuffle</span>
               Nieuwe namen
             </button>
@@ -260,14 +260,14 @@ function savePlayer() {
       number: form.number || null,
       position: form.position,
     })
-    showSnackbar('Speler bijgewerkt')
+    showSnackbar(t('players.updated'))
   } else {
     store.addPlayer({
       name: form.name,
       number: form.number || null,
       position: form.position,
     })
-    showSnackbar('Speler toegevoegd')
+    showSnackbar(t('players.addedSnackbar'))
   }
   closeDialog()
 }
@@ -281,7 +281,7 @@ function confirmDelete(player) {
 
 function doDelete() {
   store.removePlayer(deleteTarget.value.id)
-  showSnackbar(`${deleteTarget.value.name} verwijderd`)
+  showSnackbar(t('players.deletedSnackbar', { name: deleteTarget.value.name }))
   deleteTarget.value = null
 }
 
@@ -298,7 +298,7 @@ function copyRoster() {
     })
   navigator.clipboard.writeText(header + '\n\n' + lines.join('\n'))
     .then(() => showSnackbar(t('players.copied')))
-    .catch(() => showSnackbar('Kopiëren mislukt'))
+    .catch(() => showSnackbar(t('share.copyFailed')))
 }
 
 // ── Quick fill ────────────────────────────────────────────
@@ -332,7 +332,10 @@ function confirmQuickFill() {
     added++
   }
   showQuickFill.value = false
-  showSnackbar(`${added} speler${added !== 1 ? 's' : ''} toegevoegd ✓`)
+  showSnackbar(t('players.quickFillDone', {
+    count: added,
+    playerWord: added === 1 ? t('word.player') : t('word.players'),
+  }))
 }
 </script>
 

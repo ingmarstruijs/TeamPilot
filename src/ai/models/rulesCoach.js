@@ -1,14 +1,30 @@
 import { generateTraining, getCycleThemeLabel } from '@/utils/trainingEngine'
 import { formatPlayerNote, getExerciseTitle, getRinusRules } from '@/utils/exerciseText'
 import { ageGroupLabel } from '@/data/formations'
+import { CYCLE_THEMES, getCycleTheme } from '@/utils/trainingThemes'
+import { t } from '@/i18n'
 
-const COACHING_CUES = {
-  'warming-up': ['Houd tempo hoog maar gecontroleerd.', 'Iedereen raakt de bal vroeg.'],
-  techniek: ['Kwaliteit voor snelheid.', 'Eis twee goede touches voordat je doorspeelt.'],
-  tactiek: ['Praat hardop: wie dekt wie?', 'Houd de organisatie ook bij balverlies.'],
-  conditie: ['Korte herstelmomenten, blijf scherp.', 'Intensiteit eerst, dan herhaalbaarheid.'],
-  partijvorm: ['Speel door bij voorsprong.', 'Beloon druk zetten direct na balverlies.'],
-  afsluiting: ['Rustig uitlopen, kort reflecteren.', 'Eén leerpunt mee naar huis.'],
+function coachingCuesFor(category) {
+  const key = `coach.cues.${category}`
+  const raw = t(key)
+  if (raw !== key && raw.includes('|')) {
+    return raw.split('|').map(s => s.trim()).filter(Boolean)
+  }
+  if (raw !== key) return [raw]
+  return [t('coach.cueDefault')]
+}
+
+function resolvedThemeId(ctx) {
+  const raw = ctx.cycleTheme
+  if (typeof raw === 'number') return getCycleTheme(raw)
+  if (CYCLE_THEMES.includes(raw)) return raw
+  return getCycleTheme(ctx.cycleWeek ?? 1)
+}
+
+function localizedThemeLabel(ctx) {
+  const id = resolvedThemeId(ctx)
+  const label = t(`trainingType.${id}`)
+  return label.startsWith('trainingType.') ? getCycleThemeLabel(id) : label
 }
 
 /**
@@ -21,10 +37,10 @@ function buildAdaptations(ctx, exercise) {
   const lines = []
   if (note) lines.push(note.replace(/\s+$/, ''))
   if (!ctx.presentPlayers?.some(p => p.position === 'GK')) {
-    lines.push('Geen keeper aanwezig: speel met vaste achterste of wisselende keeper.')
+    lines.push(t('coach.noGk'))
   }
   if (ctx.focus) {
-    lines.push(`Focus vanavond: ${ctx.focus}.`)
+    lines.push(t('coach.focusTonight', { focus: ctx.focus }))
   }
   return lines
 }
@@ -36,19 +52,26 @@ function buildAdaptations(ctx, exercise) {
 function buildWhyThis(ctx, exercise) {
   const bits = []
   if (ctx.balance?.needsAttackFocus && exercise.focusPositions?.includes('ATT')) {
-    bits.push('Veel verdedigers aanwezig → extra aanvallend werk')
+    bits.push(t('coach.whyAttackFocus'))
   } else if (ctx.balance?.needsDefenceFocus && exercise.focusPositions?.includes('DEF')) {
-    bits.push('Veel aanvallers aanwezig → extra druk zetten / verdedigen')
+    bits.push(t('coach.whyDefenceFocus'))
   }
   if (exercise.cycleThemes?.includes(ctx.cycleTheme)) {
-    bits.push(`Past bij weekthema ${getCycleThemeLabel(ctx.cycleTheme)}`)
+    bits.push(t('coach.whyWeekTheme', { theme: localizedThemeLabel(ctx) }))
   }
   if (ctx.focus && (exercise.title?.toLowerCase().includes(ctx.focus.toLowerCase())
     || exercise.description?.toLowerCase().includes(ctx.focus.toLowerCase()))) {
-    bits.push(`Sluit aan op focus “${ctx.focus}”`)
+    bits.push(t('coach.whyFocusMatch', { focus: ctx.focus }))
   }
   if (!bits.length) {
-    bits.push(`Past bij ${ageGroupLabel(ctx.ageGroup)} en ${ctx.playerCount || 'de'} aanwezige spelers`)
+    if (ctx.playerCount) {
+      bits.push(t('coach.whyDefault', {
+        ageGroup: ageGroupLabel(ctx.ageGroup),
+        count: ctx.playerCount,
+      }))
+    } else {
+      bits.push(t('coach.whyDefaultNoCount', { ageGroup: ageGroupLabel(ctx.ageGroup) }))
+    }
   }
   return bits.join(' · ')
 }
@@ -72,6 +95,7 @@ export function fillPlannedBlockNarration(ctx, block, exercise) {
   const adaptations = Array.isArray(block.adaptations) ? block.adaptations.filter(Boolean) : []
   const coachingCues = Array.isArray(block.coachingCues) ? block.coachingCues.filter(Boolean) : []
   const whyThis = typeof block.whyThis === 'string' ? block.whyThis.trim() : ''
+  const category = ex.category || block.category
 
   return {
     ...block,
@@ -79,7 +103,7 @@ export function fillPlannedBlockNarration(ctx, block, exercise) {
     adaptations: adaptations.length ? adaptations : buildAdaptations(ctx, ex),
     coachingCues: coachingCues.length
       ? coachingCues
-      : (COACHING_CUES[ex.category || block.category] ?? ['Houd iedereen betrokken.']),
+      : coachingCuesFor(category),
   }
 }
 
@@ -105,7 +129,7 @@ function blockFromExercise(ctx, exercise, durationMin) {
     setup: exercise.setup ?? '',
     rules: getRinusRules(exercise).length ? getRinusRules(exercise) : (exercise.rules ?? []),
     adaptations: buildAdaptations(ctx, exercise),
-    coachingCues: COACHING_CUES[exercise.category] ?? ['Houd iedereen betrokken.'],
+    coachingCues: coachingCuesFor(exercise.category),
     whyThis: buildWhyThis(ctx, exercise),
   }
 }
@@ -114,14 +138,21 @@ function blockFromExercise(ctx, exercise, durationMin) {
  * @param {import('../types.js').CoachContext} ctx
  */
 function buildBriefing(ctx, blocks) {
-  const theme = getCycleThemeLabel(ctx.cycleTheme)
-  const focusBit = ctx.focus ? ` Focus: ${ctx.focus}.` : ''
+  const theme = localizedThemeLabel(ctx)
+  const focusBit = ctx.focus ? t('coach.briefingFocus', { focus: ctx.focus }) : ''
   const balanceBit = ctx.balance?.needsAttackFocus
-    ? ' Extra aandacht voor aanvallen.'
+    ? t('coach.briefingAttack')
     : ctx.balance?.needsDefenceFocus
-      ? ' Extra aandacht voor verdedigen en druk zetten.'
+      ? t('coach.briefingDefence')
       : ''
-  return `Training voor ${ageGroupLabel(ctx.ageGroup)} met ${ctx.playerCount} spelers · thema ${theme}.${focusBit}${balanceBit} ${blocks.length} oefeningen, klaar voor op het veld.`
+  return t('coach.briefing', {
+    ageGroup: ageGroupLabel(ctx.ageGroup),
+    count: ctx.playerCount,
+    theme,
+    focusBit,
+    balanceBit,
+    blockCount: blocks.length,
+  })
 }
 
 /**
@@ -186,7 +217,7 @@ export function planSessionSync(ctx) {
   )
   blocks = redistributeDurations(blocks, ctx.durationMin)
 
-  const theme = getCycleThemeLabel(ctx.cycleTheme)
+  const theme = localizedThemeLabel(ctx)
   const title = ctx.focus
     ? `${theme} · ${ctx.focus}`
     : `${theme}-training`
@@ -221,49 +252,49 @@ export function adaptBlockSync(ctx, block, instruction) {
 
   const clampDuration = (n) => Math.max(4, Math.min(30, n))
 
-  if (/makkelijker|eenvoudiger|simpeler/.test(text)) {
+  if (/makkelijker|eenvoudiger|simpeler|easier|simpler/.test(text)) {
     next.durationMin = clampDuration((next.durationMin ?? 10) - 0)
-    next.rules.push('Makkelijker: meer touches toegestaan / minder druk op de balbezitter.')
-    next.adaptations.push('Variant: verlaag weerstand of vergroot speelruimte.')
-    next.coachingCues = ['Geef succeservaringen, bouw daarna op.']
-    next.whyThis = [next.whyThis, 'Makkelijkere variant voor vanavond'].filter(Boolean).join(' · ')
+    next.rules.push(t('coach.adaptEasierRule'))
+    next.adaptations.push(t('coach.adaptEasierVariant'))
+    next.coachingCues = [t('coach.adaptEasierCue')]
+    next.whyThis = [next.whyThis, t('coach.adaptEasierWhy')].filter(Boolean).join(' · ')
     return next
   }
-  if (/moeilijker|zwaarder|lastiger/.test(text)) {
-    next.rules.push('Moeilijker: sneller handelen, minder touches, meer druk.')
-    next.adaptations.push('Variant: kleinere ruimte of extra verdediger.')
-    next.coachingCues = ['Eis tempo en scherpe keuzes.']
-    next.whyThis = [next.whyThis, 'Zwaardere variant voor vanavond'].filter(Boolean).join(' · ')
+  if (/moeilijker|zwaarder|lastiger|harder/.test(text)) {
+    next.rules.push(t('coach.adaptHarderRule'))
+    next.adaptations.push(t('coach.adaptHarderVariant'))
+    next.coachingCues = [t('coach.adaptHarderCue')]
+    next.whyThis = [next.whyThis, t('coach.adaptHarderWhy')].filter(Boolean).join(' · ')
     return next
   }
-  if (/korter|korter maken|inkorten/.test(text)) {
+  if (/korter|korter maken|inkorten|shorter/.test(text)) {
     next.durationMin = clampDuration((next.durationMin ?? 10) - 3)
-    next.adaptations.push('Blok ingekort voor strakker tempo.')
+    next.adaptations.push(t('coach.adaptShorter'))
     return next
   }
-  if (/langer|verlengen|meer tijd/.test(text)) {
+  if (/langer|verlengen|meer tijd|longer/.test(text)) {
     next.durationMin = clampDuration((next.durationMin ?? 10) + 3)
-    next.adaptations.push('Blok verlengd voor meer herhalingen.')
+    next.adaptations.push(t('coach.adaptLonger'))
     return next
   }
-  if (/geen keeper|zonder keeper|no.?gk/.test(text)) {
-    next.adaptations.push('Geen keeper: speel op kleine doeltjes of wisselende keeper.')
-    next.rules.push('Geen vaste keeper in dit blok.')
+  if (/geen keeper|zonder keeper|no.?gk|no goalkeeper/.test(text)) {
+    next.adaptations.push(t('coach.adaptNoGk'))
+    next.rules.push(t('coach.adaptNoGkRule'))
     return next
   }
-  if (/meer druk|druk zetten|pressen/.test(text)) {
-    next.rules.push('Direct druk zetten na balverlies (5 seconden).')
-    next.coachingCues = ['Beloon de eerste drukker hardop.']
-    next.adaptations.push('Extra druk-moment ingebouwd.')
+  if (/meer druk|druk zetten|pressen|more press|pressing/.test(text)) {
+    next.rules.push(t('coach.adaptPressRule'))
+    next.coachingCues = [t('coach.adaptPressCue')]
+    next.adaptations.push(t('coach.adaptPressAdapt'))
     if (ctx.focus !== 'druk zetten') {
-      next.whyThis = [next.whyThis, 'Meer druk gevraagd'].filter(Boolean).join(' · ')
+      next.whyThis = [next.whyThis, t('coach.adaptPressWhy')].filter(Boolean).join(' · ')
     }
     return next
   }
 
   next.coachingCues = [
     ...(next.coachingCues ?? []),
-    'Probeer: moeilijker / makkelijker / korter / langer',
+    t('coach.adaptTryHint'),
   ]
   return next
 }
@@ -278,18 +309,22 @@ export function createRulesCoach() {
       return 'offline-rules'
     },
     async planSession(ctx, opts = {}) {
-      opts.onProgress?.({ progress: 0.35, text: 'Slimme planning samenstellen…' })
+      opts.onProgress?.({ progress: 0.35, text: t('coach.progressPlanning') })
       const plan = planSessionSync(ctx)
-      opts.onProgress?.({ progress: 1, text: 'Klaar' })
+      opts.onProgress?.({ progress: 1, text: t('coach.progressReady') })
       return plan
     },
     async adaptBlock(ctx, block, instruction, opts = {}) {
-      opts.onProgress?.({ progress: 1, text: 'Aangepast' })
+      opts.onProgress?.({ progress: 1, text: t('coach.progressAdapted') })
       return adaptBlockSync(ctx, block, instruction)
     },
     async explainBlock(ctx, block) {
       return block.whyThis
-        || `Gekozen voor ${block.title} bij ${ctx.playerCount} spelers (${block.category}).`
+        || t('coach.explainBlock', {
+          title: block.title,
+          count: ctx.playerCount,
+          category: block.category,
+        })
     },
   }
 }

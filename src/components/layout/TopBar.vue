@@ -52,19 +52,6 @@
         </Transition>
       </div>
 
-      <div class="lang-switch" role="group" :aria-label="t('common.language')">
-        <button
-          v-for="lang in SUPPORTED_LOCALES"
-          :key="lang.id"
-          type="button"
-          class="lang-btn md-label-sm"
-          :class="{ active: locale === lang.id }"
-          :aria-pressed="locale === lang.id"
-          @click="setLocale(lang.id)"
-        >
-          {{ lang.nativeLabel }}
-        </button>
-      </div>
     </div>
   </header>
 
@@ -199,7 +186,7 @@ import { useTeamStore } from '@/stores/teamStore'
 import { AGE_GROUPS, ageGroupLabel } from '@/data/formations'
 import { DEFAULT_KNVB_CLASS, KNVB_CLASSES } from '@/data/knvbClasses'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
-import { t, locale, setLocale, SUPPORTED_LOCALES } from '@/i18n'
+import { t } from '@/i18n'
 
 /** Public asset — keep as runtime string so Vite SSR/Vitest does not rewrite it to an import. */
 const logoMarkUrl = `${import.meta.env.BASE_URL}logo-mark.svg`
@@ -339,36 +326,6 @@ function confirmDelete() {
 .team-switcher {
   position: relative;
   margin-left: auto;
-}
-
-.lang-switch {
-  display: flex;
-  align-items: center;
-  margin-left: var(--sp-2);
-  padding: 2px;
-  border-radius: 8px;
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.14);
-  flex-shrink: 0;
-}
-
-.lang-btn {
-  min-width: 32px;
-  min-height: 28px;
-  padding: 0 8px;
-  border: none;
-  border-radius: 6px;
-  background: transparent;
-  color: rgba(255,255,255,.7);
-  cursor: pointer;
-  font: inherit;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
-.lang-btn.active {
-  background: rgba(255,255,255,.16);
-  color: #ffffff;
 }
 
 .team-btn {

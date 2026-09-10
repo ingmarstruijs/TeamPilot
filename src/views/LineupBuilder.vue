@@ -7,7 +7,7 @@
       <div class="lineup-switcher" ref="switcherRef">
         <button class="switcher-btn" @click="showSwitcher = !showSwitcher" :class="{ open: showSwitcher }">
           <div class="switcher-text">
-            <span class="md-title-sm switcher-name">{{ lineupName || 'Nieuwe Opstelling' }}</span>
+            <span class="md-title-sm switcher-name">{{ lineupName || t('lineupShare.newDefault') }}</span>
             <span class="md-label-sm switcher-meta" style="color:var(--md-on-surface-variant)">
               {{ ageGroupConfig?.label }} · {{ fieldSlots.filter(s=>s.playerId).length }}/{{ fieldSlots.length }}
             </span>
@@ -19,15 +19,15 @@
       <Transition name="fade">
         <div v-if="showSwitcher" class="switcher-dropdown" @click="showSwitcher = false">
           <div class="switcher-header">
-            <h2 class="md-headline-sm">Opstellingen</h2>
-            <button class="btn-icon" @click.stop="showSwitcher = false" aria-label="Sluiten">
+            <h2 class="md-headline-sm">{{ t('lineup.title') }}</h2>
+            <button class="btn-icon" @click.stop="showSwitcher = false" :aria-label="t('common.close')">
               <span class="material-symbols-rounded">close</span>
             </button>
           </div>
           <div class="switcher-content">
             <button class="switcher-item switcher-new" @click.stop="requestStartNew">
               <span class="material-symbols-rounded" style="font-size:18px">add</span>
-              <span>Nieuwe opstelling</span>
+              <span>{{ t('lineup.new') }}</span>
             </button>
             <div v-if="teamLineups.length" class="switcher-divider"></div>
             <div
@@ -40,41 +40,41 @@
                 <span class="material-symbols-rounded" style="font-size:18px">{{ lu.id === lineupId ? 'radio_button_checked' : 'radio_button_unchecked' }}</span>
                 <div class="switcher-item-info">
                   <span class="switcher-item-name">{{ lu.name }}</span>
-                  <span class="switcher-item-meta">{{ lu.slots.filter(s=>s.playerId).length }} spelers · {{ lu.formationId || 'Vrij' }}</span>
+                  <span class="switcher-item-meta">{{ t('lineupShare.switcherPlayers', { count: lu.slots.filter(s=>s.playerId).length, formation: lu.formationId || t('lineup.free') }) }}</span>
                 </div>
               </button>
               <button
                 class="btn-icon switcher-delete"
                 @click.stop="requestDeleteLineup(lu)"
-                aria-label="Opstelling verwijderen"
+                :aria-label="t('lineupShare.deleteLineup')"
               >
                 <span class="material-symbols-rounded">delete</span>
               </button>
             </div>
-            <div v-if="!teamLineups.length" class="switcher-empty">Geen opgeslagen opstellingen</div>
+            <div v-if="!teamLineups.length" class="switcher-empty">{{ t('lineup.empty') }}</div>
           </div>
         </div>
       </Transition>
       </div>
 
       <div class="toolbar-actions">
-        <button class="btn btn-outlined" @click="resetAll" title="Alle posities leegmaken">
+        <button class="btn btn-outlined" @click="resetAll" :title="t('lineupShare.resetAllTitle')">
           <span class="material-symbols-rounded" style="font-size:18px">delete_sweep</span>
-          <span class="btn-lbl">Reset</span>
+          <span class="btn-lbl">{{ t('common.reset') }}</span>
         </button>
         <button class="btn btn-filled" @click="openSaveDialog">
           <span class="material-symbols-rounded" style="font-size:18px">save</span>
-          <span class="btn-lbl">Opslaan</span>
+          <span class="btn-lbl">{{ t('common.save') }}</span>
         </button>
         <button
           v-if="filledCount > 0"
           class="btn btn-outlined"
           @click="openShareDialog"
           :disabled="sharing"
-          title="Opstelling delen"
+          :title="t('lineupShare.shareTitle')"
         >
           <span class="material-symbols-rounded" style="font-size:18px">share</span>
-          <span class="btn-lbl">Delen</span>
+          <span class="btn-lbl">{{ t('common.share') }}</span>
         </button>
       </div>
       </div>
@@ -92,23 +92,35 @@
               :class="{ active: showBench, 'drag-drop': isFieldDragging }"
               @click="toggleBench"
               data-bench-button
-              title="Bank"
+              :title="t('lineup.bench')"
             >
               <span class="material-symbols-rounded" style="font-size:16px">group</span>
-              <span class="chip-text">Bank</span>
+              <span class="chip-text">{{ t('lineup.bench') }}</span>
               <span v-if="benchPlayers.length" class="chip-badge">{{ benchPlayers.length }}</span>
             </button>
           </div>
-          <label class="sr-only" for="formation-select">Formatie types</label>
-          <select
-            id="formation-select"
-            class="formation-dropdown formation-dropdown--inline"
-            :value="selectedFormationId || ''"
-            @change="onFormationChange"
-          >
-            <option value="">Vrij</option>
-            <option v-for="f in availableFormations" :key="f.id" :value="f.id">{{ f.label }}</option>
-          </select>
+          <label class="sr-only" for="formation-select">{{ t('lineup.formations') }}</label>
+          <div class="formation-select-wrap">
+            <select
+              id="formation-select"
+              class="formation-dropdown formation-dropdown--inline"
+              :value="selectedFormationId || ''"
+              @change="onFormationChange"
+            >
+              <option value="">{{ t('lineup.free') }}</option>
+              <option v-for="f in availableFormations" :key="f.id" :value="f.id">{{ f.label }}</option>
+            </select>
+            <button
+              type="button"
+              class="chip chip-toggle chip-toggle--icon formation-info-btn"
+              :disabled="!canShowFormationInfo"
+              :title="formationInfoTitle"
+              :aria-label="formationInfoTitle"
+              @click="showFormationInfo = true"
+            >
+              <span class="material-symbols-rounded" aria-hidden="true">info</span>
+            </button>
+          </div>
           <button
             class="chip chip-toggle chip-toggle--icon"
             :class="{ active: isOpponentVisible, [`opponent-mode-${opponentMode}`]: isOpponentVisible }"
@@ -122,8 +134,8 @@
             class="chip chip-toggle chip-toggle--icon"
             :class="{ active: flipped }"
             @click="flipped = !flipped"
-            :title="flipped ? 'Aanval omhoog' : 'Keeper omlaag'"
-            aria-label="Omdraaien"
+            :title="flipped ? t('lineup.attackUp') : t('lineup.keeperDown')"
+            :aria-label="t('lineupShare.flip')"
           >
             <span class="material-symbols-rounded" style="font-size:18px">swap_vert</span>
           </button>
@@ -152,7 +164,19 @@
 
     <div class="builder-body">
       <aside v-if="isDesktop" class="builder-col-formation card card-elevated">
-        <p class="md-title-sm controls-title">Formatie types</p>
+        <div class="controls-title-row">
+          <p class="md-title-sm controls-title">{{ t('lineup.formations') }}</p>
+          <button
+            type="button"
+            class="btn-icon formation-info-btn"
+            :disabled="!canShowFormationInfo"
+            :title="formationInfoTitle"
+            :aria-label="formationInfoTitle"
+            @click="showFormationInfo = true"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">info</span>
+          </button>
+        </div>
         <div class="formation-chips formation-chips--stacked">
           <button
             v-for="f in availableFormations"
@@ -163,7 +187,7 @@
           >{{ f.label }}</button>
           <button class="chip" :class="{ active: !selectedFormationId }" @click="freeMode">
             <span class="material-symbols-rounded" style="font-size:14px">edit</span>
-            Vrij
+            {{ t('lineup.free') }}
           </button>
         </div>
       </aside>
@@ -186,7 +210,7 @@
 
       <aside v-if="isDesktop" class="builder-col-bench">
         <div class="sidebar-card card card-elevated">
-          <p class="md-title-sm controls-title">Weergave</p>
+          <p class="md-title-sm controls-title">{{ t('lineup.display') }}</p>
           <div class="controls-options controls-options--sidebar">
             <button
               class="chip chip-toggle chip-toggle--icon chip-toggle--sidebar"
@@ -201,8 +225,8 @@
               class="chip chip-toggle chip-toggle--icon chip-toggle--sidebar"
               :class="{ active: flipped }"
               @click="flipped = !flipped"
-              :title="flipped ? 'Aanval omhoog' : 'Keeper omlaag'"
-              aria-label="Omdraaien"
+              :title="flipped ? t('lineup.attackUp') : t('lineup.keeperDown')"
+              :aria-label="t('lineupShare.flip')"
             >
               <span class="material-symbols-rounded" style="font-size:18px">swap_vert</span>
             </button>
@@ -222,7 +246,7 @@
         <div v-if="filledCount > 0" class="share-section">
           <button class="btn btn-tonal w-full" @click="openShareDialog" :disabled="sharing">
             <span class="material-symbols-rounded" style="font-size:18px">share</span>
-            {{ sharing ? 'Bezig…' : 'Delen' }}
+            {{ sharing ? t('training.busy') : t('common.share') }}
           </button>
         </div>
       </aside>
@@ -237,16 +261,22 @@
 
 
 
+    <FormationInfoDialog
+      :open="showFormationInfo"
+      :formation-id="selectedFormationId"
+      @close="showFormationInfo = false"
+    />
+
     <!-- Unsaved changes dialog -->
     <Transition name="fade">
       <div v-if="showUnsaved" class="dialog-backdrop" @click.self="cancelPending">
         <div class="dialog">
-          <p class="dialog-title">Niet-opgeslagen wijzigingen</p>
-          <p class="dialog-body">Je hebt wijzigingen die nog niet zijn opgeslagen. Wat wil je doen?</p>
+          <p class="dialog-title">{{ t('lineup.unsavedTitle') }}</p>
+          <p class="dialog-body">{{ t('lineup.unsavedBody') }}</p>
           <div class="dialog-actions">
-            <button class="btn btn-text" @click="cancelPending">Annuleren</button>
-            <button class="btn btn-text" @click="confirmDiscard">Verwerpen</button>
-            <button class="btn btn-filled" @click="confirmSaveAndContinue">Opslaan</button>
+            <button class="btn btn-text" @click="cancelPending">{{ t('common.cancel') }}</button>
+            <button class="btn btn-text" @click="confirmDiscard">{{ t('lineup.discard') }}</button>
+            <button class="btn btn-filled" @click="confirmSaveAndContinue">{{ t('common.save') }}</button>
           </div>
         </div>
       </div>
@@ -256,13 +286,13 @@
     <Transition name="fade">
       <div v-if="deleteTarget" class="dialog-backdrop" @click.self="deleteTarget=null">
         <div class="dialog">
-          <p class="dialog-title">Opstelling verwijderen?</p>
+          <p class="dialog-title">{{ t('lineupShare.deleteTitle') }}</p>
           <p class="dialog-body">
-            <strong>{{ deleteTarget.name }}</strong> wordt permanent verwijderd.
+            {{ t('lineupShare.deleteBody', { name: deleteTarget.name }) }}
           </p>
           <div class="dialog-actions">
-            <button class="btn btn-text" @click="deleteTarget=null">Annuleren</button>
-            <button class="btn btn-filled" style="background:var(--md-error)" @click="doDeleteLineup">Verwijderen</button>
+            <button class="btn btn-text" @click="deleteTarget=null">{{ t('common.cancel') }}</button>
+            <button class="btn btn-filled" style="background:var(--md-error)" @click="doDeleteLineup">{{ t('common.delete') }}</button>
           </div>
         </div>
       </div>
@@ -272,15 +302,15 @@
     <Transition name="fade">
       <div v-if="showSave" class="dialog-backdrop" @click.self="showSave=false">
         <div class="dialog">
-          <p class="dialog-title">Opstelling opslaan</p>
+          <p class="dialog-title">{{ t('lineupShare.saveDialogTitle') }}</p>
           <div class="field-wrap" style="margin-bottom:var(--sp-4)">
-            <label class="field-label" for="lineup-name">Naam opstelling</label>
+            <label class="field-label" for="lineup-name">{{ t('lineupShare.nameLabel') }}</label>
             <input id="lineup-name" class="field" v-model.trim="lineupName"
-              placeholder="bijv. Thuis vs Ajax O11" maxlength="50" />
+              :placeholder="t('lineupShare.namePlaceholder')" maxlength="50" />
           </div>
           <div class="dialog-actions">
-            <button class="btn btn-text" @click="showSave=false">Annuleren</button>
-            <button class="btn btn-filled" :disabled="!lineupName" @click="confirmSave">Opslaan</button>
+            <button class="btn btn-text" @click="showSave=false">{{ t('common.cancel') }}</button>
+            <button class="btn btn-filled" :disabled="!lineupName" @click="confirmSave">{{ t('common.save') }}</button>
           </div>
         </div>
       </div>
@@ -291,58 +321,58 @@
       <div v-if="showShareDialog" class="dialog-backdrop" @click.self="closeShareDialog">
         <div class="dialog">
           <template v-if="shareDialogStep === 'type'">
-            <p class="dialog-title">Opstelling delen</p>
+            <p class="dialog-title">{{ t('lineupShare.shareTitle') }}</p>
             <p class="md-body-sm" style="color:var(--md-on-surface-variant);margin-bottom:var(--sp-4)">
-              Kies hoe je de opstelling wilt delen.
+              {{ t('lineupShare.shareHow') }}
             </p>
             <div class="share-link-options">
               <button class="share-link-opt" @click="shareImage" :disabled="sharing">
                 <span class="material-symbols-rounded" style="font-size:22px">image</span>
                 <div>
-                  <p class="md-label-lg">Afbeelding</p>
-                  <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Deel als plaatje via WhatsApp of opslaan</p>
+                  <p class="md-label-lg">{{ t('lineupShare.shareAsImage') }}</p>
+                  <p class="md-body-sm" style="color:var(--md-on-surface-variant)">{{ t('lineupShare.shareAsImageDesc') }}</p>
                 </div>
                 <span class="material-symbols-rounded" style="margin-left:auto;font-size:18px">chevron_right</span>
               </button>
               <button class="share-link-opt" @click="shareDialogStep = 'link'">
                 <span class="material-symbols-rounded" style="font-size:22px">link</span>
                 <div>
-                  <p class="md-label-lg">Link</p>
-                  <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Deel een link naar de opstelling</p>
+                  <p class="md-label-lg">{{ t('lineupShare.shareAsLink') }}</p>
+                  <p class="md-body-sm" style="color:var(--md-on-surface-variant)">{{ t('lineupShare.shareAsLinkDesc') }}</p>
                 </div>
                 <span class="material-symbols-rounded" style="margin-left:auto;font-size:18px">chevron_right</span>
               </button>
             </div>
             <div class="dialog-actions">
-              <button class="btn btn-text" @click="closeShareDialog">Sluiten</button>
+              <button class="btn btn-text" @click="closeShareDialog">{{ t('common.close') }}</button>
             </div>
           </template>
           <template v-else>
-            <p class="dialog-title">Link delen</p>
+            <p class="dialog-title">{{ t('lineupShare.shareLinkTitle') }}</p>
             <p class="md-body-sm" style="color:var(--md-on-surface-variant);margin-bottom:var(--sp-4)">
-              Kies wat je wilt meesturen. Inclusief team stuurt alle spelers mee; opstelling-alleen matcht op naam bij de ontvanger.
+              {{ t('lineupShare.shareLinkHow') }}
             </p>
             <div class="share-link-options">
               <button class="share-link-opt" @click="copyShareLink('bundle')">
                 <span class="material-symbols-rounded" style="font-size:22px">groups</span>
                 <div>
-                  <p class="md-label-lg">Inclusief team</p>
-                  <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Spelers worden meegestuurd</p>
+                  <p class="md-label-lg">{{ t('lineupShare.shareWithTeam') }}</p>
+                  <p class="md-body-sm" style="color:var(--md-on-surface-variant)">{{ t('lineupShare.shareWithTeamDesc') }}</p>
                 </div>
                 <span class="material-symbols-rounded" style="margin-left:auto;font-size:18px">content_copy</span>
               </button>
               <button class="share-link-opt" @click="copyShareLink('lineup')">
                 <span class="material-symbols-rounded" style="font-size:22px">sports_soccer</span>
                 <div>
-                  <p class="md-label-lg">Alleen opstelling</p>
-                  <p class="md-body-sm" style="color:var(--md-on-surface-variant)">Ontvanger koppelt aan eigen team</p>
+                  <p class="md-label-lg">{{ t('lineupShare.shareLineupOnly') }}</p>
+                  <p class="md-body-sm" style="color:var(--md-on-surface-variant)">{{ t('lineupShare.shareLineupOnlyDesc') }}</p>
                 </div>
                 <span class="material-symbols-rounded" style="margin-left:auto;font-size:18px">content_copy</span>
               </button>
             </div>
             <div class="dialog-actions">
-              <button class="btn btn-text" @click="shareDialogStep = 'type'">Terug</button>
-              <button class="btn btn-text" @click="closeShareDialog">Sluiten</button>
+              <button class="btn btn-text" @click="shareDialogStep = 'type'">{{ t('lineupShare.back') }}</button>
+              <button class="btn btn-text" @click="closeShareDialog">{{ t('common.close') }}</button>
             </div>
           </template>
         </div>
@@ -353,10 +383,10 @@
     <Transition name="fade">
       <div v-if="sharePreviewUrl" class="dialog-backdrop" @click.self="sharePreviewUrl=null">
         <div class="dialog share-dialog">
-          <p class="dialog-title">Opstelling delen</p>
-          <img :src="sharePreviewUrl" class="share-preview" alt="Opstelling preview" />
+          <p class="dialog-title">{{ t('lineupShare.shareTitle') }}</p>
+          <img :src="sharePreviewUrl" class="share-preview" :alt="t('lineupShare.sharePreviewAlt')" />
           <div class="dialog-actions" style="flex-wrap:wrap;gap:var(--sp-2)">
-            <button class="btn btn-text" @click="sharePreviewUrl=null">Sluiten</button>
+            <button class="btn btn-text" @click="sharePreviewUrl=null">{{ t('common.close') }}</button>
             <button class="btn btn-tonal" @click="downloadImage">
               <span class="material-symbols-rounded" style="font-size:18px">download</span>
               Opslaan
@@ -387,8 +417,11 @@ import {
 import { getOpponentShirt } from '@/utils/opponentShirt'
 import FootballField from '@/components/field/FootballField.vue'
 import BenchPanel    from '@/components/field/BenchPanel.vue'
+import FormationInfoDialog from '@/components/lineup/FormationInfoDialog.vue'
 import { showSnackbar } from '@/composables/useSnackbar'
 import { useMediaQuery } from '@/composables/useMediaQuery'
+import { t } from '@/i18n'
+import { hasFormationGuide } from '@/utils/formationGuide'
 
 const props = defineProps({ id: String })
 const store  = useTeamStore()
@@ -539,7 +572,7 @@ function doDeleteLineup() {
   store.deleteLineup(lu.id)
   deleteTarget.value = null
   showSwitcher.value = false
-  showSnackbar('Opstelling verwijderd')
+  showSnackbar(t('lineup.deleted'))
   if (!wasActive) return
   const remaining = [...store.teamLineups].sort((a, b) => b.updatedAt - a.updatedAt)
   if (remaining.length) {
@@ -611,6 +644,18 @@ const playersMap = computed(() => {
 const lineupId           = ref(null)
 const lineupName         = ref('')
 const selectedFormationId = ref(null)
+const showFormationInfo = ref(false)
+
+const canShowFormationInfo = computed(() => hasFormationGuide(selectedFormationId.value))
+const formationInfoTitle = computed(() => (
+  canShowFormationInfo.value
+    ? t('lineup.formationInfo', { formation: selectedFormationId.value })
+    : t('lineup.formationInfoDisabled')
+))
+
+watch(selectedFormationId, (id) => {
+  if (!hasFormationGuide(id)) showFormationInfo.value = false
+})
 const flipped             = ref(true) // true = GK at bottom (default)
 
 // fieldSlots: [{ slotId, position, x, y, playerId|null }]
@@ -1046,7 +1091,7 @@ function doSave() {
   }
   showSave.value = false
   refreshSnapshot()
-  showSnackbar('Opstelling opgeslagen ✓')
+  showSnackbar(t('lineup.saved'))
 }
 
 // ── Share ─────────────────────────────────────────────────
@@ -1074,9 +1119,9 @@ async function copyShareLink(mode) {
     ? encodeBundle(team, { name: lineupName.value, formationId: selectedFormationId.value, flipped: flipped.value }, slotsWithPlayers, benchPlayers.value)
     : encodeLineupOnly(team, { name: lineupName.value, formationId: selectedFormationId.value, flipped: flipped.value }, slotsWithPlayers, benchPlayers.value)
   const url = buildLineupShareUrl(encoded)
-  const result = await shareLink({ title: lineupName.value || 'Opstelling', text: lineupName.value || 'Opstelling', url })
-  if (result === 'copied') showSnackbar('Link gekopieerd!')
-  if (result === 'failed') showSnackbar('Kopiëren mislukt')
+  const result = await shareLink({ title: lineupName.value || t('lineupShare.defaultName'), text: lineupName.value || t('lineupShare.defaultName'), url })
+  if (result === 'copied') showSnackbar(t('share.lineupCopied'))
+  if (result === 'failed') showSnackbar(t('share.copyFailed'))
   closeShareDialog()
 }
 
@@ -1591,12 +1636,37 @@ async function shareViaWhatsApp() {
   flex-shrink: 0;
 }
 
+.formation-select-wrap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+}
+
 .formation-dropdown--inline {
   flex: 1;
   min-width: 0;
   min-height: 36px;
   padding: var(--sp-1) var(--sp-2);
   font-size: 13px;
+}
+
+.formation-info-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.controls-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-2);
+}
+
+.controls-title-row .controls-title {
+  margin: 0;
 }
 
 .chip-toggle--icon {

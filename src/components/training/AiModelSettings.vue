@@ -11,13 +11,12 @@
 
     <div class="ai-model-body">
       <div class="ai-model-head">
-        <p v-if="!collapsible" class="md-title-sm ai-model-title">AI-training hulp</p>
+        <p v-if="!collapsible" class="md-title-sm ai-model-title">{{ t('aiModel.title') }}</p>
         <p class="md-body-sm ai-model-copy">
-          Gebruik een lokaal AI-model om trainingen te maken — rijkere briefing en tips op jouw focus.
-          Zonder download blijft <strong>Training maken</strong> via slimme planning werken.
+          {{ t('aiModel.copy', { make: t('training.make') }) }}
         </p>
         <p class="md-label-sm ai-model-note">
-          Optioneel · ~0.6 GB eenmalig · daarna offline · geen account
+          {{ t('aiModel.note') }}
         </p>
       </div>
 
@@ -28,11 +27,11 @@
           :disabled="!supported || busy"
           @change="onToggle($event.target.checked)"
         />
-        <span class="md-body-sm">Lokaal AI-model gebruiken</span>
+        <span class="md-body-sm">{{ t('aiModel.toggle') }}</span>
       </label>
 
       <p class="md-label-sm ai-model-status" aria-live="polite">
-        Status: {{ statusLabel }}
+        {{ t('aiModel.status', { label: statusLabel }) }}
       </p>
       <p v-if="storageLabel" class="md-label-sm ai-model-note">
         {{ storageLabel }}
@@ -49,7 +48,7 @@
           :disabled="busy"
           @click="downloadModel()"
         >
-          {{ busy ? progressLabel : 'Download AI-model' }}
+          {{ busy ? progressLabel : t('aiModel.download') }}
         </button>
         <button
           v-if="supported && preferLocalLlm && !downloaded && lastErrorHint"
@@ -58,7 +57,7 @@
           :disabled="busy"
           @click="clearAndRetry"
         >
-          Wis cache en probeer opnieuw
+          {{ t('aiModel.clearRetry') }}
         </button>
         <button
           v-if="downloaded"
@@ -67,7 +66,7 @@
           :disabled="busy"
           @click="removeModel"
         >
-          Verwijder model
+          {{ t('aiModel.remove') }}
         </button>
       </div>
 
@@ -99,6 +98,7 @@ import {
 } from '@/ai/aiPreferences'
 import { createWebLlmCoach, resetWebLlmEngineCache } from '@/ai/models/webllmCoach'
 import { showSnackbar } from '@/composables/useSnackbar'
+import { t } from '@/i18n'
 
 const emit = defineEmits(['change'])
 
@@ -118,31 +118,32 @@ const lastErrorHint = ref('')
 const storageLabel = ref('')
 
 const statusLabel = computed(() => {
-  if (!supported.value) return 'Niet ondersteund (geen WebGPU)'
+  if (!supported.value) return t('aiModel.statusUnsupported')
   if (busy.value) {
     const pct = Math.round(progress.value * 100)
-    return `Bezig ${pct}%${progressText.value ? ` · ${progressText.value}` : ''}`
+    const extra = progressText.value ? ` · ${progressText.value}` : ''
+    return t('aiModel.statusBusy', { pct: `${pct}%`, extra })
   }
-  if (!preferLocalLlm.value) return 'Uit · slimme planning'
-  if (lastError.value) return `Mislukt · ${lastError.value}`
-  if (!downloaded.value) return 'Niet gedownload · slimme planning'
-  return 'Aan · AI-training hulp ingeschakeld'
+  if (!preferLocalLlm.value) return t('aiModel.statusOff')
+  if (lastError.value) return t('aiModel.statusFailed', { error: lastError.value })
+  if (!downloaded.value) return t('aiModel.statusNotDownloaded')
+  return t('aiModel.statusOn')
 })
 
-const progressLabel = computed(() => `Bezig ${Math.round(progress.value * 100)}%`)
+const progressLabel = computed(() => t('aiModel.statusBusy', { pct: `${Math.round(progress.value * 100)}%`, extra: '' }))
 
 const summaryText = computed(() => {
-  if (!supported.value) return 'AI-training hulp · Niet ondersteund'
-  if (!preferLocalLlm.value) return 'AI-training hulp · Uit'
-  if (downloaded.value) return 'AI-training hulp · Aan'
-  if (lastError.value) return 'AI-training hulp · Mislukt'
-  return 'AI-training hulp · Niet gedownload'
+  if (!supported.value) return t('aiModel.summaryUnsupported')
+  if (!preferLocalLlm.value) return t('aiModel.summaryOff')
+  if (downloaded.value) return t('aiModel.summaryOn')
+  if (lastError.value) return t('aiModel.summaryFailed')
+  return t('aiModel.summaryNotDownloaded')
 })
 
 async function refreshStorageLabel() {
   const est = await estimateBrowserStorage()
   storageLabel.value = est
-    ? `Browseropslag: ${est.usageLabel} gebruikt · ${est.freeLabel} vrij`
+    ? t('aiModel.storage', { used: est.usageLabel, free: est.freeLabel })
     : ''
 }
 
@@ -167,12 +168,12 @@ async function onToggle(checked) {
     persist({ preferLocalLlm: false })
     lastError.value = ''
     lastErrorHint.value = ''
-    showSnackbar('Terug naar slimme planning')
+    showSnackbar(t('aiModel.backToRules'))
     return
   }
   persist({ preferLocalLlm: true })
   if (!downloaded.value) {
-    showSnackbar('Download het model om de knop te upgraden')
+    showSnackbar(t('aiModel.downloadHint'))
   }
 }
 
@@ -188,7 +189,7 @@ async function downloadModel() {
   if (!supported.value || busy.value) return
   busy.value = true
   progress.value = 0
-  progressText.value = 'Opslag opschonen…'
+  progressText.value = t('aiModel.clearingStorage')
   lastError.value = ''
   lastErrorHint.value = ''
 
@@ -201,7 +202,7 @@ async function downloadModel() {
     await requestPersistentStorage()
     await refreshStorageLabel()
 
-    progressText.value = 'Start download…'
+    progressText.value = t('aiModel.startDownload')
     await runEnsureReady(targetId)
     persist({
       preferLocalLlm: true,
@@ -209,18 +210,18 @@ async function downloadModel() {
       downloadAcceptedAt: Date.now(),
     })
     await refreshStorageLabel()
-    showSnackbar('AI-training hulp ingeschakeld')
+    showSnackbar(t('aiModel.enabled'))
   } catch (err) {
     console.error(err)
     await refreshStorageLabel()
     if (isStorageQuotaError(err)) {
-      lastError.value = 'Te weinig opslagruimte in de browser'
-      lastErrorHint.value = 'Tik “Wis cache en probeer opnieuw”. Helpt dat niet: Chrome → slotje bij localhost → Site-instellingen → Gegevens wissen. Slimme planning blijft werken.'
-      showSnackbar('Opslag vol — wis cache en probeer opnieuw')
+      lastError.value = t('aiModel.quotaError')
+      lastErrorHint.value = t('aiModel.quotaHint')
+      showSnackbar(t('aiModel.quotaSnackbar'))
     } else {
-      lastError.value = err?.message ? String(err.message).slice(0, 120) : 'Onbekende fout'
+      lastError.value = err?.message ? String(err.message).slice(0, 120) : t('aiModel.unknownError')
       lastErrorHint.value = ''
-      showSnackbar('Download mislukt — slimme planning blijft werken')
+      showSnackbar(t('aiModel.downloadFailed'))
     }
   } finally {
     busy.value = false
@@ -231,7 +232,7 @@ async function downloadModel() {
 
 async function clearAndRetry() {
   busy.value = true
-  progressText.value = 'Cache wissen…'
+  progressText.value = t('aiModel.cacheClearing')
   try {
     resetWebLlmEngineCache()
     await clearWebLlmStorage()
@@ -239,7 +240,7 @@ async function clearAndRetry() {
     lastError.value = ''
     lastErrorHint.value = ''
     await refreshStorageLabel()
-    showSnackbar('Cache gewist — download opnieuw')
+    showSnackbar(t('aiModel.cacheCleared'))
   } finally {
     busy.value = false
     progressText.value = ''
@@ -254,7 +255,7 @@ async function removeModel() {
   lastError.value = ''
   lastErrorHint.value = ''
   await refreshStorageLabel()
-  showSnackbar('Model verwijderd — terug naar slimme planning')
+  showSnackbar(t('aiModel.removedFallback'))
 }
 
 onMounted(async () => {

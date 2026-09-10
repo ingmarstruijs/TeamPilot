@@ -113,6 +113,11 @@
       </div>
 
       <div class="card team-settings">
+        <div class="settings-row settings-row--lang">
+          <span class="md-body-md">{{ t('common.language') }}</span>
+          <LanguageSwitch />
+        </div>
+        <div class="divider"></div>
         <div class="settings-row">
           <span class="md-body-md">{{ t('team.name') }}</span>
           <input
@@ -158,7 +163,7 @@
           <span class="md-body-md">{{ t('team.primaryColor') }}</span>
           <div class="color-picker-group">
             <div v-if="recentColors.length" class="color-swatches-group">
-              <span class="color-swatches-label">Recent</span>
+              <span class="color-swatches-label">{{ t('dashboard.recentColors') }}</span>
               <div class="color-swatches">
                 <button
                   v-for="color in recentColors"
@@ -185,7 +190,7 @@
             <span class="md-body-md">{{ t('team.secondaryColor') }}</span>
             <div class="color-picker-group">
               <div v-if="recentColors.length" class="color-swatches-group">
-                <span class="color-swatches-label">Recent</span>
+                <span class="color-swatches-label">{{ t('dashboard.recentColors') }}</span>
                 <div class="color-swatches">
                   <button
                     v-for="color in recentColors"
@@ -227,11 +232,12 @@ import { KNVB_CLASSES } from '@/data/knvbClasses'
 import { getCycleTheme } from '@/utils/trainingEngine'
 import { getCycleThemeIcon } from '@/utils/trainingIcons'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
+import LanguageSwitch from '@/components/layout/LanguageSwitch.vue'
 import { showSnackbar } from '@/composables/useSnackbar'
 import { useMediaQuery } from '@/composables/useMediaQuery'
 import { shareLink } from '@/utils/shareLink'
 import { buildTeamShareUrl, encodeTeamShare } from '@/utils/teamShare'
-import { t } from '@/i18n'
+import { t, getDateLocale } from '@/i18n'
 
 const store = useTeamStore()
 const isDesktop = useMediaQuery('(min-width: 720px)')
@@ -266,8 +272,12 @@ const heroContinue = computed(() => {
     const totalMin = draft.blocks.reduce((s, b) => s + b.durationMin, 0)
     return {
       icon: 'stadium',
-      title: 'Ga verder met training',
-      subtitle: `${count} ${count === 1 ? 'oefening' : 'oefeningen'} · ${totalMin} min`,
+      title: t('dashboard.heroContinueTraining'),
+      subtitle: t('dashboard.heroContinueTrainingSub', {
+        count,
+        exerciseWord: count === 1 ? t('word.exercise') : t('word.exercises'),
+        totalMin,
+      }),
       to: '/training',
     }
   }
@@ -275,21 +285,21 @@ const heroContinue = computed(() => {
   if (latest) {
     return {
       icon: 'grid_view',
-      title: `Laatste opstelling: ${latest.name}`,
+      title: t('dashboard.heroLastLineup', { name: latest.name }),
       subtitle: formatDate(latest.updatedAt),
       to: `/lineup/${latest.id}`,
     }
   }
   return {
     icon: getCycleThemeIcon(cycleTheme.value),
-    title: 'Plan je training',
-    subtitle: `Weekthema: ${cycleThemeLabel.value}`,
+    title: t('dashboard.heroPlanTraining'),
+    subtitle: t('dashboard.heroWeekTheme', { theme: cycleThemeLabel.value }),
     to: '/training',
   }
 })
 
 function formatDate(ts) {
-  return new Date(ts).toLocaleDateString('nl-NL', { day: 'numeric', month: 'short' })
+  return new Date(ts).toLocaleDateString(getDateLocale(), { day: 'numeric', month: 'short' })
 }
 
 function updateTeam(field, value) {
@@ -308,12 +318,12 @@ const defaultShirtFallback = { style: 'solid', primary: '#1a6b3c', secondary: '#
 const teamShirt = computed(() => activeTeam.value?.shirt ?? defaultShirtFallback)
 
 const SHIRT_STYLES = [
-  { id: 'solid',    label: 'Effen'    },
-  { id: 'gradient', label: 'Verloop'  },
-  { id: 'halves-v', label: 'Links/Re' },
-  { id: 'halves-h', label: 'Boven/On' },
-  { id: 'stripes',  label: 'Strepen'  },
-  { id: 'sash',     label: 'Sjerp'    },
+  { id: 'solid' },
+  { id: 'gradient' },
+  { id: 'halves-v' },
+  { id: 'halves-h' },
+  { id: 'stripes' },
+  { id: 'sash' },
 ]
 
 async function shareTeam() {
@@ -322,7 +332,7 @@ async function shareTeam() {
   const url = buildTeamShareUrl(encodeTeamShare(team))
   const result = await shareLink({
     title: team.name,
-    text: `Bekijk mijn team ${team.name} in TeamPilot`,
+    text: t('dashboard.shareTeamText', { name: team.name }),
     url,
   })
   if (result === 'copied') showSnackbar(t('share.teamCopied'))
