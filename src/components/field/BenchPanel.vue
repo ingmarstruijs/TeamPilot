@@ -2,7 +2,7 @@
   <div class="bench-panel" :class="{ 'bench-h': horizontal, 'drop-target': isDragOverBench }" @dragover.prevent="isDragOverBench=true" @dragleave="isDragOverBench=false" @drop.prevent="onBenchDrop">
     <p class="bench-title md-label-lg">
       <span class="material-symbols-rounded" style="font-size:16px;vertical-align:text-bottom">weekend</span>
-      <span class="bench-title-text">Bank / Beschikbare spelers</span>
+      <span class="bench-title-text">{{ t('bench.title') }}</span>
       <span v-if="horizontal && benchPlayers.length" class="bench-count">{{ benchPlayers.length }}</span>
     </p>
     <div class="bench-scroll">
@@ -20,7 +20,7 @@
         <span v-if="player.number" class="bp-num">#{{ player.number }}</span>
       </div>
       <div v-if="!benchPlayers.length" class="bench-empty">
-        <span class="md-body-sm">Alle spelers staan opgesteld</span>
+        <span class="md-body-sm">{{ t('bench.allOnField') }}</span>
       </div>
     </div>
   </div>
@@ -29,6 +29,7 @@
 <script setup>
 import { ref } from 'vue'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
+import { t } from '@/i18n'
 
 const props = defineProps({
   benchPlayers: { type: Array, required: true },

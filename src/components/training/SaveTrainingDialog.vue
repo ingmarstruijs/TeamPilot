@@ -10,8 +10,8 @@
           aria-labelledby="save-training-title"
         >
           <header class="dialog-header">
-            <h2 id="save-training-title" class="md-title-md">{{ title }}</h2>
-            <button type="button" class="btn-icon" aria-label="Sluiten" @click="close">
+            <h2 id="save-training-title" class="md-title-md">{{ title || t('savedTraining.saveTitle') }}</h2>
+            <button type="button" class="btn-icon" :aria-label="t('common.close')" @click="close">
               <span class="material-symbols-rounded">close</span>
             </button>
           </header>
@@ -20,22 +20,22 @@
             <p v-if="hint" class="md-body-sm dialog-hint">{{ hint }}</p>
 
             <div class="field-wrap">
-              <label class="field-label" for="st-name">Naam</label>
+              <label class="field-label" for="st-name">{{ t('savedTraining.nameLabel') }}</label>
               <input
                 id="st-name"
                 ref="nameInput"
                 v-model.trim="form.name"
                 class="field"
                 maxlength="80"
-                placeholder="Naam van het recept"
+                :placeholder="t('savedTraining.namePlaceholder')"
                 @keydown.enter.prevent="submit"
               />
             </div>
 
             <div class="field-wrap">
-              <label class="field-label" for="st-theme">Weekthema</label>
+              <label class="field-label" for="st-theme">{{ t('savedTraining.weekThemeLabel') }}</label>
               <select id="st-theme" v-model="form.cycleTheme" class="field field-select">
-                <option v-for="opt in CYCLE_THEME_OPTIONS" :key="opt.id || 'none'" :value="opt.id">
+                <option v-for="opt in cycleThemeOptions" :key="opt.id || 'none'" :value="opt.id">
                   {{ opt.label }}
                 </option>
               </select>
@@ -43,10 +43,10 @@
           </div>
 
           <footer class="dialog-footer">
-            <button v-if="showSkip" type="button" class="btn btn-text" @click="skip">Overslaan</button>
-            <button type="button" class="btn btn-tonal" @click="close">Annuleren</button>
+            <button v-if="showSkip" type="button" class="btn btn-text" @click="skip">{{ t('savedTraining.skip') }}</button>
+            <button type="button" class="btn btn-tonal" @click="close">{{ t('common.cancel') }}</button>
             <button type="button" class="btn btn-filled" :disabled="!form.name" @click="submit">
-              Opslaan
+              {{ t('common.save') }}
             </button>
           </footer>
         </div>
@@ -56,12 +56,15 @@
 </template>
 
 <script setup>
-import { ref, watch, nextTick } from 'vue'
-import { CYCLE_THEME_OPTIONS } from '@/utils/savedTraining'
+import { ref, watch, nextTick, computed } from 'vue'
+import { getCycleThemeOptions } from '@/utils/savedTraining'
+import { t } from '@/i18n'
+
+const cycleThemeOptions = computed(() => getCycleThemeOptions())
 
 const props = defineProps({
   open: { type: Boolean, default: false },
-  title: { type: String, default: 'Trainingsrecept opslaan' },
+  title: { type: String, default: '' },
   hint: { type: String, default: '' },
   defaultName: { type: String, default: '' },
   defaultTheme: { type: String, default: '' },

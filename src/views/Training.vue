@@ -123,7 +123,7 @@
                     <div class="session-generate-progress-head">
                       <span class="material-symbols-rounded session-generate-spinner" aria-hidden="true">progress_activity</span>
                       <p class="md-label-sm session-generate-status">
-                        {{ generateStatus || 'Training maken…' }}
+                        {{ generateStatus || t('training.generating') }}
                       </p>
                       <span class="md-label-sm session-generate-pct">
                         {{ Math.round(generateProgress * 100) }}%
@@ -232,18 +232,18 @@
               >
               <header class="session-card-head">
                 <div class="session-card-top">
-                  <h2 class="md-title-sm session-card-title">Trainingsoverzicht</h2>
+                  <h2 class="md-title-sm session-card-title">{{ t('training.sessionOverview') }}</h2>
                   <div class="session-card-toolbar">
                     <button
                       v-if="activeSavedTrainingId"
                       type="button"
                       class="btn btn-outlined session-head-btn"
-                      title="Bijwerken"
-                      aria-label="Bijwerken"
+                      :title="t('training.update')"
+                      :aria-label="t('training.update')"
                       @click="updateActiveSaved"
                     >
                       <span class="material-symbols-rounded" aria-hidden="true">save</span>
-                      <span class="session-head-btn-label">Bijwerken</span>
+                      <span class="session-head-btn-label">{{ t('training.update') }}</span>
                     </button>
                     <button
                       type="button"
@@ -289,40 +289,18 @@
                     }"
                     :style="sessionJustGenerated ? { '--stagger-i': i } : undefined"
                     :data-session-index="i"
-                    @touchstart="onRowTouchStart(i, $event)"
-                    @touchmove="onRowTouchMove"
-                    @touchend="onRowTouchEnd"
-                    @touchcancel="onRowTouchCancel"
                   >
-                    <div class="session-reorder">
-                      <button
-                        type="button"
-                        class="btn-icon session-move"
-                        :disabled="i === 0"
-                        :aria-label="t('training.moveUp')"
-                        :title="t('training.moveUp')"
-                        @click="moveBlock(i, -1)"
-                      >
-                        <span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_up</span>
-                      </button>
-                      <div
-                        class="drag-handle"
-                        :aria-label="t('training.drag')"
-                        :title="t('training.drag')"
-                        @pointerdown="onHandlePointerDown(i, $event)"
-                      >
-                        <span class="material-symbols-rounded" aria-hidden="true">drag_indicator</span>
-                      </div>
-                      <button
-                        type="button"
-                        class="btn-icon session-move"
-                        :disabled="i === sessionBlocks.length - 1"
-                        :aria-label="t('training.moveDown')"
-                        :title="t('training.moveDown')"
-                        @click="moveBlock(i, 1)"
-                      >
-                        <span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_down</span>
-                      </button>
+                    <div
+                      class="drag-handle"
+                      :aria-label="t('training.drag')"
+                      :title="t('training.drag')"
+                      @pointerdown="onHandlePointerDown(i, $event)"
+                      @touchstart="onRowTouchStart(i, $event)"
+                      @touchmove="onRowTouchMove"
+                      @touchend="onRowTouchEnd"
+                      @touchcancel="onRowTouchCancel"
+                    >
+                      <span class="material-symbols-rounded" aria-hidden="true">drag_indicator</span>
                     </div>
                     <div
                       class="session-info session-info-btn"
@@ -331,8 +309,9 @@
                       @click="openDetail(block)"
                       @keydown.enter.prevent="openDetail(block)"
                     >
+                      <span class="session-index md-label-sm">{{ i + 1 }}</span>
+                      <div class="session-info-body">
                       <p class="md-title-sm session-title">
-                        <span class="session-index md-label-sm">{{ i + 1 }}</span>
                         <span
                           v-if="isCustomExercise(block.exercise)"
                           class="custom-ex-badge"
@@ -349,29 +328,32 @@
                       <p v-if="block.ai?.whyThis" class="md-label-sm session-why">
                         {{ block.ai.whyThis }}
                       </p>
+                      </div>
                     </div>
-                    <div class="session-duration">
-                      <input
-                        type="number"
-                        class="duration-input"
-                        :value="block.durationMin"
-                        min="1"
-                        max="60"
-                        step="1"
-                        @change="e => setBlockDuration(i, +e.target.value)"
-                        :aria-label="t('training.durationAria')"
-                      />
-                      <span class="md-label-sm duration-suffix">{{ t('common.min') }}</span>
+                    <div class="session-actions">
+                      <div class="session-duration">
+                        <input
+                          type="number"
+                          class="duration-input"
+                          :value="block.durationMin"
+                          min="1"
+                          max="60"
+                          step="1"
+                          @change="e => setBlockDuration(i, +e.target.value)"
+                          :aria-label="t('training.durationAria')"
+                        />
+                        <span class="md-label-sm duration-suffix">{{ t('common.min') }}</span>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn-icon session-delete"
+                        :aria-label="t('training.remove')"
+                        style="color:var(--md-error)"
+                        @click="removeBlock(i)"
+                      >
+                        <span class="material-symbols-rounded">delete</span>
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      class="btn-icon session-delete"
-                      :aria-label="t('training.remove')"
-                      style="color:var(--md-error)"
-                      @click="removeBlock(i)"
-                    >
-                      <span class="material-symbols-rounded">delete</span>
-                    </button>
                   </div>
                 </template>
               </div>
@@ -623,8 +605,8 @@ const activeSavedTrainingName = computed(() => {
 const saveDefaultName = computed(() =>
   defaultSavedName({
     cycleWeek: syncedCycleWeek.value,
-    cycleThemeLabel: getCycleThemeLabel(getCycleTheme(syncedCycleWeek.value)),
-    trainingTypeLabel: TRAINING_TYPES.find(type => type.id === trainingType.value)?.label ?? trainingType.value,
+    cycleThemeLabel: t(`trainingType.${getCycleTheme(syncedCycleWeek.value)}`),
+    trainingTypeLabel: trainingTypeLabel.value,
   })
 )
 
@@ -1773,13 +1755,12 @@ function addFromPreview(ex) {
 
 .session-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--sp-2);
   padding: var(--sp-2) var(--sp-3);
   border-radius: var(--md-shape-md);
   transition: background var(--md-duration-short), opacity var(--md-duration-short), box-shadow var(--md-duration-short);
   touch-action: manipulation;
-  user-select: none;
 }
 
 .session-row.is-new {
@@ -1787,40 +1768,20 @@ function addFromPreview(ex) {
   box-shadow: inset 0 0 0 2px var(--md-primary);
 }
 
-.session-reorder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  gap: 0;
-  margin-left: -4px;
-}
-
-.session-move {
-  width: 28px;
-  height: 22px;
-  color: var(--md-on-surface-variant);
-}
-
-.session-move .material-symbols-rounded {
-  font-size: 20px;
-}
-
-.session-move:disabled {
-  opacity: 0.28;
-}
-
 .drag-handle {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  width: 28px;
+  min-height: 36px;
+  margin-top: 2px;
   cursor: grab;
   color: var(--md-on-surface-variant);
   touch-action: none;
   padding: 0;
   border-radius: var(--md-shape-sm);
+  user-select: none;
 }
 
 .drag-handle .material-symbols-rounded {
@@ -1858,15 +1819,33 @@ function addFromPreview(ex) {
   flex: 1;
   min-width: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
-  gap: 2px;
+  gap: var(--sp-2);
   border: none;
   background: transparent;
   cursor: pointer;
   text-align: left;
   padding: 0;
   border-radius: var(--md-shape-sm);
+}
+
+.session-info-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.session-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+  padding-top: 2px;
 }
 
 .session-info-btn:hover {
@@ -1926,28 +1905,19 @@ function addFromPreview(ex) {
 
 .session-title {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--sp-2);
   margin: 0;
   min-width: 0;
+  width: 100%;
 }
 
 .session-title-text {
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-@media (max-width: 599px) {
-  .session-title-text {
-    white-space: normal;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    overflow: hidden;
-  }
+  flex: 1;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.35;
 }
 
 

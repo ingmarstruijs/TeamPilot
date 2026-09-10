@@ -4,7 +4,7 @@
       <!-- Header -->
       <div class="view-header">
         <div>
-          <p class="md-title-md view-lineup-name">{{ payload.lineupName || 'Opstelling' }}</p>
+          <p class="md-title-md view-lineup-name">{{ payload.lineupName || t('lineupShare.defaultName') }}</p>
           <p class="md-body-sm view-meta">
             {{ payload.teamName }}
             <span v-if="payload.formationId"> · {{ payload.formationId }}</span>
@@ -12,7 +12,7 @@
         </div>
         <button class="btn btn-filled" @click="showImportDialog = true">
           <span class="material-symbols-rounded" style="font-size:18px">download</span>
-          Importeren
+          {{ t('lineupShare.import') }}
         </button>
       </div>
 
@@ -29,7 +29,7 @@
       <div v-if="benchPlayers.length" class="view-bench">
         <p class="md-label-lg view-bench-title">
           <span class="material-symbols-rounded" style="font-size:16px;vertical-align:text-bottom">weekend</span>
-          Bank
+          {{ t('lineup.bench') }}
         </p>
         <div class="view-bench-list">
           <div v-for="(p, i) in benchPlayers" :key="i" class="view-bench-player">
@@ -44,8 +44,8 @@
     <!-- Invalid link -->
     <div v-else class="view-error">
       <span class="material-symbols-rounded" style="font-size:48px;color:var(--md-outline)">link_off</span>
-      <p class="md-body-md">Ongeldige of verlopen link.</p>
-      <RouterLink to="/" class="btn btn-tonal">Naar TeamPilot</RouterLink>
+      <p class="md-body-md">{{ t('lineupShare.invalidLink') }}</p>
+      <RouterLink to="/" class="btn btn-tonal">{{ t('trainingShare.toApp') }}</RouterLink>
     </div>
 
     <!-- Import dialog -->
@@ -53,28 +53,26 @@
       <Transition name="dialog-fade">
         <div v-if="showImportDialog && payload" class="dialog-backdrop" @click.self="showImportDialog = false">
           <div class="dialog">
-            <p class="dialog-title">Opstelling importeren</p>
+            <p class="dialog-title">{{ t('lineupShare.importTitle') }}</p>
 
             <!-- Bundle: has full team data -->
             <template v-if="payload.type === 'bundle'">
               <p class="md-body-sm" style="color:var(--md-on-surface-variant);margin-bottom:var(--sp-3)">
-                <strong>{{ payload.teamName }}</strong> · {{ payload.ageGroup }} · {{ payload.players.length }} spelers
+                {{ t('lineupShare.bundleMeta', { team: payload.teamName, ageGroup: payload.ageGroup, count: payload.players.length }) }}
               </p>
               <template v-if="conflictTeam">
-                <p class="dialog-body">
-                  Er bestaat al een team <strong>{{ payload.teamName }}</strong>. Wil je de opstelling toevoegen aan dat team, of een nieuw team aanmaken?
-                </p>
+                <p class="dialog-body">{{ t('lineupShare.conflictBody', { team: payload.teamName }) }}</p>
                 <div class="dialog-actions" style="flex-wrap:wrap;gap:var(--sp-2)">
-                  <button class="btn btn-text" @click="showImportDialog = false">Annuleren</button>
-                  <button class="btn btn-outlined" @click="importAsNew">Nieuw team</button>
-                  <button class="btn btn-filled" @click="importToExisting">Toevoegen aan {{ conflictTeam.name }}</button>
+                  <button class="btn btn-text" @click="showImportDialog = false">{{ t('common.cancel') }}</button>
+                  <button class="btn btn-outlined" @click="importAsNew">{{ t('lineupShare.newTeam') }}</button>
+                  <button class="btn btn-filled" @click="importToExisting">{{ t('lineupShare.addToTeam', { name: conflictTeam.name }) }}</button>
                 </div>
               </template>
               <template v-else>
-                <p class="dialog-body">Team en opstelling worden geïmporteerd in TeamPilot.</p>
+                <p class="dialog-body">{{ t('lineupShare.bundleBody') }}</p>
                 <div class="dialog-actions">
-                  <button class="btn btn-text" @click="showImportDialog = false">Annuleren</button>
-                  <button class="btn btn-filled" @click="importBundle">Importeren</button>
+                  <button class="btn btn-text" @click="showImportDialog = false">{{ t('common.cancel') }}</button>
+                  <button class="btn btn-filled" @click="importBundle">{{ t('lineupShare.import') }}</button>
                 </div>
               </template>
             </template>
@@ -82,7 +80,7 @@
             <!-- Lineup only: need to pick a local team -->
             <template v-else>
               <p class="md-body-sm" style="color:var(--md-on-surface-variant);margin-bottom:var(--sp-3)">
-                Opstelling voor <strong>{{ payload.teamName }}</strong>. Kies een lokaal team om de opstelling aan toe te voegen.
+                {{ t('lineupShare.lineupOnlyBody', { team: payload.teamName }) }}
               </p>
               <div class="team-picker">
                 <button
@@ -95,13 +93,13 @@
                   <ShirtAvatar :shirt="team.shirt" :initials="team.name.slice(0,2).toUpperCase()" :size="24" />
                   <span>{{ team.name }}</span>
                   <span class="match-hint" v-if="matchCount(team) !== null">
-                    {{ matchCount(team) }}/{{ filledSlotCount }} gematcht
+                    {{ t('lineupShare.matched', { matched: matchCount(team), total: filledSlotCount }) }}
                   </span>
                 </button>
               </div>
               <div class="dialog-actions" style="margin-top:var(--sp-3)">
-                <button class="btn btn-text" @click="showImportDialog = false">Annuleren</button>
-                <button class="btn btn-filled" :disabled="!selectedTeamId" @click="importLineupOnly">Importeren</button>
+                <button class="btn btn-text" @click="showImportDialog = false">{{ t('common.cancel') }}</button>
+                <button class="btn btn-filled" :disabled="!selectedTeamId" @click="importLineupOnly">{{ t('lineupShare.import') }}</button>
               </div>
             </template>
           </div>
@@ -119,6 +117,7 @@ import { decodeSharePayload, resolveSlotsForTeam } from '@/utils/lineupShare'
 import { showSnackbar } from '@/composables/useSnackbar'
 import FootballField from '@/components/field/FootballField.vue'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
+import { t } from '@/i18n'
 
 const route  = useRoute()
 const router = useRouter()
@@ -203,7 +202,7 @@ function importBundle() {
   const p = payload.value
   const team = store.importTeam({ name: p.teamName, ageGroup: p.ageGroup, shirt: p.shirt, players: p.players })
   _saveLineupToTeam(team)
-  showSnackbar(`Team & opstelling geïmporteerd ✓`)
+  showSnackbar(t('lineupShare.importedBundle'))
   showImportDialog.value = false
 }
 
@@ -212,7 +211,7 @@ function importAsNew() {
   const p = payload.value
   const team = store.importTeam({ name: p.teamName + ' (2)', ageGroup: p.ageGroup, shirt: p.shirt, players: p.players })
   _saveLineupToTeam(team)
-  showSnackbar(`Team & opstelling geïmporteerd ✓`)
+  showSnackbar(t('lineupShare.importedBundle'))
   showImportDialog.value = false
 }
 
@@ -225,7 +224,7 @@ function importToExisting() {
   // Re-fetch team after merge so new IDs are available
   const freshTeam = store.teams.find(t => t.id === team.id)
   _saveLineupToTeam(freshTeam)
-  showSnackbar(`Opstelling toegevoegd aan "${team.name}" ✓`)
+  showSnackbar(t('lineupShare.addedToTeam', { name: team.name }))
   showImportDialog.value = false
 }
 
@@ -234,7 +233,7 @@ function importLineupOnly() {
   const team = store.teams.find(t => t.id === selectedTeamId.value)
   if (!team) return
   _saveLineupToTeam(team)
-  showSnackbar(`Opstelling toegevoegd aan "${team.name}" ✓`)
+  showSnackbar(t('lineupShare.addedToTeam', { name: team.name }))
   showImportDialog.value = false
 }
 
@@ -244,7 +243,7 @@ function _saveLineupToTeam(team) {
   store.setActiveTeam(team.id)
   const saved = store.saveLineup({
     teamId:      team.id,
-    name:        p.lineupName || 'Geïmporteerde opstelling',
+    name:        p.lineupName || t('lineupShare.importedName'),
     formationId: p.formationId ?? null,
     flipped:     p.flipped ?? true,
     slots,

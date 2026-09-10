@@ -62,6 +62,15 @@ export function resetLocale() {
 
 syncDocumentLang(locale.value)
 
+export function getDateLocale() {
+  return locale.value === 'en' ? 'en-GB' : 'nl-NL'
+}
+
+/** @param {Date} [date] */
+export function formatShortDate(date = new Date()) {
+  return date.toLocaleDateString(getDateLocale(), { day: 'numeric', month: 'short' })
+}
+
 export function useI18n() {
   return {
     locale: computed(() => locale.value),

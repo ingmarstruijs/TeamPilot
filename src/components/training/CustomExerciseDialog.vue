@@ -10,59 +10,59 @@
           aria-labelledby="custom-ex-title"
         >
           <header class="custom-ex-header">
-            <h2 id="custom-ex-title" class="md-title-md">Eigen oefening toevoegen</h2>
-            <button type="button" class="btn-icon" aria-label="Sluiten" @click="close">
+            <h2 id="custom-ex-title" class="md-title-md">{{ t('customExerciseDialog.title') }}</h2>
+            <button type="button" class="btn-icon" :aria-label="t('common.close')" @click="close">
               <span class="material-symbols-rounded">close</span>
             </button>
           </header>
 
           <div class="custom-ex-body">
             <div class="field-wrap">
-              <label class="field-label" for="ce-title">Titel *</label>
-              <input id="ce-title" v-model.trim="form.title" class="field" maxlength="80" placeholder="Naam van de oefening" />
+              <label class="field-label" for="ce-title">{{ t('customExerciseDialog.titleLabel') }}</label>
+              <input id="ce-title" v-model.trim="form.title" class="field" maxlength="80" :placeholder="t('customExerciseDialog.titlePlaceholder')" />
             </div>
 
             <div class="form-row">
               <div class="field-wrap">
-                <label class="field-label" for="ce-category">Categorie</label>
+                <label class="field-label" for="ce-category">{{ t('customExerciseDialog.category') }}</label>
                 <select id="ce-category" v-model="form.category" class="field field-select">
-                  <option v-for="c in EXERCISE_CATEGORIES" :key="c.id" :value="c.id">{{ c.label }}</option>
+                  <option v-for="c in EXERCISE_CATEGORIES" :key="c.id" :value="c.id">{{ t(`category.${c.id}`) }}</option>
                 </select>
               </div>
               <div class="field-wrap">
-                <label class="field-label" for="ce-duration">Duur (min)</label>
+                <label class="field-label" for="ce-duration">{{ t('customExerciseDialog.duration') }}</label>
                 <input id="ce-duration" v-model.number="form.durationMin" class="field" type="number" min="1" max="60" />
               </div>
             </div>
 
             <div class="form-row">
               <div class="field-wrap">
-                <label class="field-label" for="ce-min">Min. spelers</label>
+                <label class="field-label" for="ce-min">{{ t('customExerciseDialog.minPlayers') }}</label>
                 <input id="ce-min" v-model.number="form.minPlayers" class="field" type="number" min="1" max="30" />
               </div>
               <div class="field-wrap">
-                <label class="field-label" for="ce-max">Max. spelers</label>
+                <label class="field-label" for="ce-max">{{ t('customExerciseDialog.maxPlayers') }}</label>
                 <input id="ce-max" v-model.number="form.maxPlayers" class="field" type="number" min="1" max="30" />
               </div>
             </div>
 
             <div class="field-wrap">
-              <label class="field-label" for="ce-desc">Beschrijving</label>
-              <textarea id="ce-desc" v-model.trim="form.description" class="field field-textarea" rows="3" placeholder="Wat doen de spelers?" />
+              <label class="field-label" for="ce-desc">{{ t('customExerciseDialog.description') }}</label>
+              <textarea id="ce-desc" v-model.trim="form.description" class="field field-textarea" rows="3" :placeholder="t('customExerciseDialog.descriptionPlaceholder')" />
             </div>
 
             <div class="field-wrap">
-              <label class="field-label" for="ce-setup">Opstelling</label>
-              <textarea id="ce-setup" v-model.trim="form.setup" class="field field-textarea" rows="2" placeholder="Velden, pionnen, teams..." />
+              <label class="field-label" for="ce-setup">{{ t('customExerciseDialog.setup') }}</label>
+              <textarea id="ce-setup" v-model.trim="form.setup" class="field field-textarea" rows="2" :placeholder="t('customExerciseDialog.setupPlaceholder')" />
             </div>
 
             <div class="field-wrap">
-              <label class="field-label" for="ce-rules">Spelregels</label>
-              <textarea id="ce-rules" v-model="form.rulesText" class="field field-textarea" rows="4" placeholder="Eén regel per regel" />
+              <label class="field-label" for="ce-rules">{{ t('customExerciseDialog.rules') }}</label>
+              <textarea id="ce-rules" v-model="form.rulesText" class="field field-textarea" rows="4" :placeholder="t('customExerciseDialog.rulesPlaceholder')" />
             </div>
 
             <div class="field-wrap">
-              <label class="field-label">Schema (SVG)</label>
+              <label class="field-label">{{ t('customExerciseDialog.diagram') }}</label>
               <div class="svg-picker">
                 <input
                   ref="fileInput"
@@ -73,19 +73,19 @@
                 />
                 <button type="button" class="btn btn-tonal svg-btn" @click="fileInput?.click()">
                   <span class="material-symbols-rounded">upload_file</span>
-                  {{ form.customSvg ? 'Ander SVG-bestand' : 'SVG kiezen' }}
+                  {{ form.customSvg ? t('customExerciseDialog.otherSvg') : t('customExerciseDialog.pickSvg') }}
                 </button>
-                <button v-if="form.customSvg" type="button" class="btn btn-text" @click="clearSvg">Verwijderen</button>
+                <button v-if="form.customSvg" type="button" class="btn btn-text" @click="clearSvg">{{ t('common.delete') }}</button>
               </div>
-              <img v-if="form.customSvg" :src="form.customSvg" alt="Voorbeeld schema" class="svg-preview" />
+              <img v-if="form.customSvg" :src="form.customSvg" :alt="t('customExerciseDialog.diagramPreview')" class="svg-preview" />
               <p v-if="svgError" class="field-error">{{ svgError }}</p>
             </div>
           </div>
 
           <footer class="custom-ex-footer">
-            <button type="button" class="btn btn-text" @click="close">Annuleren</button>
+            <button type="button" class="btn btn-text" @click="close">{{ t('common.cancel') }}</button>
             <button type="button" class="btn btn-filled" :disabled="!canSave" @click="save">
-              Opslaan
+              {{ t('common.save') }}
             </button>
           </footer>
         </div>
@@ -98,6 +98,7 @@
 import { ref, computed, watch, onUnmounted } from 'vue'
 import { EXERCISE_CATEGORIES } from '@/data/exercises'
 import { buildCustomExercise, readSvgFile, parseRulesText } from '@/utils/customExercises'
+import { t } from '@/i18n'
 
 const props = defineProps({
   open: { type: Boolean, default: false },

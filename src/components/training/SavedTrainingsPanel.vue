@@ -1,11 +1,11 @@
 <template>
   <section class="saved-panel card card-elevated">
     <div class="panel-head">
-      <p class="md-title-sm">Opgeslagen trainingen</p>
+      <p class="md-title-sm">{{ t('training.savedTrainings') }}</p>
       <span class="md-label-sm count">{{ filtered.length }}/{{ recipes.length }}</span>
     </div>
 
-    <div class="theme-filters" role="tablist" aria-label="Filter op weekthema">
+    <div class="theme-filters" role="tablist" :aria-label="t('savedTraining.filterAria')">
       <button
         v-for="chip in themeChips"
         :key="chip.id || 'all'"
@@ -21,10 +21,10 @@
 
     <div v-if="!filtered.length" class="saved-empty md-body-sm">
       <template v-if="recipes.length">
-        Geen trainingen voor dit thema — kies een ander filter.
+        {{ t('savedTraining.emptyFilter') }}
       </template>
       <template v-else>
-        Sla een sessie op als recept, of importeer een gedeeld recept van een collega.
+        {{ t('savedTraining.empty') }}
       </template>
     </div>
 
@@ -38,11 +38,11 @@
               {{ cycleThemeLabel(recipe.cycleTheme) }}
             </span>
             {{ trainingTypeLabel(recipe.trainingType) }}
-            · {{ recipe.durationMin }} min
-            · {{ recipe.exerciseCount }} oef.
+            · {{ recipe.durationMin }} {{ t('common.min') }}
+            · {{ recipe.exerciseCount }} {{ t('savedTraining.exercisesAbbr') }}
           </p>
           <p v-if="recipe.sharedFrom?.name" class="md-label-sm shared-from">
-            Via {{ recipe.sharedFrom.name }}
+            {{ t('savedTraining.via', { name: recipe.sharedFrom.name }) }}
           </p>
         </div>
         <div class="saved-actions">
@@ -51,20 +51,20 @@
             class="btn btn-filled btn-sm"
             @click="$emit('use', recipe)"
           >
-            Gebruik
+            {{ t('savedTraining.use') }}
           </button>
           <button
             type="button"
             class="btn btn-tonal btn-sm"
             @click="$emit('edit', recipe)"
           >
-            Bewerken
+            {{ t('savedTraining.edit') }}
           </button>
           <button
             type="button"
             class="btn-icon"
-            aria-label="Dupliceren"
-            title="Dupliceren"
+            :aria-label="t('savedTraining.duplicate')"
+            :title="t('savedTraining.duplicate')"
             @click="$emit('duplicate', recipe)"
           >
             <span class="material-symbols-rounded">content_copy</span>
@@ -72,8 +72,8 @@
           <button
             type="button"
             class="btn-icon"
-            aria-label="Delen"
-            title="Deel recept"
+            :aria-label="t('common.share')"
+            :title="t('savedTraining.shareRecipe')"
             @click="$emit('share', recipe)"
           >
             <span class="material-symbols-rounded">share</span>
@@ -81,8 +81,8 @@
           <button
             type="button"
             class="btn-icon danger"
-            aria-label="Verwijderen"
-            title="Verwijderen"
+            :aria-label="t('common.delete')"
+            :title="t('common.delete')"
             @click="confirmDelete(recipe)"
           >
             <span class="material-symbols-rounded">delete</span>
@@ -95,8 +95,8 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { TRAINING_TYPES } from '@/data/exercises'
-import { CYCLE_THEME_OPTIONS, cycleThemeLabel, getCycleThemeIcon } from '@/utils/savedTraining'
+import { getCycleThemeOptions, cycleThemeLabel, getCycleThemeIcon } from '@/utils/savedTraining'
+import { t } from '@/i18n'
 
 const props = defineProps({
   recipes: { type: Array, required: true },
@@ -107,8 +107,8 @@ const emit = defineEmits(['use', 'edit', 'share', 'duplicate', 'delete'])
 const themeFilter = ref('')
 
 const themeChips = computed(() => [
-  { id: '', label: 'Alle', icon: null },
-  ...CYCLE_THEME_OPTIONS.filter(o => o.id && props.recipes.some(r => r.cycleTheme === o.id)),
+  { id: '', label: t('common.all'), icon: null },
+  ...getCycleThemeOptions().filter(o => o.id && props.recipes.some(r => r.cycleTheme === o.id)),
 ])
 
 const filtered = computed(() => {
@@ -117,11 +117,12 @@ const filtered = computed(() => {
 })
 
 function trainingTypeLabel(id) {
-  return TRAINING_TYPES.find(t => t.id === id)?.label ?? id
+  const label = t(`trainingType.${id}`)
+  return label.startsWith('trainingType.') ? id : label
 }
 
 function confirmDelete(recipe) {
-  if (window.confirm(`"${recipe.name}" verwijderen?`)) {
+  if (window.confirm(t('savedTraining.deleteConfirm', { name: recipe.name }))) {
     emit('delete', recipe)
   }
 }

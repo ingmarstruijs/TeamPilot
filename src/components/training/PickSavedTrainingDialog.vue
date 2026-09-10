@@ -10,14 +10,14 @@
           aria-labelledby="pick-saved-title"
         >
           <header class="dialog-header">
-            <h2 id="pick-saved-title" class="md-title-md">Kies opgeslagen training</h2>
-            <button type="button" class="btn-icon" aria-label="Sluiten" @click="close">
+            <h2 id="pick-saved-title" class="md-title-md">{{ t('savedTraining.pickTitle') }}</h2>
+            <button type="button" class="btn-icon" :aria-label="t('common.close')" @click="close">
               <span class="material-symbols-rounded">close</span>
             </button>
           </header>
 
           <div v-if="!recipes.length" class="dialog-empty md-body-sm">
-            Nog geen opgeslagen trainingen. Sla eerst een sessie op via de tab Opgeslagen.
+            {{ t('savedTraining.pickEmpty') }}
           </div>
 
           <div v-else class="pick-list">
@@ -36,7 +36,7 @@
                     {{ cycleThemeLabel(recipe.cycleTheme) }}
                   </span>
                   {{ trainingTypeLabel(recipe.trainingType) }}
-                  · {{ recipe.exerciseCount }} oef. · {{ recipe.durationMin }} min
+                  · {{ recipe.exerciseCount }} {{ t('savedTraining.exercisesAbbr') }} · {{ recipe.durationMin }} {{ t('common.min') }}
                 </p>
               </div>
               <span class="material-symbols-rounded pick-chevron">chevron_right</span>
@@ -49,8 +49,8 @@
 </template>
 
 <script setup>
-import { TRAINING_TYPES } from '@/data/exercises'
 import { cycleThemeLabel, getCycleThemeIcon } from '@/utils/savedTraining'
+import { t } from '@/i18n'
 
 defineProps({
   open: { type: Boolean, default: false },
@@ -68,7 +68,8 @@ function select(recipe) {
 }
 
 function trainingTypeLabel(id) {
-  return TRAINING_TYPES.find(t => t.id === id)?.label ?? id
+  const label = t(`trainingType.${id}`)
+  return label.startsWith('trainingType.') ? id : label
 }
 </script>
 
@@ -92,12 +93,12 @@ function trainingTypeLabel(id) {
 
 .dialog {
   width: 100%;
-  max-width: 440px;
-  max-height: min(80dvh, 560px);
-  display: flex;
-  flex-direction: column;
+  max-width: 480px;
+  max-height: min(85vh, 560px);
   padding: 0;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .dialog-header {
@@ -105,7 +106,7 @@ function trainingTypeLabel(id) {
   align-items: center;
   justify-content: space-between;
   gap: var(--sp-2);
-  padding: var(--sp-4);
+  padding: var(--sp-4) var(--sp-4) var(--sp-2);
   flex-shrink: 0;
 }
 
@@ -114,14 +115,14 @@ function trainingTypeLabel(id) {
 }
 
 .dialog-empty {
-  padding: var(--sp-4);
-  color: var(--md-on-surface-variant);
+  padding: var(--sp-6) var(--sp-4);
   text-align: center;
+  color: var(--md-on-surface-variant);
 }
 
 .pick-list {
   overflow-y: auto;
-  padding: 0 var(--sp-2) var(--sp-3);
+  padding: var(--sp-2) var(--sp-2) var(--sp-4);
   display: flex;
   flex-direction: column;
   gap: var(--sp-1);
@@ -133,15 +134,16 @@ function trainingTypeLabel(id) {
   gap: var(--sp-2);
   width: 100%;
   padding: var(--sp-3);
-  border: none;
+  border: 1px solid var(--md-outline-variant);
   border-radius: var(--md-shape-md);
-  background: transparent;
+  background: var(--md-surface);
   cursor: pointer;
   text-align: left;
+  transition: background var(--md-duration-short);
 }
 
 .pick-item:hover {
-  background: color-mix(in srgb, var(--md-on-surface) 6%, transparent);
+  background: color-mix(in srgb, var(--md-on-surface) 4%, var(--md-surface));
 }
 
 .pick-text {
@@ -179,8 +181,8 @@ function trainingTypeLabel(id) {
 }
 
 .pick-chevron {
-  color: var(--md-outline);
   flex-shrink: 0;
+  color: var(--md-on-surface-variant);
 }
 
 .fade-enter-active,
