@@ -342,59 +342,18 @@
                         />
                         <span class="md-label-sm duration-suffix">{{ t('common.min') }}</span>
                       </div>
-                      <div
-                        class="session-more"
-                        :class="{
-                          'is-open': openRowMenu === i,
-                          'opens-up': i >= sessionBlocks.length - 2,
-                        }"
-                      >
+                      <div class="session-more">
                         <button
                           type="button"
                           class="btn-icon session-more-btn"
                           :aria-label="t('training.moreActions')"
                           :aria-expanded="openRowMenu === i"
                           aria-haspopup="menu"
-                          @click.stop="toggleRowMenu(i)"
+                          @pointerdown.stop.prevent="onMorePointerDown(i, $event)"
+                          @click.stop.prevent
                         >
                           <span class="material-symbols-rounded" aria-hidden="true">more_vert</span>
                         </button>
-                        <div
-                          v-if="openRowMenu === i"
-                          class="session-more-menu"
-                          role="menu"
-                          :aria-label="t('training.moreActions')"
-                        >
-                          <button
-                            type="button"
-                            class="session-more-item"
-                            role="menuitem"
-                            :disabled="i === 0"
-                            @click.stop="onMoveFromMenu(i, -1)"
-                          >
-                            <span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_up</span>
-                            {{ t('training.moveUp') }}
-                          </button>
-                          <button
-                            type="button"
-                            class="session-more-item"
-                            role="menuitem"
-                            :disabled="i === sessionBlocks.length - 1"
-                            @click.stop="onMoveFromMenu(i, 1)"
-                          >
-                            <span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_down</span>
-                            {{ t('training.moveDown') }}
-                          </button>
-                          <button
-                            type="button"
-                            class="session-more-item is-danger"
-                            role="menuitem"
-                            @click.stop="onRemoveFromMenu(i)"
-                          >
-                            <span class="material-symbols-rounded" aria-hidden="true">delete</span>
-                            {{ t('training.remove') }}
-                          </button>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -452,6 +411,47 @@
         </div>
       </div>
     </template>
+
+    <Teleport to="body">
+      <div
+        v-if="openRowMenu !== null"
+        class="session-more-menu"
+        role="menu"
+        :aria-label="t('training.moreActions')"
+        :style="rowMenuStyle"
+        @pointerdown.stop
+      >
+        <button
+          type="button"
+          class="session-more-item"
+          role="menuitem"
+          :disabled="openRowMenu === 0"
+          @click.stop="onMoveFromMenu(openRowMenu, -1)"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_up</span>
+          {{ t('training.moveUp') }}
+        </button>
+        <button
+          type="button"
+          class="session-more-item"
+          role="menuitem"
+          :disabled="openRowMenu === sessionBlocks.length - 1"
+          @click.stop="onMoveFromMenu(openRowMenu, 1)"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_down</span>
+          {{ t('training.moveDown') }}
+        </button>
+        <button
+          type="button"
+          class="session-more-item is-danger"
+          role="menuitem"
+          @click.stop="onRemoveFromMenu(openRowMenu)"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">delete</span>
+          {{ t('training.remove') }}
+        </button>
+      </div>
+    </Teleport>
 
     <ExerciseDetailDialog
       :block="detailBlock"
@@ -596,6 +596,7 @@ const sessionJustGenerated = ref(false)
 const startPanelOpen = ref(true)
 const localLlmReady = ref(false)
 const openRowMenu = ref(null)
+const rowMenuStyle = ref({})
 let highlightTimer = null
 let staggerTimer = null
 let nextBlockUid = 1
@@ -706,8 +707,26 @@ function closeRowMenu() {
   openRowMenu.value = null
 }
 
-function toggleRowMenu(index) {
-  openRowMenu.value = openRowMenu.value === index ? null : index
+function onMorePointerDown(index, e) {
+  if (e.pointerType === 'mouse' && e.button !== 0) return
+  if (openRowMenu.value === index) {
+    closeRowMenu()
+    return
+  }
+  const rect = e.currentTarget.getBoundingClientRect()
+  const opensUp = window.innerHeight - rect.bottom < 168
+  openRowMenu.value = index
+  rowMenuStyle.value = opensUp
+    ? {
+        top: 'auto',
+        bottom: `${Math.max(8, window.innerHeight - rect.top + 4)}px`,
+        right: `${Math.max(8, window.innerWidth - rect.right)}px`,
+      }
+    : {
+        top: `${rect.bottom + 4}px`,
+        bottom: 'auto',
+        right: `${Math.max(8, window.innerWidth - rect.right)}px`,
+      }
 }
 
 function onMoveFromMenu(index, delta) {
@@ -722,7 +741,7 @@ function onRemoveFromMenu(index) {
 
 function onDocPointerDown(e) {
   if (openRowMenu.value === null) return
-  if (e.target?.closest?.('.session-more')) return
+  if (e.target?.closest?.('.session-more, .session-more-menu')) return
   closeRowMenu()
 }
 
@@ -864,10 +883,12 @@ onMounted(() => {
   if (route.query.library === '1') activeTab.value = 'library'
   if (route.query.saved === '1') activeTab.value = 'saved'
   document.addEventListener('pointerdown', onDocPointerDown)
+  document.addEventListener('scroll', closeRowMenu, true)
 })
 
 onUnmounted(() => {
   document.removeEventListener('pointerdown', onDocPointerDown)
+  document.removeEventListener('scroll', closeRowMenu, true)
   resetTouchReorder()
   resetPointerDrag()
   if (highlightTimer) clearTimeout(highlightTimer)
@@ -2015,21 +2036,14 @@ function addFromPreview(ex) {
 }
 
 .session-more-menu {
-  position: absolute;
-  top: calc(100% - 4px);
-  right: 0;
-  z-index: 40;
+  position: fixed;
+  z-index: 400;
   min-width: 196px;
   padding: var(--sp-1) 0;
   background: var(--md-surface);
   border: 1px solid var(--md-outline-variant);
   border-radius: var(--md-shape-md);
   box-shadow: var(--md-elevation-3);
-}
-
-.session-more.opens-up .session-more-menu {
-  top: auto;
-  bottom: calc(100% - 4px);
 }
 
 .session-more-item {
