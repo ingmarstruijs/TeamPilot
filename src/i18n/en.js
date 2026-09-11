@@ -152,6 +152,7 @@ export default {
     durationAria: 'Duration in minutes',
     remove: 'Remove',
     drag: 'Drag to reorder',
+    moreActions: 'More actions',
     moveUp: 'Move up',
     moveDown: 'Move down',
     customExercise: 'Custom exercise',

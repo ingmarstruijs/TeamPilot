@@ -152,6 +152,7 @@ export default {
     durationAria: 'Duur in minuten',
     remove: 'Verwijderen',
     drag: 'Sleep om te verplaatsen',
+    moreActions: 'Meer acties',
     moveUp: 'Verplaats omhoog',
     moveDown: 'Verplaats omlaag',
     customExercise: 'Eigen oefening',

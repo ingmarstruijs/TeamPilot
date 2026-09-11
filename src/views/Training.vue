@@ -291,7 +291,7 @@
                     :data-session-index="i"
                   >
                     <div
-                      class="drag-handle"
+                      class="session-handle"
                       :aria-label="t('training.drag')"
                       :title="t('training.drag')"
                       @pointerdown="onHandlePointerDown(i, $event)"
@@ -300,7 +300,8 @@
                       @touchend="onRowTouchEnd"
                       @touchcancel="onRowTouchCancel"
                     >
-                      <span class="material-symbols-rounded" aria-hidden="true">drag_indicator</span>
+                      <span class="session-index md-label-sm">{{ i + 1 }}</span>
+                      <span class="material-symbols-rounded session-handle-grip" aria-hidden="true">drag_indicator</span>
                     </div>
                     <div
                       class="session-info session-info-btn"
@@ -309,25 +310,24 @@
                       @click="openDetail(block)"
                       @keydown.enter.prevent="openDetail(block)"
                     >
-                      <span class="session-index md-label-sm">{{ i + 1 }}</span>
                       <div class="session-info-body">
-                      <p class="md-title-sm session-title">
-                        <span
-                          v-if="isCustomExercise(block.exercise)"
-                          class="custom-ex-badge"
-                          :title="t('training.customExercise')"
-                        >
-                          <span class="material-symbols-rounded" aria-hidden="true">draw</span>
-                        </span>
-                        <span class="session-title-text">{{ getExerciseTitle(block.exercise) }}</span>
-                      </p>
-                      <p class="md-body-sm session-meta">
-                        {{ categoryLabel(block.exercise.category) }} · {{ playerRangeLabel(block.exercise) }}
-                      </p>
-                      <FootballRealityRating :rating="getFootballReality(block.exercise)" />
-                      <p v-if="block.ai?.whyThis" class="md-label-sm session-why">
-                        {{ block.ai.whyThis }}
-                      </p>
+                        <p class="md-title-sm session-title">
+                          <span
+                            v-if="isCustomExercise(block.exercise)"
+                            class="custom-ex-badge"
+                            :title="t('training.customExercise')"
+                          >
+                            <span class="material-symbols-rounded" aria-hidden="true">draw</span>
+                          </span>
+                          <span class="session-title-text">{{ getExerciseTitle(block.exercise) }}</span>
+                        </p>
+                        <p class="md-body-sm session-meta">
+                          <span>{{ categoryLabel(block.exercise.category) }} · {{ playerRangeLabel(block.exercise) }}</span>
+                          <FootballRealityRating :rating="getFootballReality(block.exercise)" />
+                        </p>
+                        <p v-if="block.ai?.whyThis" class="md-label-sm session-why">
+                          {{ block.ai.whyThis }}
+                        </p>
                       </div>
                     </div>
                     <div class="session-actions">
@@ -344,15 +344,60 @@
                         />
                         <span class="md-label-sm duration-suffix">{{ t('common.min') }}</span>
                       </div>
-                      <button
-                        type="button"
-                        class="btn-icon session-delete"
-                        :aria-label="t('training.remove')"
-                        style="color:var(--md-error)"
-                        @click="removeBlock(i)"
+                      <div
+                        class="session-more"
+                        :class="{
+                          'is-open': openRowMenu === i,
+                          'opens-up': i >= sessionBlocks.length - 2,
+                        }"
                       >
-                        <span class="material-symbols-rounded">delete</span>
-                      </button>
+                        <button
+                          type="button"
+                          class="btn-icon session-more-btn"
+                          :aria-label="t('training.moreActions')"
+                          :aria-expanded="openRowMenu === i"
+                          aria-haspopup="menu"
+                          @click.stop="toggleRowMenu(i)"
+                        >
+                          <span class="material-symbols-rounded" aria-hidden="true">more_vert</span>
+                        </button>
+                        <div
+                          v-if="openRowMenu === i"
+                          class="session-more-menu"
+                          role="menu"
+                          :aria-label="t('training.moreActions')"
+                        >
+                          <button
+                            type="button"
+                            class="session-more-item"
+                            role="menuitem"
+                            :disabled="i === 0"
+                            @click.stop="onMoveFromMenu(i, -1)"
+                          >
+                            <span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_up</span>
+                            {{ t('training.moveUp') }}
+                          </button>
+                          <button
+                            type="button"
+                            class="session-more-item"
+                            role="menuitem"
+                            :disabled="i === sessionBlocks.length - 1"
+                            @click.stop="onMoveFromMenu(i, 1)"
+                          >
+                            <span class="material-symbols-rounded" aria-hidden="true">keyboard_arrow_down</span>
+                            {{ t('training.moveDown') }}
+                          </button>
+                          <button
+                            type="button"
+                            class="session-more-item is-danger"
+                            role="menuitem"
+                            @click.stop="onRemoveFromMenu(i)"
+                          >
+                            <span class="material-symbols-rounded" aria-hidden="true">delete</span>
+                            {{ t('training.remove') }}
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </template>
@@ -552,6 +597,7 @@ const adaptStatus = ref('')
 const sessionJustGenerated = ref(false)
 const startPanelOpen = ref(true)
 const localLlmReady = ref(false)
+const openRowMenu = ref(null)
 let highlightTimer = null
 let staggerTimer = null
 let nextBlockUid = 1
@@ -655,7 +701,31 @@ async function refreshCoachMode() {
 }
 
 function isDragExcludedTarget(el) {
-  return el?.closest('input, .session-duration, .session-delete, .session-reorder')
+  return el?.closest('input, .session-duration, .session-more')
+}
+
+function closeRowMenu() {
+  openRowMenu.value = null
+}
+
+function toggleRowMenu(index) {
+  openRowMenu.value = openRowMenu.value === index ? null : index
+}
+
+function onMoveFromMenu(index, delta) {
+  moveBlock(index, delta)
+  closeRowMenu()
+}
+
+function onRemoveFromMenu(index) {
+  removeBlock(index)
+  closeRowMenu()
+}
+
+function onDocPointerDown(e) {
+  if (openRowMenu.value === null) return
+  if (e.target?.closest?.('.session-more')) return
+  closeRowMenu()
 }
 
 function clearDragVisuals() {
@@ -679,6 +749,7 @@ function onHandlePointerDown(index, e) {
 
   e.preventDefault()
   e.stopPropagation()
+  closeRowMenu()
 
   pointerDrag = { index, pointerId: e.pointerId }
   dragIndex.value = index
@@ -794,9 +865,11 @@ onMounted(() => {
   refreshCoachMode()
   if (route.query.library === '1') activeTab.value = 'library'
   if (route.query.saved === '1') activeTab.value = 'saved'
+  document.addEventListener('pointerdown', onDocPointerDown)
 })
 
 onUnmounted(() => {
+  document.removeEventListener('pointerdown', onDocPointerDown)
   resetTouchReorder()
   resetPointerDrag()
   if (highlightTimer) clearTimeout(highlightTimer)
@@ -898,6 +971,7 @@ function onRowTouchStart(index, e) {
   touchReorder.timer = window.setTimeout(() => {
     touchReorder.timer = null
     touchReorder.active = true
+    closeRowMenu()
     dragIndex.value = index
     dragOverIndex.value = index
     suppressDetailClick = true
@@ -1601,6 +1675,7 @@ function addFromPreview(ex) {
 .session-start,
 .session-empty {
   padding: var(--sp-3);
+  overflow: visible;
 }
 
 .session-start-toggle {
@@ -1696,11 +1771,11 @@ function addFromPreview(ex) {
 }
 
 .session-why {
-  margin: 2px 0 0;
+  margin: 0;
   color: var(--md-primary);
-  line-height: 1.35;
+  line-height: 1.4;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -1750,55 +1825,56 @@ function addFromPreview(ex) {
 .session-list {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-1);
+  gap: 2px;
+  overflow: visible;
 }
 
 .session-row {
   display: flex;
   align-items: flex-start;
   gap: var(--sp-2);
-  padding: var(--sp-2) var(--sp-3);
+  padding: var(--sp-2) 0;
   border-radius: var(--md-shape-md);
   transition: background var(--md-duration-short), opacity var(--md-duration-short), box-shadow var(--md-duration-short);
   touch-action: manipulation;
+  user-select: none;
+  position: relative;
 }
 
 .session-row.is-new {
   background: color-mix(in srgb, var(--md-primary) 10%, transparent);
   box-shadow: inset 0 0 0 2px var(--md-primary);
+  padding-left: var(--sp-1);
+  padding-right: var(--sp-1);
 }
 
-.drag-handle {
+.session-handle {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-shrink: 0;
-  width: 28px;
-  min-height: 36px;
-  margin-top: 2px;
+  width: 1.75rem;
+  padding: 1px 0 0;
+  margin: 0;
   cursor: grab;
   color: var(--md-on-surface-variant);
   touch-action: none;
-  padding: 0;
   border-radius: var(--md-shape-sm);
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.drag-handle .material-symbols-rounded {
-  font-size: 20px;
-  pointer-events: none;
-}
-
-.drag-handle:active {
+.session-handle:active {
   cursor: grabbing;
 }
 
-@media (min-width: 900px) {
-  .drag-handle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.session-handle-grip {
+  font-size: 16px;
+  line-height: 1;
+  margin-top: -1px;
+  opacity: 0.72;
+  pointer-events: none;
 }
 
 .session-row.is-dragging {
@@ -1819,33 +1895,33 @@ function addFromPreview(ex) {
   flex: 1;
   min-width: 0;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
-  gap: var(--sp-2);
+  gap: 4px;
   border: none;
   background: transparent;
   cursor: pointer;
   text-align: left;
-  padding: 0;
+  padding: 1px 0 0;
   border-radius: var(--md-shape-sm);
 }
 
 .session-info-body {
   flex: 1;
   min-width: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 2px;
+  gap: 4px;
 }
 
 .session-actions {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0;
   flex-shrink: 0;
-  padding-top: 2px;
 }
 
 .session-info-btn:hover {
@@ -1853,26 +1929,35 @@ function addFromPreview(ex) {
 }
 
 .session-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
   color: var(--md-on-surface-variant);
   margin: 0;
+  line-height: 1.4;
 }
 
 .session-duration {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 4px;
+  justify-content: flex-start;
+  gap: 0;
   flex-shrink: 0;
   cursor: default;
+  padding-top: 1px;
 }
 
 .duration-input {
-  width: 3.25rem;
-  min-width: 3.25rem;
-  padding: var(--sp-2);
+  width: 2.75rem;
+  min-width: 2.75rem;
+  padding: 6px 2px;
   border: 1px solid var(--md-outline-variant);
   border-radius: var(--md-shape-sm);
   font: inherit;
   font-size: 15px;
+  font-variant-numeric: tabular-nums;
   text-align: center;
   background: var(--md-surface);
   color: var(--md-on-surface);
@@ -1887,20 +1972,22 @@ function addFromPreview(ex) {
 .duration-suffix {
   color: var(--md-on-surface-variant);
   white-space: nowrap;
+  line-height: 1.2;
+  margin-top: 1px;
 }
 
 .session-index {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.375rem;
-  height: 1.375rem;
+  width: 1.5rem;
+  height: 1.5rem;
   flex-shrink: 0;
   border-radius: var(--md-shape-full);
   background: var(--md-primary-container);
   color: var(--md-on-primary-container);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .session-title {
@@ -1910,14 +1997,88 @@ function addFromPreview(ex) {
   margin: 0;
   min-width: 0;
   width: 100%;
+  line-height: 1.35;
 }
 
 .session-title-text {
   min-width: 0;
   flex: 1;
   white-space: normal;
+  overflow-wrap: anywhere;
   word-break: break-word;
   line-height: 1.35;
+}
+
+.session-more {
+  position: relative;
+  flex-shrink: 0;
+  margin-right: -6px;
+}
+
+.session-more-btn {
+  width: 36px;
+  height: 36px;
+  color: var(--md-on-surface-variant);
+}
+
+.session-more-btn .material-symbols-rounded {
+  font-size: 20px;
+}
+
+.session-more-menu {
+  position: absolute;
+  top: calc(100% - 4px);
+  right: 0;
+  z-index: 40;
+  min-width: 196px;
+  padding: var(--sp-1) 0;
+  background: var(--md-surface);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--md-shape-md);
+  box-shadow: var(--md-elevation-3);
+}
+
+.session-more.opens-up .session-more-menu {
+  top: auto;
+  bottom: calc(100% - 4px);
+}
+
+.session-more-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  padding: 10px var(--sp-4);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--md-on-surface);
+  font-size: 14px;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.session-more-item .material-symbols-rounded {
+  font-size: 20px;
+  color: var(--md-on-surface-variant);
+}
+
+.session-more-item:hover,
+.session-more-item:active {
+  background: color-mix(in srgb, var(--md-on-surface) 8%, transparent);
+}
+
+.session-more-item:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.session-more-item.is-danger {
+  color: var(--md-error);
+}
+
+.session-more-item.is-danger .material-symbols-rounded {
+  color: var(--md-error);
 }
 
 
