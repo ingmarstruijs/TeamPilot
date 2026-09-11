@@ -55,6 +55,10 @@ function mountView(query, teams = [team]) {
       stubs: {
         FootballField: true,
         ShirtAvatar: true,
+        ShareImportSummary: {
+          props: ['teamName', 'ageGroup', 'ageGroupLabel', 'players', 'lineup'],
+          template: '<div class="share-summary-stub">{{ teamName }} {{ lineup?.name }}</div>',
+        },
         RouterLink: { template: '<a><slot /></a>' },
         Teleport: { props: ['to'], template: '<slot />' },
         Transition: { template: '<slot />' },

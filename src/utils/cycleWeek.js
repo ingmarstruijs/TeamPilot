@@ -25,3 +25,11 @@ export function syncCycleWeek(state) {
   }
   return state.cycleWeek ?? 1
 }
+
+/** Most recently updated lineup that belongs to the given ISO week. */
+export function latestLineupInIsoWeek(lineups, date = new Date()) {
+  const week = getIsoWeekKey(date)
+  return [...(lineups ?? [])]
+    .filter(l => getIsoWeekKey(new Date(l.updatedAt ?? l.createdAt ?? 0)) === week)
+    .sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0))[0] ?? null
+}

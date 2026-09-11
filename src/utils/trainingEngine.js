@@ -36,6 +36,23 @@ export function analyzePlayerBalance(players) {
   }
 }
 
+export function analyzePreferredFeet(players) {
+  const counts = { L: 0, R: 0, both: 0, unknown: 0 }
+  for (const player of players ?? []) {
+    if (player.preferredFoot === 'L') counts.L++
+    else if (player.preferredFoot === 'R') counts.R++
+    else if (player.preferredFoot === 'both') counts.both++
+    else counts.unknown++
+  }
+  const known = counts.L + counts.R
+  return {
+    counts,
+    leftHeavy: known >= 3 && counts.L >= counts.R + 2,
+    rightHeavy: known >= 3 && counts.R >= counts.L + 2,
+    mixed: counts.L >= 2 && counts.R >= 2,
+  }
+}
+
 function matchesTrainingType(ex, trainingType) {
   if (!trainingType) return true
   if (ex.trainingTypes?.includes(trainingType)) return true
@@ -76,6 +93,7 @@ export function scoreExercise(ex, ctx, targetMin = 0) {
   if (ex.focusPositions?.some(p => ctx.focusPositions?.includes(p))) score += 3
   if (ctx.needsAttackFocus && ex.focusPositions?.includes('ATT')) score += 4
   if (ctx.needsDefenceFocus && ex.focusPositions?.includes('DEF')) score += 4
+  if (ctx.feet?.mixed && (ex.category === 'partijvorm' || ex.category === 'tactiek')) score += 2
   if (ctx.recentIds?.includes(ex.id)) score -= 8
   if (targetMin >= 14 && ex.durationMin >= 14) score += 5
   if (targetMin >= 10 && ex.durationMin >= targetMin * 0.75) score += 4
@@ -158,6 +176,7 @@ export function generateTraining({
   presentPlayers = [],
 }) {
   const balance = analyzePlayerBalance(presentPlayers)
+  const feet = analyzePreferredFeet(presentPlayers)
   const cycleTheme = getCycleTheme(cycleWeek)
   const ctx = {
     cycleTheme,
@@ -165,6 +184,7 @@ export function generateTraining({
     needsAttackFocus: balance.needsAttackFocus,
     needsDefenceFocus: balance.needsDefenceFocus,
     focusPositions: presentPlayers.map(p => p.position),
+    feet,
   }
 
   const template = SESSION_TEMPLATES[trainingType] ?? SESSION_TEMPLATES.gemengd

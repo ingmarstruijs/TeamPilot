@@ -28,17 +28,29 @@
           </button>
         </div>
         <div class="player-chips">
-          <button
-            v-for="p in roster"
+          <RosterChip
+            v-for="p in trainableRoster"
             :key="p.id"
+            tag="button"
             type="button"
-            class="chip"
-            :class="{ active: presentIds.has(p.id) }"
+            :player="p"
+            :shirt="teamShirt"
+            :selected="presentIds.has(p.id)"
             @click="$emit('toggle-player', p.id)"
-          >
-            {{ p.name }}
-          </button>
+          />
         </div>
+        <section v-if="injuredRoster.length" class="present-unavailable">
+          <p class="md-label-sm present-unavailable-label">{{ t('bench.unavailable', { count: injuredRoster.length }) }}</p>
+          <div class="player-chips">
+            <RosterChip
+              v-for="p in injuredRoster"
+              :key="p.id"
+              :player="p"
+              :shirt="teamShirt"
+              static-chip
+            />
+          </div>
+        </section>
         <p v-if="balance" class="md-body-sm balance-line">
           {{ t('settings.defenders', { n: balance.counts.DEF + balance.counts.GK }) }} ·
           {{ t('settings.mid', { n: balance.counts.MID }) }} ·
@@ -109,6 +121,7 @@
 import { computed } from 'vue'
 import { getCycleTheme } from '@/utils/trainingEngine'
 import { getCycleThemeIcon, getTrainingTypeIcon } from '@/utils/trainingIcons'
+import RosterChip from '@/components/ui/RosterChip.vue'
 import { t } from '@/i18n'
 
 const props = defineProps({
@@ -129,6 +142,10 @@ const props = defineProps({
   cycleThemeLabel: { type: String, required: true },
   trainingTypes: { type: Array, required: true },
   typeFollowsTheme: { type: Boolean, default: true },
+  teamShirt: {
+    type: Object,
+    default: () => ({ style: 'solid', primary: '#1a6b3c', secondary: '#ffffff' }),
+  },
 })
 
 defineEmits([
@@ -148,6 +165,8 @@ const wrapperAttrs = computed(() => {
 })
 const trainingTypeIcon = computed(() => getTrainingTypeIcon(props.trainingType))
 const cycleThemeIcon = computed(() => getCycleThemeIcon(getCycleTheme(props.cycleWeek)))
+const trainableRoster = computed(() => (props.roster ?? []).filter(p => !p.injured))
+const injuredRoster = computed(() => (props.roster ?? []).filter(p => p.injured))
 </script>
 
 <style scoped>
@@ -279,6 +298,18 @@ const cycleThemeIcon = computed(() => getCycleThemeIcon(getCycleTheme(props.cycl
   display: flex;
   flex-wrap: wrap;
   gap: var(--sp-2);
+}
+
+.present-unavailable {
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-2);
+  border-top: 1px dashed var(--md-outline-variant);
+}
+
+.present-unavailable-label {
+  margin: 0 0 var(--sp-2);
+  color: var(--md-on-surface-variant);
+  font-weight: 600;
 }
 
 .balance-line {

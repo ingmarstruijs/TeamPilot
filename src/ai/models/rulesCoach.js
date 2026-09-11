@@ -39,13 +39,11 @@ function buildAdaptations(ctx, exercise) {
   if (!ctx.presentPlayers?.some(p => p.position === 'GK')) {
     lines.push(t('coach.noGk'))
   }
-  if (ctx.focus) {
-    lines.push(t('coach.focusTonight', { focus: ctx.focus }))
-  }
   return lines
 }
 
 /**
+ * Exercise-specific reason only. Session-wide notes (theme, feet, balance) live in the briefing.
  * @param {import('../types.js').CoachContext} ctx
  * @param {object} exercise
  */
@@ -56,22 +54,9 @@ function buildWhyThis(ctx, exercise) {
   } else if (ctx.balance?.needsDefenceFocus && exercise.focusPositions?.includes('DEF')) {
     bits.push(t('coach.whyDefenceFocus'))
   }
-  if (exercise.cycleThemes?.includes(ctx.cycleTheme)) {
-    bits.push(t('coach.whyWeekTheme', { theme: localizedThemeLabel(ctx) }))
-  }
   if (ctx.focus && (exercise.title?.toLowerCase().includes(ctx.focus.toLowerCase())
     || exercise.description?.toLowerCase().includes(ctx.focus.toLowerCase()))) {
     bits.push(t('coach.whyFocusMatch', { focus: ctx.focus }))
-  }
-  if (!bits.length) {
-    if (ctx.playerCount) {
-      bits.push(t('coach.whyDefault', {
-        ageGroup: ageGroupLabel(ctx.ageGroup),
-        count: ctx.playerCount,
-      }))
-    } else {
-      bits.push(t('coach.whyDefaultNoCount', { ageGroup: ageGroupLabel(ctx.ageGroup) }))
-    }
   }
   return bits.join(' · ')
 }
@@ -145,12 +130,20 @@ function buildBriefing(ctx, blocks) {
     : ctx.balance?.needsDefenceFocus
       ? t('coach.briefingDefence')
       : ''
+  const feetBit = ctx.feet?.leftHeavy
+    ? t('coach.briefingLeftFeet')
+    : ctx.feet?.rightHeavy
+      ? t('coach.briefingRightFeet')
+      : ctx.feet?.mixed
+        ? t('coach.briefingMixedFeet')
+        : ''
   return t('coach.briefing', {
     ageGroup: ageGroupLabel(ctx.ageGroup),
     count: ctx.playerCount,
     theme,
     focusBit,
     balanceBit,
+    feetBit,
     blockCount: blocks.length,
   })
 }

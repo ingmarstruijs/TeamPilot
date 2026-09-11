@@ -39,11 +39,32 @@ describe('rulesCoach', () => {
     }
   })
 
-  it('includes whyThis and adaptations on blocks', () => {
+  it('keeps session-wide notes in the briefing, not on every block', () => {
     const ctx = ctxForCount(11)
     const plan = planSessionSync(ctx)
-    expect(plan.blocks[0].whyThis).toBeTruthy()
-    expect(plan.blocks.some(b => b.adaptations.some(a => /druk zetten|aanwezige/i.test(a)))).toBe(true)
+    expect(plan.coachBriefing).toBeTruthy()
+    expect(plan.blocks.every(b => !/wissel de kanten|weekthema/i.test(b.whyThis || ''))).toBe(true)
+    expect(plan.blocks.some(b => b.adaptations.some(a => /druk zetten|aanwezige|groep/i.test(a)))).toBe(true)
+  })
+
+  it('mentions preferred foot in the briefing, not as a copy on each block', () => {
+    const ctx = buildCoachContext({
+      ageGroup: 'O11',
+      knvbLevel: 3,
+      trainingType: 'techniek',
+      durationMin: 60,
+      cycleWeek: 1,
+      presentPlayers: [
+        { id: '1', name: 'A', position: 'DEF', preferredFoot: 'L' },
+        { id: '2', name: 'B', position: 'DEF', preferredFoot: 'L' },
+        { id: '3', name: 'C', position: 'MID', preferredFoot: 'L' },
+        { id: '4', name: 'D', position: 'ATT', preferredFoot: 'R' },
+        { id: '5', name: 'E', position: 'GK', preferredFoot: 'both' },
+      ],
+    })
+    const plan = planSessionSync(ctx)
+    expect(plan.coachBriefing).toMatch(/linksbenige/)
+    expect(plan.blocks.every(b => !(b.adaptations ?? []).some(a => /voorkeursbeen|linksbenige spelers links/i.test(a)))).toBe(true)
   })
 
   it('adaptBlock shortens and hardens blocks', async () => {

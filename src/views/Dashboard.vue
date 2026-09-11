@@ -38,7 +38,7 @@
           <span class="material-symbols-rounded action-icon">stadium</span>
           <span class="md-label-lg">{{ t('nav.training') }}</span>
         </RouterLink>
-        <RouterLink to="/lineup/new" class="action-tile card">
+        <RouterLink :to="thisWeekLineupTo" class="action-tile card">
           <span class="material-symbols-rounded action-icon">grid_view</span>
           <span class="md-label-lg">{{ t('nav.lineup') }}</span>
         </RouterLink>
@@ -230,7 +230,7 @@ import { useTeamStore } from '@/stores/teamStore'
 import { AGE_GROUPS } from '@/data/formations'
 import { KNVB_CLASSES } from '@/data/knvbClasses'
 import { getCycleTheme } from '@/utils/trainingEngine'
-import { getCycleThemeIcon } from '@/utils/trainingIcons'
+import { latestLineupInIsoWeek } from '@/utils/cycleWeek'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 import LanguageSwitch from '@/components/layout/LanguageSwitch.vue'
 import { showSnackbar } from '@/composables/useSnackbar'
@@ -250,7 +250,6 @@ const playerCount = computed(() => activeTeam.value?.players?.length ?? 0)
 const cycleWeek = computed(() => store.getTrainingState().cycleWeek ?? 1)
 const cycleTheme = computed(() => getCycleTheme(cycleWeek.value))
 const cycleThemeLabel = computed(() => t(`trainingType.${cycleTheme.value}`))
-const cycleThemeIcon = computed(() => getCycleThemeIcon(cycleTheme.value))
 
 /** Team not yet configured — no players added yet. */
 const needsTeamSetup = computed(() => playerCount.value === 0)
@@ -263,38 +262,26 @@ const recentLineups = computed(() =>
     .slice(0, 3)
 )
 
-const draftSession = computed(() => store.getTrainingState().draftSession)
+const thisWeekLineup = computed(() => latestLineupInIsoWeek(store.teamLineups))
+const thisWeekLineupTo = computed(() => (
+  thisWeekLineup.value ? `/lineup/${thisWeekLineup.value.id}` : '/lineup/new'
+))
 
 const heroContinue = computed(() => {
-  const draft = draftSession.value
-  if (draft?.blocks?.length) {
-    const count = draft.blocks.length
-    const totalMin = draft.blocks.reduce((s, b) => s + b.durationMin, 0)
-    return {
-      icon: 'stadium',
-      title: t('dashboard.heroContinueTraining'),
-      subtitle: t('dashboard.heroContinueTrainingSub', {
-        count,
-        exerciseWord: count === 1 ? t('word.exercise') : t('word.exercises'),
-        totalMin,
-      }),
-      to: '/training',
-    }
-  }
-  const latest = recentLineups.value[0]
-  if (latest) {
+  const weekly = thisWeekLineup.value
+  if (weekly) {
     return {
       icon: 'grid_view',
-      title: t('dashboard.heroLastLineup', { name: latest.name }),
-      subtitle: formatDate(latest.updatedAt),
-      to: `/lineup/${latest.id}`,
+      title: t('dashboard.heroThisWeekLineup'),
+      subtitle: weekly.name,
+      to: `/lineup/${weekly.id}`,
     }
   }
   return {
-    icon: getCycleThemeIcon(cycleTheme.value),
-    title: t('dashboard.heroPlanTraining'),
-    subtitle: t('dashboard.heroWeekTheme', { theme: cycleThemeLabel.value }),
-    to: '/training',
+    icon: 'grid_view',
+    title: t('dashboard.heroMakeThisWeekLineup'),
+    subtitle: t('dashboard.heroMakeThisWeekLineupSub'),
+    to: '/lineup/new',
   }
 })
 

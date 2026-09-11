@@ -72,6 +72,10 @@ function mountApp(routeQuery = {}, teams = null, { path = '/' } = {}) {
         RouterView: true,
         Teleport: { props: ['to'], template: '<slot />' },
         Transition: { template: '<slot />' },
+        ShareImportSummary: {
+          props: ['teamName', 'ageGroup', 'ageGroupLabel', 'players'],
+          template: '<div class="share-summary-stub">{{ teamName }} {{ ageGroupLabel || ageGroup }}</div>',
+        },
       },
     },
   })

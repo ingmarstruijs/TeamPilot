@@ -6,14 +6,17 @@
 import { normalizeAgeGroup } from '@/data/formations'
 import { buildHashShareUrl } from '@/utils/appShareUrl'
 import { decodeJson, encodeJson } from '@/utils/base64url'
+import { decodeSharePlayer, encodeSharePlayer } from '@/utils/sharePlayers'
 
 export function encodeTeamShare(team) {
-  return encodeJson({
+  const payload = {
     n: team.name,
     a: team.ageGroup,
     sh: team.shirt ? [team.shirt.style, team.shirt.primary, team.shirt.secondary] : null,
-    p: (team.players ?? []).map(p => [p.name, p.number ?? null, p.position]),
-  })
+    p: (team.players ?? []).map(encodeSharePlayer),
+  }
+  if (team.knvbClass) payload.k = team.knvbClass
+  return encodeJson(payload)
 }
 
 /**
@@ -30,12 +33,9 @@ export function decodeTeamShare(encoded) {
     return {
       name: d.n.trim(),
       ageGroup: normalizeAgeGroup(d.a) || 'O11',
+      knvbClass: d.k || null,
       shirt: d.sh ? { style: d.sh[0], primary: d.sh[1], secondary: d.sh[2] } : null,
-      players: (d.p ?? []).map(p => ({
-        name: p[0],
-        number: p[1] ?? null,
-        position: p[2],
-      })),
+      players: (d.p ?? []).map(decodeSharePlayer).filter(Boolean),
     }
   } catch {
     return null

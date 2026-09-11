@@ -12,6 +12,7 @@
  * @property {string[]} recentExerciseIds
  * @property {string} [focus]
  * @property {{needsAttackFocus:boolean,needsDefenceFocus:boolean,counts:object}} balance
+ * @property {{counts:object,leftHeavy:boolean,rightHeavy:boolean,mixed:boolean}} [feet]
  * @property {'nl'} locale
  * @property {object} [skeleton]
  * @property {object} [candidates]

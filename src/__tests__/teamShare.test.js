@@ -18,10 +18,11 @@ describe('teamShare', () => {
     expect(decoded).toEqual({
       name: 'FC Test',
       ageGroup: 'O13',
+      knvbClass: null,
       shirt: team.shirt,
       players: [
-        { name: 'Lisa', number: 7, position: 'ATT' },
-        { name: 'Mark', number: null, position: 'GK' },
+        { name: 'Lisa', number: 7, position: 'ATT', guest: false, injured: false, available: true, preferredFoot: null },
+        { name: 'Mark', number: null, position: 'GK', guest: false, injured: false, available: true, preferredFoot: null },
       ],
     })
   })
@@ -45,6 +46,7 @@ describe('teamShare', () => {
     expect(decoded).toEqual({
       name: 'Solo',
       ageGroup: 'O8',
+      knvbClass: null,
       shirt: null,
       players: [],
     })
@@ -54,6 +56,20 @@ describe('teamShare', () => {
     const encoded = encodeTeamShare(team)
     expect(buildTeamShareUrl(encoded)).toContain(`#/import?team=${encoded}`)
     expect(buildTeamShareUrl(encoded)).not.toContain('#/?import=')
+  })
+
+  it('round-trips guests, injuries and competition class', () => {
+    const decoded = decodeTeamShare(encodeTeamShare({
+      ...team,
+      knvbClass: '4e',
+      players: [
+        { name: 'Sam', number: 11, position: 'ATT', guest: true },
+        { name: 'Robin', number: 8, position: 'MID', injured: true },
+      ],
+    }))
+    expect(decoded.knvbClass).toBe('4e')
+    expect(decoded.players[0]).toMatchObject({ name: 'Sam', guest: true, injured: false })
+    expect(decoded.players[1]).toMatchObject({ name: 'Robin', injured: true, guest: false })
   })
 
   it('handles unicode names', () => {

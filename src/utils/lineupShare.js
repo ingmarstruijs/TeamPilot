@@ -5,120 +5,120 @@
  *
  *   _t: 'bundle'  — team + lineup bundled together
  *   _t: 'lineup'  — lineup only (player names embedded, no team data)
- *
- * Bundle payload:
- * {
- *   _t: 'bundle',
- *   tn: "FC Utrecht",                        // team name
- *   a:  "O13",                              // age group
- *   sh: ["solid","#cc0000","#fff"],           // shirt [style, primary, secondary]
- *   pl: [["Jan",1,"GK"], ["Marco",5,"DEF"]], // players [name, number|null, position]
- *   n:  "Thuis vs Ajax",                     // lineup name
- *   f:  "4-3-3",                             // formationId (null = free mode)
- *   fl: true,                                // flipped
- *   s: [{ sid, pos, x, y, pn, num }],        // slots (pn/num absent = empty)
- *   b: [{ pn, num, pos }],                   // bench players
- * }
- *
- * Lineup-only payload:
- * {
- *   _t: 'lineup',
- *   tn: "FC Utrecht",                        // team name hint (for matching)
- *   a:  "O13",                              // age group hint
- *   n:  "Thuis vs Ajax",
- *   f:  "4-3-3",
- *   fl: true,
- *   s: [{ sid, pos, x, y, pn, num }],
- *   b: [{ pn, num, pos }],
- * }
  */
 
 import { normalizeAgeGroup } from '@/data/formations'
 import { buildHashShareUrl } from '@/utils/appShareUrl'
 import { decodeJson, encodeJson } from '@/utils/base64url'
+import {
+  decodeShareBenchPlayer,
+  decodeSharePlayer,
+  decodeShareSlot,
+  encodeShareBenchPlayer,
+  encodeSharePlayer,
+  encodeShareSlot,
+} from '@/utils/sharePlayers'
 
-// ── Encode ───────────────────────────────────────────────────────────────────
+function encodePeriods(lineup) {
+  if (lineup?.periodMode !== 'quarters' && lineup?.periodMode !== 'halves') return null
+  return (lineup.periods ?? []).map(period => ({
+    f: period.formationId ?? null,
+    s: (period.slots ?? []).map(encodeShareSlot),
+  }))
+}
 
-/**
- * Encodes a full team+lineup bundle into a base64url string.
- * @param {object} team    - store team object
- * @param {object} lineup  - { name, formationId, flipped, slots, players (map id→player) }
- * @param {Array}  bench   - bench player objects
- */
+function decodePeriods(raw, fallbackSlots, fallbackFormation) {
+  if (!Array.isArray(raw) || !raw.length) {
+    return [{ formationId: fallbackFormation ?? null, slots: fallbackSlots }]
+  }
+  return raw.map(period => ({
+    formationId: period?.f ?? null,
+    slots: (period?.s ?? []).map(decodeShareSlot).filter(Boolean),
+  }))
+}
+
+function encodeLineupFields(lineup, slotsWithPlayers, bench) {
+  const slots = slotsWithPlayers.map(encodeShareSlot)
+  const fields = {
+    n: lineup.name,
+    f: lineup.formationId ?? null,
+    fl: lineup.flipped ?? true,
+    s: slots,
+    b: bench.map(encodeShareBenchPlayer),
+  }
+  const periods = encodePeriods(lineup)
+  if (periods) {
+    fields.pm = lineup.periodMode
+    fields.ap = lineup.activePeriod ?? 0
+    fields.ps = periods
+  }
+  return fields
+}
+
 export function encodeBundle(team, lineup, slotsWithPlayers, bench) {
   const payload = {
     _t: 'bundle',
     tn: team.name,
-    a:  team.ageGroup,
+    a: team.ageGroup,
     sh: team.shirt ? [team.shirt.style, team.shirt.primary, team.shirt.secondary] : null,
-    pl: (team.players ?? []).map(p => [p.name, p.number ?? null, p.position]),
-    n:  lineup.name,
-    f:  lineup.formationId ?? null,
-    fl: lineup.flipped ?? true,
-    s:  slotsWithPlayers.map(s => {
-      const base = { sid: s.slotId, pos: s.position, x: s.x, y: s.y }
-      if (s.player) { base.pn = s.player.name; base.num = s.player.number ?? null }
-      return base
-    }),
-    b:  bench.map(p => ({ pn: p.name, num: p.number ?? null, pos: p.position })),
+    pl: (team.players ?? []).map(encodeSharePlayer),
+    ...encodeLineupFields(lineup, slotsWithPlayers, bench),
   }
+  if (team.knvbClass) payload.k = team.knvbClass
   return encodeJson(payload)
 }
 
-/**
- * Encodes just the lineup (no full team roster) into a base64url string.
- */
 export function encodeLineupOnly(team, lineup, slotsWithPlayers, bench) {
-  const payload = {
+  return encodeJson({
     _t: 'lineup',
     tn: team.name,
-    a:  team.ageGroup,
-    n:  lineup.name,
-    f:  lineup.formationId ?? null,
-    fl: lineup.flipped ?? true,
-    s:  slotsWithPlayers.map(s => {
-      const base = { sid: s.slotId, pos: s.position, x: s.x, y: s.y }
-      if (s.player) { base.pn = s.player.name; base.num = s.player.number ?? null }
-      return base
-    }),
-    b:  bench.map(p => ({ pn: p.name, num: p.number ?? null, pos: p.position })),
-  }
-  return encodeJson(payload)
+    a: team.ageGroup,
+    ...encodeLineupFields(lineup, slotsWithPlayers, bench),
+  })
 }
 
-// ── Decode ───────────────────────────────────────────────────────────────────
-
-/**
- * Decodes a base64url share string.
- * Returns { type: 'bundle'|'lineup', ...fields } or null on failure.
- */
 export function decodeSharePayload(encoded) {
   try {
     const d = decodeJson(encoded)
+    const slots = (d.s ?? []).map(decodeShareSlot).filter(Boolean)
+    const bench = (d.b ?? []).map(decodeShareBenchPlayer).filter(Boolean)
+    const formationId = d.f ?? null
+    const periodMode = d.pm === 'quarters' || d.pm === 'halves' ? d.pm : null
+    const periods = periodMode
+      ? decodePeriods(d.ps, slots, formationId)
+      : null
+
     if (d._t === 'bundle') {
       return {
         type: 'bundle',
-        teamName:   d.tn,
-        ageGroup:   normalizeAgeGroup(d.a),
-        shirt:      d.sh ? { style: d.sh[0], primary: d.sh[1], secondary: d.sh[2] } : null,
-        players:    (d.pl ?? []).map(p => ({ name: p[0], number: p[1] ?? null, position: p[2] })),
+        teamName: d.tn,
+        ageGroup: normalizeAgeGroup(d.a),
+        knvbClass: d.k || null,
+        shirt: d.sh ? { style: d.sh[0], primary: d.sh[1], secondary: d.sh[2] } : null,
+        players: (d.pl ?? []).map(decodeSharePlayer).filter(Boolean),
         lineupName: d.n,
-        formationId: d.f ?? null,
-        flipped:    d.fl ?? true,
-        slots:      d.s ?? [],
-        bench:      d.b ?? [],
+        formationId,
+        flipped: d.fl ?? true,
+        slots,
+        bench,
+        periodMode,
+        activePeriod: d.ap ?? 0,
+        periods,
       }
     }
     if (d._t === 'lineup') {
       return {
         type: 'lineup',
-        teamName:   d.tn,
-        ageGroup:   normalizeAgeGroup(d.a),
+        teamName: d.tn,
+        ageGroup: normalizeAgeGroup(d.a),
         lineupName: d.n,
-        formationId: d.f ?? null,
-        flipped:    d.fl ?? true,
-        slots:      d.s ?? [],
-        bench:      d.b ?? [],
+        formationId,
+        flipped: d.fl ?? true,
+        slots,
+        bench,
+        periodMode,
+        activePeriod: d.ap ?? 0,
+        periods,
       }
     }
     return null
@@ -127,11 +127,6 @@ export function decodeSharePayload(encoded) {
   }
 }
 
-/**
- * Given a decoded payload and a target team (with players), returns resolved slots
- * where each slot's player is matched by name+number from the team's roster.
- * Unmatched slots keep pn/num but have no playerId.
- */
 export function resolveSlotsForTeam(slots, teamPlayers) {
   return slots.map(s => {
     const slot = { slotId: s.sid, position: s.pos, x: s.x, y: s.y, playerId: null }

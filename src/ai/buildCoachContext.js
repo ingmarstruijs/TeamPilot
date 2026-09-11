@@ -1,4 +1,4 @@
-import { analyzePlayerBalance, getCycleTheme } from '@/utils/trainingEngine'
+import { analyzePlayerBalance, analyzePreferredFeet, getCycleTheme } from '@/utils/trainingEngine'
 import { normalizeAgeGroup } from '@/data/formations'
 
 /**
@@ -11,7 +11,7 @@ import { normalizeAgeGroup } from '@/data/formations'
  * @param {string} [input.trainingType]
  * @param {number} [input.durationMin]
  * @param {number} [input.cycleWeek]
- * @param {Array<{id:string,name:string,position:string}>} [input.presentPlayers]
+ * @param {Array<{id:string,name:string,position:string,preferredFoot?:string}>} [input.presentPlayers]
  * @param {string[]} [input.recentExerciseIds]
  * @param {string} [input.focus]
  * @returns {import('./types.js').CoachContext}
@@ -21,6 +21,7 @@ export function buildCoachContext(input) {
   const cycleWeek = Math.max(1, Number(input.cycleWeek) || 1)
   const cycleTheme = getCycleTheme(cycleWeek)
   const balance = analyzePlayerBalance(presentPlayers)
+  const feet = analyzePreferredFeet(presentPlayers)
   const focus = String(input.focus ?? '').trim().slice(0, 80)
 
   return {
@@ -36,6 +37,7 @@ export function buildCoachContext(input) {
     recentExerciseIds: Array.isArray(input.recentExerciseIds) ? input.recentExerciseIds : [],
     focus: focus || undefined,
     balance,
+    feet,
     locale: 'nl',
   }
 }

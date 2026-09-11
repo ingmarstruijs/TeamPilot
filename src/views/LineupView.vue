@@ -1,14 +1,10 @@
 <template>
   <div class="view-page">
     <div v-if="payload" class="view-content">
-      <!-- Header -->
       <div class="view-header">
         <div>
-          <p class="md-title-md view-lineup-name">{{ payload.lineupName || t('lineupShare.defaultName') }}</p>
-          <p class="md-body-sm view-meta">
-            {{ payload.teamName }}
-            <span v-if="payload.formationId"> · {{ payload.formationId }}</span>
-          </p>
+          <p class="md-title-md view-lineup-name">{{ headerTitle }}</p>
+          <p class="md-body-sm view-meta">{{ headerMeta }}</p>
         </div>
         <button class="btn btn-filled" @click="showImportDialog = true">
           <span class="material-symbols-rounded" style="font-size:18px">download</span>
@@ -16,49 +12,24 @@
         </button>
       </div>
 
-      <!-- Field (read-only) -->
-      <FootballField
-        :slots="displaySlots"
-        :players="ghostPlayersMap"
-        :team-shirt="shirtForDisplay"
-        :flipped="payload.flipped"
-        export-id="view-field"
-      />
-
-      <!-- Bench -->
-      <div v-if="benchPlayers.length" class="view-bench">
-        <p class="md-label-lg view-bench-title">
-          <span class="material-symbols-rounded" style="font-size:16px;vertical-align:text-bottom">weekend</span>
-          {{ t('lineup.bench') }}
-        </p>
-        <div class="view-bench-list">
-          <div v-for="(p, i) in benchPlayers" :key="i" class="view-bench-player">
-            <ShirtAvatar :shirt="shirtForDisplay" :initials="initials(p.pn)" :size="28" />
-            <span class="bp-name md-label-sm">{{ shortName(p.pn) }}</span>
-            <span v-if="p.num" class="bp-num">#{{ p.num }}</span>
-          </div>
-        </div>
-      </div>
+      <ShareImportSummary v-bind="importSummary" />
     </div>
 
-    <!-- Invalid link -->
     <div v-else class="view-error">
       <span class="material-symbols-rounded" style="font-size:48px;color:var(--md-outline)">link_off</span>
       <p class="md-body-md">{{ t('lineupShare.invalidLink') }}</p>
       <RouterLink to="/" class="btn btn-tonal">{{ t('trainingShare.toApp') }}</RouterLink>
     </div>
 
-    <!-- Import dialog -->
     <Teleport to="body">
       <Transition name="dialog-fade">
         <div v-if="showImportDialog && payload" class="dialog-backdrop" @click.self="showImportDialog = false">
           <div class="dialog">
             <p class="dialog-title">{{ t('lineupShare.importTitle') }}</p>
 
-            <!-- Bundle: has full team data -->
             <template v-if="payload.type === 'bundle'">
-              <p class="md-body-sm" style="color:var(--md-on-surface-variant);margin-bottom:var(--sp-3)">
-                {{ t('lineupShare.bundleMeta', { team: payload.teamName, ageGroup: payload.ageGroup, count: payload.players.length }) }}
+              <p class="md-body-sm import-hint">
+                {{ t('lineupShare.bundleBody') }}
               </p>
               <template v-if="conflictTeam">
                 <p class="dialog-body">{{ t('lineupShare.conflictBody', { team: payload.teamName }) }}</p>
@@ -69,7 +40,6 @@
                 </div>
               </template>
               <template v-else>
-                <p class="dialog-body">{{ t('lineupShare.bundleBody') }}</p>
                 <div class="dialog-actions">
                   <button class="btn btn-text" @click="showImportDialog = false">{{ t('common.cancel') }}</button>
                   <button class="btn btn-filled" @click="importBundle">{{ t('lineupShare.import') }}</button>
@@ -77,9 +47,8 @@
               </template>
             </template>
 
-            <!-- Lineup only: need to pick a local team -->
             <template v-else>
-              <p class="md-body-sm" style="color:var(--md-on-surface-variant);margin-bottom:var(--sp-3)">
+              <p class="md-body-sm import-hint">
                 {{ t('lineupShare.lineupOnlyBody', { team: payload.teamName }) }}
               </p>
               <div class="team-picker">
@@ -114,8 +83,9 @@ import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
 import { decodeSharePayload, resolveSlotsForTeam } from '@/utils/lineupShare'
+import { summaryFromLineupShare } from '@/utils/shareSummary'
 import { showSnackbar } from '@/composables/useSnackbar'
-import FootballField from '@/components/field/FootballField.vue'
+import ShareImportSummary from '@/components/share/ShareImportSummary.vue'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
 import { t } from '@/i18n'
 
@@ -123,64 +93,38 @@ const route  = useRoute()
 const router = useRouter()
 const store  = useTeamStore()
 
-// ── Decode payload from ?lineup= query param ─────────────────────────────────
 const payload = computed(() => {
   const raw = route.query.lineup
   if (!raw) return null
   return decodeSharePayload(String(raw))
 })
 
-// ── Display helpers ───────────────────────────────────────────────────────────
+const importSummary = computed(() => (
+  payload.value ? summaryFromLineupShare(payload.value) : null
+))
 
-const shirtForDisplay = computed(() => {
-  if (payload.value?.type === 'bundle' && payload.value.shirt) return payload.value.shirt
-  return { style: 'solid', primary: '#1a6b3c', secondary: '#ffffff' }
+const headerTitle = computed(() => (
+  payload.value?.lineupName || payload.value?.teamName || t('lineupShare.defaultName')
+))
+
+const headerMeta = computed(() => {
+  if (!payload.value) return ''
+  const parts = [payload.value.teamName]
+  if (payload.value.periodMode === 'quarters') parts.push(t('lineup.archiveQuarters'))
+  else if (payload.value.periodMode === 'halves') parts.push(t('lineup.archiveHalves'))
+  else if (payload.value.formationId) parts.push(payload.value.formationId)
+  return parts.filter(Boolean).join(' · ')
 })
 
-// Build a ghost players map (id = slot id) for read-only rendering
-const ghostPlayersMap = computed(() => {
-  if (!payload.value) return {}
-  const map = {}
-  for (const s of payload.value.slots) {
-    if (s.pn) {
-      map[s.sid] = { id: s.sid, name: s.pn, number: s.num ?? null, position: s.pos }
-    }
-  }
-  return map
+const filledSlotCount = computed(() => {
+  const p = payload.value
+  if (!p) return 0
+  const slots = p.periods?.length
+    ? p.periods.flatMap(period => period.slots)
+    : p.slots
+  return slots.filter(s => s.pn).length
 })
 
-// Slots use sid as both slotId and playerId so FootballField renders them filled
-const displaySlots = computed(() => {
-  if (!payload.value) return []
-  return payload.value.slots.map(s => ({
-    slotId:   s.sid,
-    position: s.pos,
-    x:        s.x,
-    y:        s.y,
-    playerId: s.pn ? s.sid : null,
-  }))
-})
-
-const benchPlayers = computed(() => payload.value?.bench ?? [])
-
-const filledSlotCount = computed(() => payload.value?.slots.filter(s => s.pn).length ?? 0)
-
-function initials(name) {
-  if (!name) return '?'
-  const parts = name.trim().split(/\s+/)
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase()
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
-}
-function shortName(name) {
-  if (!name) return ''
-  const parts = name.trim().split(/\s+/)
-  const first = parts[0]
-  const last  = parts.length > 1 ? parts[parts.length - 1] : ''
-  const display = last ? `${first} ${last[0]}.` : first
-  return display.length > 14 ? display.slice(0, 13) + '…' : display
-}
-
-// ── Import dialog ─────────────────────────────────────────────────────────────
 const showImportDialog = ref(false)
 const selectedTeamId   = ref(null)
 
@@ -197,38 +141,44 @@ function matchCount(team) {
   return resolved.filter(s => s.playerId).length
 }
 
-// Bundle: import team + lineup as new
 function importBundle() {
   const p = payload.value
-  const team = store.importTeam({ name: p.teamName, ageGroup: p.ageGroup, shirt: p.shirt, players: p.players })
+  const team = store.importTeam({
+    name: p.teamName,
+    ageGroup: p.ageGroup,
+    knvbClass: p.knvbClass,
+    shirt: p.shirt,
+    players: p.players,
+  })
   _saveLineupToTeam(team)
   showSnackbar(t('lineupShare.importedBundle'))
   showImportDialog.value = false
 }
 
-// Bundle: team name conflict → create new team copy
 function importAsNew() {
   const p = payload.value
-  const team = store.importTeam({ name: p.teamName + ' (2)', ageGroup: p.ageGroup, shirt: p.shirt, players: p.players })
+  const team = store.importTeam({
+    name: p.teamName + ' (2)',
+    ageGroup: p.ageGroup,
+    knvbClass: p.knvbClass,
+    shirt: p.shirt,
+    players: p.players,
+  })
   _saveLineupToTeam(team)
   showSnackbar(t('lineupShare.importedBundle'))
   showImportDialog.value = false
 }
 
-// Bundle: team name conflict → add lineup to existing team, match players by name
 function importToExisting() {
   const p  = payload.value
   const team = conflictTeam.value
-  // Add any missing players
   store.mergeTeam(team.id, { players: p.players })
-  // Re-fetch team after merge so new IDs are available
   const freshTeam = store.teams.find(t => t.id === team.id)
   _saveLineupToTeam(freshTeam)
   showSnackbar(t('lineupShare.addedToTeam', { name: team.name }))
   showImportDialog.value = false
 }
 
-// Lineup-only: match against selected local team
 function importLineupOnly() {
   const team = store.teams.find(t => t.id === selectedTeamId.value)
   if (!team) return
@@ -238,8 +188,14 @@ function importLineupOnly() {
 }
 
 function _saveLineupToTeam(team) {
-  const p     = payload.value
+  const p = payload.value
   const slots = resolveSlotsForTeam(p.slots, team.players)
+  const periods = p.periodMode && p.periods?.length
+    ? p.periods.map(period => ({
+        formationId: period.formationId ?? null,
+        slots: resolveSlotsForTeam(period.slots, team.players),
+      }))
+    : null
   store.setActiveTeam(team.id)
   const saved = store.saveLineup({
     teamId:      team.id,
@@ -247,9 +203,11 @@ function _saveLineupToTeam(team) {
     formationId: p.formationId ?? null,
     flipped:     p.flipped ?? true,
     slots,
+    periodMode:  p.periodMode,
+    activePeriod: p.activePeriod ?? 0,
+    periods,
   })
   store.setActiveLineup(saved.id)
-  // Navigate to the imported lineup (callers must not override this route).
   router.replace(`/lineup/${saved.id}`)
 }
 </script>
@@ -283,31 +241,10 @@ function _saveLineupToTeam(team) {
 .view-lineup-name { margin: 0; }
 .view-meta { color: var(--md-on-surface-variant); margin: 2px 0 0; }
 
-.view-bench {
-  background: var(--md-surface-variant);
-  border-radius: var(--md-shape-md);
-  padding: var(--sp-3);
+.import-hint {
+  color: var(--md-on-surface-variant);
+  margin: 0 0 var(--sp-3);
 }
-.view-bench-title {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-1);
-  margin-bottom: var(--sp-2);
-}
-.view-bench-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sp-2);
-}
-.view-bench-player {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-1);
-  background: var(--md-surface);
-  border-radius: var(--md-shape-full);
-  padding: 4px 10px 4px 4px;
-}
-.bp-num { color: var(--md-outline); font-size: 11px; }
 
 .view-error {
   display: flex;
@@ -318,7 +255,6 @@ function _saveLineupToTeam(team) {
   color: var(--md-on-surface-variant);
 }
 
-/* Team picker */
 .team-picker {
   display: flex;
   flex-direction: column;
