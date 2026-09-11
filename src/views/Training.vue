@@ -300,7 +300,6 @@
                       @touchend="onRowTouchEnd"
                       @touchcancel="onRowTouchCancel"
                     >
-                      <span class="session-index md-label-sm">{{ i + 1 }}</span>
                       <span class="material-symbols-rounded session-handle-grip" aria-hidden="true">drag_indicator</span>
                     </div>
                     <div
@@ -310,25 +309,24 @@
                       @click="openDetail(block)"
                       @keydown.enter.prevent="openDetail(block)"
                     >
-                      <div class="session-info-body">
-                        <p class="md-title-sm session-title">
-                          <span
-                            v-if="isCustomExercise(block.exercise)"
-                            class="custom-ex-badge"
-                            :title="t('training.customExercise')"
-                          >
-                            <span class="material-symbols-rounded" aria-hidden="true">draw</span>
-                          </span>
-                          <span class="session-title-text">{{ getExerciseTitle(block.exercise) }}</span>
-                        </p>
-                        <p class="md-body-sm session-meta">
-                          <span>{{ categoryLabel(block.exercise.category) }} · {{ playerRangeLabel(block.exercise) }}</span>
-                          <FootballRealityRating :rating="getFootballReality(block.exercise)" />
-                        </p>
-                        <p v-if="block.ai?.whyThis" class="md-label-sm session-why">
-                          {{ block.ai.whyThis }}
-                        </p>
-                      </div>
+                      <p class="md-title-sm session-title">
+                        <span class="session-index md-label-sm">{{ i + 1 }}</span>
+                        <span
+                          v-if="isCustomExercise(block.exercise)"
+                          class="custom-ex-badge"
+                          :title="t('training.customExercise')"
+                        >
+                          <span class="material-symbols-rounded" aria-hidden="true">draw</span>
+                        </span>
+                        <span class="session-title-text">{{ getExerciseTitle(block.exercise) }}</span>
+                      </p>
+                      <p class="md-body-sm session-meta">
+                        <span>{{ categoryLabel(block.exercise.category) }} · {{ playerRangeLabel(block.exercise) }}</span>
+                        <FootballRealityRating :rating="getFootballReality(block.exercise)" />
+                      </p>
+                      <p v-if="block.ai?.whyThis" class="md-label-sm session-why">
+                        {{ block.ai.whyThis }}
+                      </p>
                     </div>
                     <div class="session-actions">
                       <div class="session-duration">
@@ -1778,6 +1776,7 @@ function addFromPreview(ex) {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  padding-left: calc(1.5rem + 8px);
 }
 
 .session-row--stagger {
@@ -1850,12 +1849,12 @@ function addFromPreview(ex) {
 
 .session-handle {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   flex-shrink: 0;
-  width: 1.75rem;
-  padding: 1px 0 0;
+  width: 1.25rem;
+  min-height: 1.5rem;
+  padding: 2px 0 0;
   margin: 0;
   cursor: grab;
   color: var(--md-on-surface-variant);
@@ -1870,9 +1869,8 @@ function addFromPreview(ex) {
 }
 
 .session-handle-grip {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1;
-  margin-top: -1px;
   opacity: 0.72;
   pointer-events: none;
 }
@@ -1906,16 +1904,6 @@ function addFromPreview(ex) {
   border-radius: var(--md-shape-sm);
 }
 
-.session-info-body {
-  flex: 1;
-  min-width: 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-}
-
 .session-actions {
   display: flex;
   flex-direction: row;
@@ -1936,6 +1924,7 @@ function addFromPreview(ex) {
   color: var(--md-on-surface-variant);
   margin: 0;
   line-height: 1.4;
+  padding-left: calc(1.5rem + 8px);
 }
 
 .session-duration {
@@ -1993,7 +1982,7 @@ function addFromPreview(ex) {
 .session-title {
   display: flex;
   align-items: flex-start;
-  gap: var(--sp-2);
+  gap: 8px;
   margin: 0;
   min-width: 0;
   width: 100%;

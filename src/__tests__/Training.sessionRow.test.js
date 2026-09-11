@@ -88,15 +88,15 @@ describe('Training session row', () => {
     })))
   })
 
-  it('merges the exercise number into the left drag handle', async () => {
+  it('places the exercise title directly beside the number', async () => {
     const wrapper = mountSession()
     await flushPromises()
 
-    const handles = wrapper.findAll('.session-handle')
-    expect(handles).toHaveLength(2)
-    expect(handles[0].text()).toContain('1')
-    expect(handles[1].text()).toContain('2')
-    expect(wrapper.find('.session-title .session-index').exists()).toBe(false)
+    expect(wrapper.findAll('.session-handle')).toHaveLength(2)
+    const titles = wrapper.findAll('.session-title')
+    expect(titles[0].find('.session-index').text()).toBe('1')
+    expect(titles[1].find('.session-index').text()).toBe('2')
+    expect(titles[0].find('.session-title-text').text().length).toBeGreaterThan(0)
   })
 
   it('moves delete and reorder into a right-aligned overflow menu', async () => {
