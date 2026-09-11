@@ -4,6 +4,7 @@ import { AGE_GROUPS, normalizeAgeGroup } from '@/data/formations'
 import { DEFAULT_KNVB_CLASS, getKnvbClass } from '@/data/knvbClasses'
 import { syncCycleWeek } from '@/utils/cycleWeek'
 import { createSavedTraining, MAX_SAVED_TRAININGS } from '@/utils/savedTraining'
+import { migratePlayer, migratePlayers } from '@/utils/playerStatus'
 
 const STORAGE_KEY = 'teampilot_v1'
 
@@ -21,6 +22,7 @@ function migrateTeam(team) {
   team.ageGroup = normalizeAgeGroup(team.ageGroup) || 'O11'
   // Keep color in sync with shirt.primary for backward compat
   team.color = team.shirt.primary
+  team.players = migratePlayers(team.players)
   return team
 }
 
@@ -181,19 +183,17 @@ export const useTeamStore = defineStore('team', () => {
   }) {
     const team = teams.value.find((t) => t.id === (teamId ?? activeTeamId.value))
     if (!team) return
-    const player = {
+    const player = migratePlayer({
       id: `player-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
       name,
       number,
       position,
-    }
-    if (preferredFoot) player.preferredFoot = preferredFoot
-    if (injured) player.injured = true
-    if (available === false) player.available = false
-    if (guest) {
-      player.guest = true
-      player.guestQuiet = Boolean(guestQuiet)
-    }
+      preferredFoot,
+      injured,
+      available,
+      guest,
+      guestQuiet,
+    })
     team.players.push(player)
     return player
   }
@@ -216,8 +216,11 @@ export const useTeamStore = defineStore('team', () => {
 
   function updatePlayer(playerId, patch) {
     for (const team of teams.value) {
-      const p = team.players.find((p) => p.id === playerId)
-      if (p) { Object.assign(p, patch); return }
+      const idx = team.players.findIndex((p) => p.id === playerId)
+      if (idx === -1) continue
+      const next = migratePlayer({ ...team.players[idx], ...patch, id: playerId })
+      Object.assign(team.players[idx], next)
+      return
     }
   }
 

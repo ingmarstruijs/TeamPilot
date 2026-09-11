@@ -233,3 +233,44 @@ describe('teamStore guests', () => {
     expect(promoted.guestQuiet).toBe(false)
   })
 })
+
+describe('legacy player list migration', () => {
+  it('upgrades stored players from older teams without breaking lineup links', () => {
+    localStorage.setItem('teampilot_v1', JSON.stringify({
+      teams: [{
+        id: 'team-1',
+        name: 'Legacy',
+        ageGroup: 'O11',
+        knvbClass: '5e',
+        color: '#1a6b3c',
+        players: [
+          { id: 'p1', name: 'Jan', number: 1, position: 'GK' },
+          { id: 'p2', name: 'Piet', number: 9, position: 'ATT' },
+        ],
+      }],
+      activeTeamId: 'team-1',
+      activeLineupId: 'lineup-1',
+      lineups: [{
+        id: 'lineup-1',
+        teamId: 'team-1',
+        name: 'Thuis',
+        formationId: '3-2-2',
+        slots: [{ slotId: 's0', playerId: 'p1', position: 'GK', x: 50, y: 8 }],
+      }],
+    }))
+
+    const store = useTeamStore()
+    expect(store.activeTeam.players).toHaveLength(2)
+    expect(store.activeTeam.players[0]).toMatchObject({
+      id: 'p1',
+      name: 'Jan',
+      number: 1,
+      position: 'GK',
+      available: true,
+      guest: false,
+      injured: false,
+      preferredFoot: null,
+    })
+    expect(store.getLineup('lineup-1').slots[0].playerId).toBe('p1')
+  })
+})

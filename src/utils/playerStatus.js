@@ -1,5 +1,50 @@
 /** Helpers for roster status: guests, availability, injuries. */
 
+export const PREFERRED_FEET = ['L', 'R', 'both']
+
+const FOOT_ALIASES = {
+  L: 'L',
+  R: 'R',
+  both: 'both',
+  left: 'L',
+  right: 'R',
+  links: 'L',
+  rechts: 'R',
+  beide: 'both',
+}
+
+export function normalizePreferredFoot(value) {
+  if (value == null || value === '') return null
+  return FOOT_ALIASES[String(value)] ?? FOOT_ALIASES[String(value).toLowerCase()] ?? null
+}
+
+/**
+ * Upgrade a stored player from older TeamPilot versions.
+ * Keeps id/name/number/position so existing lineups stay linked.
+ */
+export function migratePlayer(player) {
+  if (!player || typeof player !== 'object') return null
+  const parsedNumber = player.number == null || player.number === '' ? null : Number(player.number)
+  const guest = Boolean(player.guest)
+  return {
+    ...player,
+    id: player.id || `player-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    name: typeof player.name === 'string' ? player.name : String(player.name ?? ''),
+    number: Number.isFinite(parsedNumber) ? parsedNumber : null,
+    position: player.position || 'MID',
+    preferredFoot: normalizePreferredFoot(player.preferredFoot),
+    injured: Boolean(player.injured),
+    available: player.available !== false,
+    guest,
+    guestQuiet: guest && Boolean(player.guestQuiet),
+  }
+}
+
+export function migratePlayers(players) {
+  if (!Array.isArray(players)) return []
+  return players.map(migratePlayer).filter(Boolean)
+}
+
 export function isGuest(player) {
   return Boolean(player?.guest)
 }

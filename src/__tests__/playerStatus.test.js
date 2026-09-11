@@ -7,6 +7,8 @@ import {
   suggestPool,
   mainListPlayers,
   quietGuestPlayers,
+  migratePlayer,
+  migratePlayers,
 } from '../utils/playerStatus'
 
 function p(overrides) {
@@ -50,5 +52,44 @@ describe('playerStatus', () => {
     ]
     expect(suggestPool(players, { emptyCount: 1 }).map(x => x.id)).toEqual(['r1'])
     expect(suggestPool(players, { emptyCount: 2 }).map(x => x.id)).toEqual(['r1', 'g1'])
+  })
+})
+
+describe('migratePlayer', () => {
+  it('fills new roster fields on a legacy player without changing identity', () => {
+    const next = migratePlayer({ id: 'p1', name: 'Jan', number: 1, position: 'GK' })
+    expect(next).toMatchObject({
+      id: 'p1',
+      name: 'Jan',
+      number: 1,
+      position: 'GK',
+      preferredFoot: null,
+      injured: false,
+      available: true,
+      guest: false,
+      guestQuiet: false,
+    })
+  })
+
+  it('keeps an existing guest and injury status', () => {
+    const next = migratePlayer({
+      id: 'g1',
+      name: 'Kees',
+      position: 'ATT',
+      guest: true,
+      guestQuiet: true,
+      injured: true,
+      available: false,
+      preferredFoot: 'links',
+    })
+    expect(next.guest).toBe(true)
+    expect(next.guestQuiet).toBe(true)
+    expect(next.injured).toBe(true)
+    expect(next.available).toBe(false)
+    expect(next.preferredFoot).toBe('L')
+  })
+
+  it('turns a missing players array into an empty list', () => {
+    expect(migratePlayers(undefined)).toEqual([])
   })
 })
