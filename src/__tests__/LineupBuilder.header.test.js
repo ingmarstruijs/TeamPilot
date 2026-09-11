@@ -64,7 +64,7 @@ describe('LineupBuilder header', () => {
     document.body.innerHTML = ''
   })
 
-  it('keeps Voorstel and Opslaan visible and puts reset/share/split in overflow', async () => {
+  it('keeps Voorstel and Opslaan visible and puts reset/share in overflow', async () => {
     const wrapper = mountBuilder()
     await flushPromises()
 
@@ -82,27 +82,48 @@ describe('LineupBuilder header', () => {
     expect(menu).toBeTruthy()
     expect(menu.textContent).toContain('Delen')
     expect(menu.textContent).toContain('Reset')
-    expect(menu.textContent).toContain('Splitsen in kwartieren')
-    expect(menu.textContent).toContain('Splitsen in helften')
+    expect(menu.textContent).not.toContain('Splitsen in kwartieren')
 
     wrapper.unmount()
   })
 
-  it('shows period chips after splitting into quarters', async () => {
+  it('shows period chips after choosing quarters in the structure row', async () => {
     const wrapper = mountBuilder()
     await flushPromises()
 
-    await wrapper.get('[aria-label="Meer acties"]').trigger('pointerdown')
-    await flushPromises()
-
-    const splitBtn = [...document.querySelectorAll('.lineup-more-item')]
-      .find(btn => btn.textContent.includes('Splitsen in kwartieren'))
-    splitBtn.click()
+    const quarters = wrapper.findAll('.structure-chip').find(btn => btn.text() === 'Kwartieren')
+    await quarters.trigger('click')
     await flushPromises()
 
     expect(wrapper.find('.period-chips').exists()).toBe(true)
     expect(wrapper.get('.period-chips').text()).toContain('K1')
     expect(wrapper.get('.period-chips').text()).toContain('K4')
+    expect(wrapper.get('.period-chips').text()).toContain('3-2-2')
+
+    wrapper.unmount()
+  })
+
+  it('lets each period keep its own formation', async () => {
+    const wrapper = mountBuilder()
+    await flushPromises()
+
+    const quarters = wrapper.findAll('.structure-chip').find(btn => btn.text() === 'Kwartieren')
+    await quarters.trigger('click')
+    await flushPromises()
+
+    const formationChip = wrapper.findAll('.formation-chips .chip')
+      .find(btn => btn.text() === '2-3-2')
+    await formationChip.trigger('click')
+    await flushPromises()
+
+    const chips = wrapper.findAll('.period-chip')
+    expect(chips[0].text()).toContain('2-3-2')
+    expect(chips[1].text()).toContain('3-2-2')
+
+    await chips[1].trigger('click')
+    await flushPromises()
+    expect(wrapper.get('.controls-title').text()).toBe('Formatie K2')
+    expect(wrapper.findAll('.formation-chips .chip').find(btn => btn.text() === '3-2-2').classes()).toContain('active')
 
     wrapper.unmount()
   })

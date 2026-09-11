@@ -7,10 +7,9 @@
       <div class="lineup-switcher" ref="switcherRef">
         <button class="switcher-btn" @click="toggleSwitcher" :class="{ open: showSwitcher }">
           <div class="switcher-text">
+            <span class="switcher-kicker">{{ t('lineup.archive') }}</span>
             <span class="md-title-sm switcher-name">{{ lineupName || t('lineupShare.newDefault') }}</span>
-            <span class="md-label-sm switcher-meta" style="color:var(--md-on-surface-variant)">
-              {{ ageGroupConfig?.label }} · {{ fieldSlots.filter(s=>s.playerId).length }}/{{ fieldSlots.length }}
-            </span>
+            <span class="md-label-sm switcher-meta">{{ switcherSubtitle }}</span>
           </div>
           <span class="material-symbols-rounded switcher-chevron">expand_more</span>
         </button>
@@ -40,7 +39,7 @@
                 <span class="material-symbols-rounded" style="font-size:18px">{{ lu.id === lineupId ? 'radio_button_checked' : 'radio_button_unchecked' }}</span>
                 <div class="switcher-item-info">
                   <span class="switcher-item-name">{{ lu.name }}</span>
-                  <span class="switcher-item-meta">{{ t('lineupShare.switcherPlayers', { count: lu.slots.filter(s=>s.playerId).length, formation: lu.formationId || t('lineup.free') }) }}</span>
+                  <span class="switcher-item-meta">{{ archiveMeta(lu) }}</span>
                 </div>
               </button>
               <button
@@ -86,17 +85,32 @@
       </div>
       </div>
 
+      <div class="structure-row" role="group" :aria-label="t('lineup.structure')">
+        <button
+          v-for="option in structureOptions"
+          :key="option.id ?? 'one'"
+          type="button"
+          class="chip structure-chip"
+          :class="{ active: periodMode === option.id }"
+          @click="setStructure(option.id)"
+        >{{ option.label }}</button>
+      </div>
+
       <div v-if="periodMode" class="period-chips" role="tablist" :aria-label="periodModeLabel">
         <button
-          v-for="(label, i) in periodLabels"
+          v-for="(item, i) in periodSummaries"
           :key="`${periodMode}-${i}`"
           type="button"
           class="chip period-chip"
           :class="{ active: activePeriod === i }"
           role="tab"
           :aria-selected="activePeriod === i"
+          :title="t('lineup.formationForPeriod', { period: item.label })"
           @click="switchPeriod(i)"
-        >{{ label }}</button>
+        >
+          <span class="period-chip-label">{{ item.label }}</span>
+          <span class="period-chip-formation">{{ item.formation }}</span>
+        </button>
       </div>
 
       <!-- Bank, formatie & weergave (mobile, onderkant sticky header) -->
@@ -119,8 +133,10 @@
               <span v-if="benchPlayers.length" class="chip-badge">{{ benchPlayers.length }}</span>
             </button>
           </div>
-          <label class="sr-only" for="formation-select">{{ t('lineup.formations') }}</label>
+          <label class="sr-only" for="formation-select">{{ formationControlLabel }}</label>
           <div class="formation-select-wrap">
+            <span class="control-kicker">{{ formationControlLabel }}</span>
+            <div class="formation-select-row">
             <select
               id="formation-select"
               class="formation-dropdown formation-dropdown--inline"
@@ -140,6 +156,7 @@
             >
               <span class="material-symbols-rounded" aria-hidden="true">info</span>
             </button>
+            </div>
           </div>
           <div class="lineup-more">
             <button
@@ -183,7 +200,7 @@
     <div class="builder-body">
       <aside v-if="isDesktop" class="builder-col-formation card card-elevated">
         <div class="controls-title-row">
-          <p class="md-title-sm controls-title">{{ t('lineup.formations') }}</p>
+          <p class="md-title-sm controls-title">{{ formationControlLabel }}</p>
           <button
             type="button"
             class="btn-icon formation-info-btn"
@@ -314,37 +331,6 @@
         >
           <span class="material-symbols-rounded" aria-hidden="true">delete_sweep</span>
           {{ t('common.reset') }}
-        </button>
-        <div class="lineup-more-divider" role="separator" />
-        <button
-          v-if="!periodMode"
-          type="button"
-          class="lineup-more-item"
-          role="menuitem"
-          @click.stop="splitPeriods('quarters')"
-        >
-          <span class="material-symbols-rounded" aria-hidden="true">grid_view</span>
-          {{ t('lineup.splitQuarters') }}
-        </button>
-        <button
-          v-if="!periodMode"
-          type="button"
-          class="lineup-more-item"
-          role="menuitem"
-          @click.stop="splitPeriods('halves')"
-        >
-          <span class="material-symbols-rounded" aria-hidden="true">view_agenda</span>
-          {{ t('lineup.splitHalves') }}
-        </button>
-        <button
-          v-if="periodMode"
-          type="button"
-          class="lineup-more-item"
-          role="menuitem"
-          @click.stop="mergePeriods"
-        >
-          <span class="material-symbols-rounded" aria-hidden="true">unfold_less</span>
-          {{ t('lineup.mergePeriods') }}
         </button>
       </div>
       <div
@@ -894,6 +880,59 @@ const periodLabels = computed(() => {
   return Array.from({ length: periodCount.value }, (_, i) => t(key, { n: i + 1 }))
 })
 
+const structureOptions = computed(() => [
+  { id: null, label: t('lineup.structureOne') },
+  { id: 'halves', label: t('lineup.structureHalves') },
+  { id: 'quarters', label: t('lineup.structureQuarters') },
+])
+
+function formationLabel(id) {
+  return id || t('lineup.free')
+}
+
+const formationControlLabel = computed(() => {
+  if (!periodMode.value) return t('lineup.formation')
+  return t('lineup.formationForPeriod', { period: periodLabels.value[activePeriod.value] })
+})
+
+const periodSummaries = computed(() => (
+  Array.from({ length: periodCount.value }, (_, i) => {
+    const snap = i === activePeriod.value ? snapshotCurrent() : periodSnapshots.value[i]
+    return {
+      label: periodLabels.value[i],
+      formation: formationLabel(snap?.formationId),
+    }
+  })
+))
+
+const switcherSubtitle = computed(() => {
+  const filled = fieldSlots.value.filter(s => s.playerId).length
+  const total = fieldSlots.value.length
+  if (periodMode.value) {
+    return t('lineup.archivePeriodMeta', {
+      period: periodLabels.value[activePeriod.value],
+      filled,
+      total,
+    })
+  }
+  return `${filled}/${total}`
+})
+
+function archiveMeta(lu) {
+  if (lu.periodMode === 'quarters' || lu.periodMode === 'halves') {
+    const mode = lu.periodMode === 'quarters' ? t('lineup.archiveQuarters') : t('lineup.archiveHalves')
+    const forms = [...new Set((lu.periods ?? []).map(p => formationLabel(p.formationId)))]
+    return t('lineup.archivePeriods', {
+      mode,
+      formations: forms.join(' / ') || formationLabel(lu.formationId),
+    })
+  }
+  return t('lineupShare.switcherPlayers', {
+    count: lu.slots.filter(s => s.playerId).length,
+    formation: formationLabel(lu.formationId),
+  })
+}
+
 function snapshotCurrent() {
   return {
     formationId: selectedFormationId.value,
@@ -925,16 +964,19 @@ function switchPeriod(i) {
   activePeriod.value = i
 }
 
+function cloneSnap(snap) {
+  return {
+    formationId: snap?.formationId ?? selectedFormationId.value,
+    slots: cloneLineupSlots(snap?.slots ?? fieldSlots.value),
+  }
+}
+
 function splitPeriods(mode) {
   const current = snapshotCurrent()
   const count = mode === 'quarters' ? 4 : 2
   periodMode.value = mode
-  periodSnapshots.value = Array.from({ length: count }, () => ({
-    formationId: current.formationId,
-    slots: cloneLineupSlots(current.slots),
-  }))
+  periodSnapshots.value = Array.from({ length: count }, () => cloneSnap(current))
   activePeriod.value = 0
-  closeMenus()
 }
 
 function mergePeriods() {
@@ -942,7 +984,37 @@ function mergePeriods() {
   const keep = periodSnapshots.value[activePeriod.value] ?? snapshotCurrent()
   resetPeriodState()
   applySnapshot(keep)
+}
+
+function setStructure(mode) {
+  if (mode === periodMode.value) return
   closeMenus()
+  if (!mode) {
+    mergePeriods()
+    return
+  }
+  if (!periodMode.value) {
+    splitPeriods(mode)
+    return
+  }
+  capturePeriod()
+  if (mode === 'halves' && periodMode.value === 'quarters') {
+    periodSnapshots.value = [
+      cloneSnap(periodSnapshots.value[0]),
+      cloneSnap(periodSnapshots.value[2] ?? periodSnapshots.value[1]),
+    ]
+    activePeriod.value = activePeriod.value < 2 ? 0 : 1
+  } else if (mode === 'quarters' && periodMode.value === 'halves') {
+    periodSnapshots.value = [
+      cloneSnap(periodSnapshots.value[0]),
+      cloneSnap(periodSnapshots.value[0]),
+      cloneSnap(periodSnapshots.value[1]),
+      cloneSnap(periodSnapshots.value[1]),
+    ]
+    activePeriod.value = activePeriod.value === 0 ? 0 : 2
+  }
+  periodMode.value = mode
+  applySnapshot(periodSnapshots.value[activePeriod.value])
 }
 
 function loadPeriodState(existing) {
@@ -1196,6 +1268,7 @@ function applyFormation(formation) {
   }))
   selectedFormationId.value = formation.id
   if (isOpponentVisible.value) resetOpponentSlots()
+  capturePeriod()
 }
 
 function freeMode() {
@@ -1203,6 +1276,7 @@ function freeMode() {
   // Keep only filled slots — no more ghost placeholder circles in free mode
   fieldSlots.value = fieldSlots.value.filter(s => s.playerId)
   if (isOpponentVisible.value) resetOpponentSlots()
+  capturePeriod()
 }
 
 function buildFreeSlots(count) {
@@ -1843,6 +1917,14 @@ async function shareViaWhatsApp() {
   flex: 1;
   min-width: 0;
 }
+.switcher-kicker {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--md-on-surface-variant);
+  line-height: 1.2;
+}
 .switcher-name {
   font-size: 14px;
   font-weight: 600;
@@ -1853,7 +1935,7 @@ async function shareViaWhatsApp() {
 .switcher-meta {
   font-size: 12px;
   line-height: 1.2;
-  display: none;
+  color: var(--md-on-surface-variant);
 }
 .switcher-chevron {
   font-size: 20px;
@@ -1946,7 +2028,6 @@ async function shareViaWhatsApp() {
 
 /* Desktop overrides */
 @media (min-width: 720px) {
-  .switcher-meta { display: block; }
   .switcher-dropdown {
     position: absolute;
     inset: unset;
@@ -1988,6 +2069,21 @@ async function shareViaWhatsApp() {
   padding: var(--sp-2) 0 0;
 }
 
+.structure-row {
+  display: flex;
+  gap: var(--sp-1);
+  padding: var(--sp-2) 0 0;
+}
+
+.structure-chip {
+  flex: 1;
+  justify-content: center;
+  min-width: 0;
+  height: 32px;
+  padding: 0 var(--sp-2);
+  font-size: 12px;
+}
+
 @media (min-width: 720px) {
   .period-chips {
     padding-bottom: var(--sp-2);
@@ -1996,8 +2092,28 @@ async function shareViaWhatsApp() {
 
 .period-chip {
   flex: 1;
+  flex-direction: column;
   justify-content: center;
-  min-height: 32px;
+  align-items: center;
+  gap: 1px;
+  height: auto;
+  min-height: 40px;
+  min-width: 0;
+  padding: 4px 6px;
+}
+.period-chip-label {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.period-chip-formation {
+  font-size: 10px;
+  font-weight: 600;
+  opacity: 0.8;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* ── Mobile header controls ───────────────────────────────── */
@@ -2025,8 +2141,25 @@ async function shareViaWhatsApp() {
   flex: 1;
   min-width: 0;
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+}
+
+.control-kicker {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--md-on-surface-variant);
+  line-height: 1.2;
+}
+
+.formation-select-row {
+  display: flex;
   align-items: center;
   gap: var(--sp-1);
+  min-width: 0;
 }
 
 .formation-dropdown--inline {
