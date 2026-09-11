@@ -6,6 +6,8 @@ vi.mock('@/composables/useSnackbar', () => ({ showSnackbar: vi.fn() }))
 vi.mock('@/utils/generatePlayers', () => ({ generatePlayers: vi.fn(() => []) }))
 
 import { showSnackbar } from '@/composables/useSnackbar'
+import { generatePlayers } from '@/utils/generatePlayers'
+import { useTeamStore } from '@/stores/teamStore'
 import Players from '../views/Players.vue'
 
 const COPY_BTN_TITLE = 'Kopieer spelerslijst als tekst'
@@ -165,5 +167,72 @@ describe('Players – availability, injury and guests', () => {
     ])
     expect(wrapper.text()).toContain('Gasten (1)')
     expect(wrapper.text()).not.toContain('Meenemen in volgende wedstrijd')
+  })
+
+  it('marks active guests in the main list', () => {
+    const wrapper = mountWithPlayers([
+      makePlayer(),
+      makePlayer({ id: 'g1', name: 'Kees', position: 'ATT', guest: true }),
+    ])
+    const guestRow = wrapper.get('.player-row.is-guest')
+    expect(guestRow.text()).toContain('Kees')
+    expect(guestRow.get('.player-badge.is-guest').text()).toContain('Gast')
+  })
+})
+
+describe('Players – quick fill', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+    generatePlayers.mockReturnValue([])
+  })
+
+  it('passes the current roster so guests and numbers can be skipped', async () => {
+    const roster = [
+      makePlayer(),
+      makePlayer({ id: 'g1', name: 'Kees', position: 'ATT', guest: true, number: 9 }),
+    ]
+    const wrapper = mountWithPlayers(roster)
+    await wrapper.get('button[title="Vul 7 spelers aan met standaardnamen"]').trigger('click')
+    expect(generatePlayers).toHaveBeenCalledWith(7, roster)
+  })
+
+  it('saves preferred foot and regular-squad defaults', async () => {
+    generatePlayers.mockReturnValue([{
+      name: 'Luca Janssen',
+      number: 2,
+      position: 'DEF',
+      preferredFoot: 'L',
+      injured: false,
+      available: true,
+      guest: false,
+    }])
+    const wrapper = mountWithPlayers([])
+    await wrapper.findAll('button').find(b => b.text().includes('Snel aanvullen')).trigger('click')
+    await wrapper.get('.qf-dialog .btn-filled').trigger('click')
+
+    const added = useTeamStore().activeTeam.players.find(p => p.name === 'Luca Janssen')
+    expect(added).toMatchObject({
+      position: 'DEF',
+      number: 2,
+      preferredFoot: 'L',
+      injured: false,
+      available: true,
+      guest: false,
+    })
+  })
+
+  it('closes from the top-right icon instead of a cancel button', async () => {
+    generatePlayers.mockReturnValue([{
+      name: 'Luca Janssen',
+      number: 1,
+      position: 'GK',
+      preferredFoot: 'both',
+    }])
+    const wrapper = mountWithPlayers([])
+    await wrapper.findAll('button').find(b => b.text().includes('Snel aanvullen')).trigger('click')
+
+    expect(wrapper.get('.qf-dialog').text()).not.toContain('Annuleren')
+    await wrapper.get('.qf-dialog .btn-icon').trigger('click')
+    expect(wrapper.find('.qf-dialog').exists()).toBe(false)
   })
 })

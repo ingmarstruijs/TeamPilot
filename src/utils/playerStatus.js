@@ -86,6 +86,36 @@ export function benchEligiblePlayers(players) {
   return (players ?? []).filter(p => !isQuietGuest(p))
 }
 
+/** Injured and absent players cannot start. */
+export function canPlaceOnField(player) {
+  return Boolean(player) && isAvailable(player)
+}
+
+export function splitBenchPlayers(players) {
+  const available = []
+  const unavailable = []
+  for (const player of players ?? []) {
+    if (isAvailable(player)) available.push(player)
+    else unavailable.push(player)
+  }
+  return { available, unavailable }
+}
+
+/**
+ * Clear injured/absent players from lineup slots.
+ * Formation mode keeps empty slots; free mode drops them.
+ */
+export function dropUnavailableFromSlots(slots, players, { keepEmpty = true } = {}) {
+  const byId = new Map((players ?? []).map(p => [p.id, p]))
+  const next = (slots ?? []).map(slot => {
+    if (!slot?.playerId) return slot
+    const player = byId.get(slot.playerId)
+    if (canPlaceOnField(player)) return slot
+    return { ...slot, playerId: null }
+  })
+  return keepEmpty ? next : next.filter(slot => slot.playerId)
+}
+
 /**
  * Players Voorstel may use. Regulars first; active guests only if the
  * remaining empty slots cannot be filled from the regular pool.

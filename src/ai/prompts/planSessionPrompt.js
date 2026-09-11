@@ -14,6 +14,13 @@ export function compactCoachContext(ctx) {
     cycleTheme: ctx.cycleTheme,
     playerCount: ctx.playerCount,
     positions,
+    preferredFeet: (ctx.presentPlayers ?? []).reduce((acc, p) => {
+      const foot = p.preferredFoot === 'L' || p.preferredFoot === 'R' || p.preferredFoot === 'both'
+        ? p.preferredFoot
+        : 'unknown'
+      acc[foot] = (acc[foot] || 0) + 1
+      return acc
+    }, {}),
     focus: ctx.focus || null,
     balance: ctx.balance
       ? {
@@ -51,10 +58,11 @@ export function buildPlanSessionMessages(ctx) {
   const system = [
     'You are a Dutch grassroots football coaching planner for TeamPilot.',
     'Only pick exerciseId values from the provided candidates unless absolutely necessary to mark source:"generated".',
-    'Respect playerCount; put practical adaptations in adaptations[].',
+    'Respect playerCount and preferredFeet (L/R/both); put practical adaptations in adaptations[].',
+    'When preferredFeet is left- or right-heavy, lean exercises and coaching to that flank; when mixed, switch flanks.',
     'Output JSON only matching SessionPlan. No markdown, no commentary.',
     'SessionPlan fields: title, coachBriefing (Dutch, 1-3 sentences), durationMin, theme, blocks[], engine:"local-llm".',
-    'Each block: source (rinus|library|generated), exerciseId, title, category, durationMin (4-30), minPlayers, maxPlayers, description, setup, rules[], adaptations[], coachingCues[], whyThis.',
+    'Each block: source (rinus|library|generated), exerciseId, title, category, durationMin (4-30), minPlayers, maxPlayers, description, setup, rules[], adaptations[], coachingCues[], whyThis (exercise-specific only; omit if nothing unique — theme, feet, and squad balance belong in coachBriefing, not on every block).',
     'Use 4-8 blocks. Sum of durationMin within ±15% of context.durationMin.',
   ].join(' ')
 

@@ -232,6 +232,14 @@ describe('teamStore guests', () => {
     expect(promoted.guest).toBe(false)
     expect(promoted.guestQuiet).toBe(false)
   })
+
+  it('marks players added via addGuest as guests', () => {
+    const store = useTeamStore()
+    const guest = store.addGuest({ name: 'Lisa', position: 'MID' })
+    expect(guest.guest).toBe(true)
+    expect(guest.guestQuiet).toBe(false)
+    expect(guest.available).toBe(true)
+  })
 })
 
 describe('legacy player list migration', () => {
@@ -274,3 +282,43 @@ describe('legacy player list migration', () => {
     expect(store.getLineup('lineup-1').slots[0].playerId).toBe('p1')
   })
 })
+
+describe('duplicateLineup', () => {
+  it('copies slots and periods into a new lineup with the given name', () => {
+    const store = useTeamStore()
+    const original = store.saveLineup({
+      name: 'Vorige week',
+      formationId: '3-2-2',
+      flipped: true,
+      opponentMode: 'off',
+      slots: [{ slotId: 's0', playerId: 'p1', position: 'GK', x: 50, y: 8 }],
+      periodMode: 'halves',
+      activePeriod: 1,
+      periods: [
+        { formationId: '3-2-2', slots: [{ slotId: 's0', playerId: 'p1', position: 'GK', x: 50, y: 8 }] },
+        { formationId: '2-3-2', slots: [{ slotId: 's0', playerId: 'p2', position: 'GK', x: 50, y: 8 }] },
+      ],
+    })
+
+    const copy = store.duplicateLineup(original.id, { name: 'Vorige week (kopie)' })
+    expect(copy).toBeTruthy()
+    expect(copy.id).not.toBe(original.id)
+    expect(copy.name).toBe('Vorige week (kopie)')
+    expect(copy.formationId).toBe('3-2-2')
+    expect(copy.periodMode).toBe('halves')
+    expect(copy.periods[1].formationId).toBe('2-3-2')
+    expect(copy.slots[0].playerId).toBe('p1')
+
+    copy.slots[0].playerId = 'mutated'
+    expect(store.getLineup(original.id).slots[0].playerId).toBe('p1')
+    expect(store.getLineup(original.id).name).toBe('Vorige week')
+  })
+
+  it('falls back to “origineel (kopie)” when no name is given', () => {
+    const store = useTeamStore()
+    const original = store.saveLineup({ name: 'Oud', slots: [{ slotId: 's0', playerId: 'p1' }] })
+    const copy = store.duplicateLineup(original.id)
+    expect(copy.name).toBe('Oud (kopie)')
+  })
+})
+

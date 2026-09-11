@@ -30,12 +30,12 @@
     <Teleport to="body">
       <Transition name="dialog-fade">
         <div v-if="importData" class="dialog-backdrop" @click.self="importData = null">
-          <div class="dialog">
+          <div class="dialog share-import-dialog">
             <p class="dialog-title">{{ t('share.importTitle') }}</p>
-            <p class="md-body-md" style="margin-bottom:4px"><strong>{{ importData.name }}</strong></p>
-            <p class="md-body-sm" style="color:var(--md-on-surface-variant);margin-bottom:var(--sp-3)">
-              {{ ageGroupLabel(importData.ageGroup) }} &middot; {{ importData.players.length }} {{ importData.players.length !== 1 ? t('word.players') : t('word.player') }}
-            </p>
+            <ShareImportSummary
+              class="share-import-summary"
+              v-bind="importSummary"
+            />
             <template v-if="conflictTeam">
               <p class="dialog-body">{{ t('share.conflict', { name: importData.name }) }}</p>
               <div class="dialog-actions" style="flex-wrap:wrap;gap:var(--sp-2)">
@@ -67,10 +67,11 @@ import { useMediaQuery } from '@/composables/useMediaQuery'
 import { useNavDrawer } from '@/composables/useNavDrawer'
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { ageGroupLabel } from '@/data/formations'
+import ShareImportSummary from '@/components/share/ShareImportSummary.vue'
 import { useTeamStore } from '@/stores/teamStore'
 import { showSnackbar } from '@/composables/useSnackbar'
 import { decodeTeamShare } from '@/utils/teamShare'
+import { summaryFromTeamShare } from '@/utils/shareSummary'
 import { firstQueryValue, resolveIncomingShare, stripLocationSearch } from '@/utils/appShareUrl'
 import { t } from '@/i18n'
 
@@ -82,6 +83,10 @@ const store  = useTeamStore()
 
 // ── Team import from share link ───────────────────────
 const importData = ref(null)
+
+const importSummary = computed(() => (
+  importData.value ? summaryFromTeamShare(importData.value) : null
+))
 
 const conflictTeam = computed(() =>
   importData.value
@@ -209,4 +214,13 @@ html, body {
 .dialog-fade-leave-active { transition: opacity var(--md-duration-medium) ease; }
 .dialog-fade-enter-from,
 .dialog-fade-leave-to { opacity: 0; }
+
+.share-import-dialog {
+  max-width: 28rem;
+  max-height: min(88dvh, 40rem);
+  overflow-y: auto;
+}
+.share-import-summary {
+  margin-bottom: var(--sp-3);
+}
 </style>

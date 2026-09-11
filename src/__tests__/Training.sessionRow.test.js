@@ -49,8 +49,20 @@ function mountSession() {
                     playerCount: 2,
                     presentPlayerIds: players.map(p => p.id),
                     blocks: [
-                      { exerciseId: EXERCISES[0].id, durationMin: 6 },
-                      { exerciseId: EXERCISES[1].id, durationMin: 14 },
+                      {
+                        exerciseId: EXERCISES[0].id,
+                        durationMin: 6,
+                        ai: {
+                          whyThis: 'Veel verdedigers aanwezig → extra aanvallend werk · Past bij weekthema Techniek · Links- en rechtsbenige spelers → wissel de kanten',
+                        },
+                      },
+                      {
+                        exerciseId: EXERCISES[1].id,
+                        durationMin: 14,
+                        ai: {
+                          whyThis: 'Past bij weekthema Techniek · Links- en rechtsbenige spelers → wissel de kanten',
+                        },
+                      },
                     ],
                   },
                 },
@@ -116,5 +128,16 @@ describe('Training session row', () => {
     expect(menu.textContent).toContain('Verplaats omhoog')
     expect(menu.textContent).toContain('Verplaats omlaag')
     expect(menu.textContent).toContain('Verwijderen')
+  })
+
+  it('shows only exercise-specific why notes on the session list', async () => {
+    const wrapper = mountSession()
+    await flushPromises()
+
+    const notes = wrapper.findAll('.session-why')
+    expect(notes).toHaveLength(1)
+    expect(notes[0].text()).toBe('Veel verdedigers aanwezig → extra aanvallend werk')
+    expect(wrapper.text()).not.toContain('wissel de kanten')
+    expect(wrapper.text()).not.toContain('weekthema')
   })
 })

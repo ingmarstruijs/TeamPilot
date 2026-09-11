@@ -9,6 +9,9 @@ import {
   quietGuestPlayers,
   migratePlayer,
   migratePlayers,
+  canPlaceOnField,
+  splitBenchPlayers,
+  dropUnavailableFromSlots,
 } from '../utils/playerStatus'
 
 function p(overrides) {
@@ -91,5 +94,39 @@ describe('migratePlayer', () => {
 
   it('turns a missing players array into an empty list', () => {
     expect(migratePlayers(undefined)).toEqual([])
+  })
+})
+
+describe('lineup eligibility', () => {
+  it('keeps injured and absent players off the field', () => {
+    expect(canPlaceOnField(p())).toBe(true)
+    expect(canPlaceOnField(p({ injured: true }))).toBe(false)
+    expect(canPlaceOnField(p({ available: false }))).toBe(false)
+    expect(canPlaceOnField(null)).toBe(false)
+  })
+
+  it('splits the bench into available and unavailable', () => {
+    const { available, unavailable } = splitBenchPlayers([
+      p({ id: 'a' }),
+      p({ id: 'b', injured: true }),
+      p({ id: 'c', available: false }),
+    ])
+    expect(available.map(x => x.id)).toEqual(['a'])
+    expect(unavailable.map(x => x.id)).toEqual(['b', 'c'])
+  })
+
+  it('clears unavailable players from formation slots', () => {
+    const slots = [
+      { slotId: 's1', playerId: 'a' },
+      { slotId: 's2', playerId: 'b' },
+    ]
+    const next = dropUnavailableFromSlots(slots, [
+      p({ id: 'a' }),
+      p({ id: 'b', injured: true }),
+    ])
+    expect(next).toEqual([
+      { slotId: 's1', playerId: 'a' },
+      { slotId: 's2', playerId: null },
+    ])
   })
 })

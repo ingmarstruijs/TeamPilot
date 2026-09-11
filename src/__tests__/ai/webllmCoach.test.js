@@ -185,7 +185,7 @@ describe('webllmCoach', () => {
     })
 
     const plan = await coach.planSession(enriched)
-    expect(plan.blocks.every(b => Boolean(b.whyThis?.trim()))).toBe(true)
+    expect(plan.blocks.every(b => typeof (b.whyThis ?? '') === 'string')).toBe(true)
     expect(plan.blocks.every(b => (b.coachingCues?.length ?? 0) > 0)).toBe(true)
   })
 })

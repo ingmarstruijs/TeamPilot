@@ -1,40 +1,19 @@
 <template>
-  <div ref="rootRef" class="library-filters">
-    <button
-      type="button"
-      class="filters-trigger md-label-md"
-      :class="{ 'is-open': open }"
-      :aria-expanded="open"
-      aria-haspopup="dialog"
-      @click.stop="open = !open"
-    >
-      <span class="material-symbols-rounded filters-trigger-icon" aria-hidden="true">tune</span>
-      <span class="filters-trigger-text">{{ t('library.searchFilters') }}</span>
-      <span v-if="hasActiveFilters" class="filters-active-dot" :aria-label="t('library.filtersActive')" />
-      <span class="material-symbols-rounded filters-chevron" aria-hidden="true">expand_more</span>
-    </button>
+  <div class="library-filters" role="search" :aria-label="t('library.searchAria')">
+    <label class="search-field">
+      <span class="material-symbols-rounded search-icon" aria-hidden="true">search</span>
+      <input
+        class="search-input"
+        type="search"
+        :value="query"
+        :placeholder="t('library.searchPlaceholder')"
+        :aria-label="t('library.searchLabel')"
+        @input="$emit('update:query', $event.target.value)"
+      />
+    </label>
 
-    <div
-      v-if="open"
-      class="filters-popover"
-      role="dialog"
-      :aria-label="t('library.searchAria')"
-      @click.stop
-    >
-      <div class="filters-body">
-        <label class="search-field">
-          <span class="material-symbols-rounded search-icon" aria-hidden="true">search</span>
-          <input
-            ref="searchInputRef"
-            class="search-input"
-            type="search"
-            :value="query"
-            :placeholder="t('library.searchPlaceholder')"
-            :aria-label="t('library.searchLabel')"
-            @input="$emit('update:query', $event.target.value)"
-          />
-        </label>
-
+    <div class="filters-row">
+      <div class="filter-select-wrap">
         <select
           class="filter-select"
           :value="category"
@@ -44,7 +23,10 @@
           <option value="">{{ t('library.allCategories') }}</option>
           <option v-for="c in EXERCISE_CATEGORIES" :key="c.id" :value="c.id">{{ t(`category.${c.id}`) }}</option>
         </select>
+        <span class="material-symbols-rounded filter-select-chevron" aria-hidden="true">expand_more</span>
+      </div>
 
+      <div class="filter-select-wrap">
         <select
           class="filter-select"
           :value="minFootballReality"
@@ -55,41 +37,44 @@
           <option :value="1">{{ t('library.minRealityOne') }}</option>
           <option v-for="n in [2, 3, 4, 5]" :key="n" :value="n">{{ t('library.minReality', { n }) }}</option>
         </select>
-
-        <label
-          class="suitable-toggle md-label-sm"
-          :title="t('library.suitableTitle')"
-        >
-          <input
-            type="checkbox"
-            :checked="suitableOnly"
-            @change="$emit('update:suitableOnly', $event.target.checked)"
-          />
-          <span class="suitable-label">{{ t('library.suitableOnly') }}</span>
-        </label>
-
-        <button
-          v-if="query || hasActiveFilters"
-          type="button"
-          class="btn btn-text reset-btn"
-          @click="$emit('reset')"
-        >
-          <span class="material-symbols-rounded" aria-hidden="true">close</span>
-          {{ t('library.clear') }}
-        </button>
+        <span class="material-symbols-rounded filter-select-chevron" aria-hidden="true">expand_more</span>
       </div>
+    </div>
+
+    <div class="filters-meta">
+      <label
+        class="suitable-toggle md-label-sm"
+        :title="t('library.suitableTitle')"
+      >
+        <input
+          type="checkbox"
+          :checked="suitableOnly"
+          @change="$emit('update:suitableOnly', $event.target.checked)"
+        />
+        <span class="suitable-label">{{ t('library.suitableOnly') }}</span>
+      </label>
 
       <p class="result-count md-label-sm">
         {{ resultCount === 1
           ? t('library.resultOne', { n: resultCount })
           : t('library.resultMany', { n: resultCount }) }}
       </p>
+
+      <button
+        v-if="query || hasActiveFilters"
+        type="button"
+        class="btn btn-text reset-btn"
+        @click="$emit('reset')"
+      >
+        <span class="material-symbols-rounded" aria-hidden="true">close</span>
+        {{ t('library.clear') }}
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed } from 'vue'
 import { EXERCISE_CATEGORIES } from '@/data/exercises'
 import { t } from '@/i18n'
 
@@ -103,119 +88,17 @@ const props = defineProps({
 
 defineEmits(['update:query', 'update:category', 'update:suitableOnly', 'update:minFootballReality', 'reset'])
 
-const open = ref(false)
-const rootRef = ref(null)
-const searchInputRef = ref(null)
-
 const hasActiveFilters = computed(() =>
   Boolean(props.query || props.category || !props.suitableOnly || props.minFootballReality)
 )
-
-watch(open, async (isOpen) => {
-  if (!isOpen) return
-  await nextTick()
-  searchInputRef.value?.focus()
-})
-
-function onDocumentClick(event) {
-  if (!open.value || !rootRef.value) return
-  if (!rootRef.value.contains(event.target)) open.value = false
-}
-
-function onDocumentKeydown(event) {
-  if (event.key === 'Escape') open.value = false
-}
-
-onMounted(() => {
-  document.addEventListener('click', onDocumentClick)
-  document.addEventListener('keydown', onDocumentKeydown)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', onDocumentClick)
-  document.removeEventListener('keydown', onDocumentKeydown)
-})
 </script>
 
 <style scoped>
 .library-filters {
-  position: relative;
-  flex-shrink: 0;
-}
-
-.filters-trigger {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  min-height: 34px;
-  padding: 0 var(--sp-2);
-  border: 1px solid var(--md-outline-variant);
-  border-radius: var(--md-shape-md);
-  background: var(--md-surface-container-low);
-  color: var(--md-on-surface);
-  cursor: pointer;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  font: inherit;
-  white-space: nowrap;
-}
-
-.filters-trigger:hover {
-  background: color-mix(in srgb, var(--md-on-surface) 6%, var(--md-surface-container-low));
-}
-
-.filters-trigger.is-open {
-  border-color: var(--md-primary);
-  background: color-mix(in srgb, var(--md-primary) 8%, var(--md-surface-container-low));
-}
-
-.filters-trigger-icon {
-  font-size: 17px;
-  color: var(--md-on-surface-variant);
-  flex-shrink: 0;
-}
-
-.filters-trigger-text {
-  font-size: 12px;
-}
-
-.filters-active-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: var(--md-shape-full);
-  background: var(--md-primary);
-  flex-shrink: 0;
-}
-
-.filters-chevron {
-  font-size: 18px;
-  color: var(--md-on-surface-variant);
-  flex-shrink: 0;
-  transition: transform var(--md-duration-short);
-}
-
-.filters-trigger.is-open .filters-chevron {
-  transform: rotate(180deg);
-}
-
-.filters-popover {
-  position: absolute;
-  top: calc(100% + 6px);
-  right: 0;
-  z-index: 40;
-  width: min(17.5rem, calc(100vw - 2rem));
-  padding: var(--sp-3);
-  background: var(--md-surface);
-  border: 1px solid var(--md-outline-variant);
-  border-radius: var(--md-shape-md);
-  box-shadow: var(--md-elevation-3);
-}
-
-.filters-body {
   display: flex;
   flex-direction: column;
   gap: var(--sp-2);
-  --filter-control-height: 40px;
+  --filter-control-height: 36px;
 }
 
 .search-field {
@@ -252,19 +135,31 @@ onUnmounted(() => {
   color: var(--md-on-surface-variant);
 }
 
+.filters-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--sp-2);
+}
+
+.filter-select-wrap {
+  position: relative;
+  min-width: 0;
+}
+
 .filter-select {
   box-sizing: border-box;
   width: 100%;
   height: var(--filter-control-height);
-  padding: 0 var(--sp-2);
+  padding: 0 28px 0 var(--sp-2);
   border: 1px solid var(--md-outline-variant);
   border-radius: var(--md-shape-md);
   background: var(--md-surface-container-low);
   font: inherit;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--md-on-surface);
   outline: none;
   appearance: none;
+  -webkit-appearance: none;
   cursor: pointer;
 }
 
@@ -274,7 +169,25 @@ onUnmounted(() => {
 
 .filter-select:focus {
   border-color: var(--md-primary);
-  background: color-mix(in srgb, var(--md-primary) 4%, transparent);
+  background: color-mix(in srgb, var(--md-primary) 4%, var(--md-surface-container-low));
+}
+
+.filter-select-chevron {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 18px;
+  color: var(--md-on-surface-variant);
+}
+
+.filters-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-3);
+  min-height: 24px;
 }
 
 .suitable-toggle {
@@ -300,10 +213,9 @@ onUnmounted(() => {
 }
 
 .reset-btn {
-  align-self: flex-start;
-  min-height: 32px;
-  padding: 0 var(--sp-2);
-  gap: var(--sp-1);
+  min-height: 28px;
+  padding: 0 var(--sp-1);
+  gap: 2px;
   color: var(--md-on-surface-variant);
 }
 
@@ -312,15 +224,13 @@ onUnmounted(() => {
 }
 
 .result-count {
-  margin: var(--sp-2) 0 0;
-  padding-top: var(--sp-2);
-  border-top: 1px solid var(--md-outline-variant);
+  margin: 0 0 0 auto;
   color: var(--md-on-surface-variant);
 }
 
-@media (max-width: 399px) {
-  .filters-trigger-text {
-    display: none;
+@media (max-width: 359px) {
+  .filters-row {
+    grid-template-columns: 1fr;
   }
 }
 </style>

@@ -36,8 +36,10 @@ describe('planSessionPrompt', () => {
 
     expect(messages[0].content).toMatch(/JSON only/i)
     expect(messages[0].content).toMatch(/No markdown/i)
+    expect(messages[0].content).toMatch(/exercise-specific only/)
     expect(messages[1].content).toContain('ex-a')
     expect(messages[1].content).toContain('ex-b')
     expect(messages[1].content).not.toContain('Anna')
+    expect(messages[1].content).toContain('preferredFeet')
   })
 })

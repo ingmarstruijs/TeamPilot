@@ -12,6 +12,7 @@
     </div>
     <span v-if="player.number != null" class="token-number">{{ player.number }}</span>
     <span v-if="player.guest" class="token-guest">{{ t('players.guest') }}</span>
+    <span v-if="player.injured" class="token-injury">{{ t('players.injured') }}</span>
     <div class="token-name">{{ shortName }}</div>
     <button class="token-remove" @click.stop="$emit('remove')" @touchend.stop="$emit('remove')"
       aria-label="Verwijder van veld">×</button>
@@ -100,6 +101,17 @@ function onTouchStart(e) {
   align-items: center;
   justify-content: center;
 }
+.player-token:has(.token-guest) .token-avatar {
+  outline: 2px dashed var(--md-tertiary);
+  outline-offset: 2px;
+}
+.player-token:has(.token-injury) .token-avatar {
+  outline: 2px dashed var(--md-error);
+  outline-offset: 2px;
+}
+.player-token:has(.token-guest):has(.token-injury) .token-avatar {
+  outline: 2px dashed var(--md-error);
+}
 .token-number {
   position: absolute;
   top: 28px;
@@ -118,8 +130,20 @@ function onTouchStart(e) {
 }
 
 .token-guest {
-  background: var(--md-secondary-container);
-  color: var(--md-on-secondary-container);
+  background: var(--md-tertiary);
+  color: var(--md-on-tertiary);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  line-height: 12px;
+  pointer-events: none;
+}
+
+.token-injury {
+  background: var(--md-error);
+  color: var(--md-on-error);
   font-size: 8px;
   font-weight: 700;
   letter-spacing: .3px;

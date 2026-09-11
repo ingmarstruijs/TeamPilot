@@ -1,10 +1,9 @@
 <template>
   <div class="library-panel" :class="{ 'library-panel--sidebar': sidebar }">
     <section class="library-card card card-elevated">
-      <div class="library-head">
+      <div class="library-toolbar">
         <p class="md-title-sm library-title">{{ t('library.title') }}</p>
         <ExerciseLibraryFilters
-          class="library-head-filters"
           :query="query"
           :category="category"
           :suitable-only="suitableOnly"
@@ -18,53 +17,55 @@
         />
       </div>
 
-      <div v-if="!exercises.length" class="library-empty md-body-sm">
-        {{ t('library.empty') }}
-      </div>
-      <div v-else class="manual-list">
-        <div v-for="ex in exercises" :key="ex.id" class="manual-item">
-          <button type="button" class="manual-item-main" @click="$emit('preview', ex)">
-            <div class="manual-item-body">
-              <p class="md-label-lg manual-title">
-                <span v-if="isCustomExercise(ex)" class="custom-ex-badge" :title="t('training.customExercise')">
-                  <span class="material-symbols-rounded" aria-hidden="true">draw</span>
-                </span>
-                <span class="manual-title-text">{{ getExerciseTitle(ex) }}</span>
-              </p>
-              <p class="md-body-sm manual-meta">
-                {{ categoryLabel(ex.category) }} · {{ ex.durationMin }} min · {{ playerRangeLabel(ex) }}
-              </p>
-              <FootballRealityRating :rating="getFootballReality(ex)" />
+      <div class="library-scroll">
+        <div v-if="!exercises.length" class="library-empty md-body-sm">
+          {{ t('library.empty') }}
+        </div>
+        <div v-else class="manual-list">
+          <div v-for="ex in exercises" :key="ex.id" class="manual-item">
+            <button type="button" class="manual-item-main" @click="$emit('preview', ex)">
+              <div class="manual-item-body">
+                <p class="md-label-lg manual-title">
+                  <span v-if="isCustomExercise(ex)" class="custom-ex-badge" :title="t('training.customExercise')">
+                    <span class="material-symbols-rounded" aria-hidden="true">draw</span>
+                  </span>
+                  <span class="manual-title-text">{{ getExerciseTitle(ex) }}</span>
+                </p>
+                <p class="md-body-sm manual-meta">
+                  {{ categoryLabel(ex.category) }} · {{ ex.durationMin }} min · {{ playerRangeLabel(ex) }}
+                </p>
+                <FootballRealityRating :rating="getFootballReality(ex)" />
+              </div>
+            </button>
+            <div class="manual-item-actions">
+              <button
+                type="button"
+                class="btn-icon manual-info"
+                :aria-label="t('library.details')"
+                :title="t('library.details')"
+                @click="$emit('preview', ex)"
+              >
+                <span class="material-symbols-rounded">info</span>
+              </button>
+              <button
+                type="button"
+                class="btn-icon manual-add"
+                :aria-label="t('library.addAs', { position: nextPosition })"
+                :title="t('library.addAsTitle', { position: nextPosition })"
+                @click="$emit('add', ex)"
+              >
+                <span class="material-symbols-rounded">add</span>
+                <span class="add-pos md-label-sm">#{{ nextPosition }}</span>
+              </button>
             </div>
-          </button>
-          <div class="manual-item-actions">
-            <button
-              type="button"
-              class="btn-icon manual-info"
-              :aria-label="t('library.details')"
-              :title="t('library.details')"
-              @click="$emit('preview', ex)"
-            >
-              <span class="material-symbols-rounded">info</span>
-            </button>
-            <button
-              type="button"
-              class="btn-icon manual-add"
-              :aria-label="t('library.addAs', { position: nextPosition })"
-              :title="t('library.addAsTitle', { position: nextPosition })"
-              @click="$emit('add', ex)"
-            >
-              <span class="material-symbols-rounded">add</span>
-              <span class="add-pos md-label-sm">#{{ nextPosition }}</span>
-            </button>
           </div>
         </div>
-      </div>
 
-      <button type="button" class="btn btn-tonal library-custom-btn" @click="$emit('create-custom')">
-        <span class="material-symbols-rounded" style="font-size:18px">draw</span>
-        {{ t('library.createCustom') }}
-      </button>
+        <button type="button" class="btn btn-tonal library-custom-btn" @click="$emit('create-custom')">
+          <span class="material-symbols-rounded" style="font-size:18px">draw</span>
+          {{ t('library.createCustom') }}
+        </button>
+      </div>
     </section>
   </div>
 </template>
@@ -108,32 +109,36 @@ function categoryLabel(id) {
 .library-panel {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-3);
-  overflow: visible;
+  flex: 1;
+  min-height: 0;
 }
 
 .library-card {
-  padding: var(--sp-3);
-  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
-.library-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-2);
-  margin-bottom: var(--sp-2);
+.library-toolbar {
+  flex-shrink: 0;
+  padding: var(--sp-3) var(--sp-3) var(--sp-2);
+  background: var(--md-surface);
+  border-bottom: 1px solid var(--md-outline-variant);
 }
 
 .library-title {
-  margin: 0;
-  flex: 1;
+  margin: 0 0 var(--sp-2);
   min-width: 0;
 }
 
-.library-head-filters {
-  flex-shrink: 0;
-  margin-bottom: 0;
+.library-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--sp-2) var(--sp-3) var(--sp-3);
 }
 
 .library-empty {
@@ -149,18 +154,20 @@ function categoryLabel(id) {
 }
 
 .manual-item {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
   gap: var(--sp-1);
+  min-width: 0;
   border-radius: var(--md-shape-md);
-  flex-shrink: 0;
 }
 
 .manual-item-main {
-  flex: 1;
   min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
   display: block;
-  padding: var(--sp-2) var(--sp-3);
+  padding: var(--sp-2) var(--sp-2) var(--sp-2) var(--sp-3);
   border: none;
   background: transparent;
   cursor: pointer;
@@ -177,7 +184,9 @@ function categoryLabel(id) {
   flex-shrink: 0;
   align-items: center;
   gap: 2px;
+  padding-top: var(--sp-2);
   padding-right: var(--sp-1);
+  background: var(--md-surface);
 }
 
 .manual-info,
@@ -206,28 +215,30 @@ function categoryLabel(id) {
 
 .manual-title {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--sp-2);
   margin: 0;
   min-width: 0;
+  max-width: 100%;
+  line-height: 1.35;
 }
 
 .manual-title-text {
+  flex: 1;
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.library-panel--sidebar .manual-title-text {
   white-space: normal;
-  overflow: visible;
-  text-overflow: unset;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  line-height: 1.35;
 }
 
 .manual-meta {
   margin: 2px 0 0;
+  max-width: 100%;
   color: var(--md-on-surface-variant);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .manual-item-body {
@@ -236,6 +247,7 @@ function categoryLabel(id) {
   align-items: flex-start;
   gap: 4px;
   min-width: 0;
+  max-width: 100%;
 }
 
 .custom-ex-badge {

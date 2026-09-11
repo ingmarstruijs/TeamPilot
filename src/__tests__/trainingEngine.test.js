@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import {
   analyzePlayerBalance,
+  analyzePreferredFeet,
   generateTraining,
   getCycleTheme,
   browseExercises,
@@ -15,6 +16,14 @@ describe('trainingEngine', () => {
       { position: 'DEF' }, { position: 'DEF' }, { position: 'DEF' }, { position: 'ATT' },
     ])
     expect(balance.needsAttackFocus).toBe(true)
+  })
+
+  it('detects a left-footed heavy group', () => {
+    const feet = analyzePreferredFeet([
+      { preferredFoot: 'L' }, { preferredFoot: 'L' }, { preferredFoot: 'L' }, { preferredFoot: 'R' },
+    ])
+    expect(feet.leftHeavy).toBe(true)
+    expect(feet.counts.L).toBe(3)
   })
 
   it('generates warming-up + 4 core + afsluiting for 60 min', () => {

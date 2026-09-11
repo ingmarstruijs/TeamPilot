@@ -47,7 +47,10 @@ describe('lineupShare encode/decode', () => {
       { sid: 's1', pos: 'DEF', x: 25, y: 25, pn: 'Marco', num: 5 },
       { sid: 's2', pos: 'ATT', x: 50, y: 70 },
     ])
-    expect(decoded.bench).toEqual([{ pn: 'Lisa', num: 9, pos: 'ATT' }])
+    expect(decoded.bench).toEqual([
+      { pn: 'Lisa', num: 9, pos: 'ATT', guest: false, injured: false, available: true },
+    ])
+    expect(decoded.players[0]).toMatchObject({ name: 'Jan Jansen', guest: false, injured: false })
   })
 
   it('round-trips lineup-only payload without roster', () => {
@@ -82,6 +85,32 @@ describe('lineupShare encode/decode', () => {
     expect(decoded.flipped).toBe(true)
     expect(decoded.slots).toEqual([])
     expect(decoded.bench).toEqual([])
+    expect(decoded.periodMode).toBeNull()
+  })
+
+  it('round-trips guests on the field and period snapshots', () => {
+    const guest = { id: 'g1', name: 'Sam Gast', number: 99, position: 'ATT', guest: true }
+    const encoded = encodeBundle(
+      { ...team, knvbClass: '4e', players: [...team.players, guest] },
+      {
+        ...lineup,
+        periodMode: 'halves',
+        activePeriod: 0,
+        periods: [
+          { formationId: '3-2-2', slots: [{ ...slotsWithPlayers[0], player: guest }] },
+          { formationId: '2-3-2', slots: slotsWithPlayers },
+        ],
+      },
+      [{ ...slotsWithPlayers[0], player: guest }],
+      [],
+    )
+    const decoded = decodeSharePayload(encoded)
+    expect(decoded.knvbClass).toBe('4e')
+    expect(decoded.periodMode).toBe('halves')
+    expect(decoded.periods).toHaveLength(2)
+    expect(decoded.periods[0].formationId).toBe('3-2-2')
+    expect(decoded.periods[0].slots[0].guest).toBe(true)
+    expect(decoded.players.find(p => p.name === 'Sam Gast').guest).toBe(true)
   })
 })
 

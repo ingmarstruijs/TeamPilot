@@ -19,7 +19,7 @@ const TEAM = {
   ],
 }
 
-function mountDashboard(teamOverride = {}) {
+function mountDashboard(teamOverride = {}, { lineups = [] } = {}) {
   const team = { ...TEAM, ...teamOverride }
   return shallowMount(Dashboard, {
     global: {
@@ -31,7 +31,7 @@ function mountDashboard(teamOverride = {}) {
               teams: [team],
               activeTeamId: team.id,
               activeLineupId: null,
-              lineups: [],
+              lineups,
             },
           },
           stubActions: false,
@@ -171,5 +171,50 @@ describe('Dashboard – shareTeam', () => {
     expect(url).toContain('#/import?team=')
     const decoded = decodeShareUrl(url)
     expect(decoded.n).toBe('FC Utrecht')
+  })
+})
+
+describe('Dashboard – hero lineup for this week', () => {
+  it('opens this week’s lineup when one was updated this week', () => {
+    const wrapper = mountDashboard({}, {
+      lineups: [{
+        id: 'lu-week',
+        teamId: 't1',
+        name: 'Mijn Team – 11-9-2026',
+        updatedAt: Date.now(),
+        createdAt: Date.now(),
+      }],
+    })
+    const hero = wrapper.get('.hero-continue')
+    expect(hero.attributes('to')).toBe('/lineup/lu-week')
+  })
+
+  it('starts a new lineup when none exists for this week', () => {
+    const lastWeek = Date.now() - 8 * 24 * 60 * 60 * 1000
+    const wrapper = mountDashboard({}, {
+      lineups: [{
+        id: 'lu-old',
+        teamId: 't1',
+        name: 'Oude opstelling',
+        updatedAt: lastWeek,
+        createdAt: lastWeek,
+      }],
+    })
+    const hero = wrapper.get('.hero-continue')
+    expect(hero.attributes('to')).toBe('/lineup/new')
+  })
+
+  it('points the lineup quick action at this week’s lineup', () => {
+    const wrapper = mountDashboard({}, {
+      lineups: [{
+        id: 'lu-week',
+        teamId: 't1',
+        name: 'Deze week',
+        updatedAt: Date.now(),
+      }],
+    })
+    const tos = wrapper.findAll('.action-tile').map(tile => tile.attributes('to'))
+    expect(tos).toContain('/lineup/lu-week')
+    expect(tos).not.toContain('/lineup/new')
   })
 })

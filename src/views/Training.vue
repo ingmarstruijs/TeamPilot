@@ -36,6 +36,7 @@
             :cycle-theme-label="cycleThemeLabel"
             :training-types="translatedTrainingTypes"
             :type-follows-theme="typeFollowsTheme"
+            :team-shirt="activeTeam?.shirt"
             @toggle-all="toggleAll"
             @toggle-player="togglePlayer"
             @update:training-type="setTrainingType"
@@ -154,18 +155,6 @@
                     {{ t('training.weekOf', { week: syncedCycleWeek, theme: cycleThemeLabel }) }}
                   </p>
 
-                  <label v-if="AI_COACH_ENABLED" class="focus-field">
-                    <span class="md-label-sm focus-field-label">{{ t('training.focusLabel') }}</span>
-                    <input
-                      v-model="coachFocus"
-                      type="text"
-                      class="field"
-                      maxlength="80"
-                      :placeholder="t('training.focusPlaceholder')"
-                      :disabled="isGenerating"
-                    />
-                  </label>
-
                   <TrainingSettingsPanel
                     v-if="!isDesktop"
                     variant="collapsible"
@@ -184,6 +173,7 @@
                     :cycle-week="syncedCycleWeek"
                     :cycle-theme-label="cycleThemeLabel"
                     :training-types="translatedTrainingTypes"
+                    :team-shirt="activeTeam?.shirt"
                     @toggle-all="toggleAll"
                     @toggle-player="togglePlayer"
                   />
@@ -324,8 +314,8 @@
                         <span>{{ categoryLabel(block.exercise.category) }} · {{ playerRangeLabel(block.exercise) }}</span>
                         <FootballRealityRating :rating="getFootballReality(block.exercise)" />
                       </p>
-                      <p v-if="block.ai?.whyThis" class="md-label-sm session-why">
-                        {{ block.ai.whyThis }}
+                      <p v-if="blockWhy(block)" class="md-label-sm session-why">
+                        {{ blockWhy(block) }}
                       </p>
                     </div>
                     <div class="session-actions">
@@ -535,6 +525,7 @@ import AiModelSettings from '@/components/training/AiModelSettings.vue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
 import { showSnackbar } from '@/composables/useSnackbar'
 import { playerRangeLabel, getExerciseTitle, getFootballReality, isCustomExercise } from '@/utils/exerciseText'
+import { commonWhyFragments, uniqueWhyThis } from '@/utils/sessionWhy'
 import { t } from '@/i18n'
 import FootballRealityRating from '@/components/training/FootballRealityRating.vue'
 
@@ -583,7 +574,6 @@ const libraryMinReality = ref(0)
 const dragIndex = ref(null)
 const dragOverIndex = ref(null)
 const highlightUid = ref(null)
-const coachFocus = ref('')
 const coachBriefing = ref('')
 const coachEngine = ref('rules')
 const isGenerating = ref(false)
@@ -663,26 +653,36 @@ const translatedTrainingTypes = computed(() =>
 
 const trainingTypeLabel = computed(() => t(`trainingType.${trainingType.value}`))
 
-const presentSummary = computed(() =>
-  t('training.presentSummary', { count: presentPlayers.value.length })
-)
+const presentSummary = computed(() => {
+  const bits = attendanceSummaryParts.value
+  return bits.length ? `${t('settings.who')} · ${bits.join(' · ')}` : t('settings.who')
+})
 
 const configSummary = computed(() =>
   t('training.configSummary', { type: trainingTypeLabel.value, min: durationMin.value })
 )
 
+const injuredCount = computed(() => roster.value.filter(p => p.injured).length)
+const absentCount = computed(() =>
+  roster.value.filter(p => !p.injured && !presentIds.value.has(p.id)).length
+)
+
+const attendanceSummaryParts = computed(() => {
+  const parts = [t('training.present', { count: presentPlayers.value.length })]
+  if (absentCount.value) parts.push(t('training.absentCount', { count: absentCount.value }))
+  if (injuredCount.value) parts.push(t('training.injuredCount', { count: injuredCount.value }))
+  return parts
+})
+
 const startSettingsSummaryParts = computed(() => {
   const parts = [
-    t('training.present', { count: presentPlayers.value.length }),
+    ...attendanceSummaryParts.value,
     trainingTypeLabel.value,
     `${durationMin.value} ${t('common.min')}`,
   ]
-  // When type diverges from week theme, keep both words visible once.
   if (!typeFollowsTheme.value && trainingTypeLabel.value !== cycleThemeLabel.value) {
-    parts.splice(2, 0, t('training.weekTheme', { theme: cycleThemeLabel.value }))
+    parts.splice(parts.length - 1, 0, t('training.weekTheme', { theme: cycleThemeLabel.value }))
   }
-  const focus = coachFocus.value.trim()
-  if (focus) parts.push(focus)
   if (activeSavedTrainingName.value) parts.push(activeSavedTrainingName.value)
   return parts
 })
@@ -1072,6 +1072,12 @@ const sessionTiming = computed(() =>
   computeSessionTiming(sessionBlocks.value, durationMin.value)
 )
 
+const commonSessionWhy = computed(() => commonWhyFragments(sessionBlocks.value))
+
+function blockWhy(block) {
+  return uniqueWhyThis(block.ai?.whyThis, commonSessionWhy.value)
+}
+
 const totalMin = computed(() => sessionTiming.value.totalMin)
 
 const filteredExercises = computed(() => {
@@ -1102,6 +1108,8 @@ function categoryLabel(id) {
 }
 
 function togglePlayer(id) {
+  const player = roster.value.find(p => p.id === id)
+  if (player?.injured) return
   const next = new Set(presentIds.value)
   if (next.has(id)) next.delete(id)
   else next.add(id)
@@ -1132,7 +1140,6 @@ async function generate() {
         cycleWeek: syncedCycleWeek.value,
         presentPlayers: presentPlayers.value,
         recentExerciseIds: trainingState.value.recentExerciseIds ?? [],
-        focus: coachFocus.value,
       })
       const coach = await createCoach()
       const plan = await orchestrateSession(ctx, coach, {
@@ -1216,7 +1223,6 @@ function currentCoachContext() {
     cycleWeek: syncedCycleWeek.value,
     presentPlayers: presentPlayers.value,
     recentExerciseIds: trainingState.value.recentExerciseIds ?? [],
-    focus: coachFocus.value,
   })
 }
 
@@ -1481,7 +1487,7 @@ function addFromPreview(ex) {
   }
 
   .training-col-session.tab-panel,
-  .training-body > .tab-panel {
+  .training-body > .tab-panel:not(.training-col-library) {
     flex: 1;
     min-height: 0;
     overflow-y: auto;
@@ -1490,7 +1496,7 @@ function addFromPreview(ex) {
   .training-col-library.tab-panel {
     flex: 1;
     min-height: 0;
-    overflow-y: auto;
+    overflow: hidden;
   }
 }
 
@@ -1773,17 +1779,6 @@ function addFromPreview(ex) {
 
 .session-source {
   margin: 0;
-  color: var(--md-on-surface-variant);
-}
-
-.focus-field {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin: 0;
-}
-
-.focus-field-label {
   color: var(--md-on-surface-variant);
 }
 
@@ -2167,12 +2162,16 @@ function addFromPreview(ex) {
   .training-col-session,
   .training-col-library {
     min-height: 0;
+  }
+
+  .training-col-session {
     overflow-y: auto;
   }
 
   .training-col-library {
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
 }
 

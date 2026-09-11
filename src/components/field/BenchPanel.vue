@@ -3,24 +3,21 @@
     <p class="bench-title md-label-lg">
       <span class="material-symbols-rounded" style="font-size:16px;vertical-align:text-bottom">weekend</span>
       <span class="bench-title-text">{{ t('bench.title') }}</span>
-      <span v-if="horizontal && benchPlayers.length" class="bench-count">{{ benchPlayers.length }}</span>
+      <span v-if="horizontal && availablePlayers.length" class="bench-count">{{ availablePlayers.length }}</span>
     </p>
     <div class="bench-scroll">
-      <div
-        v-for="player in benchPlayers"
+      <RosterChip
+        v-for="player in availablePlayers"
         :key="player.id"
         class="bench-player"
+        :player="player"
+        :shirt="teamShirt"
+        :dragging="draggingPlayerId === player.id"
         draggable="true"
         @dragstart="onDragStart($event, player)"
         @touchstart.passive="onTouchStart($event, player)"
-        :class="{ dragging: draggingPlayerId === player.id }"
-      >
-        <ShirtAvatar :shirt="teamShirt" :initials="initials(player)" :size="28" />
-        <span class="bp-name md-label-sm">{{ shortName(player) }}</span>
-        <span v-if="player.number" class="bp-num">#{{ player.number }}</span>
-        <span v-if="player.guest" class="bp-guest">{{ t('players.guest') }}</span>
-      </div>
-      <div v-if="!benchPlayers.length" class="bench-empty">
+      />
+      <div v-if="!availablePlayers.length" class="bench-empty">
         <span class="md-body-sm">{{ t('bench.allOnField') }}</span>
       </div>
       <button
@@ -33,12 +30,30 @@
         {{ t('bench.addGuest') }}
       </button>
     </div>
+
+    <section v-if="unavailablePlayers.length" class="bench-unavailable">
+      <button type="button" class="bench-unavailable-toggle" @click="showUnavailable = !showUnavailable">
+        <span class="material-symbols-rounded">{{ showUnavailable ? 'expand_less' : 'expand_more' }}</span>
+        {{ t('bench.unavailable', { count: unavailablePlayers.length }) }}
+      </button>
+      <div v-if="showUnavailable" class="bench-scroll bench-unavailable-list">
+        <RosterChip
+          v-for="player in unavailablePlayers"
+          :key="player.id"
+          class="bench-player"
+          :player="player"
+          :shirt="teamShirt"
+          static-chip
+        />
+      </div>
+    </section>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
+import { computed, ref } from 'vue'
+import RosterChip from '@/components/ui/RosterChip.vue'
+import { splitBenchPlayers } from '@/utils/playerStatus'
 import { t } from '@/i18n'
 
 const props = defineProps({
@@ -52,20 +67,10 @@ const emit = defineEmits(['bench-drag-start', 'bench-touch-start', 'field-drop',
 
 const draggingPlayerId = ref(null)
 const isDragOverBench = ref(false)
+const showUnavailable = ref(true)
 
-function initials(player) {
-  const parts = player.name.trim().split(/\s+/)
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase()
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
-}
-
-function shortName(player) {
-  const parts = player.name.trim().split(/\s+/)
-  const first = parts[0]
-  const last  = parts.length > 1 ? parts[parts.length - 1] : ''
-  const display = last ? `${first} ${last[0]}.` : first
-  return display.length > 14 ? display.slice(0, 13) + '…' : display
-}
+const availablePlayers = computed(() => splitBenchPlayers(props.benchPlayers).available)
+const unavailablePlayers = computed(() => splitBenchPlayers(props.benchPlayers).unavailable)
 
 function onDragStart(event, player) {
   draggingPlayerId.value = player.id
@@ -118,7 +123,6 @@ function onBenchDrop(event) {
   padding: 1px 7px;
 }
 
-/* Vertical (desktop): full list, no height cap */
 .bench-scroll {
   display: flex;
   flex-wrap: wrap;
@@ -128,7 +132,6 @@ function onBenchDrop(event) {
   overflow-y: auto;
 }
 
-/* Horizontal (mobile): single-row scroll strip */
 .bench-h { padding: var(--sp-2) var(--sp-3); }
 .bench-h .bench-title { margin-bottom: var(--sp-1); }
 .bench-h .bench-title-text { display: none; }
@@ -141,43 +144,6 @@ function onBenchDrop(event) {
   -webkit-overflow-scrolling: touch;
 }
 .bench-h .bench-scroll::-webkit-scrollbar { display: none; }
-
-.bench-player {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-1);
-  background: var(--md-surface);
-  border-radius: var(--md-shape-full);
-  padding: 4px 10px 4px 4px;
-  cursor: grab;
-  touch-action: none;
-  transition: box-shadow var(--md-duration-short), opacity var(--md-duration-short);
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  box-shadow: var(--md-elevation-1);
-  flex-shrink: 0;
-}
-.bench-player:active,
-.bench-player.dragging { opacity: .5; cursor: grabbing; }
-
-.bp-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-.bp-name { font-size: 12px; color: var(--md-on-surface); }
-.bp-num  { font-size: 10px; color: var(--md-on-surface-variant); }
-.bp-guest {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .2px;
-  padding: 1px 5px;
-  border-radius: var(--md-shape-full);
-  background: var(--md-secondary-container);
-  color: var(--md-on-secondary-container);
-}
 
 .bench-empty {
   color: var(--md-on-surface-variant);
@@ -201,6 +167,29 @@ function onBenchDrop(event) {
 }
 
 .bench-add-guest .material-symbols-rounded {
+  font-size: 18px;
+}
+
+.bench-unavailable {
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-2);
+  border-top: 1px dashed var(--md-outline-variant);
+}
+.bench-unavailable-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  width: 100%;
+  margin-bottom: var(--sp-2);
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--md-on-surface-variant);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.bench-unavailable-toggle .material-symbols-rounded {
   font-size: 18px;
 }
 </style>

@@ -1,17 +1,21 @@
 <template>
   <div
     class="player-avatar"
-    :class="[`size-${size}`, { dragging }]"
-    :title="player.name"
+    :class="[`size-${size}`, { dragging, 'is-guest': player.guest }]"
+    :title="player.guest ? `${player.name} · ${t('players.guest')}` : player.name"
   >
     <ShirtAvatar :shirt="shirt" :initials="initials" :size="sizeMap[size]" />
     <span v-if="player.number != null" class="avatar-number">{{ player.number }}</span>
+    <span v-if="player.guest" class="avatar-guest" aria-hidden="true">
+      <span class="material-symbols-rounded">swap_horiz</span>
+    </span>
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import ShirtAvatar from '@/components/ui/ShirtAvatar.vue'
+import { t } from '@/i18n'
 
 const props = defineProps({
   player:   { type: Object, required: true },
@@ -52,6 +56,11 @@ const initials = computed(() => {
 .size-md { width: 48px; height: 48px; }
 .size-lg { width: 56px; height: 56px; }
 
+.player-avatar.is-guest {
+  outline: 2px dashed var(--md-tertiary);
+  outline-offset: 2px;
+}
+
 .avatar-number {
   position: absolute;
   bottom: -2px;
@@ -65,5 +74,26 @@ const initials = computed(() => {
   line-height: 14px;
   min-width: 14px;
   text-align: center;
+}
+
+.avatar-guest {
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--md-tertiary);
+  color: var(--md-on-tertiary);
+  box-shadow: 0 0 0 2px var(--md-surface);
+  z-index: 2;
+}
+
+.avatar-guest .material-symbols-rounded {
+  font-size: 11px;
+  font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 20;
 }
 </style>

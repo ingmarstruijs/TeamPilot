@@ -170,32 +170,24 @@ export const useTeamStore = defineStore('team', () => {
   }
 
   // ── Player actions ────────────────────────────────────────────────────────
-  function addPlayer({
-    name,
-    number = null,
-    position = 'MID',
-    teamId,
-    preferredFoot = null,
-    injured = false,
-    available = true,
-    guest = false,
-    guestQuiet = false,
-  }) {
+  function addPlayer({ teamId, ...fields } = {}) {
     const team = teams.value.find((t) => t.id === (teamId ?? activeTeamId.value))
     if (!team) return
     const player = migratePlayer({
+      ...fields,
       id: `player-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-      name,
-      number,
-      position,
-      preferredFoot,
-      injured,
-      available,
-      guest,
-      guestQuiet,
     })
     team.players.push(player)
     return player
+  }
+
+  function addGuest(payload = {}) {
+    return addPlayer({
+      ...payload,
+      guest: true,
+      guestQuiet: false,
+      available: true,
+    })
   }
 
   function quietGuests(teamId) {
@@ -248,13 +240,37 @@ export const useTeamStore = defineStore('team', () => {
     }
     const newLineup = {
       ...lineup,
-      id: `lineup-${Date.now()}`,
+      id: `lineup-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       teamId: lineup.teamId ?? activeTeamId.value,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     }
     lineups.value.push(newLineup)
     return newLineup
+  }
+
+  function cloneLineupRecord(lineup) {
+    return JSON.parse(JSON.stringify({
+      teamId: lineup.teamId,
+      formationId: lineup.formationId ?? null,
+      flipped: lineup.flipped ?? true,
+      opponentMode: lineup.opponentMode ?? (lineup.showOpponent ? 'optimal' : 'off'),
+      showOpponent: Boolean(lineup.showOpponent),
+      slots: lineup.slots ?? [],
+      periodMode: lineup.periodMode ?? null,
+      activePeriod: lineup.activePeriod ?? 0,
+      periods: lineup.periods ?? null,
+    }))
+  }
+
+  function duplicateLineup(id, { name } = {}) {
+    const original = getLineup(id)
+    if (!original) return null
+    const copyName = String(name || '').trim() || `${original.name} (kopie)`
+    return saveLineup({
+      ...cloneLineupRecord(original),
+      name: copyName,
+    })
   }
 
   function deleteLineup(id) {
@@ -294,7 +310,16 @@ export const useTeamStore = defineStore('team', () => {
     )
     if (data.shirt) updateTeam(newTeam.id, { shirt: data.shirt })
     for (const p of (data.players ?? [])) {
-      addPlayer({ name: p.name, number: p.number ?? null, position: p.position, teamId: newTeam.id })
+      addPlayer({
+        name: p.name,
+        number: p.number ?? null,
+        position: p.position,
+        guest: p.guest,
+        injured: p.injured,
+        available: p.available,
+        preferredFoot: p.preferredFoot,
+        teamId: newTeam.id,
+      })
     }
     return newTeam
   }
@@ -306,7 +331,16 @@ export const useTeamStore = defineStore('team', () => {
     let added = 0
     for (const p of (data.players ?? [])) {
       if (!existingNames.has(p.name.trim().toLowerCase())) {
-        addPlayer({ name: p.name, number: p.number ?? null, position: p.position, teamId: targetTeamId })
+        addPlayer({
+          name: p.name,
+          number: p.number ?? null,
+          position: p.position,
+          guest: p.guest,
+          injured: p.injured,
+          available: p.available,
+          preferredFoot: p.preferredFoot,
+          teamId: targetTeamId,
+        })
         added++
       }
     }
@@ -481,12 +515,14 @@ export const useTeamStore = defineStore('team', () => {
     setActiveTeam,
     setActiveLineup,
     addPlayer,
+    addGuest,
     updatePlayer,
     removePlayer,
     quietGuests,
     activateGuest,
     promoteGuest,
     saveLineup,
+    duplicateLineup,
     deleteLineup,
     getLineup,
     deleteTeam,
