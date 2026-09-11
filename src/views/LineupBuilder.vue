@@ -5,7 +5,7 @@
       <div class="builder-toolbar">
       <!-- Lineup switcher -->
       <div class="lineup-switcher" ref="switcherRef">
-        <button class="switcher-btn" @click="showSwitcher = !showSwitcher" :class="{ open: showSwitcher }">
+        <button class="switcher-btn" @click="toggleSwitcher" :class="{ open: showSwitcher }">
           <div class="switcher-text">
             <span class="md-title-sm switcher-name">{{ lineupName || t('lineupShare.newDefault') }}</span>
             <span class="md-label-sm switcher-meta" style="color:var(--md-on-surface-variant)">
@@ -58,25 +58,45 @@
       </div>
 
       <div class="toolbar-actions">
-        <button class="btn btn-outlined" @click="resetAll" :title="t('lineupShare.resetAllTitle')">
-          <span class="material-symbols-rounded" style="font-size:18px">delete_sweep</span>
-          <span class="btn-lbl">{{ t('common.reset') }}</span>
+        <button
+          class="btn btn-tonal"
+          @click="suggestFill"
+          :title="t('lineup.suggestTitle')"
+        >
+          <span class="material-symbols-rounded" style="font-size:18px">auto_awesome</span>
+          <span class="btn-lbl">{{ t('lineup.suggest') }}</span>
         </button>
         <button class="btn btn-filled" @click="openSaveDialog">
           <span class="material-symbols-rounded" style="font-size:18px">save</span>
           <span class="btn-lbl">{{ t('common.save') }}</span>
         </button>
-        <button
-          v-if="filledCount > 0"
-          class="btn btn-outlined"
-          @click="openShareDialog"
-          :disabled="sharing"
-          :title="t('lineupShare.shareTitle')"
-        >
-          <span class="material-symbols-rounded" style="font-size:18px">share</span>
-          <span class="btn-lbl">{{ t('common.share') }}</span>
-        </button>
+        <div class="lineup-more">
+          <button
+            type="button"
+            class="btn-icon lineup-more-btn"
+            :aria-label="t('lineup.moreActions')"
+            :aria-expanded="openMenu === 'toolbar'"
+            aria-haspopup="menu"
+            @pointerdown.stop.prevent="onToolbarMore"
+            @click.stop.prevent
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">more_vert</span>
+          </button>
+        </div>
       </div>
+      </div>
+
+      <div v-if="periodMode" class="period-chips" role="tablist" :aria-label="periodModeLabel">
+        <button
+          v-for="(label, i) in periodLabels"
+          :key="`${periodMode}-${i}`"
+          type="button"
+          class="chip period-chip"
+          :class="{ active: activePeriod === i }"
+          role="tab"
+          :aria-selected="activePeriod === i"
+          @click="switchPeriod(i)"
+        >{{ label }}</button>
       </div>
 
       <!-- Bank, formatie & weergave (mobile, onderkant sticky header) -->
@@ -121,24 +141,20 @@
               <span class="material-symbols-rounded" aria-hidden="true">info</span>
             </button>
           </div>
-          <button
-            class="chip chip-toggle chip-toggle--icon"
-            :class="{ active: isOpponentVisible, [`opponent-mode-${opponentMode}`]: isOpponentVisible }"
-            @click="cycleOpponentMode"
-            :title="opponentModeTitle"
-            :aria-label="opponentModeTitle"
-          >
-            <span class="material-symbols-rounded" style="font-size:18px">{{ opponentModeIcon }}</span>
-          </button>
-          <button
-            class="chip chip-toggle chip-toggle--icon"
-            :class="{ active: flipped }"
-            @click="flipped = !flipped"
-            :title="flipped ? t('lineup.attackUp') : t('lineup.keeperDown')"
-            :aria-label="t('lineupShare.flip')"
-          >
-            <span class="material-symbols-rounded" style="font-size:18px">swap_vert</span>
-          </button>
+          <div class="lineup-more">
+            <button
+              type="button"
+              class="chip chip-toggle chip-toggle--icon"
+              :class="{ active: openMenu === 'view' || isOpponentVisible || flipped }"
+              :aria-label="t('lineup.viewMenu')"
+              :aria-expanded="openMenu === 'view'"
+              aria-haspopup="menu"
+              @pointerdown.stop.prevent="onViewMore"
+              @click.stop.prevent
+            >
+              <span class="material-symbols-rounded" style="font-size:18px" aria-hidden="true">tune</span>
+            </button>
+          </div>
         </div>
 
         <Transition name="bench-drop">
@@ -266,6 +282,96 @@
       :formation-id="selectedFormationId"
       @close="showFormationInfo = false"
     />
+
+    <Teleport to="body">
+      <div
+        v-if="openMenu === 'toolbar'"
+        class="lineup-more-menu"
+        role="menu"
+        :aria-label="t('lineup.moreActions')"
+        :style="menuStyle"
+        @pointerdown.stop
+      >
+        <button
+          type="button"
+          class="lineup-more-item"
+          role="menuitem"
+          :disabled="filledCount === 0 || sharing"
+          @click.stop="onShareFromMenu"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">share</span>
+          {{ t('common.share') }}
+        </button>
+        <button
+          type="button"
+          class="lineup-more-item"
+          role="menuitem"
+          @click.stop="onResetFromMenu"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">delete_sweep</span>
+          {{ t('common.reset') }}
+        </button>
+        <div class="lineup-more-divider" role="separator" />
+        <button
+          v-if="!periodMode"
+          type="button"
+          class="lineup-more-item"
+          role="menuitem"
+          @click.stop="splitPeriods('quarters')"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">grid_view</span>
+          {{ t('lineup.splitQuarters') }}
+        </button>
+        <button
+          v-if="!periodMode"
+          type="button"
+          class="lineup-more-item"
+          role="menuitem"
+          @click.stop="splitPeriods('halves')"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">view_agenda</span>
+          {{ t('lineup.splitHalves') }}
+        </button>
+        <button
+          v-if="periodMode"
+          type="button"
+          class="lineup-more-item"
+          role="menuitem"
+          @click.stop="mergePeriods"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">unfold_less</span>
+          {{ t('lineup.mergePeriods') }}
+        </button>
+      </div>
+      <div
+        v-else-if="openMenu === 'view'"
+        class="lineup-more-menu"
+        role="menu"
+        :aria-label="t('lineup.viewMenu')"
+        :style="menuStyle"
+        @pointerdown.stop
+      >
+        <button
+          type="button"
+          class="lineup-more-item"
+          role="menuitem"
+          @click.stop="cycleOpponentMode"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">{{ opponentModeIcon }}</span>
+          {{ opponentMenuLabel }}
+        </button>
+        <button
+          type="button"
+          class="lineup-more-item"
+          :class="{ 'is-active': flipped }"
+          role="menuitem"
+          @click.stop="flipped = !flipped"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">swap_vert</span>
+          {{ t('lineup.flipField') }}
+        </button>
+      </div>
+    </Teleport>
 
     <!-- Unsaved changes dialog -->
     <Transition name="fade">
@@ -409,6 +515,7 @@ import { useTeamStore } from '@/stores/teamStore'
 import { FORMATIONS, FORMATION_Y } from '@/data/formations'
 import { encodeBundle, encodeLineupOnly, buildLineupShareUrl } from '@/utils/lineupShare'
 import { shareLink } from '@/utils/shareLink'
+import { suggestLineup, cloneLineupSlots } from '@/utils/suggestLineup'
 import {
   OPPONENT_MODES,
   buildOpponentSlotsForMode,
@@ -458,6 +565,8 @@ const opponentModeTitle = computed(() => {
   return `${label} — tik voor volgende modus`
 })
 
+const opponentMenuLabel = computed(() => getOpponentModeLabel(opponentMode.value))
+
 const opponentModeIcon = computed(() => {
   const icons = {
     off: 'shield',
@@ -474,7 +583,73 @@ function cycleOpponentMode() {
 }
 
 function toggleBench() {
+  closeMenus()
   showBench.value = !showBench.value
+}
+
+function toggleSwitcher() {
+  closeMenus()
+  showSwitcher.value = !showSwitcher.value
+}
+
+const openMenu = ref(null)
+const menuStyle = ref({})
+
+function closeMenus() {
+  openMenu.value = null
+}
+
+function menuStyleFromRect(rect) {
+  const opensUp = window.innerHeight - rect.bottom < 240
+  return opensUp
+    ? {
+        top: 'auto',
+        bottom: `${Math.max(8, window.innerHeight - rect.top + 4)}px`,
+        right: `${Math.max(8, window.innerWidth - rect.right)}px`,
+      }
+    : {
+        top: `${rect.bottom + 4}px`,
+        bottom: 'auto',
+        right: `${Math.max(8, window.innerWidth - rect.right)}px`,
+      }
+}
+
+function onToolbarMore(e) {
+  if (e.pointerType === 'mouse' && e.button !== 0) return
+  showSwitcher.value = false
+  if (openMenu.value === 'toolbar') {
+    closeMenus()
+    return
+  }
+  openMenu.value = 'toolbar'
+  menuStyle.value = menuStyleFromRect(e.currentTarget.getBoundingClientRect())
+}
+
+function onViewMore(e) {
+  if (e.pointerType === 'mouse' && e.button !== 0) return
+  showSwitcher.value = false
+  if (openMenu.value === 'view') {
+    closeMenus()
+    return
+  }
+  openMenu.value = 'view'
+  menuStyle.value = menuStyleFromRect(e.currentTarget.getBoundingClientRect())
+}
+
+function onDocPointerDown(e) {
+  if (!openMenu.value) return
+  if (e.target?.closest?.('.lineup-more, .lineup-more-menu')) return
+  closeMenus()
+}
+
+function onShareFromMenu() {
+  closeMenus()
+  openShareDialog()
+}
+
+function onResetFromMenu() {
+  closeMenus()
+  resetAll()
 }
 
 function closeMobileOverlays() {
@@ -493,8 +668,14 @@ function closeOnOutsideClick(e) {
     closeMobileOverlays()
   }
 }
-onMounted(() => document.addEventListener('mousedown', closeOnOutsideClick))
-onUnmounted(() => document.removeEventListener('mousedown', closeOnOutsideClick))
+onMounted(() => {
+  document.addEventListener('mousedown', closeOnOutsideClick)
+  document.addEventListener('pointerdown', onDocPointerDown)
+})
+onUnmounted(() => {
+  document.removeEventListener('mousedown', closeOnOutsideClick)
+  document.removeEventListener('pointerdown', onDocPointerDown)
+})
 
 function switchToLineup(lu) {
   showSwitcher.value = false
@@ -590,6 +771,7 @@ function startNew() {
   lineupName.value = ''
   flipped.value    = true
   opponentMode.value = 'off'
+  resetPeriodState()
   if (availableFormations.value.length) {
     applyFormation(availableFormations.value[0])
   } else {
@@ -610,6 +792,15 @@ function serializeState() {
     flipped: flipped.value,
     opponentMode: opponentMode.value,
     showOpponent: opponentMode.value !== 'off',
+    periodMode: periodMode.value,
+    activePeriod: activePeriod.value,
+    periods: periodMode.value
+      ? periodSnapshots.value.map((p, i) => (
+        i === activePeriod.value
+          ? snapshotCurrent()
+          : { formationId: p.formationId, slots: cloneLineupSlots(p.slots) }
+      ))
+      : null,
     fieldSlots: fieldSlots.value.map(s => ({
       slotId: s.slotId,
       position: s.position,
@@ -660,6 +851,107 @@ const flipped             = ref(true) // true = GK at bottom (default)
 
 // fieldSlots: [{ slotId, position, x, y, playerId|null }]
 const fieldSlots = ref([])
+
+const periodMode = ref(null) // null | 'quarters' | 'halves'
+const activePeriod = ref(0)
+const periodSnapshots = ref([])
+
+const periodCount = computed(() => (periodMode.value === 'quarters' ? 4 : periodMode.value === 'halves' ? 2 : 0))
+const periodModeLabel = computed(() => (
+  periodMode.value === 'quarters' ? t('lineup.splitQuarters') : t('lineup.splitHalves')
+))
+const periodLabels = computed(() => {
+  const key = periodMode.value === 'quarters' ? 'lineup.periodQuarter' : 'lineup.periodHalf'
+  return Array.from({ length: periodCount.value }, (_, i) => t(key, { n: i + 1 }))
+})
+
+function snapshotCurrent() {
+  return {
+    formationId: selectedFormationId.value,
+    slots: cloneLineupSlots(fieldSlots.value),
+  }
+}
+
+function applySnapshot(snap) {
+  selectedFormationId.value = snap?.formationId ?? null
+  fieldSlots.value = cloneLineupSlots(snap?.slots ?? [])
+  if (isOpponentVisible.value) resetOpponentSlots()
+}
+
+function resetPeriodState() {
+  periodMode.value = null
+  activePeriod.value = 0
+  periodSnapshots.value = []
+}
+
+function capturePeriod() {
+  if (!periodMode.value) return
+  periodSnapshots.value[activePeriod.value] = snapshotCurrent()
+}
+
+function switchPeriod(i) {
+  if (!periodMode.value || i === activePeriod.value) return
+  capturePeriod()
+  applySnapshot(periodSnapshots.value[i])
+  activePeriod.value = i
+}
+
+function splitPeriods(mode) {
+  const current = snapshotCurrent()
+  const count = mode === 'quarters' ? 4 : 2
+  periodMode.value = mode
+  periodSnapshots.value = Array.from({ length: count }, () => ({
+    formationId: current.formationId,
+    slots: cloneLineupSlots(current.slots),
+  }))
+  activePeriod.value = 0
+  closeMenus()
+}
+
+function mergePeriods() {
+  capturePeriod()
+  const keep = periodSnapshots.value[activePeriod.value] ?? snapshotCurrent()
+  resetPeriodState()
+  applySnapshot(keep)
+  closeMenus()
+}
+
+function loadPeriodState(existing) {
+  if (existing.periodMode !== 'quarters' && existing.periodMode !== 'halves') {
+    resetPeriodState()
+    return
+  }
+  const count = existing.periodMode === 'quarters' ? 4 : 2
+  const loaded = Array.isArray(existing.periods) ? existing.periods : []
+  periodMode.value = existing.periodMode
+  periodSnapshots.value = Array.from({ length: count }, (_, i) => {
+    const snap = loaded[i]
+    if (snap?.slots) {
+      return {
+        formationId: snap.formationId ?? existing.formationId ?? null,
+        slots: cloneLineupSlots(snap.slots),
+      }
+    }
+    return {
+      formationId: existing.formationId ?? null,
+      slots: cloneLineupSlots(existing.slots ?? []),
+    }
+  })
+  activePeriod.value = Math.min(Math.max(existing.activePeriod ?? 0, 0), count - 1)
+  applySnapshot(periodSnapshots.value[activePeriod.value])
+}
+
+function suggestFill() {
+  const players = activeTeam.value?.players ?? []
+  const next = suggestLineup(fieldSlots.value, players)
+  const changed = next.some((s, i) => s.playerId !== fieldSlots.value[i]?.playerId)
+  if (!changed) {
+    showSnackbar(t('lineup.suggestNone'))
+    return
+  }
+  fieldSlots.value = next
+  showSnackbar(t('lineup.suggestFilled'))
+}
 
 const filledCount = computed(() => fieldSlots.value.filter(s => s.playerId).length)
 
@@ -712,6 +1004,7 @@ function onFormationChange(event) {
 function loadFreshFormation() {
   lineupId.value = null
   lineupName.value = ''
+  resetPeriodState()
   if (availableFormations.value.length) {
     applyFormation(availableFormations.value[0])
   } else {
@@ -751,6 +1044,8 @@ function loadLineupById(existing) {
   } else {
     fieldSlots.value = existing.slots.map(s => ({ ...s }))
   }
+
+  loadPeriodState(existing)
 
   store.setActiveLineup(existing.id)
   if (isOpponentVisible.value) resetOpponentSlots()
@@ -1075,6 +1370,7 @@ function confirmSave() {
 }
 
 function doSave() {
+  capturePeriod()
   const saved = store.saveLineup({
     id:          lineupId.value ?? undefined,
     name:        lineupName.value,
@@ -1083,6 +1379,14 @@ function doSave() {
     opponentMode: opponentMode.value,
     showOpponent: opponentMode.value !== 'off',
     slots:       fieldSlots.value.map(s => ({ ...s })),
+    periodMode:  periodMode.value,
+    activePeriod: activePeriod.value,
+    periods: periodMode.value
+      ? periodSnapshots.value.map(p => ({
+          formationId: p.formationId,
+          slots: cloneLineupSlots(p.slots),
+        }))
+      : null,
   })
   lineupId.value = saved.id
   store.setActiveLineup(saved.id)
@@ -1615,6 +1919,35 @@ async function shareViaWhatsApp() {
 
 .toolbar-actions { display: flex; gap: var(--sp-2); flex-shrink: 0; align-items: center; }
 
+.lineup-more {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.lineup-more-btn {
+  width: 36px;
+  height: 36px;
+  color: var(--md-on-surface-variant);
+}
+
+.period-chips {
+  display: flex;
+  gap: var(--sp-1);
+  padding: var(--sp-2) 0 0;
+}
+
+@media (min-width: 720px) {
+  .period-chips {
+    padding-bottom: var(--sp-2);
+  }
+}
+
+.period-chip {
+  flex: 1;
+  justify-content: center;
+  min-height: 32px;
+}
+
 /* ── Mobile header controls ───────────────────────────────── */
 .builder-header-controls {
   position: relative;
@@ -2066,29 +2399,23 @@ async function shareViaWhatsApp() {
   color: var(--md-primary-container);
 }
 
-/* ── More submenu (mobile share) ────────────────────────── */
-.more-menu {
-  position: relative;
-  flex-shrink: 0;
-}
-.more-dropdown {
-  position: absolute;
-  top: calc(100% + 6px);
-  right: 0;
+/* ── Overflow menus ──────────────────────────────────────── */
+.lineup-more-menu {
+  position: fixed;
+  z-index: 400;
+  min-width: 220px;
+  padding: var(--sp-1) 0;
   background: var(--md-surface);
   border: 1px solid var(--md-outline-variant);
   border-radius: var(--md-shape-md);
   box-shadow: var(--md-elevation-3);
-  min-width: 160px;
-  z-index: 200;
-  overflow: hidden;
 }
-.more-item {
+.lineup-more-item {
   display: flex;
   align-items: center;
   gap: var(--sp-3);
   width: 100%;
-  padding: var(--sp-3) var(--sp-4);
+  padding: 10px var(--sp-4);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -2097,13 +2424,23 @@ async function shareViaWhatsApp() {
   text-align: left;
   -webkit-tap-highlight-color: transparent;
 }
-.more-item:hover, .more-item:active {
+.lineup-more-item .material-symbols-rounded {
+  font-size: 20px;
+  color: var(--md-on-surface-variant);
+}
+.lineup-more-item:hover,
+.lineup-more-item:active {
   background: color-mix(in srgb, var(--md-on-surface) 8%, transparent);
 }
-.more-item:disabled { opacity: .4; pointer-events: none; }
-.more-item .material-symbols-rounded { font-size: 20px; color: var(--md-on-surface-variant); }
-@media (min-width: 720px) { .more-menu { display: none; } }
-
+.lineup-more-item:disabled { opacity: .4; pointer-events: none; }
+.lineup-more-item.is-active {
+  background: color-mix(in srgb, var(--md-primary) 10%, transparent);
+}
+.lineup-more-divider {
+  height: 1px;
+  margin: var(--sp-1) 0;
+  background: var(--md-outline-variant);
+}
 
 .share-section { background: var(--md-surface-variant); border-radius: var(--md-shape-md); padding: var(--sp-3); }
 .share-btns    { display: flex; flex-direction: column; gap: var(--sp-2); }
