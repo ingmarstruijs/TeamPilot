@@ -1908,7 +1908,7 @@ function addFromPreview(ex) {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 0;
+  gap: var(--sp-2);
   flex-shrink: 0;
 }
 
