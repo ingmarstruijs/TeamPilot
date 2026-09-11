@@ -1,8 +1,10 @@
+import { footBias } from '@/utils/playerStatus'
+
 /**
  * Fill empty formation slots from the bench, preferring matching player types.
  *
  * @param {Array<{ slotId: string, position: string, x: number, y: number, playerId: string|null }>} slots
- * @param {Array<{ id: string, position: string }>} players
+ * @param {Array<{ id: string, position: string, preferredFoot?: string }>} players
  */
 export function suggestLineup(slots, players) {
   const used = new Set(slots.map(s => s.playerId).filter(Boolean))
@@ -12,9 +14,9 @@ export function suggestLineup(slots, players) {
   for (const slot of next) {
     if (slot.playerId || !pool.length) continue
     let bestIdx = 0
-    let bestRank = matchRank(pool[0].position, slot.position)
+    let bestRank = playerScore(pool[0], slot)
     for (let i = 1; i < pool.length; i++) {
-      const rank = matchRank(pool[i].position, slot.position)
+      const rank = playerScore(pool[i], slot)
       if (rank < bestRank) {
         bestIdx = i
         bestRank = rank
@@ -25,6 +27,10 @@ export function suggestLineup(slots, players) {
   }
 
   return next
+}
+
+function playerScore(player, slot) {
+  return matchRank(player.position, slot.position) + footBias(player.preferredFoot, slot.x)
 }
 
 function matchRank(playerPos, slotPos) {

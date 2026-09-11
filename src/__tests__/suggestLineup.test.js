@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest'
 import { suggestLineup } from '../utils/suggestLineup'
 
-function slot(id, position, playerId = null) {
-  return { slotId: id, position, x: 0, y: 0, playerId }
+function slot(id, position, playerId = null, x = 50) {
+  return { slotId: id, position, x, y: 0, playerId }
 }
 
-function player(id, position) {
-  return { id, position }
+function player(id, position, extras = {}) {
+  return { id, position, ...extras }
 }
 
 describe('suggestLineup', () => {
@@ -29,5 +29,13 @@ describe('suggestLineup', () => {
   it('returns the same slots when nothing can be filled', () => {
     const slots = [slot('s0', 'GK', 'g')]
     expect(suggestLineup(slots, [player('g', 'GK')])).toEqual(slots)
+  })
+
+  it('prefers the matching foot on wide slots', () => {
+    const next = suggestLineup(
+      [slot('s1', 'DEF', null, 20)],
+      [player('right', 'DEF', { preferredFoot: 'R' }), player('left', 'DEF', { preferredFoot: 'L' })],
+    )
+    expect(next[0].playerId).toBe('left')
   })
 })

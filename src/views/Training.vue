@@ -838,7 +838,7 @@ function findSessionRowIndexAtY(clientY) {
 
 watch(roster, (players) => {
   if (!trainingState.value.draftSession?.presentPlayerIds) {
-    presentIds.value = new Set(players.map(p => p.id))
+    presentIds.value = new Set(players.filter(p => !p.guest && !p.injured).map(p => p.id))
   }
 }, { immediate: true })
 
@@ -1044,7 +1044,14 @@ function removeBlock(index) {
   sessionBlocks.value = sessionBlocks.value.filter((_, i) => i !== index)
 }
 
-const allPresent = computed(() => presentIds.value.size === roster.value.length)
+const trainingRegulars = computed(() =>
+  roster.value.filter(p => !p.guest && !p.injured)
+)
+
+const allPresent = computed(() => (
+  trainingRegulars.value.length > 0
+  && trainingRegulars.value.every(p => presentIds.value.has(p.id))
+))
 
 const presentPlayers = computed(() =>
   roster.value.filter(p => presentIds.value.has(p.id))
@@ -1103,7 +1110,7 @@ function togglePlayer(id) {
 
 function toggleAll() {
   if (allPresent.value) presentIds.value = new Set()
-  else presentIds.value = new Set(roster.value.map(p => p.id))
+  else presentIds.value = new Set(trainingRegulars.value.map(p => p.id))
 }
 
 async function generate() {

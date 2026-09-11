@@ -163,9 +163,11 @@
               :bench-players="benchPlayers"
               :team-shirt="activeTeam?.shirt"
               :horizontal="false"
+              can-add-guest
               @bench-drag-start="onBenchDragStart"
               @bench-touch-start="onBenchTouchStart"
               @field-drop="removePlayerFromField"
+              @add-guest="openGuestDialog"
             />
           </div>
         </Transition>
@@ -254,9 +256,11 @@
           :bench-players="benchPlayers"
           :team-shirt="activeTeam?.shirt"
           :horizontal="false"
+          can-add-guest
           @bench-drag-start="onBenchDragStart"
           @bench-touch-start="onBenchTouchStart"
           @field-drop="removePlayerFromField"
+          @add-guest="openGuestDialog"
         />
 
         <div v-if="filledCount > 0" class="share-section">
@@ -422,6 +426,29 @@
       </div>
     </Transition>
 
+    <Transition name="fade">
+      <div v-if="showGuestDialog" class="dialog-backdrop" @click.self="showGuestDialog=false">
+        <div class="dialog">
+          <p class="dialog-title">{{ t('bench.addGuestTitle') }}</p>
+          <div class="field-wrap" style="margin-bottom:var(--sp-3)">
+            <label class="field-label" for="guest-name">{{ t('players.name') }}</label>
+            <input id="guest-name" class="field" v-model.trim="guestForm.name"
+              :placeholder="t('players.namePlaceholder')" maxlength="40" />
+          </div>
+          <div class="field-wrap" style="margin-bottom:var(--sp-4)">
+            <label class="field-label" for="guest-pos">{{ t('players.position') }}</label>
+            <select id="guest-pos" class="field field-select" v-model="guestForm.position">
+              <option v-for="p in POSITIONS" :key="p.id" :value="p.id">{{ t(`position.${p.id}`) }}</option>
+            </select>
+          </div>
+          <div class="dialog-actions">
+            <button class="btn btn-text" @click="showGuestDialog=false">{{ t('common.cancel') }}</button>
+            <button class="btn btn-filled" :disabled="!guestForm.name" @click="confirmGuest">{{ t('common.add') }}</button>
+          </div>
+        </div>
+      </div>
+    </Transition>
+
     <!-- Share dialog: choose image or link -->
     <Transition name="fade">
       <div v-if="showShareDialog" class="dialog-backdrop" @click.self="closeShareDialog">
@@ -512,10 +539,11 @@
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
-import { FORMATIONS, FORMATION_Y } from '@/data/formations'
+import { FORMATIONS, FORMATION_Y, POSITIONS } from '@/data/formations'
 import { encodeBundle, encodeLineupOnly, buildLineupShareUrl } from '@/utils/lineupShare'
 import { shareLink } from '@/utils/shareLink'
 import { suggestLineup, cloneLineupSlots } from '@/utils/suggestLineup'
+import { benchEligiblePlayers, suggestPool } from '@/utils/playerStatus'
 import {
   OPPONENT_MODES,
   buildOpponentSlotsForMode,
@@ -771,6 +799,7 @@ function startNew() {
   lineupName.value = ''
   flipped.value    = true
   opponentMode.value = 'off'
+  store.quietGuests()
   resetPeriodState()
   if (availableFormations.value.length) {
     applyFormation(availableFormations.value[0])
@@ -942,8 +971,10 @@ function loadPeriodState(existing) {
 }
 
 function suggestFill() {
-  const players = activeTeam.value?.players ?? []
-  const next = suggestLineup(fieldSlots.value, players)
+  const usedIds = new Set(fieldSlots.value.map(s => s.playerId).filter(Boolean))
+  const emptyCount = fieldSlots.value.filter(s => !s.playerId).length
+  const pool = suggestPool(activeTeam.value?.players ?? [], { emptyCount, usedIds })
+  const next = suggestLineup(fieldSlots.value, pool)
   const changed = next.some((s, i) => s.playerId !== fieldSlots.value[i]?.playerId)
   if (!changed) {
     showSnackbar(t('lineup.suggestNone'))
@@ -955,11 +986,32 @@ function suggestFill() {
 
 const filledCount = computed(() => fieldSlots.value.filter(s => s.playerId).length)
 
-// Players not on field
 const benchPlayers = computed(() => {
   const onField = new Set(fieldSlots.value.map(s => s.playerId).filter(Boolean))
-  return (activeTeam.value?.players ?? []).filter(p => !onField.has(p.id))
+  return benchEligiblePlayers(activeTeam.value?.players ?? []).filter(p => !onField.has(p.id))
 })
+
+const showGuestDialog = ref(false)
+const guestForm = ref({ name: '', position: 'MID' })
+
+function openGuestDialog() {
+  guestForm.value = { name: '', position: 'MID' }
+  showGuestDialog.value = true
+  showBench.value = true
+}
+
+function confirmGuest() {
+  const name = guestForm.value.name.trim()
+  if (!name) return
+  store.addPlayer({
+    name,
+    position: guestForm.value.position,
+    guest: true,
+    guestQuiet: false,
+  })
+  showGuestDialog.value = false
+  showSnackbar(t('bench.addedGuest', { name }))
+}
 
 const opponentShirt = computed(() => getOpponentShirt(activeTeam.value?.shirt))
 

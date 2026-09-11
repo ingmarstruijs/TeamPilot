@@ -5,8 +5,8 @@
         <div class="players-header-text">
           <h1 class="players-title md-title-sm">{{ t('players.title') }}</h1>
           <p class="md-label-sm players-meta">
-            {{ t('players.count', { count: players.length, playerWord: players.length === 1 ? t('word.player') : t('word.players') }) }}
-            <span v-if="ageGroupConfig"> (min {{ ageGroupConfig.players }})</span>
+            {{ t('players.count', { count: regularCount, playerWord: regularCount === 1 ? t('word.player') : t('word.players') }) }}
+            <span v-if="ageGroupConfig"> {{ t('players.min', { min: ageGroupConfig.players }) }}</span>
           </p>
         </div>
         <div class="header-btns">
@@ -51,21 +51,39 @@
     </div>
 
     <!-- Player list -->
-    <ul v-else class="player-list">
+    <ul v-if="mainPlayers.length" class="player-list">
       <li
-        v-for="player in players"
+        v-for="player in mainPlayers"
         :key="player.id"
         class="player-row card"
+        :class="{ 'is-unavailable': !isPlayerAvailable(player), 'is-guest': isGuest(player) }"
       >
         <PlayerAvatar :player="player" :shirt="activeTeam?.shirt" size="md" />
         <div class="player-details">
-          <span class="md-title-sm">{{ player.name }}</span>
-          <span class="md-body-sm" style="color:var(--md-on-surface-variant)">
+          <span class="player-name-row">
+            <span class="md-title-sm">{{ player.name }}</span>
+            <span v-if="isGuest(player)" class="player-badge">{{ t('players.guest') }}</span>
+            <span v-if="player.injured" class="player-badge is-injury">{{ t('players.injured') }}</span>
+          </span>
+          <span class="md-body-sm player-meta">
             {{ positionLabel(player.position) }}
             <template v-if="player.number != null"> · #{{ player.number }}</template>
+            <template v-if="player.preferredFoot"> · {{ t(`players.footShort.${player.preferredFoot}`) }}</template>
           </span>
         </div>
         <div class="player-actions">
+          <button
+            type="button"
+            class="btn-icon avail-btn"
+            :class="{ on: isPlayerAvailable(player) }"
+            :disabled="player.injured"
+            :aria-pressed="isPlayerAvailable(player)"
+            :title="availabilityTitle(player)"
+            :aria-label="availabilityTitle(player)"
+            @click="toggleAvailable(player)"
+          >
+            <span class="material-symbols-rounded">{{ player.injured ? 'personal_injury' : (isPlayerAvailable(player) ? 'check_circle' : 'cancel') }}</span>
+          </button>
           <button class="btn-icon" @click="openEdit(player)" :aria-label="t('savedTraining.edit')">
             <span class="material-symbols-rounded">edit</span>
           </button>
@@ -76,6 +94,43 @@
         </div>
       </li>
     </ul>
+
+    <section v-if="quietGuests.length" class="guest-section">
+      <button type="button" class="guest-section-toggle" @click="showQuietGuests = !showQuietGuests">
+        <span class="material-symbols-rounded">{{ showQuietGuests ? 'expand_less' : 'expand_more' }}</span>
+        {{ t('players.guestsCount', { count: quietGuests.length }) }}
+      </button>
+      <ul v-if="showQuietGuests" class="player-list guest-list">
+        <li
+          v-for="player in quietGuests"
+          :key="player.id"
+          class="player-row card is-quiet"
+        >
+          <PlayerAvatar :player="player" :shirt="activeTeam?.shirt" size="md" />
+          <div class="player-details">
+            <span class="player-name-row">
+              <span class="md-title-sm">{{ player.name }}</span>
+              <span class="player-badge">{{ t('players.guest') }}</span>
+            </span>
+            <span class="md-body-sm player-meta">{{ positionLabel(player.position) }}</span>
+            <div class="guest-row-actions">
+              <button type="button" class="btn btn-text guest-action" @click="bringGuest(player)">
+                {{ t('players.bringNextMatch') }}
+              </button>
+              <button type="button" class="btn btn-text guest-action" @click="promoteGuest(player)">
+                {{ t('players.promote') }}
+              </button>
+            </div>
+          </div>
+          <div class="player-actions">
+            <button class="btn-icon" @click="confirmDelete(player)" :aria-label="t('common.delete')"
+              style="color:var(--md-error)">
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </section>
 
     <!-- Add/Edit dialog -->
     <Transition name="fade">
@@ -100,6 +155,30 @@
                 <option v-for="p in POSITIONS" :key="p.id" :value="p.id">{{ t(`position.${p.id}`) }}</option>
               </select>
             </div>
+            <div class="field-wrap" style="grid-column: 1/-1">
+              <p class="field-label">{{ t('players.foot') }}</p>
+              <div class="foot-chips">
+                <button
+                  v-for="foot in footOptions"
+                  :key="foot.id"
+                  type="button"
+                  class="chip"
+                  :class="{ active: form.preferredFoot === foot.id }"
+                  @click="form.preferredFoot = form.preferredFoot === foot.id ? null : foot.id"
+                >{{ foot.label }}</button>
+              </div>
+            </div>
+            <label class="switch-row" style="grid-column: 1/-1">
+              <input type="checkbox" v-model="form.injured">
+              <span>{{ t('players.injuredLong') }}</span>
+            </label>
+            <label class="switch-row" style="grid-column: 1/-1">
+              <input type="checkbox" v-model="form.guest">
+              <span>
+                {{ t('players.guestSwitch') }}
+                <span class="switch-hint">{{ t('players.guestHint') }}</span>
+              </span>
+            </label>
           </div>
 
           <!-- Preview -->
@@ -124,7 +203,7 @@
         <div class="dialog">
           <p class="dialog-title">{{ t('players.deleteTitle') }}</p>
           <p class="dialog-body">
-            <strong>{{ deleteTarget.name }}</strong> wordt permanent verwijderd uit het team.
+            {{ t('players.deleteBody', { name: deleteTarget.name }) }}
           </p>
           <div class="dialog-actions">
             <button class="btn btn-text" @click="deleteTarget = null">{{ t('common.cancel') }}</button>
@@ -205,22 +284,46 @@ import PlayerAvatar from '@/components/ui/PlayerAvatar.vue'
 import { showSnackbar } from '@/composables/useSnackbar'
 import { generatePlayers } from '@/utils/generatePlayers'
 import { t } from '@/i18n'
+import {
+  isGuest,
+  isAvailable as isPlayerAvailable,
+  mainListPlayers,
+  quietGuestPlayers,
+  regularPlayers,
+} from '@/utils/playerStatus'
 
 const store = useTeamStore()
 const activeTeam     = computed(() => store.activeTeam)
 const ageGroupConfig = computed(() => store.ageGroupConfig)
 const players        = computed(() => activeTeam.value?.players ?? [])
+const mainPlayers    = computed(() => mainListPlayers(players.value))
+const quietGuests    = computed(() => quietGuestPlayers(players.value))
+const regularCount   = computed(() => regularPlayers(players.value).length)
+const showQuietGuests = ref(false)
 
-// How many players are still needed to fill the team
+const footOptions = computed(() => [
+  { id: 'L', label: t('players.footLeft') },
+  { id: 'R', label: t('players.footRight') },
+  { id: 'both', label: t('players.footBoth') },
+])
+
+// How many regulars are still needed to fill the team
 const missingCount = computed(() => {
   const max = ageGroupConfig.value?.players ?? 0
-  return Math.max(0, max - players.value.length)
+  return Math.max(0, max - regularCount.value)
 })
 
 // ── Dialog state ─────────────────────────────────────────────
 const showDialog = ref(false)
 const editingId  = ref(null)
-const form = reactive({ name: '', number: null, position: 'MID' })
+const form = reactive({
+  name: '',
+  number: null,
+  position: 'MID',
+  preferredFoot: null,
+  injured: false,
+  guest: false,
+})
 
 const formAsPlayer = computed(() => ({
   name:   form.name || 'Naam',
@@ -231,10 +334,37 @@ function positionLabel(id) {
   return POSITIONS.find(p => p.id === id)?.label ?? id
 }
 
-function openAdd() {
-  form.name     = ''
-  form.number   = null
+function resetForm() {
+  form.name = ''
+  form.number = null
   form.position = 'MID'
+  form.preferredFoot = null
+  form.injured = false
+  form.guest = false
+}
+
+function availabilityTitle(player) {
+  if (player.injured) return t('players.injuredLong')
+  return isPlayerAvailable(player) ? t('players.available') : t('players.unavailable')
+}
+
+function toggleAvailable(player) {
+  if (player.injured) return
+  store.updatePlayer(player.id, { available: !isPlayerAvailable(player) })
+}
+
+function bringGuest(player) {
+  store.activateGuest(player.id)
+  showSnackbar(t('players.broughtNext', { name: player.name }))
+}
+
+function promoteGuest(player) {
+  store.promoteGuest(player.id)
+  showSnackbar(t('players.promoted', { name: player.name }))
+}
+
+function openAdd() {
+  resetForm()
   editingId.value = null
   showDialog.value = true
 }
@@ -243,6 +373,9 @@ function openEdit(player) {
   form.name     = player.name
   form.number   = player.number
   form.position = player.position
+  form.preferredFoot = player.preferredFoot ?? null
+  form.injured  = Boolean(player.injured)
+  form.guest    = Boolean(player.guest)
   editingId.value = player.id
   showDialog.value = true
 }
@@ -254,18 +387,24 @@ function closeDialog() {
 
 function savePlayer() {
   if (!form.name) return
+  const payload = {
+    name: form.name,
+    number: form.number || null,
+    position: form.position,
+    preferredFoot: form.preferredFoot,
+    injured: form.injured,
+    guest: form.guest,
+  }
   if (editingId.value) {
     store.updatePlayer(editingId.value, {
-      name: form.name,
-      number: form.number || null,
-      position: form.position,
+      ...payload,
+      guestQuiet: form.guest ? Boolean(players.value.find(p => p.id === editingId.value)?.guestQuiet) : false,
     })
     showSnackbar(t('players.updated'))
   } else {
     store.addPlayer({
-      name: form.name,
-      number: form.number || null,
-      position: form.position,
+      ...payload,
+      guestQuiet: false,
     })
     showSnackbar(t('players.addedSnackbar'))
   }
@@ -483,6 +622,117 @@ function confirmQuickFill() {
   display: flex;
   gap: var(--sp-1);
   flex-shrink: 0;
+}
+
+.player-name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-width: 0;
+}
+
+.player-name-row .md-title-sm {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player-meta {
+  color: var(--md-on-surface-variant);
+}
+
+.player-badge {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  padding: 2px 6px;
+  border-radius: var(--md-shape-full);
+  background: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
+}
+
+.player-badge.is-injury {
+  background: color-mix(in srgb, var(--md-error) 16%, transparent);
+  color: var(--md-error);
+}
+
+.player-row.is-unavailable {
+  opacity: 0.72;
+}
+
+.player-row.is-quiet {
+  opacity: 0.64;
+  background: color-mix(in srgb, var(--md-on-surface) 4%, var(--md-surface));
+}
+
+.avail-btn.on {
+  color: var(--md-primary);
+}
+
+.avail-btn:disabled {
+  opacity: 0.45;
+}
+
+.guest-section {
+  margin-top: var(--sp-5);
+}
+
+.guest-section-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  width: 100%;
+  padding: var(--sp-2) 0;
+  background: transparent;
+  border: none;
+  color: var(--md-on-surface-variant);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.guest-list {
+  margin-top: var(--sp-2);
+}
+
+.guest-row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1);
+  margin-top: 2px;
+}
+
+.guest-action {
+  padding: 0;
+  min-height: auto;
+  font-size: 12px;
+}
+
+.foot-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.switch-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  font-size: 14px;
+  color: var(--md-on-surface);
+}
+
+.switch-row input {
+  margin-top: 3px;
+}
+
+.switch-hint {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--md-on-surface-variant);
+  font-weight: 400;
 }
 
 .form-grid {

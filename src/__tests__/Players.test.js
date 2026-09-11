@@ -141,3 +141,29 @@ describe('Players – "Kopieer selectie" button', () => {
     expect(text).toContain('DEF')
   })
 })
+
+describe('Players – availability, injury and guests', () => {
+  it('does not count guests toward the minimum squad size', () => {
+    const wrapper = mountWithPlayers([
+      makePlayer(),
+      makePlayer({ id: 'g1', name: 'Kees', position: 'ATT', guest: true }),
+    ])
+    expect(wrapper.get('.players-meta').text()).toContain('1 speler')
+    expect(wrapper.get('.players-meta').text()).toContain('min 8')
+  })
+
+  it('toggles match availability from the row', async () => {
+    const wrapper = mountWithPlayers([makePlayer()])
+    await wrapper.get('button[aria-label="Aanwezig"]').trigger('click')
+    expect(wrapper.get('button[aria-label="Afwezig"]').exists()).toBe(true)
+  })
+
+  it('keeps quiet guests in a collapsed group', () => {
+    const wrapper = mountWithPlayers([
+      makePlayer(),
+      makePlayer({ id: 'g1', name: 'Kees', position: 'ATT', guest: true, guestQuiet: true }),
+    ])
+    expect(wrapper.text()).toContain('Gasten (1)')
+    expect(wrapper.text()).not.toContain('Meenemen in volgende wedstrijd')
+  })
+})

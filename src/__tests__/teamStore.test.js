@@ -213,3 +213,23 @@ describe('mergeTeam', () => {
     expect(store.teams[0].players).toHaveLength(before)
   })
 })
+
+describe('teamStore guests', () => {
+  it('stores guest flags and quiets them for the next match', () => {
+    const store = useTeamStore()
+    const guest = store.addPlayer({ name: 'Kees', position: 'ATT', guest: true })
+    expect(guest.guest).toBe(true)
+    expect(guest.guestQuiet).toBe(false)
+
+    store.quietGuests()
+    expect(store.teams[0].players.find(p => p.id === guest.id).guestQuiet).toBe(true)
+
+    store.activateGuest(guest.id)
+    expect(store.teams[0].players.find(p => p.id === guest.id).guestQuiet).toBe(false)
+
+    store.promoteGuest(guest.id)
+    const promoted = store.teams[0].players.find(p => p.id === guest.id)
+    expect(promoted.guest).toBe(false)
+    expect(promoted.guestQuiet).toBe(false)
+  })
+})

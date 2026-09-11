@@ -18,10 +18,20 @@
         <ShirtAvatar :shirt="teamShirt" :initials="initials(player)" :size="28" />
         <span class="bp-name md-label-sm">{{ shortName(player) }}</span>
         <span v-if="player.number" class="bp-num">#{{ player.number }}</span>
+        <span v-if="player.guest" class="bp-guest">{{ t('players.guest') }}</span>
       </div>
       <div v-if="!benchPlayers.length" class="bench-empty">
         <span class="md-body-sm">{{ t('bench.allOnField') }}</span>
       </div>
+      <button
+        v-if="canAddGuest"
+        type="button"
+        class="bench-add-guest"
+        @click="$emit('add-guest')"
+      >
+        <span class="material-symbols-rounded" aria-hidden="true">person_add</span>
+        {{ t('bench.addGuest') }}
+      </button>
     </div>
   </div>
 </template>
@@ -35,9 +45,10 @@ const props = defineProps({
   benchPlayers: { type: Array, required: true },
   teamShirt:    { type: Object, default: () => ({ style: 'solid', primary: '#059669', secondary: '#ffffff' }) },
   horizontal:   { type: Boolean, default: false },
+  canAddGuest:  { type: Boolean, default: false },
 })
 
-const emit = defineEmits(['bench-drag-start', 'bench-touch-start', 'field-drop'])
+const emit = defineEmits(['bench-drag-start', 'bench-touch-start', 'field-drop', 'add-guest'])
 
 const draggingPlayerId = ref(null)
 const isDragOverBench = ref(false)
@@ -158,10 +169,38 @@ function onBenchDrop(event) {
 }
 .bp-name { font-size: 12px; color: var(--md-on-surface); }
 .bp-num  { font-size: 10px; color: var(--md-on-surface-variant); }
+.bp-guest {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  padding: 1px 5px;
+  border-radius: var(--md-shape-full);
+  background: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
+}
 
 .bench-empty {
   color: var(--md-on-surface-variant);
   padding: var(--sp-2) var(--sp-1);
   white-space: nowrap;
+}
+
+.bench-add-guest {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  background: transparent;
+  border: 1px dashed var(--md-outline);
+  border-radius: var(--md-shape-md);
+  color: var(--md-primary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bench-add-guest .material-symbols-rounded {
+  font-size: 18px;
 }
 </style>

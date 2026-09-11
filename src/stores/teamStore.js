@@ -168,7 +168,17 @@ export const useTeamStore = defineStore('team', () => {
   }
 
   // ── Player actions ────────────────────────────────────────────────────────
-  function addPlayer({ name, number = null, position = 'MID', teamId }) {
+  function addPlayer({
+    name,
+    number = null,
+    position = 'MID',
+    teamId,
+    preferredFoot = null,
+    injured = false,
+    available = true,
+    guest = false,
+    guestQuiet = false,
+  }) {
     const team = teams.value.find((t) => t.id === (teamId ?? activeTeamId.value))
     if (!team) return
     const player = {
@@ -177,8 +187,31 @@ export const useTeamStore = defineStore('team', () => {
       number,
       position,
     }
+    if (preferredFoot) player.preferredFoot = preferredFoot
+    if (injured) player.injured = true
+    if (available === false) player.available = false
+    if (guest) {
+      player.guest = true
+      player.guestQuiet = Boolean(guestQuiet)
+    }
     team.players.push(player)
     return player
+  }
+
+  function quietGuests(teamId) {
+    const team = teams.value.find((t) => t.id === (teamId ?? activeTeamId.value))
+    if (!team) return
+    for (const player of team.players) {
+      if (player.guest) player.guestQuiet = true
+    }
+  }
+
+  function activateGuest(playerId) {
+    updatePlayer(playerId, { guest: true, guestQuiet: false })
+  }
+
+  function promoteGuest(playerId) {
+    updatePlayer(playerId, { guest: false, guestQuiet: false })
   }
 
   function updatePlayer(playerId, patch) {
@@ -447,6 +480,9 @@ export const useTeamStore = defineStore('team', () => {
     addPlayer,
     updatePlayer,
     removePlayer,
+    quietGuests,
+    activateGuest,
+    promoteGuest,
     saveLineup,
     deleteLineup,
     getLineup,
