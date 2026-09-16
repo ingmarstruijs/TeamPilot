@@ -15,7 +15,7 @@
     "test:run": "vitest run"
   },
   "dependencies": {
-    "@mlc-ai/web-llm": "^0.2.84",
+    "@mlc-ai/web-llm": "^0.2.85",
     "html2canvas": "^1.4.1",
     "pinia": "^4.0.3",
     "vue": "^3.5.42",
