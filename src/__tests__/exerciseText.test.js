@@ -5,7 +5,11 @@ import {
   buildExerciseDescription,
   buildExerciseSetup,
   getExerciseTitle,
+  getExerciseDurationMin,
+  getAgeGroupsLabel,
+  getFieldSizeLabel,
   getFootballReality,
+  getInjuryPrevention,
   getRinusRules,
   getRinusSvgUrl,
   getRinusUrl,
@@ -62,6 +66,14 @@ describe('exerciseText', () => {
 
   it('formats player range label', () => {
     expect(playerRangeLabel({ minPlayers: 6, maxPlayers: 10 })).toBe('6–10 spelers')
+  })
+
+  it('reads Rinus field size and age groups for Passen en lopen', () => {
+    const ex = EXERCISES.find(e => e.id === 'wu-loopscholing')
+    expect(getFieldSizeLabel(ex)).toBe('¼ veld')
+    expect(getAgeGroupsLabel(ex)).toMatch(/O11/)
+    expect(getInjuryPrevention(ex)).toBe(3)
+    expect(getExerciseDurationMin(ex)).toBe(5)
   })
 })
 

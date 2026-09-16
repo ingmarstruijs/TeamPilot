@@ -92,6 +92,16 @@ describe('trainingEngine', () => {
     expect(results.some(e => e.title.toLowerCase().includes('partij') || e.category === 'partijvorm')).toBe(true)
   })
 
+  it('browseExercisesWithFilters finds exercises by Rinus display title', () => {
+    const results = browseExercisesWithFilters({
+      ageGroup: 'O11',
+      knvbLevel: 3,
+      query: 'Passen en lopen',
+      suitableOnly: false,
+    })
+    expect(results.some(ex => ex.id === 'wu-loopscholing')).toBe(true)
+  })
+
   it('browseExercisesWithFilters can require a minimum football-reality rating', () => {
     const all = browseExercisesWithFilters({
       ageGroup: 'O11',
