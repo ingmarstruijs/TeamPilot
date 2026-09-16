@@ -75,6 +75,62 @@ export function getFootballReality(exercise) {
   return Number.isInteger(n) && n >= 1 && n <= 5 ? n : null
 }
 
+export function getInjuryPrevention(exercise) {
+  if (!exercise || isCustomExercise(exercise)) return null
+  const n = getRinusMeta(exercise)?.injuryPrevention
+  return Number.isInteger(n) && n >= 1 && n <= 5 ? n : null
+}
+
+const FIELD_SIZE_PATTERN = /^[¼½¾]\s*veld|^helft veld|^heel veld|^kwart veld/i
+
+export function getFieldSizeLabel(exercise) {
+  if (!exercise) return null
+  const fromMeta = getRinusMeta(exercise)?.fieldSize?.trim()
+  if (fromMeta) return fromMeta
+  const setup = String(exercise.setup || '').trim()
+  if (!setup) return null
+  const first = setup.split(/[.,]/)[0]?.trim()
+  if (first && FIELD_SIZE_PATTERN.test(first)) return first
+  if (/^[¼½¾]/.test(first) && /veld/i.test(first)) return first
+  return null
+}
+
+function normalizeRinusAgeTitle(title) {
+  const t = String(title || '').trim()
+  if (/^O\d+/i.test(t)) return t.replace(/^o/i, 'O')
+  return t
+}
+
+function compressAgeGroups(ages) {
+  const order = ['O8', 'O9', 'O10', 'O11', 'O12', 'O13', 'Senior']
+  const set = new Set(ages.map(normalizeRinusAgeTitle))
+  const sorted = order.filter(a => set.has(a))
+  if (!sorted.length) return ages.map(normalizeRinusAgeTitle).join(' · ')
+  if (sorted.length === 1) return sorted[0]
+  const idx = sorted.map(a => order.indexOf(a))
+  const contiguous = idx.every((v, i) => i === 0 || v === idx[i - 1] + 1)
+  if (contiguous && sorted.length > 2) {
+    return `${sorted[0]} t/m ${sorted[sorted.length - 1]}`
+  }
+  if (sorted.length <= 3) return sorted.join(' & ')
+  return sorted.join(' · ')
+}
+
+export function getAgeGroupsLabel(exercise) {
+  if (!exercise) return null
+  const metaAges = getRinusMeta(exercise)?.ageGroups
+  if (Array.isArray(metaAges) && metaAges.length) {
+    const filtered = metaAges.filter(a => !/t\/m|onder\s+\d+/i.test(a))
+    if (filtered.length) return compressAgeGroups(filtered)
+    return compressAgeGroups(metaAges)
+  }
+  if (Array.isArray(exercise.ageGroups) && exercise.ageGroups.length) {
+    if (exercise.ageGroups.length >= 6) return t('exercise.allAgeGroups')
+    return compressAgeGroups(exercise.ageGroups)
+  }
+  return null
+}
+
 export function formatPlayerNote(exercise, playerCount) {
   const { minPlayers, maxPlayers } = playerBounds(exercise)
   if (playerCount == null) return ''

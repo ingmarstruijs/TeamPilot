@@ -16,17 +16,68 @@
         >
           <header class="exercise-detail-header">
             <div class="header-text">
+              <p class="exercise-detail-category md-label-sm">{{ categoryLabel(resolvedExercise.category) }}</p>
               <h2 :id="titleId" class="exercise-detail-title">{{ getExerciseTitle(resolvedExercise) }}</h2>
-              <p class="exercise-detail-meta">
-                {{ categoryLabel(resolvedExercise.category) }}
-                · {{ displayDuration }} {{ t('common.min') }}
-                <template v-if="showPlayerRange"> · {{ playerRangeLabel(resolvedExercise) }}</template>
-              </p>
-              <FootballRealityRating
-                v-if="footballReality"
-                class="detail-reality"
-                :rating="footballReality"
-              />
+
+              <ul class="detail-meta-row" aria-label="Oefeninggegevens">
+                <li v-if="fieldSizeLabel" class="detail-meta-chip">
+                  <span class="material-symbols-rounded" aria-hidden="true">stadium</span>
+                  <span class="detail-meta-text">
+                    <span class="detail-meta-label">{{ t('exercise.fieldSize') }}</span>
+                    <span class="detail-meta-value">{{ fieldSizeLabel }}</span>
+                  </span>
+                </li>
+                <li v-if="showPlayerRange" class="detail-meta-chip">
+                  <span class="material-symbols-rounded" aria-hidden="true">groups</span>
+                  <span class="detail-meta-text">
+                    <span class="detail-meta-label">{{ t('nav.players') }}</span>
+                    <span class="detail-meta-value">{{ playerRangeLabel(resolvedExercise) }}</span>
+                  </span>
+                </li>
+                <li v-if="ageGroupsLabel" class="detail-meta-chip">
+                  <span class="material-symbols-rounded" aria-hidden="true">cake</span>
+                  <span class="detail-meta-text">
+                    <span class="detail-meta-label">{{ t('exercise.ageGroups') }}</span>
+                    <span class="detail-meta-value">{{ ageGroupsLabel }}</span>
+                  </span>
+                </li>
+                <li class="detail-meta-chip">
+                  <span class="material-symbols-rounded" aria-hidden="true">schedule</span>
+                  <span class="detail-meta-text">
+                    <span class="detail-meta-label">{{ t('exercise.duration') }}</span>
+                    <span class="detail-meta-value">{{ displayDuration }} {{ t('common.min') }}</span>
+                  </span>
+                </li>
+              </ul>
+
+              <div v-if="showRatings" class="detail-ratings">
+                <div v-if="footballReality" class="detail-rating-block">
+                  <div class="detail-rating-head">
+                    <span class="detail-rating-label">{{ t('reality.label') }}</span>
+                    <ExerciseMetricInfo
+                      :title="t('reality.label')"
+                      :body="t('reality.hint')"
+                      :info-label="t('reality.infoLabel')"
+                      :read-more-url="t('reality.readMoreUrl')"
+                      :read-more-label="t('reality.readMore')"
+                    />
+                  </div>
+                  <FootballRealityRating :rating="footballReality" />
+                </div>
+                <div v-if="injuryPrevention" class="detail-rating-block">
+                  <div class="detail-rating-head">
+                    <span class="detail-rating-label">{{ t('prevention.label') }}</span>
+                    <ExerciseMetricInfo
+                      :title="t('prevention.label')"
+                      :body="t('prevention.hint')"
+                      :info-label="t('prevention.infoLabel')"
+                      :read-more-url="t('prevention.readMoreUrl')"
+                      :read-more-label="t('prevention.readMore')"
+                    />
+                  </div>
+                  <InjuryPreventionRating :rating="injuryPrevention" />
+                </div>
+              </div>
             </div>
             <button type="button" class="btn-icon close-btn" :aria-label="t('common.close')" @click="close">
               <span class="material-symbols-rounded">close</span>
@@ -50,14 +101,17 @@
                 </ul>
               </section>
 
-              <section v-if="hasCoachNotes" class="coach-notes">
-                <h3 class="content-section-title">{{ t('exercise.tonight') }}</h3>
-                <p v-if="whyThis" class="md-body-sm coach-why">{{ whyThis }}</p>
-                <ul v-if="adaptations.length" class="content-list md-body-sm">
-                  <li v-for="(item, i) in adaptations" :key="`a-${i}`">{{ item }}</li>
-                </ul>
-                <ul v-if="coachingCues.length" class="content-list content-list--cues md-body-sm">
+              <section v-if="coachingCues.length" class="content-section">
+                <h3 class="content-section-title">{{ t('exercise.coachingPoints') }}</h3>
+                <ul class="content-list content-list--cues md-body-sm">
                   <li v-for="(item, i) in coachingCues" :key="`c-${i}`">{{ item }}</li>
+                </ul>
+              </section>
+
+              <section v-if="adaptations.length" class="content-section">
+                <h3 class="content-section-title">{{ t('exercise.adaptations') }}</h3>
+                <ul class="content-list md-body-sm">
+                  <li v-for="(item, i) in adaptations" :key="`a-${i}`">{{ item }}</li>
                 </ul>
               </section>
 
@@ -144,14 +198,19 @@
 <script setup>
 import { computed, useId, watch, onUnmounted } from 'vue'
 import ExerciseDiagram from '@/components/training/ExerciseDiagram.vue'
+import ExerciseMetricInfo from '@/components/training/ExerciseMetricInfo.vue'
 import FootballRealityRating from '@/components/training/FootballRealityRating.vue'
+import InjuryPreventionRating from '@/components/training/InjuryPreventionRating.vue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
 import { t } from '@/i18n'
 import {
   buildExerciseDescription,
   buildExerciseSetup,
+  getAgeGroupsLabel,
   getExerciseTitle,
+  getFieldSizeLabel,
   getFootballReality,
+  getInjuryPrevention,
   getRinusRules,
   getRinusUrl,
   playerRangeLabel,
@@ -220,8 +279,6 @@ const setup = computed(() =>
 
 const aiMeta = computed(() => props.block?.ai ?? null)
 
-const whyThis = computed(() => aiMeta.value?.whyThis?.trim() || '')
-
 const adaptations = computed(() =>
   Array.isArray(aiMeta.value?.adaptations) ? aiMeta.value.adaptations.filter(Boolean) : []
 )
@@ -230,8 +287,20 @@ const coachingCues = computed(() =>
   Array.isArray(aiMeta.value?.coachingCues) ? aiMeta.value.coachingCues.filter(Boolean) : []
 )
 
-const hasCoachNotes = computed(() =>
-  Boolean(whyThis.value || adaptations.value.length || coachingCues.value.length)
+const fieldSizeLabel = computed(() =>
+  resolvedExercise.value ? getFieldSizeLabel(resolvedExercise.value) : null
+)
+
+const ageGroupsLabel = computed(() =>
+  resolvedExercise.value ? getAgeGroupsLabel(resolvedExercise.value) : null
+)
+
+const injuryPrevention = computed(() =>
+  resolvedExercise.value ? getInjuryPrevention(resolvedExercise.value) : null
+)
+
+const showRatings = computed(() =>
+  Boolean(footballReality.value || injuryPrevention.value)
 )
 
 const showAdaptChips = computed(() =>
@@ -319,9 +388,11 @@ onUnmounted(() => {
   min-width: 0;
 }
 
-.detail-reality {
-  display: block;
-  margin-top: 6px;
+.exercise-detail-category {
+  margin: 0 0 var(--sp-1);
+  color: var(--md-primary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .exercise-detail-title {
@@ -333,10 +404,79 @@ onUnmounted(() => {
   word-break: break-word;
 }
 
-.exercise-detail-meta {
-  margin: var(--sp-1) 0 0;
+.detail-meta-row {
+  list-style: none;
+  margin: var(--sp-3) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-2);
+}
+
+.detail-meta-chip {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  padding: var(--sp-2);
+  border-radius: var(--md-shape-md);
+  background: var(--md-surface-container-low, var(--md-surface-container));
+}
+
+.detail-meta-chip .material-symbols-rounded {
+  font-size: 20px;
+  color: var(--md-primary);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.detail-meta-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.detail-meta-label {
+  font-size: 0.6875rem;
+  line-height: 1.3;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--md-on-surface-variant);
+}
+
+.detail-meta-value {
   font-size: 0.8125rem;
-  line-height: 1.4;
+  line-height: 1.35;
+  font-weight: 600;
+  color: var(--md-on-surface);
+  word-break: break-word;
+}
+
+.detail-ratings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--md-outline-variant);
+}
+
+.detail-rating-block {
+  flex: 1 1 140px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.detail-rating-head {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.detail-rating-label {
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--md-on-surface-variant);
 }
 
@@ -375,8 +515,7 @@ onUnmounted(() => {
   line-height: 1.55;
 }
 
-.content-section,
-.coach-notes {
+.content-section {
   display: flex;
   flex-direction: column;
   gap: var(--sp-2);
@@ -406,12 +545,6 @@ onUnmounted(() => {
 .content-list--cues {
   margin-top: var(--sp-1);
   color: var(--md-on-surface);
-}
-
-.coach-why {
-  margin: 0;
-  color: var(--md-on-surface);
-  line-height: 1.5;
 }
 
 .adapt-panel {

@@ -13,6 +13,24 @@ const svgOut = path.join(__dirname, '../src/data/rinusSvgMap.js')
 const rulesOut = path.join(__dirname, '../src/data/rinusRulesMap.js')
 const metaOut = path.join(__dirname, '../src/data/rinusMetaMap.js')
 
+function parseRating(ratings, type) {
+  const raw = (ratings ?? []).find(r => r?.ratingType === type)?.rating
+  const n = Number.parseInt(raw, 10)
+  return Number.isInteger(n) && n >= 1 && n <= 5 ? n : null
+}
+
+function parseFieldSize(content) {
+  const raw = content?.fieldSizeCategory
+  const item = Array.isArray(raw) ? raw[0] : raw
+  return item?.title?.trim() || null
+}
+
+function parseAgeGroups(entry) {
+  return (entry?.ageCategories ?? [])
+    .map(a => a?.title?.trim())
+    .filter(Boolean)
+}
+
 function parseEntry(entry) {
   const content = entry?.exerciseContent?.[0]
   const activity = entry?.exerciseActivityDefaultContentItem?.[0]
@@ -27,9 +45,8 @@ function parseEntry(entry) {
     .filter(Boolean)
 
   const ratings = content.exerciseRatings ?? []
-  const realityRaw = ratings.find(r => r?.ratingType === 'exerciseReality')?.rating
-  const reality = Number.parseInt(realityRaw, 10)
-  const footballReality = Number.isInteger(reality) && reality >= 1 && reality <= 5 ? reality : null
+  const footballReality = parseRating(ratings, 'exerciseReality')
+  const injuryPrevention = parseRating(ratings, 'exercisePrevention')
 
   return {
     title: content.exerciseTitle?.trim() ?? null,
@@ -37,9 +54,12 @@ function parseEntry(entry) {
     minPlayers: content.playersMinimum ?? null,
     maxPlayers: content.playersMaximum ?? null,
     dimensions,
+    fieldSize: parseFieldSize(content),
+    ageGroups: parseAgeGroups(entry),
     description: activity?.activityExplanation?.trim() ?? null,
     footballAction: activity?.activityCategory?.[0]?.title?.trim() ?? null,
     footballReality,
+    injuryPrevention,
     svg,
     rules,
   }
@@ -83,9 +103,12 @@ for (const [id, content] of Object.entries(contentByRinusId)) {
     minPlayers: content.minPlayers,
     maxPlayers: content.maxPlayers,
     dimensions: content.dimensions,
+    fieldSize: content.fieldSize,
+    ageGroups: content.ageGroups,
     description: content.description,
     footballAction: content.footballAction,
     footballReality: content.footballReality,
+    injuryPrevention: content.injuryPrevention,
   }
 }
 
