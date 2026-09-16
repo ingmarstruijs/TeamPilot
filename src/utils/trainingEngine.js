@@ -1,6 +1,6 @@
 import { EXERCISES } from '@/data/exercises'
 import { normalizeAgeGroup } from '@/data/formations'
-import { getFootballReality } from '@/utils/exerciseText'
+import { getExerciseTitle, getFootballReality } from '@/utils/exerciseText'
 import {
   CYCLE_THEMES,
   getCycleTheme,
@@ -236,7 +236,9 @@ function normalizeSearchText(text) {
 function exerciseMatchesQuery(ex, query) {
   if (!query) return true
   const haystack = normalizeSearchText(
-    [ex.title, ex.description, ex.setup, ex.source].filter(Boolean).join(' ')
+    [getExerciseTitle(ex), ex.title, ex.description, ex.setup, ex.source]
+      .filter(Boolean)
+      .join(' ')
   )
   return haystack.includes(normalizeSearchText(query))
 }

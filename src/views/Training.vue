@@ -447,7 +447,7 @@
 
     <ExerciseDetailDialog
       :block="detailBlock"
-      :exercise="previewExercise"
+      :exercise="previewExercise ?? detailBlock?.exercise ?? null"
       :mode="previewExercise ? 'preview' : 'session'"
       :player-count="presentPlayers.length"
       :adapting="isAdapting"

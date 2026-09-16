@@ -5,6 +5,7 @@ import {
   buildExerciseDescription,
   buildExerciseSetup,
   getExerciseTitle,
+  getExerciseDurationMin,
   getAgeGroupsLabel,
   getFieldSizeLabel,
   getFootballReality,
@@ -72,6 +73,7 @@ describe('exerciseText', () => {
     expect(getFieldSizeLabel(ex)).toBe('¼ veld')
     expect(getAgeGroupsLabel(ex)).toMatch(/O11/)
     expect(getInjuryPrevention(ex)).toBe(3)
+    expect(getExerciseDurationMin(ex)).toBe(5)
   })
 })
 

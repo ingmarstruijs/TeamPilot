@@ -202,17 +202,20 @@ import ExerciseMetricInfo from '@/components/training/ExerciseMetricInfo.vue'
 import FootballRealityRating from '@/components/training/FootballRealityRating.vue'
 import InjuryPreventionRating from '@/components/training/InjuryPreventionRating.vue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
+import { getExerciseById } from '@/data/exercises'
 import { t } from '@/i18n'
 import {
   buildExerciseDescription,
   buildExerciseSetup,
   getAgeGroupsLabel,
+  getExerciseDurationMin,
   getExerciseTitle,
   getFieldSizeLabel,
   getFootballReality,
   getInjuryPrevention,
   getRinusRules,
   getRinusUrl,
+  isCustomExercise,
   playerRangeLabel,
 } from '@/utils/exerciseText'
 
@@ -257,13 +260,23 @@ const adaptStatusText = computed(() =>
 
 const visible = computed(() => Boolean(props.block || props.exercise))
 
-const resolvedExercise = computed(() =>
-  props.block?.exercise ?? props.exercise ?? null
-)
+/**
+ * Library (preview) and Session share one dialog. Always resolve to the catalog
+ * exercise when possible so Rinus meta (veld, leeftijd, ratings) is identical.
+ */
+const resolvedExercise = computed(() => {
+  const raw = props.block?.exercise ?? props.exercise ?? null
+  if (!raw) return null
+  if (isCustomExercise(raw)) return raw
+  if (!raw.id) return raw
+  return getExerciseById(raw.id) ?? raw
+})
 
-const displayDuration = computed(() =>
-  props.block?.durationMin ?? resolvedExercise.value?.durationMin ?? 0
-)
+const displayDuration = computed(() => {
+  if (props.block?.durationMin != null) return props.block.durationMin
+  if (!resolvedExercise.value) return 0
+  return getExerciseDurationMin(resolvedExercise.value)
+})
 
 const description = computed(() =>
   resolvedExercise.value
