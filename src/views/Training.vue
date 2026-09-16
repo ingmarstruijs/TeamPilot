@@ -38,6 +38,7 @@
             :type-follows-theme="typeFollowsTheme"
             :team-shirt="activeTeam?.shirt"
             @toggle-all="toggleAll"
+            @toggle-all-guests="toggleAllGuests"
             @toggle-player="togglePlayer"
             @update:training-type="setTrainingType"
             @update:duration-min="durationMin = +$event || 60"
@@ -175,6 +176,7 @@
                     :training-types="translatedTrainingTypes"
                     :team-shirt="activeTeam?.shirt"
                     @toggle-all="toggleAll"
+                    @toggle-all-guests="toggleAllGuests"
                     @toggle-player="togglePlayer"
                   />
 
@@ -512,6 +514,8 @@ import {
 } from '@/utils/savedTraining'
 import { getCycleThemeIcon } from '@/utils/trainingIcons'
 import { getKnvbLevel } from '@/data/knvbClasses'
+import { trainingAttendanceCounts } from '@/utils/trainingAttendance'
+import { isGuest } from '@/utils/playerStatus'
 import ExerciseDetailDialog from '@/components/training/ExerciseDetailDialog.vue'
 import ExerciseLibraryPanel from '@/components/training/ExerciseLibraryPanel.vue'
 import TrainingSettingsPanel from '@/components/training/TrainingSettingsPanel.vue'
@@ -662,15 +666,18 @@ const configSummary = computed(() =>
   t('training.configSummary', { type: trainingTypeLabel.value, min: durationMin.value })
 )
 
-const injuredCount = computed(() => roster.value.filter(p => p.injured).length)
-const absentCount = computed(() =>
-  roster.value.filter(p => !p.injured && !presentIds.value.has(p.id)).length
+const attendanceCounts = computed(() =>
+  trainingAttendanceCounts(roster.value, presentIds.value),
 )
 
 const attendanceSummaryParts = computed(() => {
-  const parts = [t('training.present', { count: presentPlayers.value.length })]
-  if (absentCount.value) parts.push(t('training.absentCount', { count: absentCount.value }))
-  if (injuredCount.value) parts.push(t('training.injuredCount', { count: injuredCount.value }))
+  const c = attendanceCounts.value
+  const parts = [t('training.present', { count: c.present })]
+  if (c.absent) parts.push(t('training.absentCount', { count: c.absent }))
+  if (c.injured) parts.push(t('training.injuredCount', { count: c.injured }))
+  if (c.guestsNotJoining) {
+    parts.push(t('training.guestsNotJoining', { count: c.guestsNotJoining }))
+  }
   return parts
 })
 
@@ -1117,8 +1124,25 @@ function togglePlayer(id) {
 }
 
 function toggleAll() {
-  if (allPresent.value) presentIds.value = new Set()
-  else presentIds.value = new Set(trainingRegulars.value.map(p => p.id))
+  if (allPresent.value) {
+    const guestPresent = roster.value.filter(p => isGuest(p) && presentIds.value.has(p.id)).map(p => p.id)
+    presentIds.value = new Set(guestPresent)
+  } else {
+    presentIds.value = new Set(trainingRegulars.value.map(p => p.id))
+  }
+}
+
+function toggleAllGuests() {
+  const guestIds = roster.value.filter(p => isGuest(p) && !p.injured).map(p => p.id)
+  if (!guestIds.length) return
+  const next = new Set(presentIds.value)
+  const allJoined = guestIds.every(id => next.has(id))
+  if (allJoined) {
+    for (const id of guestIds) next.delete(id)
+  } else {
+    for (const id of guestIds) next.add(id)
+  }
+  presentIds.value = next
 }
 
 async function generate() {

@@ -27,23 +27,62 @@
             {{ allPresent ? t('common.none') : t('common.all') }}
           </button>
         </div>
-        <div class="player-chips">
-          <RosterChip
-            v-for="p in trainableRoster"
-            :key="p.id"
-            tag="button"
-            type="button"
-            :player="p"
-            :shirt="teamShirt"
-            :selected="presentIds.has(p.id)"
-            @click="$emit('toggle-player', p.id)"
-          />
-        </div>
-        <section v-if="injuredRoster.length" class="present-unavailable">
-          <p class="md-label-sm present-unavailable-label">{{ t('bench.unavailable', { count: injuredRoster.length }) }}</p>
+
+        <section
+          v-if="attendance.regularPresent.length"
+          class="attendance-group attendance-group--present"
+          :aria-label="t('settings.groupPresent', { count: attendance.regularPresent.length })"
+        >
+          <p class="md-label-sm attendance-group-label">
+            {{ t('settings.groupPresent', { count: attendance.regularPresent.length }) }}
+          </p>
           <div class="player-chips">
             <RosterChip
-              v-for="p in injuredRoster"
+              v-for="p in attendance.regularPresent"
+              :key="p.id"
+              tag="button"
+              type="button"
+              :player="p"
+              :shirt="teamShirt"
+              :selected="true"
+              @click="$emit('toggle-player', p.id)"
+            />
+          </div>
+        </section>
+
+        <section
+          v-if="attendance.regularAbsent.length"
+          class="attendance-group attendance-group--absent"
+          :aria-label="t('settings.groupAbsent', { count: attendance.regularAbsent.length })"
+        >
+          <p class="md-label-sm attendance-group-label">
+            {{ t('settings.groupAbsent', { count: attendance.regularAbsent.length }) }}
+          </p>
+          <div class="player-chips">
+            <RosterChip
+              v-for="p in attendance.regularAbsent"
+              :key="p.id"
+              tag="button"
+              type="button"
+              :player="p"
+              :shirt="teamShirt"
+              :selected="false"
+              @click="$emit('toggle-player', p.id)"
+            />
+          </div>
+        </section>
+
+        <section
+          v-if="attendance.injured.length"
+          class="attendance-group attendance-group--injured"
+          :aria-label="t('settings.groupInjured', { count: attendance.injured.length })"
+        >
+          <p class="md-label-sm attendance-group-label">
+            {{ t('settings.groupInjured', { count: attendance.injured.length }) }}
+          </p>
+          <div class="player-chips">
+            <RosterChip
+              v-for="p in attendance.injured"
               :key="p.id"
               :player="p"
               :shirt="teamShirt"
@@ -51,6 +90,39 @@
             />
           </div>
         </section>
+
+        <section
+          v-if="attendance.guests.length"
+          class="attendance-group attendance-group--guests"
+          :aria-label="t('settings.groupGuests', { count: attendance.guests.length })"
+        >
+          <div class="attendance-guests-head">
+            <p class="md-label-sm attendance-group-label">
+              {{ t('settings.groupGuests', { count: attendance.guests.length }) }}
+            </p>
+            <button
+              type="button"
+              class="btn btn-text section-action guests-toggle-all"
+              @click="$emit('toggle-all-guests')"
+            >
+              {{ allGuestsInTraining ? t('settings.guestsLeaveAll') : t('settings.guestsJoinAll') }}
+            </button>
+          </div>
+          <p class="md-body-sm attendance-guests-hint">{{ t('settings.guestsTrainingHint') }}</p>
+          <div class="player-chips">
+            <RosterChip
+              v-for="p in attendance.guests"
+              :key="p.id"
+              tag="button"
+              type="button"
+              :player="p"
+              :shirt="teamShirt"
+              :selected="presentIds.has(p.id)"
+              @click="$emit('toggle-player', p.id)"
+            />
+          </div>
+        </section>
+
         <p v-if="balance" class="md-body-sm balance-line">
           {{ t('settings.defenders', { n: balance.counts.DEF + balance.counts.GK }) }} ·
           {{ t('settings.mid', { n: balance.counts.MID }) }} ·
@@ -121,6 +193,10 @@
 import { computed } from 'vue'
 import { getCycleTheme } from '@/utils/trainingEngine'
 import { getCycleThemeIcon, getTrainingTypeIcon } from '@/utils/trainingIcons'
+import {
+  allGuestsJoiningTraining,
+  splitTrainingAttendance,
+} from '@/utils/trainingAttendance'
 import RosterChip from '@/components/ui/RosterChip.vue'
 import { t } from '@/i18n'
 
@@ -150,6 +226,7 @@ const props = defineProps({
 
 defineEmits([
   'toggle-all',
+  'toggle-all-guests',
   'toggle-player',
   'update:trainingType',
   'update:durationMin',
@@ -165,8 +242,10 @@ const wrapperAttrs = computed(() => {
 })
 const trainingTypeIcon = computed(() => getTrainingTypeIcon(props.trainingType))
 const cycleThemeIcon = computed(() => getCycleThemeIcon(getCycleTheme(props.cycleWeek)))
-const trainableRoster = computed(() => (props.roster ?? []).filter(p => !p.injured))
-const injuredRoster = computed(() => (props.roster ?? []).filter(p => p.injured))
+const attendance = computed(() => splitTrainingAttendance(props.roster, props.presentIds))
+const allGuestsInTraining = computed(() =>
+  allGuestsJoiningTraining(attendance.value.guests, props.presentIds),
+)
 </script>
 
 <style scoped>
@@ -294,22 +373,68 @@ const injuredRoster = computed(() => (props.roster ?? []).filter(p => p.injured)
   font-size: 13px;
 }
 
+.attendance-group {
+  margin-bottom: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--md-shape-medium);
+  border: 1px solid var(--md-outline-variant);
+}
+
+.attendance-group--present {
+  background: color-mix(in srgb, var(--md-primary-container) 45%, var(--md-surface));
+  border-color: color-mix(in srgb, var(--md-primary) 35%, var(--md-outline-variant));
+}
+
+.attendance-group--absent {
+  background: color-mix(in srgb, var(--md-surface-variant) 35%, var(--md-surface));
+}
+
+.attendance-group--injured {
+  background: color-mix(in srgb, var(--md-error-container) 55%, var(--md-surface));
+  border-color: color-mix(in srgb, var(--md-error) 35%, var(--md-outline-variant));
+}
+
+.attendance-group--guests {
+  background: color-mix(in srgb, var(--md-tertiary-container) 50%, var(--md-surface));
+  border-color: color-mix(in srgb, var(--md-tertiary) 40%, var(--md-outline-variant));
+}
+
+.attendance-group-label {
+  margin: 0 0 var(--sp-2);
+  font-weight: 700;
+  color: var(--md-on-surface);
+}
+
+.attendance-guests-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-2);
+}
+
+.attendance-guests-head .attendance-group-label {
+  margin-bottom: 0;
+  flex: 1;
+}
+
+.guests-toggle-all {
+  flex-shrink: 0;
+  height: 28px;
+  font-size: 12px;
+  max-width: 48%;
+  text-align: right;
+  line-height: 1.2;
+}
+
+.attendance-guests-hint {
+  margin: var(--sp-1) 0 var(--sp-2);
+  color: var(--md-on-surface-variant);
+}
+
 .player-chips {
   display: flex;
   flex-wrap: wrap;
   gap: var(--sp-2);
-}
-
-.present-unavailable {
-  margin-top: var(--sp-3);
-  padding-top: var(--sp-2);
-  border-top: 1px dashed var(--md-outline-variant);
-}
-
-.present-unavailable-label {
-  margin: 0 0 var(--sp-2);
-  color: var(--md-on-surface-variant);
-  font-weight: 600;
 }
 
 .balance-line {
