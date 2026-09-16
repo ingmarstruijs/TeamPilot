@@ -858,20 +858,22 @@ export const RINUS_RULES_BY_RINUS_ID = {
     "Spelers om beurten laten keepen – keeper krijgt punten voor elke gestopte bal – wie is de master keeper?"
   ],
   "48209": [
-    "De ene aanvaller passt naar de andere aanvaller in de loop",
-    "Deze neemt de bal mee en dribbelt op de keeper af richting het vierkant",
-    "De aanvaller moet proberen de bal stil te leggen in het vierkant",
+    "De ene aanvaller passt de bal in de loop van de andere aanvaller",
+    "De aanvaller neemt de bal mee en dribbelt richting het vierkant",
+    "De aanvaller probeert de bal stil te leggen in het vierkant",
     "De keeper mag uitkomen en de bal proberen te onderscheppen",
-    "De keeper kan scoren door de bal in het kleine doeltje te werpen of te passen",
-    "Daarna doordraaien van functie"
+    "Na een onderschepping kan de keeper scoren door de bal in het kleine doeltje te werpen of te passen",
+    "Na iedere beurt wisselen de spelers van functie"
   ],
   "48213": [
-    "De aanvaller wordt vanaf de zijkant ingespeeld en neemt de bal mee richting het doel met keeper",
-    "De verdediger mag verdedigen / druk zetten op het moment dat de pass wordt gegeven",
-    "De aanvaller mag pas schieten als hij/zij voorbij de lijn met gele pionnen is",
-    "De keeper start op de lijn en mag uitkomen zodra de bal wordt meegenomen door de aanvaller",
-    "Als de keeper of de verdediger de bal veroverd mag er gescoord worden op het andere doel",
-    "Hierna doordraaien van functie, waarbij het andere doel wordt gebruikt: bij oranje wordt de keeper wissel, de verdediger passer, de wissel wordt aanvaller. Bij blauw wordt de aanvaller wissel, de passer wordt keeper en de wissel wordt passer"
+    "Een speler aan de zijkant speelt de aanvaller in",
+    "De aanvaller neemt de bal mee richting het doel met keeper",
+    "De verdediger mag druk zetten zodra de pass wordt gegeven",
+    "De aanvaller mag schieten zodra de bal voorbij de lijn met gele pionnen is",
+    "De keeper start op de doellijn en mag uitkomen zodra de aanvaller de bal meeneemt",
+    "Als de keeper of verdediger de bal verovert, kan er worden gescoord op het doel aan de andere zijde",
+    "Na iedere beurt wisselen de spelers van functie",
+    "De volgende beurt wordt richting het andere doel gespeeld"
   ],
   "193212": [
     "Er worden rijtjes met spelers tegenover elkaar gemaakt",
@@ -1171,12 +1173,14 @@ export const RINUS_RULES_MAP = {
     "Wissel na verloop van tijd van richting (naar links i.p.v rechts)"
   ],
   "tech-1v1-keeper": [
-    "De aanvaller wordt vanaf de zijkant ingespeeld en neemt de bal mee richting het doel met keeper",
-    "De verdediger mag verdedigen / druk zetten op het moment dat de pass wordt gegeven",
-    "De aanvaller mag pas schieten als hij/zij voorbij de lijn met gele pionnen is",
-    "De keeper start op de lijn en mag uitkomen zodra de bal wordt meegenomen door de aanvaller",
-    "Als de keeper of de verdediger de bal veroverd mag er gescoord worden op het andere doel",
-    "Hierna doordraaien van functie, waarbij het andere doel wordt gebruikt: bij oranje wordt de keeper wissel, de verdediger passer, de wissel wordt aanvaller. Bij blauw wordt de aanvaller wissel, de passer wordt keeper en de wissel wordt passer"
+    "Een speler aan de zijkant speelt de aanvaller in",
+    "De aanvaller neemt de bal mee richting het doel met keeper",
+    "De verdediger mag druk zetten zodra de pass wordt gegeven",
+    "De aanvaller mag schieten zodra de bal voorbij de lijn met gele pionnen is",
+    "De keeper start op de doellijn en mag uitkomen zodra de aanvaller de bal meeneemt",
+    "Als de keeper of verdediger de bal verovert, kan er worden gescoord op het doel aan de andere zijde",
+    "Na iedere beurt wisselen de spelers van functie",
+    "De volgende beurt wordt richting het andere doel gespeeld"
   ],
   "tech-1v1-omschakelen": [
     "De oranje speler dribbelt richting het doel en probeert te scoren op het grote doel met keeper",
@@ -1231,12 +1235,12 @@ export const RINUS_RULES_MAP = {
     "Na drie veroveringen, wisselen van verdedigers"
   ],
   "gk-1v1-vierkant": [
-    "De ene aanvaller passt naar de andere aanvaller in de loop",
-    "Deze neemt de bal mee en dribbelt op de keeper af richting het vierkant",
-    "De aanvaller moet proberen de bal stil te leggen in het vierkant",
+    "De ene aanvaller passt de bal in de loop van de andere aanvaller",
+    "De aanvaller neemt de bal mee en dribbelt richting het vierkant",
+    "De aanvaller probeert de bal stil te leggen in het vierkant",
     "De keeper mag uitkomen en de bal proberen te onderscheppen",
-    "De keeper kan scoren door de bal in het kleine doeltje te werpen of te passen",
-    "Daarna doordraaien van functie"
+    "Na een onderschepping kan de keeper scoren door de bal in het kleine doeltje te werpen of te passen",
+    "Na iedere beurt wisselen de spelers van functie"
   ],
   "part-4v4-pionnen": [
     "Beide spelers kunnen scoren door de bal tegen een pion te passen-mikken",
@@ -1295,12 +1299,14 @@ export const RINUS_RULES_MAP = {
     "Bij 3 punten voor het tweetal komen er twee nieuwe verdedigers"
   ],
   "tech-afwerken-keeper": [
-    "De aanvaller wordt vanaf de zijkant ingespeeld en neemt de bal mee richting het doel met keeper",
-    "De verdediger mag verdedigen / druk zetten op het moment dat de pass wordt gegeven",
-    "De aanvaller mag pas schieten als hij/zij voorbij de lijn met gele pionnen is",
-    "De keeper start op de lijn en mag uitkomen zodra de bal wordt meegenomen door de aanvaller",
-    "Als de keeper of de verdediger de bal veroverd mag er gescoord worden op het andere doel",
-    "Hierna doordraaien van functie, waarbij het andere doel wordt gebruikt: bij oranje wordt de keeper wissel, de verdediger passer, de wissel wordt aanvaller. Bij blauw wordt de aanvaller wissel, de passer wordt keeper en de wissel wordt passer"
+    "Een speler aan de zijkant speelt de aanvaller in",
+    "De aanvaller neemt de bal mee richting het doel met keeper",
+    "De verdediger mag druk zetten zodra de pass wordt gegeven",
+    "De aanvaller mag schieten zodra de bal voorbij de lijn met gele pionnen is",
+    "De keeper start op de doellijn en mag uitkomen zodra de aanvaller de bal meeneemt",
+    "Als de keeper of verdediger de bal verovert, kan er worden gescoord op het doel aan de andere zijde",
+    "Na iedere beurt wisselen de spelers van functie",
+    "De volgende beurt wordt richting het andere doel gespeeld"
   ],
   "cond-richting-wissel": [
     "Er worden tweetallen gemaakt die achter elkaar op de buik gaan liggen",
