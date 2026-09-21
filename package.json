@@ -18,7 +18,7 @@
     "@mlc-ai/web-llm": "^0.2.85",
     "html2canvas": "^1.4.1",
     "pinia": "^4.0.3",
-    "vue": "^3.5.42",
+    "vue": "^3.5.43",
     "vue-router": "^5.3.1"
   },
   "devDependencies": {
