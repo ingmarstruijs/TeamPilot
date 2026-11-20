@@ -445,6 +445,8 @@ export default {
     searchLabel: 'Search exercise',
     allCategories: 'All categories',
     category: 'Category',
+    allActivities: 'All activities',
+    activity: 'Activity',
     suitableOnly: 'Suitable only',
     suitableTitle: 'Hide exercises that do not match your team’s age, class, and player count',
     clear: 'Clear filters',

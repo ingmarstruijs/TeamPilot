@@ -21,6 +21,38 @@ export const IMPORTED_RINUS_ID_MAP = {
   "rinus-46685": 46685,
   "rinus-39479": 39479,
   "rinus-34031": 34031,
+  "rinus-36525": 36525,
+  "rinus-35903": 35903,
+  "rinus-47181": 47181,
+  "rinus-35811": 35811,
+  "rinus-36503": 36503,
+  "rinus-33965": 33965,
+  "rinus-33907": 33907,
+  "rinus-33999": 33999,
+  "rinus-36641": 36641,
+  "rinus-45419": 45419,
+  "rinus-35829": 35829,
+  "rinus-34083": 34083,
+  "rinus-33983": 33983,
+  "rinus-33959": 33959,
+  "rinus-36669": 36669,
+  "rinus-36701": 36701,
+  "rinus-36629": 36629,
+  "rinus-33879": 33879,
+  "rinus-33801": 33801,
+  "rinus-33755": 33755,
+  "rinus-34149": 34149,
+  "rinus-36683": 36683,
+  "rinus-36707": 36707,
+  "rinus-36733": 36733,
+  "rinus-46625": 46625,
+  "rinus-48163": 48163,
+  "rinus-511292": 511292,
+  "rinus-38593": 38593,
+  "rinus-614100": 614100,
+  "rinus-614581": 614581,
+  "rinus-481915": 481915,
+  "rinus-614659": 614659,
   "rinus-34417": 34417,
   "rinus-45843": 45843,
   "rinus-43061": 43061,
@@ -43,24 +75,164 @@ export const IMPORTED_RINUS_ID_MAP = {
   "rinus-42383": 42383,
   "rinus-34343": 34343,
   "rinus-40517": 40517,
-  "rinus-39907": 39907,
-  "rinus-46443": 46443,
+  "rinus-34419": 34419,
+  "rinus-43165": 43165,
+  "rinus-42599": 42599,
+  "rinus-44145": 44145,
+  "rinus-47033": 47033,
+  "rinus-45885": 45885,
+  "rinus-42201": 42201,
+  "rinus-44865": 44865,
+  "rinus-45307": 45307,
+  "rinus-40421": 40421,
+  "rinus-46991": 46991,
+  "rinus-42237": 42237,
+  "rinus-42301": 42301,
+  "rinus-44819": 44819,
+  "rinus-34709": 34709,
+  "rinus-43119": 43119,
+  "rinus-43807": 43807,
+  "rinus-44923": 44923,
+  "rinus-46977": 46977,
+  "rinus-48131": 48131,
+  "rinus-43875": 43875,
+  "rinus-47161": 47161,
+  "rinus-43847": 43847,
+  "rinus-47141": 47141,
+  "rinus-35677": 35677,
+  "rinus-47309": 47309,
+  "rinus-47301": 47301,
+  "rinus-47343": 47343,
+  "rinus-312718": 312718,
+  "rinus-47119": 47119,
+  "rinus-35599": 35599,
+  "rinus-511294": 511294,
+  "rinus-294048": 294048,
+  "rinus-46993": 46993,
+  "rinus-42633": 42633,
+  "rinus-47271": 47271,
+  "rinus-44651": 44651,
+  "rinus-47193": 47193,
+  "rinus-312823": 312823,
+  "rinus-47137": 47137,
+  "rinus-47173": 47173,
+  "rinus-42231": 42231,
+  "rinus-47325": 47325,
+  "rinus-312842": 312842,
   "rinus-42937": 42937,
   "rinus-36621": 36621,
   "rinus-46885": 46885,
   "rinus-40811": 40811,
   "rinus-37045": 37045,
   "rinus-36851": 36851,
-  "rinus-37947": 37947,
   "rinus-38925": 38925,
   "rinus-40933": 40933,
   "rinus-35379": 35379,
   "rinus-45657": 45657,
   "rinus-35529": 35529,
   "rinus-35967": 35967,
-  "rinus-36383": 36383,
   "rinus-46847": 46847,
+  "rinus-36327": 36327,
+  "rinus-45165": 45165,
+  "rinus-42881": 42881,
+  "rinus-44279": 44279,
+  "rinus-45733": 45733,
+  "rinus-35155": 35155,
+  "rinus-35937": 35937,
+  "rinus-40719": 40719,
+  "rinus-45079": 45079,
+  "rinus-45467": 45467,
+  "rinus-44957": 44957,
+  "rinus-40891": 40891,
+  "rinus-45055": 45055,
+  "rinus-45031": 45031,
+  "rinus-40603": 40603,
+  "rinus-45331": 45331,
+  "rinus-46461": 46461,
+  "rinus-45545": 45545,
+  "rinus-38625": 38625,
+  "rinus-45795": 45795,
+  "rinus-40245": 40245,
+  "rinus-39907": 39907,
+  "rinus-46443": 46443,
+  "rinus-37947": 37947,
+  "rinus-36383": 36383,
   "rinus-37207": 37207,
+  "rinus-44939": 44939,
+  "rinus-45547": 45547,
+  "rinus-43697": 43697,
+  "rinus-39769": 39769,
+  "rinus-39485": 39485,
+  "rinus-44013": 44013,
+  "rinus-35083": 35083,
+  "rinus-43953": 43953,
+  "rinus-40903": 40903,
+  "rinus-47019": 47019,
+  "rinus-38843": 38843,
+  "rinus-48031": 48031,
+  "rinus-46311": 46311,
+  "rinus-312722": 312722,
+  "rinus-41173": 41173,
+  "rinus-45081": 45081,
+  "rinus-43289": 43289,
+  "rinus-39847": 39847,
+  "rinus-39319": 39319,
+  "rinus-42721": 42721,
+  "rinus-42693": 42693,
+  "rinus-45129": 45129,
+  "rinus-40515": 40515,
+  "rinus-34921": 34921,
+  "rinus-46335": 46335,
+  "rinus-44875": 44875,
+  "rinus-40413": 40413,
+  "rinus-40201": 40201,
+  "rinus-46931": 46931,
+  "rinus-40787": 40787,
+  "rinus-44943": 44943,
+  "rinus-38563": 38563,
+  "rinus-47065": 47065,
+  "rinus-43921": 43921,
+  "rinus-42767": 42767,
+  "rinus-46787": 46787,
+  "rinus-39653": 39653,
+  "rinus-44301": 44301,
+  "rinus-294056": 294056,
+  "rinus-42983": 42983,
+  "rinus-511296": 511296,
+  "rinus-46503": 46503,
+  "rinus-48025": 48025,
+  "rinus-41911": 41911,
+  "rinus-38485": 38485,
+  "rinus-43725": 43725,
+  "rinus-46027": 46027,
+  "rinus-46135": 46135,
+  "rinus-39965": 39965,
+  "rinus-41561": 41561,
+  "rinus-39011": 39011,
+  "rinus-46383": 46383,
+  "rinus-38513": 38513,
+  "rinus-47041": 47041,
+  "rinus-38009": 38009,
+  "rinus-43521": 43521,
+  "rinus-45491": 45491,
+  "rinus-44127": 44127,
+  "rinus-39533": 39533,
+  "rinus-38789": 38789,
+  "rinus-43423": 43423,
+  "rinus-39327": 39327,
+  "rinus-46869": 46869,
+  "rinus-41267": 41267,
+  "rinus-39553": 39553,
+  "rinus-40083": 40083,
+  "rinus-38545": 38545,
+  "rinus-40255": 40255,
+  "rinus-47011": 47011,
+  "rinus-38823": 38823,
+  "rinus-45211": 45211,
+  "rinus-185674": 185674,
+  "rinus-46219": 46219,
+  "rinus-39799": 39799,
+  "rinus-39127": 39127,
   "rinus-197790": 197790,
   "rinus-47477": 47477,
   "rinus-47853": 47853,
@@ -73,24 +245,6 @@ export const IMPORTED_RINUS_ID_MAP = {
   "rinus-193337": 193337,
   "rinus-47875": 47875,
   "rinus-47449": 47449,
-  "rinus-35297": 35297,
-  "rinus-312839": 312839,
-  "rinus-39729": 39729,
-  "rinus-37729": 37729,
-  "rinus-39039": 39039,
-  "rinus-35127": 35127,
-  "rinus-38937": 38937,
-  "rinus-46271": 46271,
-  "rinus-37587": 37587,
-  "rinus-35181": 35181,
-  "rinus-44273": 44273,
-  "rinus-45587": 45587,
-  "rinus-46587": 46587,
-  "rinus-43509": 43509,
-  "rinus-38235": 38235,
-  "rinus-47293": 47293,
-  "rinus-38301": 38301,
-  "rinus-37175": 37175,
   "rinus-47771": 47771,
   "rinus-47817": 47817,
   "rinus-47565": 47565,
@@ -98,7 +252,147 @@ export const IMPORTED_RINUS_ID_MAP = {
   "rinus-47623": 47623,
   "rinus-47531": 47531,
   "rinus-47441": 47441,
-  "rinus-47727": 47727
+  "rinus-47727": 47727,
+  "rinus-193315": 193315,
+  "rinus-47403": 47403,
+  "rinus-47553": 47553,
+  "rinus-193295": 193295,
+  "rinus-47805": 47805,
+  "rinus-47549": 47549,
+  "rinus-47519": 47519,
+  "rinus-47781": 47781,
+  "rinus-47575": 47575,
+  "rinus-47651": 47651,
+  "rinus-47561": 47561,
+  "rinus-47669": 47669,
+  "rinus-47695": 47695,
+  "rinus-47625": 47625,
+  "rinus-47785": 47785,
+  "rinus-193198": 193198,
+  "rinus-47871": 47871,
+  "rinus-193325": 193325,
+  "rinus-47535": 47535,
+  "rinus-47711": 47711,
+  "rinus-35297": 35297,
+  "rinus-312839": 312839,
+  "rinus-39729": 39729,
+  "rinus-37729": 37729,
+  "rinus-35127": 35127,
+  "rinus-38937": 38937,
+  "rinus-46271": 46271,
+  "rinus-37587": 37587,
+  "rinus-46587": 46587,
+  "rinus-43509": 43509,
+  "rinus-38235": 38235,
+  "rinus-47293": 47293,
+  "rinus-37175": 37175,
+  "rinus-44759": 44759,
+  "rinus-40833": 40833,
+  "rinus-37563": 37563,
+  "rinus-36941": 36941,
+  "rinus-36601": 36601,
+  "rinus-40621": 40621,
+  "rinus-35251": 35251,
+  "rinus-35639": 35639,
+  "rinus-43837": 43837,
+  "rinus-44435": 44435,
+  "rinus-45931": 45931,
+  "rinus-36801": 36801,
+  "rinus-40319": 40319,
+  "rinus-46231": 46231,
+  "rinus-41233": 41233,
+  "rinus-46853": 46853,
+  "rinus-38329": 38329,
+  "rinus-40015": 40015,
+  "rinus-40735": 40735,
+  "rinus-44537": 44537,
+  "rinus-46081": 46081,
+  "rinus-48081": 48081,
+  "rinus-511298": 511298,
+  "rinus-312731": 312731,
+  "rinus-312742": 312742,
+  "rinus-48097": 48097,
+  "rinus-43445": 43445,
+  "rinus-37797": 37797,
+  "rinus-47233": 47233,
+  "rinus-294044": 294044,
+  "rinus-312735": 312735,
+  "rinus-312704": 312704,
+  "rinus-199684": 199684,
+  "rinus-47241": 47241,
+  "rinus-294034": 294034,
+  "rinus-312829": 312829,
+  "rinus-187268": 187268,
+  "rinus-48171": 48171,
+  "rinus-47265": 47265,
+  "rinus-312727": 312727,
+  "rinus-312738": 312738,
+  "rinus-312712": 312712,
+  "rinus-312715": 312715,
+  "rinus-312709": 312709,
+  "rinus-48165": 48165,
+  "rinus-312826": 312826,
+  "rinus-42093": 42093,
+  "rinus-41679": 41679,
+  "rinus-43301": 43301,
+  "rinus-37481": 37481,
+  "rinus-42829": 42829,
+  "rinus-46743": 46743,
+  "rinus-41491": 41491,
+  "rinus-42181": 42181,
+  "rinus-41599": 41599,
+  "rinus-43709": 43709,
+  "rinus-42769": 42769,
+  "rinus-38101": 38101,
+  "rinus-40085": 40085,
+  "rinus-191613": 191613,
+  "rinus-43591": 43591,
+  "rinus-40301": 40301,
+  "rinus-44461": 44461,
+  "rinus-41845": 41845,
+  "rinus-41745": 41745,
+  "rinus-38173": 38173,
+  "rinus-189199": 189199,
+  "rinus-41519": 41519,
+  "rinus-43603": 43603,
+  "rinus-42379": 42379,
+  "rinus-39235": 39235,
+  "rinus-39939": 39939,
+  "rinus-46109": 46109,
+  "rinus-40383": 40383,
+  "rinus-47029": 47029,
+  "rinus-38581": 38581,
+  "rinus-38615": 38615,
+  "rinus-47737": 47737,
+  "rinus-47483": 47483,
+  "rinus-198074": 198074,
+  "rinus-48129": 48129,
+  "rinus-193194": 193194,
+  "rinus-193113": 193113,
+  "rinus-47709": 47709,
+  "rinus-47521": 47521,
+  "rinus-47427": 47427,
+  "rinus-187276": 187276,
+  "rinus-47431": 47431,
+  "rinus-47621": 47621,
+  "rinus-47857": 47857,
+  "rinus-47513": 47513,
+  "rinus-47877": 47877,
+  "rinus-47797": 47797,
+  "rinus-47541": 47541,
+  "rinus-193303": 193303,
+  "rinus-193279": 193279,
+  "rinus-193105": 193105,
+  "rinus-47423": 47423,
+  "rinus-47759": 47759,
+  "rinus-47841": 47841,
+  "rinus-47825": 47825,
+  "rinus-47555": 47555,
+  "rinus-47425": 47425,
+  "rinus-47419": 47419,
+  "rinus-47401": 47401,
+  "rinus-47507": 47507,
+  "rinus-47723": 47723
 }
 
 export const IMPORTED_RINUS_EXERCISES = [
@@ -142,6 +436,16 @@ export const IMPORTED_RINUS_EXERCISES = [
       "tactiek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -184,6 +488,14 @@ export const IMPORTED_RINUS_EXERCISES = [
       "tactiek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -222,6 +534,14 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Dieptespel in opbouw verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -259,6 +579,14 @@ export const IMPORTED_RINUS_EXERCISES = [
       "warming-up",
       "conditie"
     ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -296,6 +624,15 @@ export const IMPORTED_RINUS_EXERCISES = [
       "warming-up",
       "conditie"
     ],
+    "rinusActivities": [
+      "Bal aannemen / meenemen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -333,6 +670,15 @@ export const IMPORTED_RINUS_EXERCISES = [
       "warming-up",
       "conditie"
     ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -375,6 +721,14 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -416,6 +770,14 @@ export const IMPORTED_RINUS_EXERCISES = [
       "warming-up",
       "conditie"
     ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -454,6 +816,14 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -492,6 +862,14 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -530,6 +908,15 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Bal aannemen / meenemen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -568,6 +955,14 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -609,6 +1004,14 @@ export const IMPORTED_RINUS_EXERCISES = [
       "warming-up",
       "conditie"
     ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -647,6 +1050,15 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Bal aannemen / meenemen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -684,6 +1096,14 @@ export const IMPORTED_RINUS_EXERCISES = [
       "warming-up",
       "conditie"
     ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -722,6 +1142,14 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Dieptespel in opbouw verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -763,6 +1191,14 @@ export const IMPORTED_RINUS_EXERCISES = [
       "warming-up",
       "conditie"
     ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -801,6 +1237,1536 @@ export const IMPORTED_RINUS_EXERCISES = [
       "tactiek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-36525",
+    "rinusId": 36525,
+    "title": "Vliegtuigen",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Vliegtuigen. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-35903",
+    "rinusId": 35903,
+    "title": "Dribbelschietspel met 2 kleine doeltjes (2 verdedigers)",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 5,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Dribbelschietspel met 2 kleine doeltjes (2 verdedigers). Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47181",
+    "rinusId": 47181,
+    "title": "Doelschietspel met pionnen- niveau 1",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 5,
+    "focusPositions": [
+      "DEF",
+      "MID",
+      "ATT"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Doelschietspel met pionnen- niveau 1. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "tactiek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-35811",
+    "rinusId": 35811,
+    "title": "Dribbelschietspel met 1 groot doel (2 aanvallers + 1 verdediger + 1 keeper)",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 6,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Dribbelschietspel met 1 groot doel (2 aanvallers + 1 verdediger + 1 keeper). Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-36503",
+    "rinusId": 36503,
+    "title": "Dribbelspel Lion King",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF",
+      "MID",
+      "ATT"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Dribbelspel Lion King. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "tactiek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-33965",
+    "rinusId": 33965,
+    "title": "Dubbel doelschietspel met 2 kleine doeltjes",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Dubbel doelschietspel met 2 kleine doeltjes. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-33907",
+    "rinusId": 33907,
+    "title": "Dribbelkampioen",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF",
+      "MID",
+      "ATT"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Dribbelkampioen. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "tactiek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-33999",
+    "rinusId": 33999,
+    "title": "Oversteekspel - 2 verdedigers en poortjes",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Oversteekspel - 2 verdedigers en poortjes. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-36641",
+    "rinusId": 36641,
+    "title": "Krokodillenspel",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 5,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Krokodillenspel. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45419",
+    "rinusId": 45419,
+    "title": "Verdedigen op lijn, dribbelspel",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 3,
+    "maxPlayers": 7,
+    "focusPositions": [
+      "DEF",
+      "MID",
+      "ATT"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Verdedigen op lijn, dribbelspel. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "tactiek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-35829",
+    "rinusId": 35829,
+    "title": "Dribbelschietspel met 1 groot doel (1 aanvallers + 1 verdediger)",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Dribbelschietspel met 1 groot doel (1 aanvallers + 1 verdediger). Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-34083",
+    "rinusId": 34083,
+    "title": "Poortschietspel met variabele afstand",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Poortschietspel met variabele afstand. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Bal aannemen / meenemen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-33983",
+    "rinusId": 33983,
+    "title": "Oversteekspel - 1 verdediger en poortjes",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Oversteekspel - 1 verdediger en poortjes. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-33959",
+    "rinusId": 33959,
+    "title": "Dribbeltikspel",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF",
+      "MID",
+      "ATT"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Dribbeltikspel. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "tactiek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-36669",
+    "rinusId": 36669,
+    "title": "Dribbelkampioen 4 verdedigers",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 8,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Dribbelkampioen 4 verdedigers. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-36701",
+    "rinusId": 36701,
+    "title": "Dribbelen in vak met kleine doeltjes",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Dribbelen in vak met kleine doeltjes. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-36629",
+    "rinusId": 36629,
+    "title": "Stadionspel",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 5,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Stadionspel. Focus: Aanvallen, Ontdekken van lichaam en bal en daarmee gericht handelen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-33879",
+    "rinusId": 33879,
+    "title": "Doelschietspel met pionnen - niveau 2",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 5,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Doelschietspel met pionnen - niveau 2. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-33801",
+    "rinusId": 33801,
+    "title": "Doelschietspel met keeper - niveau 2",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Doelschietspel met keeper - niveau 2. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-33755",
+    "rinusId": 33755,
+    "title": "Doelschietspel hoog/laag",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 5,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Doelschietspel hoog/laag. Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "tactiek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Blokkeren"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-34149",
+    "rinusId": 34149,
+    "title": "Dribbel pionschietspel met verdedigers - niveau 2",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Dribbel pionschietspel met verdedigers - niveau 2. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Passeren",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-36683",
+    "rinusId": 36683,
+    "title": "Dribbelkampioen 1 verdediger",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Dribbelkampioen 1 verdediger. Focus: Aanvallen, Ontdekken van lichaam en bal en daarmee gericht handelen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-36707",
+    "rinusId": 36707,
+    "title": "Dribbelen in vak met kleine doeltjes 1 verdediger",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Dribbelen in vak met kleine doeltjes 1 verdediger. Focus: Aanvallen, Ontdekken van lichaam en bal en daarmee gericht handelen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-36733",
+    "rinusId": 36733,
+    "title": "Startvorm Dribbelen in vak ‘Cars’",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Startvorm Dribbelen in vak ‘Cars’. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46625",
+    "rinusId": 46625,
+    "title": "6 tegen 2 oversteekspel",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "6 tegen 2 oversteekspel. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-48163",
+    "rinusId": 48163,
+    "title": "Mikken als Daniëlle",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Mikken als Daniëlle. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-511292",
+    "rinusId": 511292,
+    "title": "Schieten als Teun",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Schieten als Teun",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-38593",
+    "rinusId": 38593,
+    "title": "5 tegen 3 positiespel (smal veld)",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "5 tegen 3 positiespel (smal veld). Focus: Aanvallen, Dieptespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Dieptespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-614100",
+    "rinusId": 614100,
+    "title": "Lijnvoetbal 6 tegen 6",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 12,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Lijnvoetbal 6 tegen 6. Focus: Aanvallen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-614581",
+    "rinusId": 614581,
+    "title": "2+k tegen 2 + 1 neutrale, recht van de aanval",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "2+k tegen 2 + 1 neutrale, recht van de aanval. Focus: Aanvallen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-481915",
+    "rinusId": 481915,
+    "title": "4 tegen 3 lijnvoetbal",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 7,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "4 tegen 3 lijnvoetbal. Focus: Aanvallen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-614659",
+    "rinusId": 614659,
+    "title": "6+k tegen 6 + 1 neutrale, recht van de aanval",
+    "category": "warming-up",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "6+k tegen 6 + 1 neutrale, recht van de aanval. Focus: Aanvallen.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "warming-up",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -833,6 +2799,16 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -864,6 +2840,15 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -895,6 +2880,15 @@ export const IMPORTED_RINUS_EXERCISES = [
     "cycleThemes": [
       "techniek"
     ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -926,6 +2920,17 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -957,6 +2962,14 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Duel om de bal"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -993,6 +3006,15 @@ export const IMPORTED_RINUS_EXERCISES = [
     "cycleThemes": [
       "techniek"
     ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1024,6 +3046,15 @@ export const IMPORTED_RINUS_EXERCISES = [
     "cycleThemes": [
       "techniek"
     ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1060,6 +3091,15 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1091,6 +3131,15 @@ export const IMPORTED_RINUS_EXERCISES = [
     "cycleThemes": [
       "techniek"
     ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1126,6 +3175,14 @@ export const IMPORTED_RINUS_EXERCISES = [
     "cycleThemes": [
       "techniek"
     ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1162,6 +3219,15 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1194,6 +3260,17 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1224,6 +3301,14 @@ export const IMPORTED_RINUS_EXERCISES = [
     "cycleThemes": [
       "techniek"
     ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1255,6 +3340,14 @@ export const IMPORTED_RINUS_EXERCISES = [
     "cycleThemes": [
       "techniek"
     ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1286,6 +3379,15 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1318,6 +3420,14 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Duel om de bal"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1349,6 +3459,16 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1380,6 +3500,15 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1411,6 +3540,15 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1442,6 +3580,15 @@ export const IMPORTED_RINUS_EXERCISES = [
     "cycleThemes": [
       "techniek"
     ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1473,6 +3620,16 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1503,6 +3660,3243 @@ export const IMPORTED_RINUS_EXERCISES = [
     "cycleThemes": [
       "techniek"
     ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-34419",
+    "rinusId": 34419,
+    "title": "1 tegen 1+k grote doelen tegenstander van achter",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 3,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1+k grote doelen tegenstander van achter. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43165",
+    "rinusId": 43165,
+    "title": "1 tegen 1 met kaatsers",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1 met kaatsers. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42599",
+    "rinusId": 42599,
+    "title": "1 tegen 1 na lange pass grote doelen, kleine doeltjes",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "techniek",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "1 tegen 1 na lange pass grote doelen, kleine doeltjes. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-44145",
+    "rinusId": 44145,
+    "title": "1 tegen 1 scoren op 2 kleine doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "1 tegen 1 scoren op 2 kleine doelen. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47033",
+    "rinusId": 47033,
+    "title": "1 tegen 1 met richtingsverandering",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1 met richtingsverandering. Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45885",
+    "rinusId": 45885,
+    "title": "1 tegen 1 poortschietspel",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1 poortschietspel. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42201",
+    "rinusId": 42201,
+    "title": "1 tegen 1+k omschakelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1+k omschakelen. Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-44865",
+    "rinusId": 44865,
+    "title": "1 tegen 1 met 4 poortjes",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1 met 4 poortjes. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45307",
+    "rinusId": 45307,
+    "title": "1 tegen 1+k verdedigen op lijn + scoren",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 7,
+    "focusPositions": [
+      "ATT"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1+k verdedigen op lijn + scoren. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40421",
+    "rinusId": 40421,
+    "title": "1 tegen 1 schuin van voren",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 5,
+    "maxPlayers": 5,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1 schuin van voren. Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46991",
+    "rinusId": 46991,
+    "title": "1 tegen 1+k met dribbelparcours",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1+k met dribbelparcours. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42237",
+    "rinusId": 42237,
+    "title": "1 tegen 1 kleine doelen (2 gelijktijdig)",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1 kleine doelen (2 gelijktijdig). Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42301",
+    "rinusId": 42301,
+    "title": "1 tegen 1 frontaal",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "1 tegen 1 frontaal. Focus: Omschakelen, Omschakelen op moment van balverlies verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen op moment van balverlies verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-44819",
+    "rinusId": 44819,
+    "title": "1 tegen 1 na lange pass lijndribbel",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "1 tegen 1 na lange pass lijndribbel. Focus: Omschakelen, Omschakelen op moment van balverlies verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen op moment van balverlies verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-34709",
+    "rinusId": 34709,
+    "title": "1 tegen 1+k grote doelen tegenstander van de zijkant",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 3,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1+k grote doelen tegenstander van de zijkant. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43119",
+    "rinusId": 43119,
+    "title": "1 tegen 1 verdedigen op lijn klein doeltje",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 3,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1 verdedigen op lijn klein doeltje. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43807",
+    "rinusId": 43807,
+    "title": "1 tegen 1 met kleurenpoortjes",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "1 tegen 1 met kleurenpoortjes. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-44923",
+    "rinusId": 44923,
+    "title": "1 tegen 1 met omgekeerde doeltjes",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1 met omgekeerde doeltjes. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46977",
+    "rinusId": 46977,
+    "title": "1+K tegen 1+K omschakelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1+K tegen 1+K omschakelen. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-48131",
+    "rinusId": 48131,
+    "title": "3 tegen 3 met 2 kleine doeltjes",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "3 tegen 3 met 2 kleine doeltjes. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43875",
+    "rinusId": 43875,
+    "title": "1 tegen 1 lijndribbel (schuin)",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1 lijndribbel (schuin). Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47161",
+    "rinusId": 47161,
+    "title": "2 tegen 2 met 2 kleine doeltjes",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2 tegen 2 met 2 kleine doeltjes. Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43847",
+    "rinusId": 43847,
+    "title": "1 tegen 1 verdedigende houding",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1 verdedigende houding. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47141",
+    "rinusId": 47141,
+    "title": "3 tegen 3 met 2 grote doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 6,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "3 tegen 3 met 2 grote doelen. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Passeren"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-35677",
+    "rinusId": 35677,
+    "title": "1 tegen 1+k met 1 groot doel en 1 klein doeltje (tegenstander van achteren)",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1+k met 1 groot doel en 1 klein doeltje (tegenstander van achteren). Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47309",
+    "rinusId": 47309,
+    "title": "2 tegen 2 met 2 grote doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2 tegen 2 met 2 grote doelen. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47301",
+    "rinusId": 47301,
+    "title": "2 tegen 2 met 4 poortjes",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2 tegen 2 met 4 poortjes. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47343",
+    "rinusId": 47343,
+    "title": "3 tegen 3 met 2 kaatsers positiespel",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 11,
+    "focusPositions": [
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "3 tegen 3 met 2 kaatsers positiespel. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-312718",
+    "rinusId": 312718,
+    "title": "1 tegen 1 met frontale druk en kleine doeltjes",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 9,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1 met frontale druk en kleine doeltjes. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47119",
+    "rinusId": 47119,
+    "title": "1 tegen 1+k groot doel en 1 klein doeltje (tegenstander van achter)",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1+k groot doel en 1 klein doeltje (tegenstander van achter). Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-35599",
+    "rinusId": 35599,
+    "title": "1 tegen 1 met 2 grote doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 2,
+    "maxPlayers": 4,
+    "focusPositions": [
+      "ATT"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1 met 2 grote doelen. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-511294",
+    "rinusId": 511294,
+    "title": "Scoren als Memphis",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "Scoren als Memphis",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Passeren"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-294048",
+    "rinusId": 294048,
+    "title": "Schieten als Vivianne",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 3,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "Schieten als Vivianne. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46993",
+    "rinusId": 46993,
+    "title": "2+k tegen 2+k lang smal veld grote doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2+k tegen 2+k lang smal veld grote doelen. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42633",
+    "rinusId": 42633,
+    "title": "1 tegen 1 met richtingsveranderin",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1 met richtingsveranderin. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47271",
+    "rinusId": 47271,
+    "title": "4 tegen 4 met 2  kleine doeltjes",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "4 tegen 4 met 2  kleine doeltjes. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-44651",
+    "rinusId": 44651,
+    "title": "1+k tegen 1+k grote doelen vanuit afwisselende posities",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 6,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1+k tegen 1+k grote doelen vanuit afwisselende posities. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47193",
+    "rinusId": 47193,
+    "title": "1+K 1+k grote doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1+K 1+k grote doelen. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-312823",
+    "rinusId": 312823,
+    "title": "1 tegen 1 omschakelen naar 2 tegen 1",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "techniek",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "1 tegen 1 omschakelen naar 2 tegen 1. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47137",
+    "rinusId": 47137,
+    "title": "2 tegen 2 op kleine doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2 tegen 2 op kleine doelen. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47173",
+    "rinusId": 47173,
+    "title": "4 tegen 4 met 2 doeltjes",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "4 tegen 4 met 2 doeltjes. Focus: Verdedigen, Verdedigen van dieptespel verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van dieptespel verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42231",
+    "rinusId": 42231,
+    "title": "1 tegen 1 met kleine doeltjes vanuit afwisselende posities",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1 met kleine doeltjes vanuit afwisselende posities. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47325",
+    "rinusId": 47325,
+    "title": "2 tegen 2 lijnvoetbal",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2 tegen 2 lijnvoetbal. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-312842",
+    "rinusId": 312842,
+    "title": "1 tegen 1 lijnvoetbal vanuit afwisselende posities",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1 lijnvoetbal vanuit afwisselende posities. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42937",
+    "rinusId": 42937,
+    "title": "4 tegen 3+k in 2 vakken, groot doel klein doel",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "4 tegen 3+k in 2 vakken, groot doel klein doel. Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-36621",
+    "rinusId": 36621,
+    "title": "4 tegen 3 met 4 doeltjes",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 7,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "4 tegen 3 met 4 doeltjes. Focus: Verdedigen, Verdedigen wanneer de tegenstander kansen creëert verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen wanneer de tegenstander kansen creëert verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46885",
+    "rinusId": 46885,
+    "title": "3 tegen 2, lang smal veld, kleine doeltjes",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "3 tegen 2, lang smal veld, kleine doeltjes. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40811",
+    "rinusId": 40811,
+    "title": "2 tegen 2 + 2 neutrale in 2 vakken positiespel",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2 tegen 2 + 2 neutrale in 2 vakken positiespel. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-37045",
+    "rinusId": 37045,
+    "title": "4 tegen 2 positiespel (smal veld)",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "4 tegen 2 positiespel (smal veld). Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-36851",
+    "rinusId": 36851,
+    "title": "Vrije voorzet 4+k tegen 3+k grote doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 9,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "Vrije voorzet 4+k tegen 3+k grote doelen. Focus: Verdedigen, Verdedigen wanneer de tegenstander kansen creëert verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Koppen",
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen wanneer de tegenstander kansen creëert verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-38925",
+    "rinusId": 38925,
+    "title": "1 tegen 1 + 2 tegen 1 op kleine doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "1 tegen 1 + 2 tegen 1 op kleine doelen. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Passeren"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40933",
+    "rinusId": 40933,
+    "title": "2 tegen 2 met 2 neutrale op 2 kleine doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2 tegen 2 met 2 neutrale op 2 kleine doelen. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-35379",
+    "rinusId": 35379,
+    "title": "2+k tegen 1+k met breed veld en grote doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2+k tegen 1+k met breed veld en grote doelen. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45657",
+    "rinusId": 45657,
+    "title": "Positiespel 2 tegen 1 spel verplaatsen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "Positiespel 2 tegen 1 spel verplaatsen. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-35529",
+    "rinusId": 35529,
+    "title": "3 tegen 2 met 4 kleine doeltjes",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 5,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "3 tegen 2 met 4 kleine doeltjes. Focus: Omschakelen, Omschakelen op moment van balverlies verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen op moment van balverlies verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-35967",
+    "rinusId": 35967,
+    "title": "3+k tegen 2+k lang smal veld grote doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 7,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "3+k tegen 2+k lang smal veld grote doelen. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46847",
+    "rinusId": 46847,
+    "title": "3 tegen 2 op 4 doelen op 2 veldjes",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 9,
+    "maxPlayers": 9,
+    "focusPositions": [
+      "ATT"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "3 tegen 2 op 4 doelen op 2 veldjes. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-36327",
+    "rinusId": 36327,
+    "title": "4 tegen 3, lang smal veld",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 7,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "4 tegen 3, lang smal veld. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45165",
+    "rinusId": 45165,
+    "title": "3+k tegen 3+k met 1 neutrale",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 9,
+    "maxPlayers": 9,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "3+k tegen 3+k met 1 neutrale. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42881",
+    "rinusId": 42881,
+    "title": "3 tegen 2 in vakken kleine doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 7,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "3 tegen 2 in vakken kleine doelen. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-44279",
+    "rinusId": 44279,
+    "title": "2 tegen 1 omschakelen naar 2 tegen 2",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2 tegen 1 omschakelen naar 2 tegen 2. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45733",
+    "rinusId": 45733,
+    "title": "2 tegen 1+k verdedigen op lijn met aanvaller in de rug",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 5,
+    "maxPlayers": 7,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2 tegen 1+k verdedigen op lijn met aanvaller in de rug. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-35155",
+    "rinusId": 35155,
+    "title": "2+k tegen 1+k grote doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 5,
+    "maxPlayers": 9,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2+k tegen 1+k grote doelen. Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-35937",
+    "rinusId": 35937,
+    "title": "3 tegen 2 met 2 doeltjes",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 5,
+    "maxPlayers": 7,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "3 tegen 2 met 2 doeltjes. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40719",
+    "rinusId": 40719,
+    "title": "4 tegen 3 op kleine doelen zijkant",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 7,
+    "maxPlayers": 7,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "4 tegen 3 op kleine doelen zijkant. Focus: Aanvallen, Dieptespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Dieptespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45079",
+    "rinusId": 45079,
+    "title": "2+k tegen 2+k +1 neutrale op 2 grote doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 7,
+    "maxPlayers": 7,
+    "focusPositions": [
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2+k tegen 2+k +1 neutrale op 2 grote doelen. Focus: Verdedigen, Verdedigen van dieptespel verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Overnemen",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van dieptespel verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45467",
+    "rinusId": 45467,
+    "title": "2 tegen 2 met kaatsers",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2 tegen 2 met kaatsers. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-44957",
+    "rinusId": 44957,
+    "title": "2 tegen 1 in vakken kleine doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2 tegen 1 in vakken kleine doelen. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40891",
+    "rinusId": 40891,
+    "title": "3 tegen 2+k via de zijkant",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 9,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "3 tegen 2+k via de zijkant. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45055",
+    "rinusId": 45055,
+    "title": "4 tegen 3 in 2 vakken kleine doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 7,
+    "maxPlayers": 9,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "4 tegen 3 in 2 vakken kleine doelen. Focus: Aanvallen, Dieptespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Dieptespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45031",
+    "rinusId": 45031,
+    "title": "2 tegen 1+K verdedigen op lijn",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2 tegen 1+K verdedigen op lijn. Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40603",
+    "rinusId": 40603,
+    "title": "Vrije voorzet 4+k tegen 3+k (2 tegen 1 voor het doel)",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 10,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "Vrije voorzet 4+k tegen 3+k (2 tegen 1 voor het doel). Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45331",
+    "rinusId": 45331,
+    "title": "2 tegen 1 op klein doeltje",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 3,
+    "maxPlayers": 7,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2 tegen 1 op klein doeltje. Focus: Aanvallen, Dieptespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Dieptespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46461",
+    "rinusId": 46461,
+    "title": "2 tegen 2 met 2 kaatsers",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2 tegen 2 met 2 kaatsers. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45545",
+    "rinusId": 45545,
+    "title": "2 tegen 1 verdedigen op lijn met aanvaller in de rug",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 7,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2 tegen 1 verdedigen op lijn met aanvaller in de rug. Focus: Verdedigen, Verdedigen van dieptespel verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van dieptespel verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-38625",
+    "rinusId": 38625,
+    "title": "4 tegen 3+k 1 groot doel en 1 klein doel centraal",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "4 tegen 3+k 1 groot doel en 1 klein doel centraal. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45795",
+    "rinusId": 45795,
+    "title": "Positiespel 3 tegen 2 spel verplaatsen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 9,
+    "maxPlayers": 9,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "Positiespel 3 tegen 2 spel verplaatsen. Focus: Aanvallen, Dieptespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Dieptespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40245",
+    "rinusId": 40245,
+    "title": "2 tegen 3 op 2 kleine doelen",
+    "category": "techniek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 5,
+    "maxPlayers": 5,
+    "focusPositions": [
+      "MID",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "techniek",
+      "gemengd"
+    ],
+    "description": "2 tegen 3 op 2 kleine doelen. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "techniek",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Overnemen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1533,6 +6927,14 @@ export const IMPORTED_RINUS_EXERCISES = [
     "cycleThemes": [
       "tactiek"
     ],
+    "rinusActivities": [
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1568,192 +6970,16 @@ export const IMPORTED_RINUS_EXERCISES = [
     "cycleThemes": [
       "tactiek"
     ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-42937",
-    "rinusId": 42937,
-    "title": "4 tegen 3+k in 2 vakken, groot doel klein doel",
-    "category": "tactiek",
-    "durationMin": 15,
-    "ageGroups": [
-      "O8",
-      "O9",
-      "O10"
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Sliding"
     ],
-    "minKnvbLevel": 1,
-    "maxKnvbLevel": 5,
-    "minPlayers": 8,
-    "maxPlayers": 10,
-    "focusPositions": [
-      "DEF"
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
     ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "tactiek",
-      "gemengd"
-    ],
-    "description": "4 tegen 3+k in 2 vakken, groot doel klein doel. Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "tactiek"
-    ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-36621",
-    "rinusId": 36621,
-    "title": "4 tegen 3 met 4 doeltjes",
-    "category": "tactiek",
-    "durationMin": 15,
-    "ageGroups": [
-      "O11",
-      "O12"
-    ],
-    "minKnvbLevel": 1,
-    "maxKnvbLevel": 7,
-    "minPlayers": 7,
-    "maxPlayers": 10,
-    "focusPositions": [
-      "DEF"
-    ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "tactiek",
-      "gemengd",
-      "techniek"
-    ],
-    "description": "4 tegen 3 met 4 doeltjes. Focus: Verdedigen, Verdedigen wanneer de tegenstander kansen creëert verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "tactiek"
-    ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-46885",
-    "rinusId": 46885,
-    "title": "3 tegen 2, lang smal veld, kleine doeltjes",
-    "category": "tactiek",
-    "durationMin": 15,
-    "ageGroups": [
-      "O13",
-      "Senior"
-    ],
-    "minKnvbLevel": 2,
-    "maxKnvbLevel": 7,
-    "minPlayers": 8,
-    "maxPlayers": 10,
-    "focusPositions": [
-      "ATT",
-      "MID"
-    ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "tactiek",
-      "gemengd"
-    ],
-    "description": "3 tegen 2, lang smal veld, kleine doeltjes. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "tactiek"
-    ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-40811",
-    "rinusId": 40811,
-    "title": "2 tegen 2 + 2 neutrale in 2 vakken positiespel",
-    "category": "tactiek",
-    "durationMin": 15,
-    "ageGroups": [
-      "O13",
-      "Senior"
-    ],
-    "minKnvbLevel": 2,
-    "maxKnvbLevel": 7,
-    "minPlayers": 6,
-    "maxPlayers": 6,
-    "focusPositions": [
-      "ATT",
-      "MID"
-    ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "tactiek",
-      "gemengd"
-    ],
-    "description": "2 tegen 2 + 2 neutrale in 2 vakken positiespel. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "tactiek",
-      "techniek"
-    ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-37045",
-    "rinusId": 37045,
-    "title": "4 tegen 2 positiespel (smal veld)",
-    "category": "tactiek",
-    "durationMin": 15,
-    "ageGroups": [
-      "O11",
-      "O12"
-    ],
-    "minKnvbLevel": 1,
-    "maxKnvbLevel": 7,
-    "minPlayers": 6,
-    "maxPlayers": 8,
-    "focusPositions": [
-      "DEF"
-    ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "tactiek",
-      "gemengd"
-    ],
-    "description": "4 tegen 2 positiespel (smal veld). Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "tactiek"
-    ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-36851",
-    "rinusId": 36851,
-    "title": "Vrije voorzet 4+k tegen 3+k grote doelen",
-    "category": "tactiek",
-    "durationMin": 15,
-    "ageGroups": [
-      "O13",
-      "Senior"
-    ],
-    "minKnvbLevel": 2,
-    "maxKnvbLevel": 7,
-    "minPlayers": 9,
-    "maxPlayers": 10,
-    "focusPositions": [
-      "DEF"
-    ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "tactiek",
-      "gemengd",
-      "techniek"
-    ],
-    "description": "Vrije voorzet 4+k tegen 3+k grote doelen. Focus: Verdedigen, Verdedigen wanneer de tegenstander kansen creëert verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "tactiek"
-    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -1791,197 +7017,16 @@ export const IMPORTED_RINUS_EXERCISES = [
       "tactiek",
       "techniek"
     ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-38925",
-    "rinusId": 38925,
-    "title": "1 tegen 1 + 2 tegen 1 op kleine doelen",
-    "category": "tactiek",
-    "durationMin": 15,
-    "ageGroups": [
-      "O13",
-      "Senior"
+    "rinusActivities": [
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
     ],
-    "minKnvbLevel": 2,
-    "maxKnvbLevel": 7,
-    "minPlayers": 4,
-    "maxPlayers": 6,
-    "focusPositions": [
-      "ATT",
-      "MID"
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
     ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "tactiek",
-      "gemengd",
-      "techniek"
-    ],
-    "description": "1 tegen 1 + 2 tegen 1 op kleine doelen. Focus: Aanvallen, Scoren verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "tactiek"
-    ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-40933",
-    "rinusId": 40933,
-    "title": "2 tegen 2 met 2 neutrale op 2 kleine doelen",
-    "category": "tactiek",
-    "durationMin": 15,
-    "ageGroups": [
-      "O13",
-      "Senior"
-    ],
-    "minKnvbLevel": 2,
-    "maxKnvbLevel": 7,
-    "minPlayers": 6,
-    "maxPlayers": 6,
-    "focusPositions": [
-      "ATT",
-      "MID"
-    ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "tactiek",
-      "gemengd"
-    ],
-    "description": "2 tegen 2 met 2 neutrale op 2 kleine doelen. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "tactiek",
-      "techniek"
-    ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-35379",
-    "rinusId": 35379,
-    "title": "2+k tegen 1+k met breed veld en grote doelen",
-    "category": "tactiek",
-    "durationMin": 15,
-    "ageGroups": [
-      "O13",
-      "Senior"
-    ],
-    "minKnvbLevel": 2,
-    "maxKnvbLevel": 7,
-    "minPlayers": 6,
-    "maxPlayers": 8,
-    "focusPositions": [
-      "ATT",
-      "MID"
-    ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "tactiek",
-      "gemengd",
-      "techniek"
-    ],
-    "description": "2+k tegen 1+k met breed veld en grote doelen. Focus: Aanvallen, Scoren verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "tactiek"
-    ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-45657",
-    "rinusId": 45657,
-    "title": "Positiespel 2 tegen 1 spel verplaatsen",
-    "category": "tactiek",
-    "durationMin": 15,
-    "ageGroups": [
-      "O13",
-      "Senior"
-    ],
-    "minKnvbLevel": 2,
-    "maxKnvbLevel": 7,
-    "minPlayers": 6,
-    "maxPlayers": 6,
-    "focusPositions": [
-      "ATT",
-      "MID"
-    ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "tactiek",
-      "gemengd"
-    ],
-    "description": "Positiespel 2 tegen 1 spel verplaatsen. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "tactiek",
-      "techniek"
-    ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-35529",
-    "rinusId": 35529,
-    "title": "3 tegen 2 met 4 kleine doeltjes",
-    "category": "tactiek",
-    "durationMin": 15,
-    "ageGroups": [
-      "O13",
-      "Senior"
-    ],
-    "minKnvbLevel": 2,
-    "maxKnvbLevel": 7,
-    "minPlayers": 5,
-    "maxPlayers": 8,
-    "focusPositions": [
-      "DEF"
-    ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "tactiek",
-      "gemengd"
-    ],
-    "description": "3 tegen 2 met 4 kleine doeltjes. Focus: Omschakelen, Omschakelen op moment van balverlies verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "tactiek"
-    ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-35967",
-    "rinusId": 35967,
-    "title": "3+k tegen 2+k lang smal veld grote doelen",
-    "category": "tactiek",
-    "durationMin": 15,
-    "ageGroups": [
-      "O8",
-      "O9",
-      "O10"
-    ],
-    "minKnvbLevel": 1,
-    "maxKnvbLevel": 5,
-    "minPlayers": 7,
-    "maxPlayers": 10,
-    "focusPositions": [
-      "ATT",
-      "MID"
-    ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "tactiek",
-      "gemengd",
-      "techniek"
-    ],
-    "description": "3+k tegen 2+k lang smal veld grote doelen. Focus: Aanvallen, Scoren verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "tactiek"
-    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2013,37 +7058,16 @@ export const IMPORTED_RINUS_EXERCISES = [
     "cycleThemes": [
       "tactiek"
     ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-46847",
-    "rinusId": 46847,
-    "title": "3 tegen 2 op 4 doelen op 2 veldjes",
-    "category": "tactiek",
-    "durationMin": 15,
-    "ageGroups": [
-      "O13",
-      "Senior"
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding",
+      "Druk zetten"
     ],
-    "minKnvbLevel": 2,
-    "maxKnvbLevel": 7,
-    "minPlayers": 9,
-    "maxPlayers": 9,
-    "focusPositions": [
-      "ATT"
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen wanneer de tegenstander kansen creëert verbeteren"
     ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "tactiek",
-      "gemengd",
-      "techniek"
-    ],
-    "description": "3 tegen 2 op 4 doelen op 2 veldjes. Focus: Aanvallen, Scoren verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "tactiek"
-    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2075,6 +7099,3125 @@ export const IMPORTED_RINUS_EXERCISES = [
     "cycleThemes": [
       "tactiek"
     ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-44939",
+    "rinusId": 44939,
+    "title": "4 tegen 3+k in vakken kleine doelen",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 11,
+    "maxPlayers": 19,
+    "focusPositions": [
+      "ATT"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "4 tegen 3+k in vakken kleine doelen. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45547",
+    "rinusId": 45547,
+    "title": "Positiespel 4 tegen 3 spel verplaatsen",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 12,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "Positiespel 4 tegen 3 spel verplaatsen. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43697",
+    "rinusId": 43697,
+    "title": "3+K tegen 4 samenwerking keeper en 3 verdedigers",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "3+K tegen 4 samenwerking keeper en 3 verdedigers. Focus: Verdedigen, Verdedigen wanneer de tegenstander kansen creëert verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Koppen",
+      "Duel om de bal",
+      "Knijpen",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen wanneer de tegenstander kansen creëert verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-39769",
+    "rinusId": 39769,
+    "title": "Vrije voorzet 3+k tegen 2+k grote doelen",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 9,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "Vrije voorzet 3+k tegen 2+k grote doelen. Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Koppen",
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-39485",
+    "rinusId": 39485,
+    "title": "4 tegen 3+k groot doel en klein doel",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 11,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "4 tegen 3+k groot doel en klein doel. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Voorzet geven",
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-44013",
+    "rinusId": 44013,
+    "title": "2 tegen 1 lijndribbel stroomvorm",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "2 tegen 1 lijndribbel stroomvorm. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-35083",
+    "rinusId": 35083,
+    "title": "2 tegen 1+k groot doel en lijn",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "2 tegen 1+k groot doel en lijn. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43953",
+    "rinusId": 43953,
+    "title": "4 tegen 2 positiespel met kleine doeltjes",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "4 tegen 2 positiespel met kleine doeltjes. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40903",
+    "rinusId": 40903,
+    "title": "2+k tegen 2+k met 2 neutrale",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "2+k tegen 2+k met 2 neutrale. Focus: Omschakelen, Omschakelen op moment van balverlies verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen op moment van balverlies verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47019",
+    "rinusId": 47019,
+    "title": "2 tegen 1 met 3 doeltjes",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 3,
+    "maxPlayers": 7,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "2 tegen 1 met 3 doeltjes. Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-38843",
+    "rinusId": 38843,
+    "title": "1+k tegen 1+k met 1 neutrale in 2 vakken",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "1+k tegen 1+k met 1 neutrale in 2 vakken. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-48031",
+    "rinusId": 48031,
+    "title": "Shout-out 2 tegen 1 met keeper",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 10,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "Shout-out 2 tegen 1 met keeper. Focus: Toernooi vormen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Passeren",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Toernooi vormen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46311",
+    "rinusId": 46311,
+    "title": "2 tegen 1+k na dribbelparcours",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "2 tegen 1+k na dribbelparcours. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-312722",
+    "rinusId": 312722,
+    "title": "1 tegen 2 omschakelen naar 2 tegen 2 met richtingsverandering",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "1 tegen 2 omschakelen naar 2 tegen 2 met richtingsverandering. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-41173",
+    "rinusId": 41173,
+    "title": "4+K tegen 3 opbouw met de backs",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "4+K tegen 3 opbouw met de backs. Focus: Aanvallen, Dieptespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Dieptespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45081",
+    "rinusId": 45081,
+    "title": "4+k tegen 3 in 2 vakken, groot doel, klein doel",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "4+k tegen 3 in 2 vakken, groot doel, klein doel. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43289",
+    "rinusId": 43289,
+    "title": "3+k tegen 3 + 1 neutrale, recht van de aanval",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "3+k tegen 3 + 1 neutrale, recht van de aanval. Focus: Omschakelen, Omschakelen op moment van balverlies verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen op moment van balverlies verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-39847",
+    "rinusId": 39847,
+    "title": "3 tegen 2+k zijkanten met 1 groot doel",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 7,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "3 tegen 2+k zijkanten met 1 groot doel. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Koppen",
+      "Vrijlopen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-39319",
+    "rinusId": 39319,
+    "title": "3 tegen 2+k scoren op groot doel en klein doel",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "3 tegen 2+k scoren op groot doel en klein doel. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Voorzet geven",
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42721",
+    "rinusId": 42721,
+    "title": "3 tegen 2+k in vakken",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "3 tegen 2+k in vakken. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42693",
+    "rinusId": 42693,
+    "title": "3+K tegen 4 samenwerking 10 en aanvallers",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "3+K tegen 4 samenwerking 10 en aanvallers. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Voorzet geven",
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45129",
+    "rinusId": 45129,
+    "title": "2 tegen 1 verdedigen op lijn",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 3,
+    "maxPlayers": 7,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "2 tegen 1 verdedigen op lijn. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40515",
+    "rinusId": 40515,
+    "title": "Vrije voorzet 4+k tegen 4+k (2 tegen 2 voor het doel)",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 10,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Vrije voorzet 4+k tegen 4+k (2 tegen 2 voor het doel). Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-34921",
+    "rinusId": 34921,
+    "title": "2 tegen 1 met 4 kleine doeltjes",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 3,
+    "maxPlayers": 7,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "2 tegen 1 met 4 kleine doeltjes. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46335",
+    "rinusId": 46335,
+    "title": "3 tegen 2 met dribbelparcours",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 5,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "3 tegen 2 met dribbelparcours. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-44875",
+    "rinusId": 44875,
+    "title": "2 tegen 1+k in vakken",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 5,
+    "maxPlayers": 9,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "2 tegen 1+k in vakken. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40413",
+    "rinusId": 40413,
+    "title": "4+k tegen 3 met 1 kleine doel (centraal)",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "4+k tegen 3 met 1 kleine doel (centraal). Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40201",
+    "rinusId": 40201,
+    "title": "2+k tegen 3 op 2 kleine doelen",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "2+k tegen 3 op 2 kleine doelen. Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46931",
+    "rinusId": 46931,
+    "title": "2 tegen 1 (+1) klein doeltje en lijn",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "2 tegen 1 (+1) klein doeltje en lijn. Focus: Verdedigen, Verdedigen van dieptespel verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van dieptespel verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40787",
+    "rinusId": 40787,
+    "title": "2 tegen 2+k vanaf de zijkanten met 1 groot doel",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 7,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "2 tegen 2+k vanaf de zijkanten met 1 groot doel. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Koppen",
+      "Vrijlopen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-44943",
+    "rinusId": 44943,
+    "title": "4 tegen 2+k in vakken kleine doelen",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 11,
+    "maxPlayers": 19,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "4 tegen 2+k in vakken kleine doelen. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-38563",
+    "rinusId": 38563,
+    "title": "4+k tegen 3 op 1 groot doel en 2 kleine doelen",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "4+k tegen 3 op 1 groot doel en 2 kleine doelen. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47065",
+    "rinusId": 47065,
+    "title": "2+k tegen 2+k + 2 neutrale (verdedigen)",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "2+k tegen 2+k + 2 neutrale (verdedigen). Focus: Verdedigen, Verdedigen wanneer de tegenstander kansen creëert verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen wanneer de tegenstander kansen creëert verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43921",
+    "rinusId": 43921,
+    "title": "2 tegen 1 na dribbelparcours",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "2 tegen 1 na dribbelparcours. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42767",
+    "rinusId": 42767,
+    "title": "tegen 2+k in vakken",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "tegen 2+k in vakken. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46787",
+    "rinusId": 46787,
+    "title": "3 tegen 2+k via de zijkant (verdedigen)",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 9,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "3 tegen 2+k via de zijkant (verdedigen). Focus: Verdedigen, Verdedigen wanneer de tegenstander kansen creëert verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen wanneer de tegenstander kansen creëert verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-39653",
+    "rinusId": 39653,
+    "title": "4+K tegen 4 op lang smal veld",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 9,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "4+K tegen 4 op lang smal veld. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-44301",
+    "rinusId": 44301,
+    "title": "3+k tegen 3 met groot doel, klein doeltje in 2 vakken",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 7,
+    "maxPlayers": 7,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "3+k tegen 3 met groot doel, klein doeltje in 2 vakken. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-294056",
+    "rinusId": 294056,
+    "title": "Dribbelen als Lieke",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Dribbelen als Lieke. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42983",
+    "rinusId": 42983,
+    "title": "5 tegen 4 in 2 vakken, kleine doelen",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 9,
+    "maxPlayers": 11,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "5 tegen 4 in 2 vakken, kleine doelen. Focus: Aanvallen, Dieptespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Dieptespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-511296",
+    "rinusId": 511296,
+    "title": "Passen als Steven",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 7,
+    "maxPlayers": 11,
+    "focusPositions": [
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "Passen als Steven",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Passen"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46503",
+    "rinusId": 46503,
+    "title": "3 tegen 3 met 2 kleine doeltjes in 2 vakken",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 3,
+    "maxPlayers": 3,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "3 tegen 3 met 2 kleine doeltjes in 2 vakken. Focus: Aanvallen, Dieptespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Dieptespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-48025",
+    "rinusId": 48025,
+    "title": "3 tegen 2 met keeper",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 10,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "3 tegen 2 met keeper. Focus: Toernooi vormen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Toernooi vormen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-41911",
+    "rinusId": 41911,
+    "title": "3+k tegen 3+k + 4 neutrale via de zijkanten",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 12,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "3+k tegen 3+k + 4 neutrale via de zijkanten. Focus: Aanvallen, Dieptespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Dieptespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-38485",
+    "rinusId": 38485,
+    "title": "3+k tegen 3+k + met 2 neutrale aan de zijkant",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 10,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "3+k tegen 3+k + met 2 neutrale aan de zijkant. Focus: Verdedigen, Verdedigen van dieptespel verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Overnemen",
+      "Knijpen",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van dieptespel verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43725",
+    "rinusId": 43725,
+    "title": "4+k tegen 4+k + 2 neutrale",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 12,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "4+k tegen 4+k + 2 neutrale. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46027",
+    "rinusId": 46027,
+    "title": "4+k tegen 4 + 1 neutrale, recht van de aanval",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 10,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "4+k tegen 4 + 1 neutrale, recht van de aanval. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46135",
+    "rinusId": 46135,
+    "title": "5+k tegen 4 in 1-3-2 tegen 2-2",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 10,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "5+k tegen 4 in 1-3-2 tegen 2-2. Focus: Omschakelen, Omschakelen op moment van balverlies verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen op moment van balverlies verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-39965",
+    "rinusId": 39965,
+    "title": "6+K tegen 5 op 1 grote doel en 2 kleine doelen",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 12,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "6+K tegen 5 op 1 grote doel en 2 kleine doelen. Focus: Verdedigen, Verdedigen van dieptespel verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van dieptespel verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-41561",
+    "rinusId": 41561,
+    "title": "7+K tegen 6",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "7+K tegen 6. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-39011",
+    "rinusId": 39011,
+    "title": "7+K tegen 6 op 1 grote en 2 kleine doelen",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "7+K tegen 6 op 1 grote en 2 kleine doelen. Focus: Omschakelen, Omschakelen op moment van balverlies verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen op moment van balverlies verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46383",
+    "rinusId": 46383,
+    "title": "5 tegen 3 positiespel met kleine doeltjes",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "5 tegen 3 positiespel met kleine doeltjes. Focus: Verdedigen, Verdedigen van dieptespel verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van dieptespel verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-38513",
+    "rinusId": 38513,
+    "title": "7+k tegen 6+k op 2 grote doelen (centraal)",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 15,
+    "maxPlayers": 15,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "7+k tegen 6+k op 2 grote doelen (centraal). Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47041",
+    "rinusId": 47041,
+    "title": "6 tegen 5+k op 1 groot doel en 1 klein doel",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 12,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "6 tegen 5+k op 1 groot doel en 1 klein doel. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-38009",
+    "rinusId": 38009,
+    "title": "5 tegen 3 positiespel",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "5 tegen 3 positiespel. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43521",
+    "rinusId": 43521,
+    "title": "6+K tegen 5",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 12,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "6+K tegen 5. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45491",
+    "rinusId": 45491,
+    "title": "3 tegen 3 met kaatsers",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 9,
+    "maxPlayers": 9,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "3 tegen 3 met kaatsers. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-44127",
+    "rinusId": 44127,
+    "title": "4+k tegen 4+k met 4 neutrale op kopse kanten",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "4+k tegen 4+k met 4 neutrale op kopse kanten. Focus: Omschakelen, Omschakelen op moment van balverlies verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen op moment van balverlies verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-39533",
+    "rinusId": 39533,
+    "title": "6 tegen 4+K uitspelen van een overtalsituatie",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 11,
+    "maxPlayers": 13,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "6 tegen 4+K uitspelen van een overtalsituatie. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Voorzet geven",
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-38789",
+    "rinusId": 38789,
+    "title": "5 tegen 5 met 3 neutrale positiespel",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 13,
+    "maxPlayers": 13,
+    "focusPositions": [
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "5 tegen 5 met 3 neutrale positiespel. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Overnemen",
+      "Bijsluiten",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43423",
+    "rinusId": 43423,
+    "title": "5+k tegen 5 +1 neutrale, recht van de aanval",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 12,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "5+k tegen 5 +1 neutrale, recht van de aanval. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-39327",
+    "rinusId": 39327,
+    "title": "5 tegen 5 met 2 neutrale positiespel",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 12,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "5 tegen 5 met 2 neutrale positiespel. Focus: Aanvallen, Dieptespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Dieptespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46869",
+    "rinusId": 46869,
+    "title": "5+k tegen 4 in 1-3-2 tegen 1-3",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 10,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "5+k tegen 4 in 1-3-2 tegen 1-3. Focus: Omschakelen, Omschakelen op moment van balverlies verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen op moment van balverlies verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-41267",
+    "rinusId": 41267,
+    "title": "3+k tegen 3+k met 4 neutrale en 2 grote doelen",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 12,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "3+k tegen 3+k met 4 neutrale en 2 grote doelen. Focus: Verdedigen, Verdedigen wanneer de tegenstander kansen creëert verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Knijpen",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen wanneer de tegenstander kansen creëert verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-39553",
+    "rinusId": 39553,
+    "title": "5+K tegen 4 op lang smal veld",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 10,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "5+K tegen 4 op lang smal veld. Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40083",
+    "rinusId": 40083,
+    "title": "4+k tegen 5 lang smal veld",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 10,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "4+k tegen 5 lang smal veld. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Overnemen",
+      "Bijsluiten",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-38545",
+    "rinusId": 38545,
+    "title": "5 tegen 2 positiespel (smal veld)",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 7,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "5 tegen 2 positiespel (smal veld). Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40255",
+    "rinusId": 40255,
+    "title": "5 tegen 4 op 3 kleine doelen",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 9,
+    "maxPlayers": 9,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "5 tegen 4 op 3 kleine doelen. Focus: Verdedigen, Verdedigen van dieptespel verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van dieptespel verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47011",
+    "rinusId": 47011,
+    "title": "6 tegen 5 op kleine doelen over links/rechts",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 11,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "6 tegen 5 op kleine doelen over links/rechts. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-38823",
+    "rinusId": 38823,
+    "title": "5 tegen 3+k met 1 groot doel",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 9,
+    "maxPlayers": 9,
+    "focusPositions": [
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "5 tegen 3+k met 1 groot doel. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45211",
+    "rinusId": 45211,
+    "title": "5 tegen 4+k in 2 vakken, groot doel, kleine doelen",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 10,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "5 tegen 4+k in 2 vakken, groot doel, kleine doelen. Focus: Verdedigen, Verdedigen wanneer de tegenstander kansen creëert verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen wanneer de tegenstander kansen creëert verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-185674",
+    "rinusId": 185674,
+    "title": "4+K tegen 4 met 4 neutrale 1 groot en 1 klein doel",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "4+K tegen 4 met 4 neutrale 1 groot en 1 klein doel. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46219",
+    "rinusId": 46219,
+    "title": "5+k tegen 4 in 1-2-3 tegen 3-1",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 10,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "5+k tegen 4 in 1-2-3 tegen 3-1. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-39799",
+    "rinusId": 39799,
+    "title": "6+k tegen 5 op 2 kleine doelen via de zijkanten",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 12,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "6+k tegen 5 op 2 kleine doelen via de zijkanten. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Overnemen",
+      "Bijsluiten",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-39127",
+    "rinusId": 39127,
+    "title": "5 tegen 5 met 4 neutrale positiespel",
+    "category": "tactiek",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "tactiek",
+      "gemengd"
+    ],
+    "description": "5 tegen 5 met 4 neutrale positiespel. Focus: Verdedigen, Verdedigen van dieptespel verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van dieptespel verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2101,12 +10244,17 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "gemengd"
     ],
-    "description": "Piraten. Focus: .",
+    "description": "Piraten",
     "setup": "¼ veld",
     "source": "KNVB Rinus",
     "cycleThemes": [
       "conditie"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2142,6 +10290,18 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "techniek"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2176,6 +10336,18 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "techniek"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2210,6 +10382,18 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "techniek"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2244,6 +10428,18 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "techniek"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2270,12 +10466,17 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "gemengd"
     ],
-    "description": "Sprint uit startpositie. Focus: .",
+    "description": "Sprint uit startpositie",
     "setup": "¼ veld",
     "source": "KNVB Rinus",
     "cycleThemes": [
       "conditie"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2311,6 +10512,18 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "techniek"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2345,6 +10558,18 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "techniek"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2372,12 +10597,17 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "gemengd"
     ],
-    "description": "Kleuren strijd. Focus: .",
+    "description": "Kleuren strijd",
     "setup": "¼ veld",
     "source": "KNVB Rinus",
     "cycleThemes": [
       "conditie"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2404,12 +10634,17 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "gemengd"
     ],
-    "description": "Flagg football. Focus: .",
+    "description": "Flagg football",
     "setup": "¼ veld",
     "source": "KNVB Rinus",
     "cycleThemes": [
       "conditie"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2444,6 +10679,18 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "techniek"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2479,6 +10726,1289 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "techniek"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47771",
+    "rinusId": 47771,
+    "title": "1 tegen 1 na contactsprong",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "1 tegen 1 na contactsprong. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47817",
+    "rinusId": 47817,
+    "title": "Op één been duwen en trekken",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Op één been duwen en trekken. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47565",
+    "rinusId": 47565,
+    "title": "Bal beschermen in kruiphouding",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Bal beschermen in kruiphouding. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47499",
+    "rinusId": 47499,
+    "title": "Bruggetje met bal",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Bruggetje met bal. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47623",
+    "rinusId": 47623,
+    "title": "Rugboarden",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Rugboarden. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47531",
+    "rinusId": 47531,
+    "title": "Koprollen met de bal",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 6,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Koprollen met de bal. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47441",
+    "rinusId": 47441,
+    "title": "Hesje roven",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Hesje roven. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47727",
+    "rinusId": 47727,
+    "title": "Ontsnappen",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 7,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Ontsnappen. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-193315",
+    "rinusId": 193315,
+    "title": "Duiken op de bal",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd"
+    ],
+    "description": "Duiken op de bal",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47403",
+    "rinusId": 47403,
+    "title": "Tip top",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Tip top. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47553",
+    "rinusId": 47553,
+    "title": "Paard en ruiter",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 7,
+    "maxPlayers": 13,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Paard en ruiter. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-193295",
+    "rinusId": 193295,
+    "title": "Ballenrace",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd"
+    ],
+    "description": "Ballenrace",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47805",
+    "rinusId": 47805,
+    "title": "Hop estafette",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Hop estafette. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47549",
+    "rinusId": 47549,
+    "title": "Hinkel estafette met bal",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 6,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Hinkel estafette met bal. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47519",
+    "rinusId": 47519,
+    "title": "Rollen en scoren",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 5,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Rollen en scoren. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47781",
+    "rinusId": 47781,
+    "title": "Zijwaarts planken en overgooien",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Zijwaarts planken en overgooien. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47575",
+    "rinusId": 47575,
+    "title": "Karate bal",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Karate bal. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47651",
+    "rinusId": 47651,
+    "title": "Vijf bal",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Vijf bal. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47561",
+    "rinusId": 47561,
+    "title": "Chinees boksen op één been",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Chinees boksen op één been. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47669",
+    "rinusId": 47669,
+    "title": "Steen papier schaar",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Steen papier schaar. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47695",
+    "rinusId": 47695,
+    "title": "Draken stoeien",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Draken stoeien. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47625",
+    "rinusId": 47625,
+    "title": "Rollen en gooien",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Rollen en gooien. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47785",
+    "rinusId": 47785,
+    "title": "Zittend worstelen",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Zittend worstelen. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-193198",
+    "rinusId": 193198,
+    "title": "Passen en jagen",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd"
+    ],
+    "description": "Passen en jagen",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47871",
+    "rinusId": 47871,
+    "title": "Rondje om elkaar klimmen",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Rondje om elkaar klimmen. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-193325",
+    "rinusId": 193325,
+    "title": "Zitten op de troon",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd"
+    ],
+    "description": "Zitten op de troon",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47535",
+    "rinusId": 47535,
+    "title": "Victory",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 6,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Victory. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47711",
+    "rinusId": 47711,
+    "title": "Springen tussen benen",
+    "category": "conditie",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 15,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "high",
+    "trainingTypes": [
+      "conditie",
+      "gemengd",
+      "techniek"
+    ],
+    "description": "Springen tussen benen. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "conditie",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2513,6 +12043,15 @@ export const IMPORTED_RINUS_EXERCISES = [
       "partij",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen op moment van balverlies verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2547,6 +12086,14 @@ export const IMPORTED_RINUS_EXERCISES = [
     "cycleThemes": [
       "partij"
     ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2581,6 +12128,16 @@ export const IMPORTED_RINUS_EXERCISES = [
       "partij",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2615,40 +12172,16 @@ export const IMPORTED_RINUS_EXERCISES = [
       "partij",
       "tactiek"
     ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-39039",
-    "rinusId": 39039,
-    "title": "2 tegen 2 op kleine doelen",
-    "category": "partijvorm",
-    "durationMin": 15,
-    "ageGroups": [
-      "O13",
-      "Senior"
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
     ],
-    "minKnvbLevel": 2,
-    "maxKnvbLevel": 7,
-    "minPlayers": 4,
-    "maxPlayers": 8,
-    "focusPositions": [
-      "ATT",
-      "MID",
-      "DEF"
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
     ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "partij",
-      "gemengd",
-      "tactiek",
-      "techniek"
-    ],
-    "description": "2 tegen 2 op kleine doelen. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "partij"
-    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2684,6 +12217,16 @@ export const IMPORTED_RINUS_EXERCISES = [
       "partij",
       "techniek"
     ],
+    "rinusActivities": [
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2718,6 +12261,17 @@ export const IMPORTED_RINUS_EXERCISES = [
       "partij",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2752,6 +12306,18 @@ export const IMPORTED_RINUS_EXERCISES = [
     "cycleThemes": [
       "partij"
     ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2786,109 +12352,16 @@ export const IMPORTED_RINUS_EXERCISES = [
       "partij",
       "tactiek"
     ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-35181",
-    "rinusId": 35181,
-    "title": "3 tegen 3 met 2 grote doelen",
-    "category": "partijvorm",
-    "durationMin": 15,
-    "ageGroups": [
-      "O8",
-      "O9",
-      "O10"
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
     ],
-    "minKnvbLevel": 1,
-    "maxKnvbLevel": 5,
-    "minPlayers": 6,
-    "maxPlayers": 10,
-    "focusPositions": [
-      "ATT",
-      "MID",
-      "DEF"
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen op moment van balverlies verbeteren"
     ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "partij",
-      "gemengd",
-      "tactiek"
-    ],
-    "description": "3 tegen 3 met 2 grote doelen. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "partij",
-      "techniek"
-    ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-44273",
-    "rinusId": 44273,
-    "title": "3+k tegen 3 met groot doel, klein doeltje in 2 vakken",
-    "category": "partijvorm",
-    "durationMin": 15,
-    "ageGroups": [
-      "O13",
-      "Senior"
-    ],
-    "minKnvbLevel": 2,
-    "maxKnvbLevel": 7,
-    "minPlayers": 7,
-    "maxPlayers": 7,
-    "focusPositions": [
-      "ATT",
-      "MID",
-      "DEF"
-    ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "partij",
-      "gemengd",
-      "tactiek"
-    ],
-    "description": "3+k tegen 3 met groot doel, klein doeltje in 2 vakken. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "partij",
-      "techniek"
-    ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-45587",
-    "rinusId": 45587,
-    "title": "2+k tegen 2 + 1 neutrale, recht van de aanval",
-    "category": "partijvorm",
-    "durationMin": 15,
-    "ageGroups": [
-      "O11",
-      "O12"
-    ],
-    "minKnvbLevel": 1,
-    "maxKnvbLevel": 7,
-    "minPlayers": 6,
-    "maxPlayers": 6,
-    "focusPositions": [
-      "ATT",
-      "MID",
-      "DEF"
-    ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "partij",
-      "gemengd",
-      "tactiek",
-      "techniek"
-    ],
-    "description": "2+k tegen 2 + 1 neutrale, recht van de aanval. Focus: Aanvallen, Scoren verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "partij"
-    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2923,6 +12396,17 @@ export const IMPORTED_RINUS_EXERCISES = [
       "partij",
       "techniek"
     ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2957,6 +12441,17 @@ export const IMPORTED_RINUS_EXERCISES = [
       "partij",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -2991,6 +12486,18 @@ export const IMPORTED_RINUS_EXERCISES = [
     "cycleThemes": [
       "partij"
     ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -3026,41 +12533,17 @@ export const IMPORTED_RINUS_EXERCISES = [
       "partij",
       "tactiek"
     ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-38301",
-    "rinusId": 38301,
-    "title": "4 tegen 4 met 2 kleine doeltjes",
-    "category": "partijvorm",
-    "durationMin": 15,
-    "ageGroups": [
-      "O8",
-      "O9",
-      "O10"
+    "rinusActivities": [
+      "Overnemen",
+      "Bijsluiten",
+      "Knijpen",
+      "Druk zetten"
     ],
-    "minKnvbLevel": 1,
-    "maxKnvbLevel": 5,
-    "minPlayers": 8,
-    "maxPlayers": 10,
-    "focusPositions": [
-      "DEF",
-      "ATT",
-      "MID"
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen wanneer de tegenstander kansen creëert verbeteren"
     ],
-    "intensity": "medium",
-    "trainingTypes": [
-      "partij",
-      "gemengd",
-      "tactiek"
-    ],
-    "description": "4 tegen 4 met 2 kleine doeltjes. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "partij",
-      "tactiek"
-    ],
+    "featured": false,
     "diagram": {}
   },
   {
@@ -3096,12 +12579,3445 @@ export const IMPORTED_RINUS_EXERCISES = [
       "partij",
       "tactiek"
     ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
-    "id": "rinus-47771",
-    "rinusId": 47771,
-    "title": "1 tegen 1 na contactsprong",
+    "id": "rinus-44759",
+    "rinusId": 44759,
+    "title": "4+k tegen 4+K met grote doelen in 2 vakken",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 10,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "4+k tegen 4+K met grote doelen in 2 vakken. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40833",
+    "rinusId": 40833,
+    "title": "3+k tegen 3+k met 2 vakken",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 10,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "MID",
+      "DEF",
+      "ATT"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "3+k tegen 3+k met 2 vakken. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Bijsluiten",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-37563",
+    "rinusId": 37563,
+    "title": "4 tegen 4 basisvorm",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "4 tegen 4 basisvorm. Focus: Verdedigen, Verdedigen van dieptespel verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van dieptespel verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-36941",
+    "rinusId": 36941,
+    "title": "4 tegen 4, lang smal veld, kleine doeltjes",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "4 tegen 4, lang smal veld, kleine doeltjes. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-36601",
+    "rinusId": 36601,
+    "title": "3+k tegen 3+k grote doelen",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "3+k tegen 3+k grote doelen. Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Sliding",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40621",
+    "rinusId": 40621,
+    "title": "2 tegen 2 op 3 kleine doelen",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "2 tegen 2 op 3 kleine doelen. Focus: Verdedigen, Verdedigen wanneer de tegenstander kansen creëert verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen wanneer de tegenstander kansen creëert verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-35251",
+    "rinusId": 35251,
+    "title": "3 tegen 3 met 4 kleine doeltjes",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 6,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "3 tegen 3 met 4 kleine doeltjes. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-35639",
+    "rinusId": 35639,
+    "title": "2+k tegen 2+k grote doelen",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "2+k tegen 2+k grote doelen. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43837",
+    "rinusId": 43837,
+    "title": "3 tegen 3 met verdediger in de rug",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "3 tegen 3 met verdediger in de rug. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-44435",
+    "rinusId": 44435,
+    "title": "4 tegen 4 met kleine doeltjes in 2 vakken",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "4 tegen 4 met kleine doeltjes in 2 vakken. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-45931",
+    "rinusId": 45931,
+    "title": "4+k tegen 4 met groot doel, klein doeltje in 2 vakken",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 9,
+    "maxPlayers": 9,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "4+k tegen 4 met groot doel, klein doeltje in 2 vakken. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-36801",
+    "rinusId": 36801,
+    "title": "Vrije voorzet 4+k tegen 4+k grote doelen",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 10,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "Vrije voorzet 4+k tegen 4+k grote doelen. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40319",
+    "rinusId": 40319,
+    "title": "3 tegen 3 lijnvoetbal",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "3 tegen 3 lijnvoetbal. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46231",
+    "rinusId": 46231,
+    "title": "2 tegen 2 met verdediger in de rug",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "2 tegen 2 met verdediger in de rug. Focus: Aanvallen, Dieptespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Dieptespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-41233",
+    "rinusId": 41233,
+    "title": "4+k tegen 4 met 1 grote en 2 kleine doeltjes",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 9,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "4+k tegen 4 met 1 grote en 2 kleine doeltjes. Focus: Verdedigen, Verdedigen wanneer de tegenstander kansen creëert verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Koppen",
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen wanneer de tegenstander kansen creëert verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46853",
+    "rinusId": 46853,
+    "title": "4+K tegen 4 op lang smal veld/as van het veld",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 9,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "4+K tegen 4 op lang smal veld/as van het veld. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-38329",
+    "rinusId": 38329,
+    "title": "4 tegen 4 met 2 grote doelen",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "4 tegen 4 met 2 grote doelen. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40015",
+    "rinusId": 40015,
+    "title": "7 tegen 7 partijspel in 1-3-2-1 tegen 1-1-2-3",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "7 tegen 7 partijspel in 1-3-2-1 tegen 1-1-2-3. Focus: Verdedigen, Verdedigen van dieptespel verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van dieptespel verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40735",
+    "rinusId": 40735,
+    "title": "4+K tegen 4 (voorkomen van doelpunten)",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 9,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "4+K tegen 4 (voorkomen van doelpunten). Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-44537",
+    "rinusId": 44537,
+    "title": "tegen 4 met kleine doeltjes in 2 vakken",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "tegen 4 met kleine doeltjes in 2 vakken. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46081",
+    "rinusId": 46081,
+    "title": "3+k tegen 3 omschakelen, groot doel klein doeltje",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 7,
+    "maxPlayers": 7,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "3+k tegen 3 omschakelen, groot doel klein doeltje. Focus: Omschakelen, Omschakelen op moment van balverlies verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen op moment van balverlies verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-48081",
+    "rinusId": 48081,
+    "title": "2 tegen 2 toernooi met individuele winnaar",
+    "category": "partijvorm",
+    "durationMin": 90,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 16,
+    "maxPlayers": 32,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "2 tegen 2 toernooi met individuele winnaar. Focus: Toernooi vormen.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Toernooi vormen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-511298",
+    "rinusId": 511298,
+    "title": "Verdedigen als Virgil",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 10,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "Verdedigen als Virgil",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Passen"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-312731",
+    "rinusId": 312731,
+    "title": "1 tegen 1 omschakelen naar 2 tegen 2 met richtingsverandering",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "1 tegen 1 omschakelen naar 2 tegen 2 met richtingsverandering. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-312742",
+    "rinusId": 312742,
+    "title": "2 tegen 2 omschakelen naar 3 tegen 3",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "2 tegen 2 omschakelen naar 3 tegen 3. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-48097",
+    "rinusId": 48097,
+    "title": "4 tegen 4 toernooi met individuele winnaar",
+    "category": "partijvorm",
+    "durationMin": 90,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 16,
+    "maxPlayers": 32,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "4 tegen 4 toernooi met individuele winnaar. Focus: Toernooi vormen.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Voorzet geven",
+      "Schieten",
+      "Koppen",
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Toernooi vormen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43445",
+    "rinusId": 43445,
+    "title": "2+k tegen 2 omschakelen, groot doel klein doeltje",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 5,
+    "maxPlayers": 5,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "2+k tegen 2 omschakelen, groot doel klein doeltje. Focus: Omschakelen, Omschakelen op moment van balverlies verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen op moment van balverlies verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-37797",
+    "rinusId": 37797,
+    "title": "5 tegen 2 positiespel",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 7,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "5 tegen 2 positiespel. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47233",
+    "rinusId": 47233,
+    "title": "4+k tegen 3 op 1 groot doel en 2 kleine doeltjes",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "4+k tegen 3 op 1 groot doel en 2 kleine doeltjes. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-294044",
+    "rinusId": 294044,
+    "title": "Spelen als Frenkie",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "Spelen als Frenkie. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-312735",
+    "rinusId": 312735,
+    "title": "2 tegen 2 na lange pass",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "2 tegen 2 na lange pass. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-312704",
+    "rinusId": 312704,
+    "title": "2 tegen 2 met omschakelen",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "2 tegen 2 met omschakelen. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-199684",
+    "rinusId": 199684,
+    "title": "2+k tegen tegen 2+k lang smal veld, grote doelen",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "2+k tegen tegen 2+k lang smal veld, grote doelen. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47241",
+    "rinusId": 47241,
+    "title": "3 tegen 2 op 4 doelen en 2 veldjes",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 9,
+    "maxPlayers": 9,
+    "focusPositions": [
+      "MID",
+      "DEF",
+      "ATT"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "3 tegen 2 op 4 doelen en 2 veldjes. Focus: Verdedigen, Verdedigen van dieptespel verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Overnemen",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van dieptespel verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-294034",
+    "rinusId": 294034,
+    "title": "Mikken als Jacky",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "Mikken als Jacky. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-312829",
+    "rinusId": 312829,
+    "title": "2 tegen 2 lijnvoetbal vanuit afwisselende posities",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "2 tegen 2 lijnvoetbal vanuit afwisselende posities. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-187268",
+    "rinusId": 187268,
+    "title": "4+K tegen 4",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 9,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "4+K tegen 4. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Druk zetten",
+      "Knijpen"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-48171",
+    "rinusId": 48171,
+    "title": "Schieten als Memphis",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "Schieten als Memphis. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47265",
+    "rinusId": 47265,
+    "title": "1 tegen 1 + 2 tegen 1 op klein doel",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 6,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "1 tegen 1 + 2 tegen 1 op klein doel. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-312727",
+    "rinusId": 312727,
+    "title": "2 tegen 2 omschakelen naar 3 tegen 3 met richtingsverandering",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "2 tegen 2 omschakelen naar 3 tegen 3 met richtingsverandering. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-312738",
+    "rinusId": 312738,
+    "title": "2 tegen 2 omschakelen naar 4 tegen 4",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "2 tegen 2 omschakelen naar 4 tegen 4. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-312712",
+    "rinusId": 312712,
+    "title": "2 tegen 2 met bijsluiten",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "2 tegen 2 met bijsluiten. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-312715",
+    "rinusId": 312715,
+    "title": "2 tegen 2 met frontale druk kleine doeltjes",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 8,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "2 tegen 2 met frontale druk kleine doeltjes. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-312709",
+    "rinusId": 312709,
+    "title": "3 tegen 3 met bijsluiten",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "3 tegen 3 met bijsluiten. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-48165",
+    "rinusId": 48165,
+    "title": "Passen als Jacky",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 8,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "Passen als Jacky. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-312826",
+    "rinusId": 312826,
+    "title": "2+k tegen 2+k grote doelen vanuit afwisselende posities",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "2+k tegen 2+k grote doelen vanuit afwisselende posities. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42093",
+    "rinusId": 42093,
+    "title": "7 tegen 7 in 1-2-3-1 tegen 1-2-3-1",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "7 tegen 7 in 1-2-3-1 tegen 1-2-3-1. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-41679",
+    "rinusId": 41679,
+    "title": "6 tegen 6",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 12,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "6 tegen 6. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Voorzet geven",
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43301",
+    "rinusId": 43301,
+    "title": "7 tegen 7 in 1-3-2-1 tegen 1-1-2-3",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "7 tegen 7 in 1-3-2-1 tegen 1-1-2-3. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-37481",
+    "rinusId": 37481,
+    "title": "7 tegen 7",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "7 tegen 7. Focus: Verdedigen, Verdedigen wanneer de tegenstander kansen creëert verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Koppen",
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen wanneer de tegenstander kansen creëert verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42829",
+    "rinusId": 42829,
+    "title": "7 tegen 7 in 1-1-2-3 tegen 1-4-2",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "7 tegen 7 in 1-1-2-3 tegen 1-4-2. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Koppen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46743",
+    "rinusId": 46743,
+    "title": "5+k tegen 5 in 1-3-2 tegen 2-3",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 11,
+    "maxPlayers": 11,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "5+k tegen 5 in 1-3-2 tegen 2-3. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-41491",
+    "rinusId": 41491,
+    "title": "6 tegen 6 op 2 kleine doelen in 3-3 tegen 3-3",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 12,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "6 tegen 6 op 2 kleine doelen in 3-3 tegen 3-3. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Voorzet geven",
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42181",
+    "rinusId": 42181,
+    "title": "7 tegen 7 in 1-1-2-3 tegen 1-3-2-1",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "7 tegen 7 in 1-1-2-3 tegen 1-3-2-1. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Voorzet geven",
+      "Vrijlopen",
+      "Passeren",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-41599",
+    "rinusId": 41599,
+    "title": "7 tegen 7 partijspel in 1-3-1-2 tegen 1-2-1-3",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "7 tegen 7 partijspel in 1-3-1-2 tegen 1-2-1-3. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Koppen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43709",
+    "rinusId": 43709,
+    "title": "5+k tegen 5 in 1-2-3 tegen 3-2",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 11,
+    "maxPlayers": 11,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "5+k tegen 5 in 1-2-3 tegen 3-2. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42769",
+    "rinusId": 42769,
+    "title": "7 tegen 7 in 1-3-2-1 tegen 1-2-2-2",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "MID",
+      "DEF",
+      "ATT"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "7 tegen 7 in 1-3-2-1 tegen 1-2-2-2. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Overnemen",
+      "Bijsluiten",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-38101",
+    "rinusId": 38101,
+    "title": "5 tegen 5",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 10,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "5 tegen 5. Focus: Omschakelen, Omschakelen op moment van balverlies verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen op moment van balverlies verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40085",
+    "rinusId": 40085,
+    "title": "7 tegen 7 partijspel in 1-2-3-1 tegen 1-2-3-1",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "7 tegen 7 partijspel in 1-2-3-1 tegen 1-2-3-1. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Schieten",
+      "Koppen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-191613",
+    "rinusId": 191613,
+    "title": "7 tegen 7 partijspel 1-3-2-1 tegen 1-2-2-2",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "MID",
+      "DEF",
+      "ATT"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "7 tegen 7 partijspel 1-3-2-1 tegen 1-2-2-2. Focus: Verdedigen, Verdedigen wanneer de tegenstander kansen creëert verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Overnemen",
+      "Bijsluiten",
+      "Knijpen",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen wanneer de tegenstander kansen creëert verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43591",
+    "rinusId": 43591,
+    "title": "7 tegen 7 in een 1-4-1-1 tegen een 1-2-2-2",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "7 tegen 7 in een 1-4-1-1 tegen een 1-2-2-2. Focus: Verdedigen, Verdedigen van één tegen één situatie verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40301",
+    "rinusId": 40301,
+    "title": "7 tegen 7 partijspel in 1-1-2-3 tegen 1-4-2",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "7 tegen 7 partijspel in 1-1-2-3 tegen 1-4-2. Focus: Verdedigen, Voorkomen van doelpunten verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Blokkeren",
+      "Koppen",
+      "Duel om de bal",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Voorkomen van doelpunten verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-44461",
+    "rinusId": 44461,
+    "title": "7 tegen 7 in een 1-2-1-3 tegen 1-4-1-1",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "7 tegen 7 in een 1-2-1-3 tegen 1-4-1-1. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-41845",
+    "rinusId": 41845,
+    "title": "7 tegen 7 partijspel in 1-1-2-3 tegen 1-3-2-1",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "7 tegen 7 partijspel in 1-1-2-3 tegen 1-3-2-1. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-41745",
+    "rinusId": 41745,
+    "title": "7 tegen 7 partijspel 1-2-1-3 tegen 1-3-1-2",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "7 tegen 7 partijspel 1-2-1-3 tegen 1-3-1-2. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-38173",
+    "rinusId": 38173,
+    "title": "6+k tegen 6 op 1 groot doel en 2 kleine doelen",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 13,
+    "maxPlayers": 13,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "6+k tegen 6 op 1 groot doel en 2 kleine doelen. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-189199",
+    "rinusId": 189199,
+    "title": "6+k tegen 6 omschakelen, groot doel en kleine doeltjes",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 13,
+    "maxPlayers": 13,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "6+k tegen 6 omschakelen, groot doel en kleine doeltjes. Focus: Aanvallen, Dieptespel in opbouw verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Bal aannemen / meenemen",
+      "Vrijlopen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Dieptespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-41519",
+    "rinusId": 41519,
+    "title": "7 tegen 7 partijspel in 1-3-2-1 tegen 1-2-2-2",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "MID",
+      "DEF",
+      "ATT"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "7 tegen 7 partijspel in 1-3-2-1 tegen 1-2-2-2. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Overnemen",
+      "Bijsluiten",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-43603",
+    "rinusId": 43603,
+    "title": "5+k tegen 5 in 1-3-2 tegen 3-2",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 11,
+    "maxPlayers": 11,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "5+k tegen 5 in 1-3-2 tegen 3-2. Focus: Aanvallen, Scoren verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Schieten"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-42379",
+    "rinusId": 42379,
+    "title": "7 tegen 7 in 1-3-1-2 tegen 1-2-1-3",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "7 tegen 7 in 1-3-1-2 tegen 1-2-1-3. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-39235",
+    "rinusId": 39235,
+    "title": "5+k tegen 5+k op 2 grote doelen",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 12,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "5+k tegen 5+k op 2 grote doelen. Focus: Omschakelen, Omschakelen bij veroveren van de bal verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Passeren",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen bij veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-39939",
+    "rinusId": 39939,
+    "title": "5 tegen 5+K op 1 groot doel en 1 klein doel",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 11,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "5 tegen 5+K op 1 groot doel en 1 klein doel. Focus: Aanvallen, Uitspelen van één tegen één situatie verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij"
+    ],
+    "rinusActivities": [
+      "Passeren",
+      "Dribbelen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Uitspelen van één tegen één situatie verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-46109",
+    "rinusId": 46109,
+    "title": "5+k tegen 5 omschakelen, groot doel kleine doeltjes",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 11,
+    "maxPlayers": 11,
+    "focusPositions": [
+      "DEF",
+      "ATT",
+      "MID"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "5+k tegen 5 omschakelen, groot doel kleine doeltjes. Focus: Omschakelen, Omschakelen op moment van balverlies verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Omschakelen",
+      "Omschakelen op moment van balverlies verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-40383",
+    "rinusId": 40383,
+    "title": "6+k tegen 6+k via de zijkant",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "MID",
+      "DEF",
+      "ATT"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "6+k tegen 6+k via de zijkant. Focus: Verdedigen, Storen en veroveren van de bal verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Duel om de bal",
+      "Overnemen",
+      "Bijsluiten",
+      "Knijpen",
+      "Druk zetten"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Storen en veroveren van de bal verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47029",
+    "rinusId": 47029,
+    "title": "5+k tegen 5 op lang smal veld",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 11,
+    "maxPlayers": 11,
+    "focusPositions": [
+      "MID",
+      "DEF",
+      "ATT"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek",
+      "techniek"
+    ],
+    "description": "5+k tegen 5 op lang smal veld. Focus: Verdedigen, Verdedigen wanneer de tegenstander kansen creëert verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "tactiek"
+    ],
+    "rinusActivities": [
+      "Koppen",
+      "Duel om de bal",
+      "Overnemen",
+      "Knijpen",
+      "Sliding"
+    ],
+    "rinusObjectives": [
+      "Verdedigen",
+      "Verdedigen wanneer de tegenstander kansen creëert verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-38581",
+    "rinusId": 38581,
+    "title": "6+k tegen 6+k op 2 grote doelen over links",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "6+k tegen 6+k op 2 grote doelen over links. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-38615",
+    "rinusId": 38615,
+    "title": "6+K tegen 6+K op 2 grote doelen midden",
+    "category": "partijvorm",
+    "durationMin": 15,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 14,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "ATT",
+      "MID",
+      "DEF"
+    ],
+    "intensity": "medium",
+    "trainingTypes": [
+      "partij",
+      "gemengd",
+      "tactiek"
+    ],
+    "description": "6+K tegen 6+K op 2 grote doelen midden. Focus: Aanvallen, Positiespel in opbouw verbeteren.",
+    "setup": "½ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "partij",
+      "techniek"
+    ],
+    "rinusActivities": [
+      "Vrijlopen",
+      "Bal aannemen / meenemen",
+      "Dribbelen",
+      "Passen"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Positiespel in opbouw verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47737",
+    "rinusId": 47737,
+    "title": "Lus dribbelen",
     "category": "afsluiting",
     "durationMin": 5,
     "ageGroups": [
@@ -3110,7 +16026,7 @@ export const IMPORTED_RINUS_EXERCISES = [
     ],
     "minKnvbLevel": 2,
     "maxKnvbLevel": 7,
-    "minPlayers": 6,
+    "minPlayers": 4,
     "maxPlayers": 16,
     "focusPositions": [
       "MID",
@@ -3125,7 +16041,7 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "partij"
     ],
-    "description": "1 tegen 1 na contactsprong. Focus: Aanvallen, Creëren van kansen.",
+    "description": "Lus dribbelen. Focus: Aanvallen, Creëren van kansen.",
     "setup": "¼ veld",
     "source": "KNVB Rinus",
     "cycleThemes": [
@@ -3133,59 +16049,34 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
-    "id": "rinus-47817",
-    "rinusId": 47817,
-    "title": "Op één been duwen en trekken",
+    "id": "rinus-47483",
+    "rinusId": 47483,
+    "title": "Water en vuur",
     "category": "afsluiting",
     "durationMin": 5,
     "ageGroups": [
-      "O13",
-      "Senior"
+      "O8",
+      "O9",
+      "O10"
     ],
-    "minKnvbLevel": 2,
-    "maxKnvbLevel": 7,
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
     "minPlayers": 6,
-    "maxPlayers": 16,
-    "focusPositions": [
-      "MID",
-      "ATT",
-      "DEF"
-    ],
-    "intensity": "low",
-    "trainingTypes": [
-      "gemengd",
-      "techniek",
-      "tactiek",
-      "conditie",
-      "partij"
-    ],
-    "description": "Op één been duwen en trekken. Focus: Aanvallen, Creëren van kansen.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "afsluiting",
-      "techniek",
-      "conditie"
-    ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-47565",
-    "rinusId": 47565,
-    "title": "Bal beschermen in kruiphouding",
-    "category": "afsluiting",
-    "durationMin": 5,
-    "ageGroups": [
-      "O8",
-      "O9",
-      "O10"
-    ],
-    "minKnvbLevel": 1,
-    "maxKnvbLevel": 5,
-    "minPlayers": 4,
     "maxPlayers": 12,
     "focusPositions": [
       "MID",
@@ -3200,7 +16091,7 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "partij"
     ],
-    "description": "Bal beschermen in kruiphouding. Focus: Aanvallen, Creëren van kansen.",
+    "description": "Water en vuur. Focus: Aanvallen, Creëren van kansen.",
     "setup": "¼ veld",
     "source": "KNVB Rinus",
     "cycleThemes": [
@@ -3208,50 +16099,24 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
-    "id": "rinus-47499",
-    "rinusId": 47499,
-    "title": "Bruggetje met bal",
-    "category": "afsluiting",
-    "durationMin": 5,
-    "ageGroups": [
-      "O8",
-      "O9",
-      "O10"
-    ],
-    "minKnvbLevel": 1,
-    "maxKnvbLevel": 5,
-    "minPlayers": 4,
-    "maxPlayers": 12,
-    "focusPositions": [
-      "MID",
-      "ATT",
-      "DEF"
-    ],
-    "intensity": "low",
-    "trainingTypes": [
-      "gemengd",
-      "techniek",
-      "tactiek",
-      "conditie",
-      "partij"
-    ],
-    "description": "Bruggetje met bal. Focus: Aanvallen, Creëren van kansen.",
-    "setup": "¼ veld",
-    "source": "KNVB Rinus",
-    "cycleThemes": [
-      "afsluiting",
-      "techniek",
-      "conditie"
-    ],
-    "diagram": {}
-  },
-  {
-    "id": "rinus-47623",
-    "rinusId": 47623,
-    "title": "Rugboarden",
+    "id": "rinus-198074",
+    "rinusId": 198074,
+    "title": "Tik rugby",
     "category": "afsluiting",
     "durationMin": 5,
     "ageGroups": [
@@ -3260,8 +16125,8 @@ export const IMPORTED_RINUS_EXERCISES = [
     ],
     "minKnvbLevel": 1,
     "maxKnvbLevel": 7,
-    "minPlayers": 6,
-    "maxPlayers": 16,
+    "minPlayers": 8,
+    "maxPlayers": 14,
     "focusPositions": [
       "MID",
       "ATT",
@@ -3275,7 +16140,49 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "partij"
     ],
-    "description": "Rugboarden. Focus: Aanvallen, Creëren van kansen.",
+    "description": "Tik rugby",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-48129",
+    "rinusId": 48129,
+    "title": "Overrollen op één been",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Overrollen op één been. Focus: Aanvallen, Creëren van kansen.",
     "setup": "¼ veld",
     "source": "KNVB Rinus",
     "cycleThemes": [
@@ -3283,12 +16190,157 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
-    "id": "rinus-47531",
-    "rinusId": 47531,
-    "title": "Koprollen met de bal",
+    "id": "rinus-193194",
+    "rinusId": 193194,
+    "title": "Zwaardtikkertje",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Zwaardtikkertje",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-193113",
+    "rinusId": 193113,
+    "title": "Poorttikkertje",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 6,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Poorttikkertje",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47709",
+    "rinusId": 47709,
+    "title": "Dribbelen met springvormen",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Dribbelen met springvormen. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47521",
+    "rinusId": 47521,
+    "title": "Push-up gooien",
     "category": "afsluiting",
     "durationMin": 5,
     "ageGroups": [
@@ -3313,7 +16365,7 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "partij"
     ],
-    "description": "Koprollen met de bal. Focus: Aanvallen, Creëren van kansen.",
+    "description": "Push-up gooien. Focus: Aanvallen, Creëren van kansen.",
     "setup": "¼ veld",
     "source": "KNVB Rinus",
     "cycleThemes": [
@@ -3321,12 +16373,24 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
-    "id": "rinus-47441",
-    "rinusId": 47441,
-    "title": "Hesje roven",
+    "id": "rinus-47427",
+    "rinusId": 47427,
+    "title": "Kikkersprongen met bal",
     "category": "afsluiting",
     "durationMin": 5,
     "ageGroups": [
@@ -3355,7 +16419,7 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "partij"
     ],
-    "description": "Hesje roven. Focus: Aanvallen, Creëren van kansen.",
+    "description": "Kikkersprongen met bal. Focus: Aanvallen, Creëren van kansen.",
     "setup": "¼ veld",
     "source": "KNVB Rinus",
     "cycleThemes": [
@@ -3363,12 +16427,24 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   },
   {
-    "id": "rinus-47727",
-    "rinusId": 47727,
-    "title": "Ontsnappen",
+    "id": "rinus-187276",
+    "rinusId": 187276,
+    "title": "Amerikaantje",
     "category": "afsluiting",
     "durationMin": 5,
     "ageGroups": [
@@ -3377,7 +16453,151 @@ export const IMPORTED_RINUS_EXERCISES = [
     ],
     "minKnvbLevel": 2,
     "maxKnvbLevel": 7,
-    "minPlayers": 7,
+    "minPlayers": 6,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Amerikaantje",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47431",
+    "rinusId": 47431,
+    "title": "Chinees boksen",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Chinees boksen. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47621",
+    "rinusId": 47621,
+    "title": "Achtjes met bal",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Achtjes met bal. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47857",
+    "rinusId": 47857,
+    "title": "Levend slalom",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
     "maxPlayers": 16,
     "focusPositions": [
       "MID",
@@ -3392,7 +16612,7 @@ export const IMPORTED_RINUS_EXERCISES = [
       "conditie",
       "partij"
     ],
-    "description": "Ontsnappen. Focus: Aanvallen, Creëren van kansen.",
+    "description": "Levend slalom. Focus: Aanvallen, Creëren van kansen.",
     "setup": "¼ veld",
     "source": "KNVB Rinus",
     "cycleThemes": [
@@ -3400,6 +16620,852 @@ export const IMPORTED_RINUS_EXERCISES = [
       "techniek",
       "conditie"
     ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47513",
+    "rinusId": 47513,
+    "title": "Kleurvak tikkertje",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 8,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Kleurvak tikkertje. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47877",
+    "rinusId": 47877,
+    "title": "Rugby",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 8,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Rugby. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47797",
+    "rinusId": 47797,
+    "title": "Lijnenloop",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Lijnenloop. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47541",
+    "rinusId": 47541,
+    "title": "Kruipvoetbal",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 6,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Kruipvoetbal. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-193303",
+    "rinusId": 193303,
+    "title": "Spiegelen met bal",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Spiegelen met bal",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-193279",
+    "rinusId": 193279,
+    "title": "Bal gooien tegen lat",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O11",
+      "O12"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Bal gooien tegen lat",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-193105",
+    "rinusId": 193105,
+    "title": "Kat- en muis spel",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 5,
+    "maxPlayers": 10,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Kat- en muis spel",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47423",
+    "rinusId": 47423,
+    "title": "Springen met de bal",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Springen met de bal. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47759",
+    "rinusId": 47759,
+    "title": "Pionnen roof",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Pionnen roof. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47841",
+    "rinusId": 47841,
+    "title": "Op één been kaatsen",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Op één been kaatsen. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47825",
+    "rinusId": 47825,
+    "title": "Elastiek sprint",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Elastiek sprint. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47555",
+    "rinusId": 47555,
+    "title": "Springen over bal",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 6,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Springen over bal. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47425",
+    "rinusId": 47425,
+    "title": "Tweebenige hop estafette",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Tweebenige hop estafette. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47419",
+    "rinusId": 47419,
+    "title": "Ratten en raven",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Ratten en raven. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47401",
+    "rinusId": 47401,
+    "title": "Flamingo stoeien",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10",
+      "O11",
+      "O12",
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 7,
+    "minPlayers": 4,
+    "maxPlayers": 12,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Flamingo stoeien. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47507",
+    "rinusId": 47507,
+    "title": "Slangentikkertje",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "minKnvbLevel": 1,
+    "maxKnvbLevel": 5,
+    "minPlayers": 8,
+    "maxPlayers": 14,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "Slangentikkertje. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
+    "diagram": {}
+  },
+  {
+    "id": "rinus-47723",
+    "rinusId": 47723,
+    "title": "1 tegen 1 pionnen pakken",
+    "category": "afsluiting",
+    "durationMin": 5,
+    "ageGroups": [
+      "O13",
+      "Senior"
+    ],
+    "minKnvbLevel": 2,
+    "maxKnvbLevel": 7,
+    "minPlayers": 6,
+    "maxPlayers": 16,
+    "focusPositions": [
+      "MID",
+      "ATT",
+      "DEF"
+    ],
+    "intensity": "low",
+    "trainingTypes": [
+      "gemengd",
+      "techniek",
+      "tactiek",
+      "conditie",
+      "partij"
+    ],
+    "description": "1 tegen 1 pionnen pakken. Focus: Aanvallen, Creëren van kansen.",
+    "setup": "¼ veld",
+    "source": "KNVB Rinus",
+    "cycleThemes": [
+      "afsluiting",
+      "techniek",
+      "conditie"
+    ],
+    "rinusActivities": [
+      "Geen voetbalhandeling"
+    ],
+    "rinusObjectives": [
+      "Aanvallen",
+      "Creëren van kansen",
+      "Dieptespel in opbouw verbeteren",
+      "Ontdekken van lichaam en bal en daarmee gericht handelen",
+      "Positiespel in opbouw verbeteren",
+      "Scoren verbeteren"
+    ],
+    "featured": false,
     "diagram": {}
   }
 ]

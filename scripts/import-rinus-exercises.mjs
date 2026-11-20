@@ -10,7 +10,7 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { RINUS_ID_MAP } from '../src/data/rinusLinks.js'
-import { EXERCISES as EXISTING_EXERCISES } from '../src/data/exercises.js'
+import { EXERCISES as ALL_EXERCISES } from '../src/data/exercises.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const outFile = path.join(__dirname, '../src/data/rinusExercises.generated.js')
@@ -20,13 +20,22 @@ const OUTDOOR = 295812
 
 /** Per TeamPilot category: Rinus exerciseTypeCategory ids + how many unique drills to keep. */
 const IMPORT_PLAN = [
-  { category: 'warming-up', typeIds: [363, 545545, 362], limit: 18 },
-  { category: 'techniek', typeIds: [364, 368], limit: 22 },
-  { category: 'tactiek', typeIds: [368, 369], limit: 18 },
-  { category: 'conditie', typeIds: [362, 368], limit: 12 },
-  { category: 'partijvorm', typeIds: [365, 366, 367], limit: 18 },
-  { category: 'afsluiting', typeIds: [362, 363], limit: 8 },
+  { category: 'warming-up', typeIds: [363, 545545, 362], limit: 50 },
+  { category: 'techniek', typeIds: [364, 368], limit: 100 },
+  { category: 'tactiek', typeIds: [368, 369], limit: 80 },
+  { category: 'conditie', typeIds: [362, 368], limit: 40 },
+  { category: 'partijvorm', typeIds: [365, 366, 367], limit: 90 },
+  { category: 'afsluiting', typeIds: [362, 363], limit: 30 },
 ]
+
+/**
+ * Full rebuild of the generated batch: only dedupe against curated (non-rinus-*)
+ * drills so raising IMPORT_PLAN limits replaces the whole generated file cleanly.
+ */
+const CURATED_EXERCISES = ALL_EXERCISES.filter(ex => !String(ex.id).startsWith('rinus-'))
+const CURATED_RINUS_IDS = Object.fromEntries(
+  Object.entries(RINUS_ID_MAP).filter(([id]) => !String(id).startsWith('rinus-')),
+)
 
 /** Rinus category title → TeamPilot AGE_GROUPS id (KNVB O* naming). */
 const AGE_MAP = {
@@ -54,12 +63,12 @@ const AGE_MAP = {
 const ALL_AGE = ['O8', 'O9', 'O10', 'O11', 'O12', 'O13', 'Senior']
 
 const existingRinusIds = new Set([
-  ...Object.values(RINUS_ID_MAP).map(String),
-  ...EXISTING_EXERCISES.map(ex => String(ex.rinusId ?? RINUS_ID_MAP[ex.id] ?? '')).filter(Boolean),
+  ...Object.values(CURATED_RINUS_IDS).map(String),
+  ...CURATED_EXERCISES.map(ex => String(ex.rinusId ?? CURATED_RINUS_IDS[ex.id] ?? '')).filter(Boolean),
 ])
 
 const existingTitles = new Set(
-  EXISTING_EXERCISES.map(ex => normalizeTitle(ex.title)).filter(Boolean),
+  CURATED_EXERCISES.map(ex => normalizeTitle(ex.title)).filter(Boolean),
 )
 
 function normalizeTitle(title) {
@@ -193,6 +202,11 @@ function toExercise(entry, category) {
   const activities = activityTitles(entry)
   const objectives = objectiveTitles(entry)
 
+  const rinusActivities = activities.filter(Boolean).slice(0, 8)
+  const rinusObjectives = objectives
+    .filter(o => o && !/^alle |^verschillende /i.test(o))
+    .slice(0, 6)
+
   return {
     id: `rinus-${entry.id}`,
     rinusId: entry.id,
@@ -207,12 +221,15 @@ function toExercise(entry, category) {
     focusPositions: focusPositionsFor(entry, category),
     intensity: intensityFor(category, entry),
     trainingTypes: trainingTypesFor(category, entry),
-    description: objectives[0]
-      ? `${title}. Focus: ${objectives.filter(o => !/^alle |^verschillende /i.test(o)).slice(0, 2).join(', ')}.`
+    description: rinusObjectives[0]
+      ? `${title}. Focus: ${rinusObjectives.slice(0, 2).join(', ')}.`
       : title,
     setup: (entry.fieldSizeCategory || []).map(f => f?.title).filter(Boolean).join(', ') || 'Zie Rinus-schema.',
     source: 'KNVB Rinus',
     cycleThemes: cycleThemesFor(category, entry),
+    rinusActivities,
+    rinusObjectives,
+    featured: false,
     diagram: {},
   }
 }
@@ -239,7 +256,7 @@ async function collectForCategory(plan) {
     let total = Infinity
     let guard = 0
 
-    while (picked.length < plan.limit && from < total && guard < 8) {
+    while (picked.length < plan.limit && from < total && guard < 40) {
       guard += 1
       process.stdout.write(`  type ${typeId} from=${from}... `)
       const data = await searchExercises({ typeId, from, limit: pageSize })

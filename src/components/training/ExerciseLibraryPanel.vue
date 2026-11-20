@@ -6,23 +6,30 @@
         <ExerciseLibraryFilters
           :query="query"
           :category="category"
+          :activity="activity"
           :suitable-only="suitableOnly"
           :min-football-reality="minFootballReality"
           :result-count="exercises.length"
           @update:query="$emit('update:query', $event)"
           @update:category="$emit('update:category', $event)"
+          @update:activity="$emit('update:activity', $event)"
           @update:suitable-only="$emit('update:suitableOnly', $event)"
           @update:min-football-reality="$emit('update:minFootballReality', $event)"
           @reset="$emit('reset-filters')"
         />
       </div>
 
-      <div class="library-scroll">
+      <div ref="scrollEl" class="library-scroll" @scroll="onScroll">
         <div v-if="!exercises.length" class="library-empty md-body-sm">
           {{ t('library.empty') }}
         </div>
-        <div v-else class="manual-list">
-          <div v-for="ex in exercises" :key="ex.id" class="manual-item">
+        <div v-else class="manual-list" :style="{ height: `${virtualTotalHeight}px`, position: 'relative' }">
+          <div
+            v-for="ex in visibleExercises"
+            :key="ex.id"
+            class="manual-item"
+            :style="{ position: 'absolute', top: `${ex._virtualTop}px`, left: 0, right: 0 }"
+          >
             <button type="button" class="manual-item-main" @click="$emit('preview', ex)">
               <div class="manual-item-body">
                 <p class="md-label-lg manual-title">
@@ -71,17 +78,21 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import ExerciseLibraryFilters from '@/components/training/ExerciseLibraryFilters.vue'
 import FootballRealityRating from '@/components/training/FootballRealityRating.vue'
 import { t } from '@/i18n'
 import { getExerciseTitle, getFootballReality, isCustomExercise, playerRangeLabel } from '@/utils/exerciseText'
+
+const ROW_HEIGHT = 88
+const OVERSCAN = 6
 
 const props = defineProps({
   exercises: { type: Array, required: true },
   sessionBlocks: { type: Array, default: () => [] },
   query: { type: String, default: '' },
   category: { type: String, default: '' },
+  activity: { type: String, default: '' },
   suitableOnly: { type: Boolean, default: true },
   minFootballReality: { type: Number, default: 0 },
   sidebar: { type: Boolean, default: false },
@@ -93,12 +104,57 @@ defineEmits([
   'create-custom',
   'update:query',
   'update:category',
+  'update:activity',
   'update:suitableOnly',
   'update:minFootballReality',
   'reset-filters',
 ])
 
+const scrollEl = ref(null)
+const scrollTop = ref(0)
+const viewportHeight = ref(480)
+
 const nextPosition = computed(() => props.sessionBlocks.length + 1)
+const virtualTotalHeight = computed(() => props.exercises.length * ROW_HEIGHT)
+
+const visibleExercises = computed(() => {
+  const total = props.exercises.length
+  if (!total) return []
+  const start = Math.max(0, Math.floor(scrollTop.value / ROW_HEIGHT) - OVERSCAN)
+  const end = Math.min(
+    total,
+    Math.ceil((scrollTop.value + viewportHeight.value) / ROW_HEIGHT) + OVERSCAN,
+  )
+  return props.exercises.slice(start, end).map((ex, i) => ({
+    ...ex,
+    _virtualTop: (start + i) * ROW_HEIGHT,
+  }))
+})
+
+function onScroll(event) {
+  scrollTop.value = event.target.scrollTop
+}
+
+function measureViewport() {
+  if (scrollEl.value) viewportHeight.value = scrollEl.value.clientHeight || 480
+}
+
+watch(
+  () => props.exercises.length,
+  () => {
+    if (scrollEl.value) scrollEl.value.scrollTop = 0
+    scrollTop.value = 0
+  },
+)
+
+onMounted(() => {
+  measureViewport()
+  window.addEventListener('resize', measureViewport)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', measureViewport)
+})
 
 function categoryLabel(id) {
   return t(`category.${id}`)
@@ -159,6 +215,9 @@ function categoryLabel(id) {
   align-items: start;
   gap: var(--sp-1);
   min-width: 0;
+  height: 88px;
+  box-sizing: border-box;
+  overflow: hidden;
   border-radius: var(--md-shape-md);
 }
 

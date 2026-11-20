@@ -445,6 +445,8 @@ export default {
     searchLabel: 'Zoek oefening',
     allCategories: 'Alle categorieën',
     category: 'Categorie',
+    allActivities: 'Alle activiteiten',
+    activity: 'Activiteit',
     suitableOnly: 'Alleen passend',
     suitableTitle: 'Verberg oefeningen die niet passen bij leeftijd, klasse en aantal spelers van je team',
     clear: 'Filters wissen',

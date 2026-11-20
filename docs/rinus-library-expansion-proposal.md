@@ -2,6 +2,8 @@
 
 Doel: de offline trainingsbibliotheek van TeamPilot sterk uitbreiden met officiële KNVB Rinus-oefeningen, en de sync-pipeline betrouwbaar en herhaalbaar maken — zonder de app traag of onoverzichtelijk te maken.
 
+> **Status:** Fase A + B in implementatie op deze branch (import-limieten, activities/objectives, featured scoring, activiteitsfilter, virtualisatie).
+
 ---
 
 ## Huidige situatie

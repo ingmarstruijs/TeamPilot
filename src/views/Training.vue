@@ -378,6 +378,7 @@
             :sidebar="isDesktop"
             v-model:query="libraryQuery"
             v-model:category="libraryCategory"
+            v-model:activity="libraryActivity"
             v-model:suitable-only="librarySuitableOnly"
             v-model:min-football-reality="libraryMinReality"
             @preview="openPreview"
@@ -573,6 +574,7 @@ const detailBlock = ref(null)
 const previewExercise = ref(null)
 const libraryQuery = ref('')
 const libraryCategory = ref('')
+const libraryActivity = ref('')
 const librarySuitableOnly = ref(true)
 const libraryMinReality = ref(0)
 const dragIndex = ref(null)
@@ -1094,18 +1096,21 @@ const filteredExercises = computed(() => {
     knvbLevel: getKnvbLevel(activeTeam.value?.knvbClass),
     playerCount: presentPlayers.value.length || undefined,
     category: libraryCategory.value || undefined,
+    activity: libraryActivity.value || undefined,
     query: libraryQuery.value.trim(),
     suitableOnly: librarySuitableOnly.value,
     minFootballReality: libraryMinReality.value,
     customExercises: custom,
-  }).sort((a, b) =>
-    getExerciseTitle(a).localeCompare(getExerciseTitle(b), 'nl')
-  )
+  }).sort((a, b) => {
+    if (Boolean(a.featured) !== Boolean(b.featured)) return a.featured ? -1 : 1
+    return getExerciseTitle(a).localeCompare(getExerciseTitle(b), 'nl')
+  })
 })
 
 function resetLibraryFilters() {
   libraryQuery.value = ''
   libraryCategory.value = ''
+  libraryActivity.value = ''
   librarySuitableOnly.value = true
   libraryMinReality.value = 0
 }

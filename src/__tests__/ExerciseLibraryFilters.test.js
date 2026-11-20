@@ -22,7 +22,8 @@ describe('ExerciseLibraryFilters', () => {
     expect(wrapper.find('.filters-trigger').exists()).toBe(false)
     expect(wrapper.find('.filters-popover').exists()).toBe(false)
     expect(wrapper.find('.search-input').exists()).toBe(true)
-    expect(wrapper.findAll('.filter-select')).toHaveLength(2)
+    // category, reality, and (when catalog has activities) activity
+    expect(wrapper.findAll('.filter-select').length).toBeGreaterThanOrEqual(2)
     expect(wrapper.find('.suitable-toggle').exists()).toBe(true)
     expect(wrapper.text()).toContain('12 oefeningen')
   })

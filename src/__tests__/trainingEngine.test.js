@@ -7,6 +7,7 @@ import {
   browseExercises,
   browseExercisesWithFilters,
   computeSessionTiming,
+  scoreExercise,
 } from '../utils/trainingEngine'
 import { EXERCISES } from '../data/exercises'
 
@@ -131,6 +132,29 @@ describe('trainingEngine', () => {
     const o12 = browseExercises({ ageGroup: 'O12', knvbLevel: 3 })
     expect(o12.length).toBeGreaterThan(60)
     expect(o12.some(ex => String(ex.id).startsWith('rinus-'))).toBe(true)
+  })
+
+  it('prefers featured curated drills in scoreExercise', () => {
+    const featured = EXERCISES.find(ex => ex.featured)
+    const imported = EXERCISES.find(ex => String(ex.id).startsWith('rinus-') && !ex.featured)
+    expect(featured).toBeTruthy()
+    expect(imported).toBeTruthy()
+    const ctx = { cycleTheme: 'techniek', recentIds: [], focusPositions: ['MID'] }
+    expect(scoreExercise(featured, ctx, 10)).toBeGreaterThan(scoreExercise(imported, ctx, 10))
+  })
+
+  it('browseExercisesWithFilters can filter by Rinus activity when present', () => {
+    const withActivity = EXERCISES.find(ex => ex.rinusActivities?.length)
+    if (!withActivity) return
+    const activity = withActivity.rinusActivities[0]
+    const results = browseExercisesWithFilters({
+      ageGroup: withActivity.ageGroups[0],
+      knvbLevel: 3,
+      suitableOnly: false,
+      activity,
+    })
+    expect(results.length).toBeGreaterThan(0)
+    expect(results.every(ex => ex.rinusActivities?.includes(activity))).toBe(true)
   })
 
   it('matches legacy JO age tags on exercises when team uses O*', () => {
