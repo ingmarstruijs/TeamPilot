@@ -2,7 +2,11 @@
 
 Diagnose van de huidige lokale AI-trainingsflow + concreet verbeterplan.
 Gebaseerd op code-inspectie van `src/ai/*`, `Training.vue` en `AiModelSettings.vue`
-(nov 2026). Geen productcode gewijzigd in dit document.
+(nov 2026).
+
+**Status:** Fase A + B + C geïmplementeerd op branch
+`cursor/ai-module-improvement-proposal-33b3` (progressive enrich, job-store,
+download UX, device gate, engine unload, lazy Rinus SVG/rules).
 
 ---
 

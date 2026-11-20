@@ -53,8 +53,13 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
-import { getRinusSvgUrl, getExerciseTitle, isCustomExercise } from '@/utils/exerciseText'
+import { computed, onMounted, ref, watch } from 'vue'
+import {
+  ensureRinusDetailMaps,
+  getRinusSvgUrl,
+  getExerciseTitle,
+  isCustomExercise,
+} from '@/utils/exerciseText'
 import ExerciseDiagramZoom from '@/components/training/ExerciseDiagramZoom.vue'
 
 const props = defineProps({
@@ -64,8 +69,19 @@ const props = defineProps({
 
 const loadFailed = ref(false)
 const zoomOpen = ref(false)
+const mapsReady = ref(false)
 
-const svgUrl = computed(() => getRinusSvgUrl(props.exercise))
+onMounted(async () => {
+  await ensureRinusDetailMaps()
+  mapsReady.value = true
+})
+
+const svgUrl = computed(() => {
+  if (!mapsReady.value && !props.exercise?.customSvg && !props.exercise?.rinusSvgUrl) {
+    return null
+  }
+  return getRinusSvgUrl(props.exercise)
+})
 
 const caption = computed(() =>
   isCustomExercise(props.exercise) ? 'Eigen schema' : 'Schema (KNVB Rinus)'

@@ -79,6 +79,43 @@ export function buildPlanSessionMessages(ctx) {
 }
 
 /**
+ * Compact narration-only prompt — rules already picked the exercises.
+ *
+ * @param {import('../types.js').CoachContext} ctx
+ * @param {import('../types.js').SessionPlan} plan
+ */
+export function buildEnrichNarrationMessages(ctx, plan) {
+  const blocks = (plan?.blocks ?? []).map((b, i) => ({
+    index: i,
+    exerciseId: b.exerciseId,
+    title: b.title,
+    category: b.category,
+    durationMin: b.durationMin,
+  }))
+
+  const system = [
+    'You are a Dutch grassroots football coach writing short sideline notes for TeamPilot.',
+    'Exercises are already chosen — do NOT change exerciseId, order, durations, or invent drills.',
+    'Output JSON only, no markdown. Shape:',
+    '{"coachBriefing":"Dutch 1-3 sentences","blocks":[{"index":0,"whyThis":"optional short NL","coachingCues":["cue1","cue2"]}]}',
+    'Include one blocks[] entry per input block (same index). whyThis only when exercise-specific; omit fluff.',
+    'At most 3 coachingCues per block. Keep total output short.',
+  ].join(' ')
+
+  const user = JSON.stringify({
+    context: compactCoachContext(ctx),
+    title: plan?.title,
+    theme: plan?.theme,
+    blocks,
+  })
+
+  return [
+    { role: 'system', content: system },
+    { role: 'user', content: user },
+  ]
+}
+
+/**
  * @param {string[]} errors
  * @param {unknown} previous
  */

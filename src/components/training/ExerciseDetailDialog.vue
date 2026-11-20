@@ -196,7 +196,7 @@
 </template>
 
 <script setup>
-import { computed, useId, watch, onUnmounted } from 'vue'
+import { computed, ref, useId, watch, onUnmounted } from 'vue'
 import ExerciseDiagram from '@/components/training/ExerciseDiagram.vue'
 import ExerciseMetricInfo from '@/components/training/ExerciseMetricInfo.vue'
 import FootballRealityRating from '@/components/training/FootballRealityRating.vue'
@@ -207,6 +207,7 @@ import { t } from '@/i18n'
 import {
   buildExerciseDescription,
   buildExerciseSetup,
+  ensureRinusDetailMaps,
   getAgeGroupsLabel,
   getExerciseDurationMin,
   getExerciseTitle,
@@ -259,6 +260,13 @@ const adaptStatusText = computed(() =>
 )
 
 const visible = computed(() => Boolean(props.block || props.exercise))
+const detailMapsReady = ref(false)
+
+watch(visible, async (open) => {
+  if (!open) return
+  await ensureRinusDetailMaps()
+  detailMapsReady.value = true
+}, { immediate: true })
 
 /**
  * Library (preview) and Session share one dialog. Always resolve to the catalog
@@ -325,6 +333,8 @@ const rules = computed(() => {
   if (Array.isArray(aiMeta.value?.rules) && aiMeta.value.rules.length) {
     return aiMeta.value.rules
   }
+  // Recompute after lazy SVG/rules maps finish loading.
+  if (!detailMapsReady.value) return []
   return getRinusRules(resolvedExercise.value)
 })
 

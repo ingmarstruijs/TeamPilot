@@ -19,6 +19,35 @@
         <TrainingTabBar v-model="activeTab" :tabs="tabItems" />
       </div>
 
+      <div
+        v-if="isGenerating && !isDesktop"
+        class="session-generate-progress session-generate-progress--sticky"
+        role="status"
+        aria-live="polite"
+      >
+        <div class="session-generate-progress-head">
+          <span class="material-symbols-rounded session-generate-spinner" aria-hidden="true">progress_activity</span>
+          <p class="md-label-sm session-generate-status">
+            {{ generateStatus || t('training.generating') }}
+          </p>
+          <span class="md-label-sm session-generate-pct">
+            {{ Math.round(generateProgress * 100) }}%
+          </span>
+        </div>
+        <div
+          class="session-generate-bar"
+          role="progressbar"
+          :aria-valuenow="Math.round(generateProgress * 100)"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        >
+          <div
+            class="session-generate-bar-fill"
+            :style="{ width: `${Math.max(2, Math.round(generateProgress * 100))}%` }"
+          />
+        </div>
+      </div>
+
       <div class="training-body">
         <aside v-if="isDesktop" class="training-col-left">
           <TrainingSettingsPanel
@@ -117,7 +146,7 @@
                     </span>
                   </p>
                   <div
-                    v-if="isGenerating"
+                    v-if="isGenerating && isDesktop"
                     class="session-generate-progress"
                     role="status"
                     aria-live="polite"
@@ -485,8 +514,10 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { useTeamStore } from '@/stores/teamStore'
+import { useAiJobStore } from '@/stores/aiJobStore'
 import { TRAINING_TYPES, getExerciseById } from '@/data/exercises'
 import {
   generateTraining,
@@ -535,6 +566,15 @@ import { t } from '@/i18n'
 import FootballRealityRating from '@/components/training/FootballRealityRating.vue'
 
 const store = useTeamStore()
+const aiJob = useAiJobStore()
+const {
+  progress: jobProgress,
+  text: jobText,
+  isRunning: jobRunning,
+  status: jobStatus,
+  resultPlan: jobResultPlan,
+  teamId: jobTeamId,
+} = storeToRefs(aiJob)
 const route = useRoute()
 const isDesktop = useMediaQuery('(min-width: 720px)')
 
@@ -582,9 +622,11 @@ const dragOverIndex = ref(null)
 const highlightUid = ref(null)
 const coachBriefing = ref('')
 const coachEngine = ref('rules')
-const isGenerating = ref(false)
-const generateStatus = ref('')
-const generateProgress = ref(0)
+const isGenerating = computed(() =>
+  jobRunning.value && (!jobTeamId.value || jobTeamId.value === store.activeTeamId)
+)
+const generateStatus = computed(() => jobText.value)
+const generateProgress = computed(() => jobProgress.value)
 const isAdapting = ref(false)
 const adaptProgress = ref(0)
 const adaptStatus = ref('')
@@ -888,6 +930,7 @@ watch(
 
 onMounted(() => {
   loadDraft()
+  resumeAiJobIfNeeded()
   refreshCoachMode()
   if (route.query.library === '1') activeTab.value = 'library'
   if (route.query.saved === '1') activeTab.value = 'saved'
@@ -902,6 +945,7 @@ onUnmounted(() => {
   resetPointerDrag()
   if (highlightTimer) clearTimeout(highlightTimer)
   if (staggerTimer) clearTimeout(staggerTimer)
+  // Keep the job running in the store; do not abort on leave (progress resumes on remount).
 })
 
 function loadDraft() {
@@ -911,6 +955,8 @@ function loadDraft() {
   const themeType = mappedTypeForCurrentWeek()
   if (!draft?.blocks?.length) {
     sessionBlocks.value = []
+    coachBriefing.value = ''
+    coachEngine.value = 'rules'
     trainingType.value = themeType
     typeFollowsTheme.value = true
     startPanelOpen.value = true
@@ -934,6 +980,8 @@ function loadDraft() {
       }
     })
     .filter(Boolean)
+  coachBriefing.value = typeof draft.coachBriefing === 'string' ? draft.coachBriefing : ''
+  coachEngine.value = draft.coachEngine === 'local-llm' ? 'local-llm' : 'rules'
   startPanelOpen.value = sessionBlocks.value.length === 0
 }
 
@@ -949,12 +997,57 @@ function persistDraft() {
     playerCount: presentPlayers.value.length,
     presentPlayerIds: [...presentIds.value],
     activeSavedTrainingId: activeSavedTrainingId.value,
+    coachBriefing: coachBriefing.value || '',
+    coachEngine: coachEngine.value || 'rules',
     blocks: sessionBlocks.value.map(b => ({
       exerciseId: b.exercise.id,
       durationMin: b.durationMin,
       ...(b.ai ? { ai: b.ai } : {}),
     })),
   })
+}
+
+function applyPlanToSession(plan, { markFresh = true, snackbar = false, record = false } = {}) {
+  const hydrated = hydrateSessionPlan(plan, {
+    customExercises: store.getCustomExercises(store.activeTeamId),
+    ageGroup: activeTeam.value.ageGroup,
+  })
+  sessionBlocks.value = hydrated.map(b => makeBlock(b.exercise, b.durationMin, b.ai))
+  coachBriefing.value = plan.coachBriefing ?? ''
+  coachEngine.value = plan.engine ?? 'rules'
+  startPanelOpen.value = false
+  if (markFresh) markSessionFresh()
+  activeSavedTrainingId.value = null
+  if (record) {
+    store.recordTrainingSession(
+      store.activeTeamId,
+      hydrated.map(b => b.exercise.id),
+    )
+  }
+  persistDraft()
+  activeTab.value = 'session'
+  if (snackbar) {
+    const total = hydrated.reduce((s, b) => s + b.durationMin, 0)
+    showSnackbar(t('training.ready', { count: hydrated.length, min: total }))
+  }
+  return hydrated
+}
+
+function resumeAiJobIfNeeded() {
+  if (!AI_COACH_ENABLED) return
+  if (jobTeamId.value && jobTeamId.value !== store.activeTeamId) return
+
+  if (jobRunning.value && jobResultPlan.value) {
+    // Structure already available while enrichment continues
+    applyPlanToSession(jobResultPlan.value, { markFresh: false, snackbar: false, record: false })
+    startPanelOpen.value = false
+    return
+  }
+
+  if (jobStatus.value === 'done' && jobResultPlan.value) {
+    applyPlanToSession(jobResultPlan.value, { markFresh: true, snackbar: true, record: true })
+    aiJob.acknowledge()
+  }
 }
 
 function makeBlock(exercise, durationMin, ai = null) {
@@ -1154,11 +1247,13 @@ async function generate() {
   if (isGenerating.value || !presentPlayers.value.length) return
 
   if (AI_COACH_ENABLED) {
-    isGenerating.value = true
-    generateProgress.value = 0.02
-    generateStatus.value = localLlmReady.value
-      ? 'Lokale AI starten…'
-      : 'Slimme planning starten…'
+    const signal = aiJob.start(store.activeTeamId)
+    aiJob.setProgress({
+      progress: 0.02,
+      text: localLlmReady.value ? 'Lokale AI starten…' : 'Slimme planning starten…',
+    })
+    // Mobile: collapse heavy start panel; keep sticky progress visible
+    if (!isDesktop.value) startPanelOpen.value = false
     try {
       const ctx = buildCoachContext({
         ageGroup: activeTeam.value.ageGroup,
@@ -1173,39 +1268,25 @@ async function generate() {
       const coach = await createCoach()
       const plan = await orchestrateSession(ctx, coach, {
         customExercises: store.getCustomExercises(store.activeTeamId),
+        signal,
         onProgress: ({ progress, text }) => {
-          generateProgress.value = Math.max(generateProgress.value, Math.min(1, progress || 0))
-          if (text) generateStatus.value = text
+          aiJob.setProgress({ progress, text })
+        },
+        onStructure: (structurePlan) => {
+          aiJob.markStructure(structurePlan)
+          applyPlanToSession(structurePlan, { markFresh: true, snackbar: false, record: false })
         },
       })
-      generateProgress.value = 0.97
-      generateStatus.value = 'Training afronden…'
-      const hydrated = hydrateSessionPlan(plan, {
-        customExercises: store.getCustomExercises(store.activeTeamId),
-        ageGroup: activeTeam.value.ageGroup,
-      })
-      sessionBlocks.value = hydrated.map(b => makeBlock(b.exercise, b.durationMin, b.ai))
-      coachBriefing.value = plan.coachBriefing ?? ''
-      coachEngine.value = plan.engine ?? 'rules'
-      startPanelOpen.value = false
-      markSessionFresh()
-      activeSavedTrainingId.value = null
-      store.recordTrainingSession(
-        store.activeTeamId,
-        hydrated.map(b => b.exercise.id),
-      )
-      persistDraft()
-      activeTab.value = 'session'
-      generateProgress.value = 1
-      const total = hydrated.reduce((s, b) => s + b.durationMin, 0)
-      showSnackbar(t('training.ready', { count: hydrated.length, min: total }))
+      aiJob.setProgress({ progress: 0.97, text: 'Training afronden…' })
+      applyPlanToSession(plan, { markFresh: true, snackbar: true, record: true })
+      aiJob.complete(plan)
+      aiJob.acknowledge()
     } catch (err) {
       console.error(err)
-      showSnackbar(t('training.failed'))
-    } finally {
-      isGenerating.value = false
-      generateStatus.value = ''
-      generateProgress.value = 0
+      // Keep structure if we already applied it; only toast hard failures with no blocks
+      if (!sessionBlocks.value.length) showSnackbar(t('training.failed'))
+      aiJob.fail(err?.message || t('training.failed'))
+      aiJob.acknowledge()
     }
     return
   }
@@ -1620,6 +1701,17 @@ function addFromPreview(ex) {
   flex-direction: column;
   gap: var(--sp-1);
   margin: var(--sp-2) 0 0;
+}
+
+.session-generate-progress--sticky {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  margin: 0 0 var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  background: color-mix(in srgb, var(--md-surface) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--md-outline-variant);
 }
 
 .session-generate-progress-head {

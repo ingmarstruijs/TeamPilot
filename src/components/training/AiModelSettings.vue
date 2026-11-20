@@ -45,7 +45,7 @@
           v-if="supported && preferLocalLlm && !downloaded"
           type="button"
           class="btn btn-tonal ai-model-btn"
-          :disabled="busy"
+          :disabled="busy || !canDownload"
           @click="downloadModel()"
         >
           {{ busy ? progressLabel : t('aiModel.download') }}
@@ -80,13 +80,16 @@
       >
         <div class="ai-model-progress-bar" :style="{ width: `${Math.round(progress * 100)}%` }" />
       </div>
+      <p v-if="busy && phaseLabel" class="md-label-sm ai-model-note">
+        {{ phaseLabel }}
+      </p>
     </div>
   </component>
 </template>
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
-import { canRunLocalLlm } from '@/ai/canRunLocalLlm'
+import { canRunLocalLlm, probeDownloadGate } from '@/ai/canRunLocalLlm'
 import {
   clearWebLlmStorage,
   DEFAULT_LOCAL_MODEL_ID,
@@ -94,6 +97,7 @@ import {
   isStorageQuotaError,
   readAiPreferences,
   requestPersistentStorage,
+  syncDownloadAcceptedWithProbe,
   writeAiPreferences,
 } from '@/ai/aiPreferences'
 import { createWebLlmCoach, resetWebLlmEngineCache } from '@/ai/models/webllmCoach'
@@ -112,25 +116,34 @@ const downloaded = ref(false)
 const modelId = ref('')
 const busy = ref(false)
 const progress = ref(0)
-const progressText = ref('')
+const phaseLabel = ref('')
 const lastError = ref('')
 const lastErrorHint = ref('')
 const storageLabel = ref('')
+const canDownload = ref(true)
+const gateReason = ref('ok')
 
 const statusLabel = computed(() => {
-  if (!supported.value) return t('aiModel.statusUnsupported')
+  if (!supported.value) {
+    if (gateReason.value === 'low-memory') return t('aiModel.statusLowMemory')
+    return t('aiModel.statusUnsupported')
+  }
   if (busy.value) {
     const pct = Math.round(progress.value * 100)
-    const extra = progressText.value ? ` · ${progressText.value}` : ''
-    return t('aiModel.statusBusy', { pct: `${pct}%`, extra })
+    return t('aiModel.statusBusy', { pct: `${pct}%`, extra: '' })
   }
   if (!preferLocalLlm.value) return t('aiModel.statusOff')
   if (lastError.value) return t('aiModel.statusFailed', { error: lastError.value })
-  if (!downloaded.value) return t('aiModel.statusNotDownloaded')
+  if (!downloaded.value) {
+    if (gateReason.value === 'low-storage') return t('aiModel.statusLowStorage')
+    return t('aiModel.statusNotDownloaded')
+  }
   return t('aiModel.statusOn')
 })
 
-const progressLabel = computed(() => t('aiModel.statusBusy', { pct: `${Math.round(progress.value * 100)}%`, extra: '' }))
+const progressLabel = computed(() =>
+  t('aiModel.statusBusy', { pct: `${Math.round(progress.value * 100)}%`, extra: '' })
+)
 
 const summaryText = computed(() => {
   if (!supported.value) return t('aiModel.summaryUnsupported')
@@ -162,6 +175,23 @@ function persist(patch) {
   emit('change', next)
 }
 
+function setMonotoneProgress(next, label) {
+  const clamped = Math.max(0, Math.min(1, next || 0))
+  progress.value = Math.max(progress.value, clamped)
+  if (label) phaseLabel.value = label
+}
+
+async function refreshGate() {
+  const gate = await probeDownloadGate()
+  gateReason.value = gate.reason
+  // Toggle stays available when only storage is low; WebGPU/RAM hard-block.
+  supported.value = gate.reason !== 'no-webgpu' && gate.reason !== 'low-memory'
+  canDownload.value = gate.ok
+  if (!supported.value && preferLocalLlm.value) {
+    persist({ preferLocalLlm: false })
+  }
+}
+
 async function onToggle(checked) {
   if (!supported.value) return
   if (!checked) {
@@ -180,16 +210,31 @@ async function onToggle(checked) {
 async function runEnsureReady(id) {
   const coach = createWebLlmCoach({ modelId: id })
   await coach.ensureReady?.(({ progress: p, text }) => {
-    progress.value = Math.max(0, Math.min(1, p || 0))
-    progressText.value = text || ''
+    // Map engine init into download phase band 0.2–0.95
+    setMonotoneProgress(0.2 + Math.max(0, Math.min(1, p || 0)) * 0.75, mapInitText(text))
   })
+}
+
+function mapInitText(text) {
+  const raw = String(text || '').toLowerCase()
+  if (/fetch|download|loading|cache/i.test(raw)) return t('aiModel.phaseDownload')
+  if (/compil|shader|init|finish/i.test(raw)) return t('aiModel.phaseReady')
+  return t('aiModel.phaseDownload')
 }
 
 async function downloadModel() {
   if (!supported.value || busy.value) return
+  await refreshGate()
+  if (!canDownload.value) {
+    lastError.value = t('aiModel.quotaError')
+    lastErrorHint.value = t('aiModel.quotaHint')
+    showSnackbar(t('aiModel.quotaSnackbar'))
+    return
+  }
+
   busy.value = true
   progress.value = 0
-  progressText.value = t('aiModel.clearingStorage')
+  phaseLabel.value = t('aiModel.phaseClear')
   lastError.value = ''
   lastErrorHint.value = ''
 
@@ -198,18 +243,22 @@ async function downloadModel() {
 
   try {
     resetWebLlmEngineCache()
-    await clearWebLlmStorage()
+    setMonotoneProgress(0.05, t('aiModel.phaseClear'))
+    // Selective wipe only — aggressive wipe is reserved for clearAndRetry
+    await clearWebLlmStorage({ aggressive: false })
     await requestPersistentStorage()
     await refreshStorageLabel()
 
-    progressText.value = t('aiModel.startDownload')
+    setMonotoneProgress(0.18, t('aiModel.phaseDownload'))
     await runEnsureReady(targetId)
+    setMonotoneProgress(0.98, t('aiModel.phaseReady'))
     persist({
       preferLocalLlm: true,
       modelId: targetId,
       downloadAcceptedAt: Date.now(),
     })
     await refreshStorageLabel()
+    setMonotoneProgress(1, t('aiModel.phaseDone'))
     showSnackbar(t('aiModel.enabled'))
   } catch (err) {
     console.error(err)
@@ -225,17 +274,19 @@ async function downloadModel() {
     }
   } finally {
     busy.value = false
+    // Keep bar at 100 briefly only while busy; reset after leave busy so UI is clean
     progress.value = 0
-    progressText.value = ''
+    phaseLabel.value = ''
   }
 }
 
 async function clearAndRetry() {
   busy.value = true
-  progressText.value = t('aiModel.cacheClearing')
+  progress.value = 0
+  phaseLabel.value = t('aiModel.cacheClearing')
   try {
     resetWebLlmEngineCache()
-    await clearWebLlmStorage()
+    await clearWebLlmStorage({ aggressive: true })
     persist({ modelId: DEFAULT_LOCAL_MODEL_ID, downloadAcceptedAt: null })
     lastError.value = ''
     lastErrorHint.value = ''
@@ -243,14 +294,14 @@ async function clearAndRetry() {
     showSnackbar(t('aiModel.cacheCleared'))
   } finally {
     busy.value = false
-    progressText.value = ''
+    phaseLabel.value = ''
   }
   await downloadModel()
 }
 
 async function removeModel() {
   resetWebLlmEngineCache()
-  await clearWebLlmStorage()
+  await clearWebLlmStorage({ aggressive: false })
   persist({ downloadAcceptedAt: null })
   lastError.value = ''
   lastErrorHint.value = ''
@@ -266,11 +317,21 @@ onMounted(async () => {
   } else if (prefs.modelId !== modelId.value) {
     persist({ modelId: prefs.modelId })
   }
-  supported.value = await canRunLocalLlm()
-  if (!supported.value && preferLocalLlm.value) {
-    persist({ preferLocalLlm: false })
+
+  const synced = await syncDownloadAcceptedWithProbe()
+  preferLocalLlm.value = synced.preferLocalLlm
+  downloaded.value = Boolean(synced.downloadAcceptedAt && synced.present)
+  if (synced.downloadAcceptedAt && !synced.present) {
+    downloaded.value = false
+  }
+
+  await refreshGate()
+  // Fallback for environments without storage estimate APIs in canRunLocalLlm
+  if (!supported.value) {
+    supported.value = await canRunLocalLlm()
   }
   await refreshStorageLabel()
+  emit('change', readAiPreferences())
 })
 </script>
 

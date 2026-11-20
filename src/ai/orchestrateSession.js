@@ -2,6 +2,11 @@ import { generateTraining } from '@/utils/trainingEngine'
 import { retrieveCandidates } from './retrieveCandidates.js'
 import { validateSessionPlan } from './validateSessionPlan.js'
 import { planSessionSync } from './models/rulesCoach.js'
+import { shouldSkipLlmForBattery } from './canRunLocalLlm.js'
+import { withTimeout } from './withTimeout.js'
+
+/** Soft timeout for local LLM narration enrichment (ms). */
+export const ENRICH_TIMEOUT_MS = 15_000
 
 /**
  * @param {import('./types.js').CoachContext} ctx
@@ -38,18 +43,27 @@ export function finalizeRulesFallback(_skeleton, ctx, _errors = []) {
 }
 
 /**
- * Product brain: skeleton → candidates → coach → validate → fallback.
+ * Product brain: rules structure first → optional LLM narration enrich → fallback.
+ *
+ * Progressive UX: call `onStructure(plan)` as soon as exercises are ready so the
+ * Training UI can hydrate before briefing/cues finish.
  *
  * @param {import('./types.js').CoachContext} ctx
  * @param {import('./coachModel.js').CoachModel} coach
  * @param {{
  *   customExercises?: object[],
  *   onProgress?: (p:{progress:number,text:string})=>void,
+ *   onStructure?: (plan: import('./types.js').SessionPlan)=>void,
+ *   signal?: AbortSignal,
+ *   enrichTimeoutMs?: number,
+ *   skipEnrich?: boolean,
  * }} [options]
  * @returns {Promise<import('./types.js').SessionPlan>}
  */
 export async function orchestrateSession(ctx, coach, options = {}) {
   const onProgress = options.onProgress || (() => {})
+  const onStructure = options.onStructure || (() => {})
+  const enrichTimeoutMs = options.enrichTimeoutMs ?? ENRICH_TIMEOUT_MS
 
   onProgress({ progress: 0.04, text: 'Basisplanning maken…' })
   const skeleton = buildSkeletonFromRules(ctx)
@@ -58,33 +72,60 @@ export async function orchestrateSession(ctx, coach, options = {}) {
   const candidates = retrieveCandidates(ctx, skeleton)
   const enriched = { ...ctx, skeleton, candidates }
 
-  let plan
+  onProgress({ progress: 0.2, text: 'Oefeningen klaarzetten…' })
+  const structurePlan = planSessionSync(enriched)
+  onStructure(structurePlan)
+  onProgress({ progress: 0.4, text: 'Oefeningen klaar' })
+
+  if (options.signal?.aborted) {
+    return structurePlan
+  }
+
+  const canEnrich = typeof coach?.enrichNarration === 'function'
+    && coach.id !== 'rules-v1'
+    && !options.skipEnrich
+
+  if (!canEnrich) {
+    onProgress({ progress: 1, text: 'Klaar' })
+    return structurePlan
+  }
+
+  if (await shouldSkipLlmForBattery()) {
+    onProgress({ progress: 1, text: 'Briefing overgeslagen (batterij)' })
+    return structurePlan
+  }
+
   try {
-    onProgress({ progress: 0.14, text: 'Coach starten…' })
-    plan = await coach.planSession(enriched, {
-      onProgress: (p) => {
-        const local = Math.max(0, Math.min(1, Number(p.progress) || 0))
-        onProgress({
-          progress: 0.14 + local * 0.78,
-          text: p.text || 'Training plannen…',
-        })
-      },
+    onProgress({ progress: 0.45, text: 'Briefing schrijven…' })
+    const narrated = await withTimeout(
+      coach.enrichNarration(enriched, structurePlan, {
+        onProgress: (p) => {
+          const local = Math.max(0, Math.min(1, Number(p.progress) || 0))
+          onProgress({
+            progress: 0.45 + local * 0.5,
+            text: p.text || 'Briefing schrijven…',
+          })
+        },
+        signal: options.signal,
+      }),
+      enrichTimeoutMs,
+      'enrich-timeout',
+    )
+
+    if (options.signal?.aborted) return structurePlan
+
+    onProgress({ progress: 0.96, text: 'Plan controleren…' })
+    const validated = validateSessionPlan(narrated, ctx, {
+      customExercises: options.customExercises,
     })
+    if (!validated.ok) {
+      onProgress({ progress: 1, text: 'Slimme planning behouden' })
+      return structurePlan
+    }
+    onProgress({ progress: 1, text: 'Klaar' })
+    return validated.plan
   } catch {
-    onProgress({ progress: 0.92, text: 'Terugvallen op slimme planning…' })
-    return finalizeRulesFallback(skeleton, ctx, ['planSession failed'])
+    onProgress({ progress: 1, text: 'Slimme planning behouden' })
+    return structurePlan
   }
-
-  onProgress({ progress: 0.94, text: 'Plan controleren…' })
-  const validated = validateSessionPlan(plan, ctx, {
-    customExercises: options.customExercises,
-  })
-
-  if (!validated.ok) {
-    onProgress({ progress: 0.96, text: 'Terugvallen op slimme planning…' })
-    return finalizeRulesFallback(skeleton, ctx, validated.errors)
-  }
-
-  onProgress({ progress: 1, text: 'Klaar' })
-  return validated.plan
 }
