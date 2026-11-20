@@ -41,6 +41,21 @@
       </div>
     </div>
 
+    <div v-if="activityOptions.length" class="filters-row filters-row--single">
+      <div class="filter-select-wrap">
+        <select
+          class="filter-select"
+          :value="activity"
+          :aria-label="t('library.activity')"
+          @change="$emit('update:activity', $event.target.value)"
+        >
+          <option value="">{{ t('library.allActivities') }}</option>
+          <option v-for="a in activityOptions" :key="a" :value="a">{{ a }}</option>
+        </select>
+        <span class="material-symbols-rounded filter-select-chevron" aria-hidden="true">expand_more</span>
+      </div>
+    </div>
+
     <div class="filters-meta">
       <label
         class="suitable-toggle md-label-sm"
@@ -75,21 +90,38 @@
 
 <script setup>
 import { computed } from 'vue'
-import { EXERCISE_CATEGORIES } from '@/data/exercises'
+import { EXERCISE_CATEGORIES, listExerciseActivities } from '@/data/exercises'
 import { t } from '@/i18n'
 
 const props = defineProps({
   query: { type: String, default: '' },
   category: { type: String, default: '' },
+  activity: { type: String, default: '' },
   suitableOnly: { type: Boolean, default: true },
   minFootballReality: { type: Number, default: 0 },
   resultCount: { type: Number, default: 0 },
 })
 
-defineEmits(['update:query', 'update:category', 'update:suitableOnly', 'update:minFootballReality', 'reset'])
+defineEmits([
+  'update:query',
+  'update:category',
+  'update:activity',
+  'update:suitableOnly',
+  'update:minFootballReality',
+  'reset',
+])
+
+/** Cap the dropdown so it stays usable on phone; search still covers the rest. */
+const activityOptions = computed(() => listExerciseActivities().slice(0, 40))
 
 const hasActiveFilters = computed(() =>
-  Boolean(props.query || props.category || !props.suitableOnly || props.minFootballReality)
+  Boolean(
+    props.query
+    || props.category
+    || props.activity
+    || !props.suitableOnly
+    || props.minFootballReality
+  )
 )
 </script>
 
@@ -139,6 +171,10 @@ const hasActiveFilters = computed(() =>
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--sp-2);
+}
+
+.filters-row--single {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .filter-select-wrap {

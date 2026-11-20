@@ -1087,7 +1087,25 @@ const CURATED_EXERCISES = [
 ]
 
 /** Curated library plus auto-imported official Rinus drills. */
-export const EXERCISES = [...CURATED_EXERCISES, ...IMPORTED_RINUS_EXERCISES]
+export const EXERCISES = [
+  ...CURATED_EXERCISES.map(ex => ({ ...ex, featured: true })),
+  ...IMPORTED_RINUS_EXERCISES,
+]
+
+/** Unique Rinus activity labels present in the catalog (for library filters). */
+export function listExerciseActivities(exercises = EXERCISES) {
+  const counts = new Map()
+  for (const ex of exercises) {
+    for (const activity of ex.rinusActivities ?? []) {
+      const label = String(activity || '').trim()
+      if (!label) continue
+      counts.set(label, (counts.get(label) || 0) + 1)
+    }
+  }
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'nl'))
+    .map(([label]) => label)
+}
 
 export function getExerciseById(id, customExercises = []) {
   const custom = customExercises.find(e => e.id === id)

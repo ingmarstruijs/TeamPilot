@@ -37,7 +37,7 @@ Built for **O8 through Senior**, with KNVB competition classes, Rinus-style exer
   - 4-week exercise rotation with feedback learning
   - Editable training overview (reorder, duration, remove exercises)
   - Share training via link (WhatsApp); recipients view without needing the same team
-  - Manual selection from a local exercise library (~150 built-in Rinus exercises)
+  - Manual selection from a local exercise library (~400+ built-in Rinus exercises)
   - **Custom exercises** — create your own drills (title, description, setup, rules, optional SVG diagram); stored per team in localStorage; shareable in training links
   - Built-in exercises use official KNVB Rinus SVG diagrams, spelregels, and metadata (offline)
 - **Share lineup via link** — two modes:
@@ -106,7 +106,7 @@ Training suggestions use a local rule-based engine — no API, no cloud. The eng
 | **Feedback** | Thumbs up/down per exercise shapes future suggestions |
 | **Cycle week** | Theme fixed for the calendar week; advances automatically |
 
-The built-in library ships ~150 exercises offline (curated set plus an auto-imported batch of official outdoor KNVB Rinus drills). Each links to [KNVB Rinus](https://rinus.knvb.nl/); titles, SVG diagrams and spelregels come from synced metadata.
+The built-in library ships ~400+ exercises offline (curated set plus an auto-imported batch of official outdoor KNVB Rinus drills). Each links to [KNVB Rinus](https://rinus.knvb.nl/); titles, SVG diagrams and spelregels come from synced metadata. Filter by category, football authenticity, and Rinus activity.
 
 ### Custom exercises
 

@@ -87,9 +87,27 @@ export function filterExercises({
   })
 }
 
+const THEME_ACTIVITY_HINTS = {
+  techniek: /pas|dribbel|aannem|meeneem|schiet|voorzet|scoren|1 tegen 1/i,
+  passing: /pas|vrijloop|positiespel|overnem/i,
+  tactiek: /druk|verdedig|opbouw|omschakel|storen|knijp|duel/i,
+  conditie: /sprint|fit|conditie|loop|coordinat/i,
+  partij: /partij|duel|scoren|omschakel/i,
+  gemengd: /pas|druk|duel|positiespel/i,
+}
+
+function activityBoost(ex, cycleTheme) {
+  const hint = THEME_ACTIVITY_HINTS[cycleTheme]
+  if (!hint) return 0
+  const haystack = [...(ex.rinusActivities ?? []), ...(ex.rinusObjectives ?? [])].join(' ')
+  return hint.test(haystack) ? 3 : 0
+}
+
 export function scoreExercise(ex, ctx, targetMin = 0) {
   let score = 10
+  if (ex.featured) score += 6
   if (ex.cycleThemes?.includes(ctx.cycleTheme)) score += 5
+  score += activityBoost(ex, ctx.cycleTheme)
   if (ex.focusPositions?.some(p => ctx.focusPositions?.includes(p))) score += 3
   if (ctx.needsAttackFocus && ex.focusPositions?.includes('ATT')) score += 4
   if (ctx.needsDefenceFocus && ex.focusPositions?.includes('DEF')) score += 4
@@ -236,11 +254,25 @@ function normalizeSearchText(text) {
 function exerciseMatchesQuery(ex, query) {
   if (!query) return true
   const haystack = normalizeSearchText(
-    [getExerciseTitle(ex), ex.title, ex.description, ex.setup, ex.source]
+    [
+      getExerciseTitle(ex),
+      ex.title,
+      ex.description,
+      ex.setup,
+      ex.source,
+      ...(ex.rinusActivities ?? []),
+      ...(ex.rinusObjectives ?? []),
+    ]
       .filter(Boolean)
       .join(' ')
   )
   return haystack.includes(normalizeSearchText(query))
+}
+
+function exerciseMatchesActivity(ex, activity) {
+  if (!activity) return true
+  const needle = normalizeSearchText(activity)
+  return (ex.rinusActivities ?? []).some(a => normalizeSearchText(a) === needle)
 }
 
 /** Browse built-in + optional custom exercises with filters and text search. */
@@ -250,6 +282,7 @@ export function browseExercisesWithFilters({
   playerCount,
   trainingType,
   category,
+  activity = '',
   query = '',
   suitableOnly = true,
   customExercises = [],
@@ -280,16 +313,27 @@ export function browseExercisesWithFilters({
   if (suitableOnly && playerCount) {
     custom = custom.filter(ex => playerCount >= ex.minPlayers && playerCount <= ex.maxPlayers)
   }
+  if (activity) {
+    custom = custom.filter(ex => exerciseMatchesActivity(ex, activity))
+  }
   if (query) {
     custom = custom.filter(ex => exerciseMatchesQuery(ex, query))
   }
 
-  const merged = [...custom, ...builtIn.filter(ex => exerciseMatchesQuery(ex, query))]
+  const merged = [
+    ...custom,
+    ...builtIn.filter(ex =>
+      exerciseMatchesQuery(ex, query) && exerciseMatchesActivity(ex, activity)
+    ),
+  ]
   const minReality = Number(minFootballReality) || 0
   const filtered = minReality
     ? merged.filter(ex => (getFootballReality(ex) ?? 0) >= minReality)
     : merged
-  return filtered.sort((a, b) => a.title.localeCompare(b.title, 'nl'))
+  return filtered.sort((a, b) => {
+    if (Boolean(a.featured) !== Boolean(b.featured)) return a.featured ? -1 : 1
+    return a.title.localeCompare(b.title, 'nl')
+  })
 }
 
 /** All exercises for manual browse — age group + level only (no type/player filter). */
