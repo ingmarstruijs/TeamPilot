@@ -4,7 +4,14 @@ export const DEFAULT_LOCAL_MODEL_ID = 'Qwen2.5-0.5B-Instruct-q4f16_1-MLC'
 /** Larger optional model (~1.2 GB+). */
 export const LARGE_LOCAL_MODEL_ID = 'Qwen2.5-1.5B-Instruct-q4f16_1-MLC'
 
+/** Approx packed size for the default 0.5B q4 model (download + unpack headroom). */
+export const DEFAULT_MODEL_BYTES = 600 * 1024 * 1024
+
 export const AI_PREFS_KEY = 'teampilot_ai_v1'
+
+const CACHE_NAME_RE = /webllm|mlc|tvm|huggingface|wasm-cache|model/i
+const IDB_NAME_RE = /webllm|mlc|tvm|wasm|huggingface/i
+const OPFS_NAME_RE = /tvmjs-opfs|webllm|mlc|tvm|huggingface|model/i
 
 /**
  * @typedef {object} AiPreferences
@@ -75,11 +82,23 @@ export function writeAiPreferences(patch) {
 }
 
 /**
+ * @param {string} name
+ * @returns {boolean}
+ */
+export function isWebLlmCacheName(name) {
+  return CACHE_NAME_RE.test(String(name || ''))
+}
+
+/**
  * Best-effort wipe of WebLLM / MLC browser storage (OPFS + Cache + IndexedDB).
- * Partial failed downloads often leave OPFS full and cause QuotaExceeded.
+ * Default: only WebLLM-related caches. Pass `{ aggressive: true }` to delete
+ * all origin caches (quota recovery / "wis cache en probeer opnieuw").
+ *
+ * @param {{ aggressive?: boolean }} [options]
  * @returns {Promise<{ clearedCaches: number, clearedOpfs: boolean }>}
  */
-export async function clearWebLlmStorage() {
+export async function clearWebLlmStorage(options = {}) {
+  const aggressive = Boolean(options.aggressive)
   let clearedCaches = 0
   let clearedOpfs = false
 
@@ -87,16 +106,14 @@ export async function clearWebLlmStorage() {
   try {
     if (typeof navigator !== 'undefined' && navigator.storage?.getDirectory) {
       const root = await navigator.storage.getDirectory()
-      // Known WebLLM/TVM root + any similar leftover scopes
       const names = []
-      // entries() may be async iterator
       if (typeof root.keys === 'function') {
         for await (const name of root.keys()) names.push(name)
       } else if (typeof root.entries === 'function') {
         for await (const [name] of root.entries()) names.push(name)
       }
       for (const name of names) {
-        if (/tvmjs-opfs|webllm|mlc|tvm|huggingface|model/i.test(name) || name === 'tvmjs-opfs-store') {
+        if (OPFS_NAME_RE.test(name) || name === 'tvmjs-opfs-store') {
           try {
             await root.removeEntry(name, { recursive: true })
             clearedOpfs = true
@@ -105,7 +122,6 @@ export async function clearWebLlmStorage() {
           }
         }
       }
-      // Always try the known directory even if listing failed
       try {
         await root.removeEntry('tvmjs-opfs-store', { recursive: true })
         clearedOpfs = true
@@ -117,12 +133,13 @@ export async function clearWebLlmStorage() {
     // ignore
   }
 
-  // 2) Cache Storage — delete ALL origin caches (safest for localhost quota recovery)
+  // 2) Cache Storage — selective by default; aggressive wipes all origin caches
   try {
     if (typeof caches !== 'undefined') {
       const keys = await caches.keys()
-      await Promise.all(keys.map(k => caches.delete(k)))
-      clearedCaches = keys.length
+      const targets = aggressive ? keys : keys.filter(isWebLlmCacheName)
+      await Promise.all(targets.map(k => caches.delete(k)))
+      clearedCaches = targets.length
     }
   } catch {
     // ignore
@@ -134,7 +151,7 @@ export async function clearWebLlmStorage() {
       const dbs = await indexedDB.databases()
       await Promise.all(
         (dbs || [])
-          .filter(db => /webllm|mlc|tvm|wasm|huggingface|teampilot/i.test(db?.name || ''))
+          .filter(db => IDB_NAME_RE.test(db?.name || ''))
           .map(db => new Promise((resolve) => {
             const req = indexedDB.deleteDatabase(db.name)
             req.onsuccess = req.onerror = req.onblocked = () => resolve()
@@ -149,12 +166,69 @@ export async function clearWebLlmStorage() {
 }
 
 /**
- * @returns {Promise<{ usage: number, quota: number, usageLabel: string, freeLabel: string }|null>}
+ * Probe whether WebLLM artifacts appear present (OPFS and/or Cache API).
+ * Preference timestamps alone are not enough after browser data clears.
+ *
+ * @returns {Promise<boolean>}
+ */
+export async function probeWebLlmStoragePresent() {
+  try {
+    if (typeof navigator !== 'undefined' && navigator.storage?.getDirectory) {
+      const root = await navigator.storage.getDirectory()
+      if (typeof root.getDirectoryHandle === 'function') {
+        try {
+          await root.getDirectoryHandle('tvmjs-opfs-store')
+          return true
+        } catch {
+          // missing
+        }
+      }
+      if (typeof root.keys === 'function') {
+        for await (const name of root.keys()) {
+          if (OPFS_NAME_RE.test(name)) return true
+        }
+      }
+    }
+  } catch {
+    // ignore
+  }
+
+  try {
+    if (typeof caches !== 'undefined') {
+      const keys = await caches.keys()
+      if (keys.some(isWebLlmCacheName)) return true
+    }
+  } catch {
+    // ignore
+  }
+
+  return false
+}
+
+/**
+ * Sync preference flag with a live storage probe.
+ * Clears a stale `downloadAcceptedAt` when artifacts are gone.
+ *
+ * @returns {Promise<AiPreferences & { present: boolean }>}
+ */
+export async function syncDownloadAcceptedWithProbe() {
+  const prefs = readAiPreferences()
+  const present = await probeWebLlmStoragePresent()
+  if (prefs.downloadAcceptedAt && !present) {
+    const next = writeAiPreferences({ downloadAcceptedAt: null })
+    return { ...next, present: false }
+  }
+  return { ...prefs, present: Boolean(prefs.downloadAcceptedAt && present) || present }
+}
+
+/**
+ * @returns {Promise<{ usage: number, quota: number, usageLabel: string, freeLabel: string, free: number }|null>}
  */
 export async function estimateBrowserStorage() {
   try {
     if (typeof navigator === 'undefined' || !navigator.storage?.estimate) return null
     const { usage = 0, quota = 0 } = await navigator.storage.estimate()
+    const free = Math.max(0, quota - usage)
     const fmt = (n) => {
       if (n >= 1e9) return `${(n / 1e9).toFixed(1)} GB`
       if (n >= 1e6) return `${Math.round(n / 1e6)} MB`
@@ -163,8 +237,9 @@ export async function estimateBrowserStorage() {
     return {
       usage,
       quota,
+      free,
       usageLabel: fmt(usage),
-      freeLabel: fmt(Math.max(0, quota - usage)),
+      freeLabel: fmt(free),
     }
   } catch {
     return null

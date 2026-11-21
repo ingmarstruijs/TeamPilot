@@ -1,9 +1,10 @@
-import { describe, it, expect } from 'vitest'
+import { beforeAll, describe, it, expect } from 'vitest'
 import { EXERCISES } from '../data/exercises'
 import { RINUS_ID_MAP } from '../data/rinusLinks'
 import {
   buildExerciseDescription,
   buildExerciseSetup,
+  ensureRinusDetailMaps,
   getExerciseTitle,
   getExerciseDurationMin,
   getAgeGroupsLabel,
@@ -18,6 +19,10 @@ import {
 
 describe('exerciseText', () => {
   const sample = EXERCISES[0]
+
+  beforeAll(async () => {
+    await ensureRinusDetailMaps()
+  })
 
   it('builds player-aware description', () => {
     const text = buildExerciseDescription(sample, 10)
@@ -78,6 +83,10 @@ describe('exerciseText', () => {
 })
 
 describe('exercise library', () => {
+  beforeAll(async () => {
+    await ensureRinusDetailMaps()
+  })
+
   it('has at least 140 exercises', () => {
     expect(EXERCISES.length).toBeGreaterThanOrEqual(140)
   })

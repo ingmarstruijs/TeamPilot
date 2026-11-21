@@ -1,13 +1,21 @@
 /**
  * Build Rinus exercise URL and player-aware exercise text.
+ *
+ * SVG + rules maps are lazy-loaded via `ensureRinusDetailMaps()` so the Training
+ * route does not pay ~0.5 MB until an exercise detail/diagram opens.
  */
 
 import { RINUS_ID_MAP } from '@/data/rinusLinks'
 import { RINUS_META_BY_RINUS_ID, RINUS_META_MAP } from '@/data/rinusMetaMap'
-import { RINUS_SVG_BY_RINUS_ID, RINUS_SVG_MAP } from '@/data/rinusSvgMap'
-import { RINUS_RULES_BY_RINUS_ID, RINUS_RULES_MAP } from '@/data/rinusRulesMap'
+import {
+  ensureRinusDetailMaps,
+  lookupRinusRules,
+  lookupRinusSvgUrl,
+} from '@/data/rinusDetailMaps'
 import { isCustomExercise } from '@/utils/customExercises'
 import { t } from '@/i18n'
+
+export { ensureRinusDetailMaps }
 
 export { isCustomExercise }
 
@@ -55,18 +63,15 @@ export function getRinusUrl(exercise) {
 export function getRinusSvgUrl(exercise) {
   if (exercise.customSvg) return exercise.customSvg
   if (exercise.rinusSvgUrl) return exercise.rinusSvgUrl
-  if (RINUS_SVG_MAP[exercise.id]) return RINUS_SVG_MAP[exercise.id]
   const id = rinusIdFor(exercise)
-  if (id && RINUS_SVG_BY_RINUS_ID[String(id)]) return RINUS_SVG_BY_RINUS_ID[String(id)]
-  return null
+  return lookupRinusSvgUrl(exercise.id, id)
 }
 
 export function getRinusRules(exercise) {
   if (isCustomExercise(exercise)) return exercise.rules ?? []
-  if (RINUS_RULES_MAP[exercise.id]?.length) return RINUS_RULES_MAP[exercise.id]
+  if (Array.isArray(exercise.rules) && exercise.rules.length) return exercise.rules
   const id = rinusIdFor(exercise)
-  if (id && RINUS_RULES_BY_RINUS_ID[String(id)]?.length) return RINUS_RULES_BY_RINUS_ID[String(id)]
-  return []
+  return lookupRinusRules(exercise.id, id)
 }
 
 export function getFootballReality(exercise) {

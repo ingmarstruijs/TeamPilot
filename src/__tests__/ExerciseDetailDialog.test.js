@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { flushPromises, mount } from '@vue/test-utils'
 import { EXERCISES } from '../data/exercises'
 import ExerciseDetailDialog from '../components/training/ExerciseDetailDialog.vue'
+import { ensureRinusDetailMaps } from '../utils/exerciseText'
 import {
   getAgeGroupsLabel,
   getExerciseDurationMin,
@@ -13,14 +14,17 @@ import {
 
 const passenEnLopen = EXERCISES.find(e => e.id === 'wu-loopscholing')
 
-function mountDialog(props) {
-  return mount(ExerciseDetailDialog, {
+async function mountDialog(props) {
+  await ensureRinusDetailMaps()
+  const wrapper = mount(ExerciseDetailDialog, {
     props: {
       playerCount: 8,
       ...props,
     },
     attachTo: document.body,
   })
+  await flushPromises()
+  return wrapper
 }
 
 function expectRinusMeta(wrapper) {
@@ -39,8 +43,8 @@ function expectRinusMeta(wrapper) {
 }
 
 describe('ExerciseDetailDialog shared Library/Session experience', () => {
-  it('shows Rinus meta from Library preview (exercise prop)', () => {
-    const wrapper = mountDialog({
+  it('shows Rinus meta from Library preview (exercise prop)', async () => {
+    const wrapper = await mountDialog({
       exercise: passenEnLopen,
       mode: 'preview',
     })
@@ -50,8 +54,8 @@ describe('ExerciseDetailDialog shared Library/Session experience', () => {
     wrapper.unmount()
   })
 
-  it('shows the same Rinus meta from Session (block prop)', () => {
-    const wrapper = mountDialog({
+  it('shows the same Rinus meta from Session (block prop)', async () => {
+    const wrapper = await mountDialog({
       block: {
         uid: 1,
         exercise: passenEnLopen,
@@ -66,8 +70,8 @@ describe('ExerciseDetailDialog shared Library/Session experience', () => {
     wrapper.unmount()
   })
 
-  it('still resolves Rinus meta when session block has a partial exercise stub', () => {
-    const wrapper = mountDialog({
+  it('still resolves Rinus meta when session block has a partial exercise stub', async () => {
+    const wrapper = await mountDialog({
       block: {
         uid: 2,
         exercise: { id: 'wu-loopscholing', category: 'warming-up' },

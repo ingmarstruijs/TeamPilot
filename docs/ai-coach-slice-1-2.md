@@ -178,7 +178,7 @@ Preferences in `localStorage` key `teampilot_ai_v1`:
 ```js
 {
   preferLocalLlm: false,      // opt-in
-  modelId: 'Qwen2.5-1.5B-Instruct-q4f16_1',
+  modelId: 'Qwen2.5-0.5B-Instruct-q4f16_1-MLC', // default; optional 1.5B
   downloadAcceptedAt: null
 }
 ```
